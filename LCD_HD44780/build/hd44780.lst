@@ -1,0 +1,1622 @@
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"hd44780.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.HD44780_Cmd4bit,"ax",%progbits
+  16              		.align	1
+  17              		.global	HD44780_Cmd4bit
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	HD44780_Cmd4bit:
+  25              	.LVL0:
+  26              	.LFB66:
+  27              		.file 1 "Src/hd44780.c"
+   1:Src/hd44780.c **** #include "hd44780.h"
+   2:Src/hd44780.c **** 
+   3:Src/hd44780.c **** HD44780_struct hd44780;
+   4:Src/hd44780.c **** 
+   5:Src/hd44780.c **** void HD44780_Cmd4bit(uint8_t cmd)
+   6:Src/hd44780.c **** {
+  28              		.loc 1 6 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 6 1 is_stmt 0 view .LVU1
+  33 0000 10B5     		push	{r4, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 4, -8
+  37              		.cfi_offset 14, -4
+  38 0002 0446     		mov	r4, r0
+   7:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_E_GPIO_Port, LCD_E_Pin, GPIO_PIN_RESET);
+  39              		.loc 1 7 2 is_stmt 1 view .LVU2
+  40 0004 0022     		movs	r2, #0
+  41 0006 4021     		movs	r1, #64
+  42 0008 2748     		ldr	r0, .L11
+  43              	.LVL1:
+  44              		.loc 1 7 2 is_stmt 0 view .LVU3
+  45 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  46              	.LVL2:
+   8:Src/hd44780.c **** 	(cmd & 0x08) ? HAL_GPIO_WritePin(LCD_DB7_GPIO_Port, LCD_DB7_Pin, GPIO_PIN_SET) : HAL_GPIO_WritePin
+  47              		.loc 1 8 2 is_stmt 1 view .LVU4
+  48              		.loc 1 8 81 is_stmt 0 view .LVU5
+  49 000e 14F0080F 		tst	r4, #8
+  50 0012 30D0     		beq	.L2
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 2
+
+
+  51              		.loc 1 8 17 discriminator 1 view .LVU6
+  52 0014 0122     		movs	r2, #1
+  53 0016 0821     		movs	r1, #8
+  54 0018 2348     		ldr	r0, .L11
+  55 001a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  56              	.LVL3:
+  57              	.L3:
+   9:Src/hd44780.c **** 	(cmd & 0x04) ? HAL_GPIO_WritePin(LCD_DB6_GPIO_Port, LCD_DB6_Pin, GPIO_PIN_SET) : HAL_GPIO_WritePin
+  58              		.loc 1 9 2 is_stmt 1 view .LVU7
+  59              		.loc 1 9 81 is_stmt 0 view .LVU8
+  60 001e 14F0040F 		tst	r4, #4
+  61 0022 2ED0     		beq	.L4
+  62              		.loc 1 9 17 discriminator 1 view .LVU9
+  63 0024 0122     		movs	r2, #1
+  64 0026 0421     		movs	r1, #4
+  65 0028 1F48     		ldr	r0, .L11
+  66 002a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  67              	.LVL4:
+  68              	.L5:
+  10:Src/hd44780.c **** 	(cmd & 0x02) ? HAL_GPIO_WritePin(LCD_DB5_GPIO_Port, LCD_DB5_Pin, GPIO_PIN_SET) : HAL_GPIO_WritePin
+  69              		.loc 1 10 2 is_stmt 1 view .LVU10
+  70              		.loc 1 10 81 is_stmt 0 view .LVU11
+  71 002e 14F0020F 		tst	r4, #2
+  72 0032 2CD0     		beq	.L6
+  73              		.loc 1 10 17 discriminator 1 view .LVU12
+  74 0034 0122     		movs	r2, #1
+  75 0036 0221     		movs	r1, #2
+  76 0038 1B48     		ldr	r0, .L11
+  77 003a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  78              	.LVL5:
+  79              	.L7:
+  11:Src/hd44780.c **** 	(cmd & 0x01) ? HAL_GPIO_WritePin(LCD_DB4_GPIO_Port, LCD_DB4_Pin, GPIO_PIN_SET) : HAL_GPIO_WritePin
+  80              		.loc 1 11 2 is_stmt 1 view .LVU13
+  81              		.loc 1 11 81 is_stmt 0 view .LVU14
+  82 003e 14F0010F 		tst	r4, #1
+  83 0042 2AD0     		beq	.L8
+  84              		.loc 1 11 17 discriminator 1 view .LVU15
+  85 0044 0122     		movs	r2, #1
+  86 0046 1146     		mov	r1, r2
+  87 0048 1748     		ldr	r0, .L11
+  88 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  89              	.LVL6:
+  90              	.L9:
+  12:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_E_GPIO_Port, LCD_E_Pin, GPIO_PIN_SET);
+  91              		.loc 1 12 2 is_stmt 1 view .LVU16
+  92 004e 164C     		ldr	r4, .L11
+  93 0050 0122     		movs	r2, #1
+  94 0052 4021     		movs	r1, #64
+  95 0054 2046     		mov	r0, r4
+  96 0056 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  97              	.LVL7:
+  13:Src/hd44780.c **** 	HAL_Delay(1000);
+  98              		.loc 1 13 2 view .LVU17
+  99 005a 4FF47A70 		mov	r0, #1000
+ 100 005e FFF7FEFF 		bl	HAL_Delay
+ 101              	.LVL8:
+  14:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_E_GPIO_Port, LCD_E_Pin, GPIO_PIN_RESET);
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 3
+
+
+ 102              		.loc 1 14 2 view .LVU18
+ 103 0062 0022     		movs	r2, #0
+ 104 0064 4021     		movs	r1, #64
+ 105 0066 2046     		mov	r0, r4
+ 106 0068 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 107              	.LVL9:
+  15:Src/hd44780.c **** 	HAL_Delay(1000);
+ 108              		.loc 1 15 2 view .LVU19
+ 109 006c 4FF47A70 		mov	r0, #1000
+ 110 0070 FFF7FEFF 		bl	HAL_Delay
+ 111              	.LVL10:
+  16:Src/hd44780.c **** }
+ 112              		.loc 1 16 1 is_stmt 0 view .LVU20
+ 113 0074 10BD     		pop	{r4, pc}
+ 114              	.L2:
+   8:Src/hd44780.c **** 	(cmd & 0x04) ? HAL_GPIO_WritePin(LCD_DB6_GPIO_Port, LCD_DB6_Pin, GPIO_PIN_SET) : HAL_GPIO_WritePin
+ 115              		.loc 1 8 83 discriminator 2 view .LVU21
+ 116 0076 0022     		movs	r2, #0
+ 117 0078 0821     		movs	r1, #8
+ 118 007a 0B48     		ldr	r0, .L11
+ 119 007c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 120              	.LVL11:
+ 121 0080 CDE7     		b	.L3
+ 122              	.L4:
+   9:Src/hd44780.c **** 	(cmd & 0x02) ? HAL_GPIO_WritePin(LCD_DB5_GPIO_Port, LCD_DB5_Pin, GPIO_PIN_SET) : HAL_GPIO_WritePin
+ 123              		.loc 1 9 83 discriminator 2 view .LVU22
+ 124 0082 0022     		movs	r2, #0
+ 125 0084 0421     		movs	r1, #4
+ 126 0086 0848     		ldr	r0, .L11
+ 127 0088 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 128              	.LVL12:
+ 129 008c CFE7     		b	.L5
+ 130              	.L6:
+  10:Src/hd44780.c **** 	(cmd & 0x01) ? HAL_GPIO_WritePin(LCD_DB4_GPIO_Port, LCD_DB4_Pin, GPIO_PIN_SET) : HAL_GPIO_WritePin
+ 131              		.loc 1 10 83 discriminator 2 view .LVU23
+ 132 008e 0022     		movs	r2, #0
+ 133 0090 0221     		movs	r1, #2
+ 134 0092 0548     		ldr	r0, .L11
+ 135 0094 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 136              	.LVL13:
+ 137 0098 D1E7     		b	.L7
+ 138              	.L8:
+  11:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_E_GPIO_Port, LCD_E_Pin, GPIO_PIN_SET);
+ 139              		.loc 1 11 83 discriminator 2 view .LVU24
+ 140 009a 0022     		movs	r2, #0
+ 141 009c 0121     		movs	r1, #1
+ 142 009e 0248     		ldr	r0, .L11
+ 143 00a0 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 144              	.LVL14:
+ 145 00a4 D3E7     		b	.L9
+ 146              	.L12:
+ 147 00a6 00BF     		.align	2
+ 148              	.L11:
+ 149 00a8 00140140 		.word	1073812480
+ 150              		.cfi_endproc
+ 151              	.LFE66:
+ 153              		.section	.text.HD44780_Cmd,"ax",%progbits
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 4
+
+
+ 154              		.align	1
+ 155              		.global	HD44780_Cmd
+ 156              		.syntax unified
+ 157              		.thumb
+ 158              		.thumb_func
+ 159              		.fpu softvfp
+ 161              	HD44780_Cmd:
+ 162              	.LVL15:
+ 163              	.LFB67:
+  17:Src/hd44780.c **** 
+  18:Src/hd44780.c **** void HD44780_Cmd(uint8_t cmd)
+  19:Src/hd44780.c **** {
+ 164              		.loc 1 19 1 is_stmt 1 view -0
+ 165              		.cfi_startproc
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 0, uses_anonymous_args = 0
+ 168              		.loc 1 19 1 is_stmt 0 view .LVU26
+ 169 0000 10B5     		push	{r4, lr}
+ 170              	.LCFI1:
+ 171              		.cfi_def_cfa_offset 8
+ 172              		.cfi_offset 4, -8
+ 173              		.cfi_offset 14, -4
+ 174 0002 0446     		mov	r4, r0
+  20:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_RS_GPIO_Port, LCD_RS_Pin, GPIO_PIN_RESET); //select IR
+ 175              		.loc 1 20 2 is_stmt 1 view .LVU27
+ 176 0004 0022     		movs	r2, #0
+ 177 0006 1021     		movs	r1, #16
+ 178 0008 0548     		ldr	r0, .L15
+ 179              	.LVL16:
+ 180              		.loc 1 20 2 is_stmt 0 view .LVU28
+ 181 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 182              	.LVL17:
+  21:Src/hd44780.c **** 	HD44780_Cmd4bit(cmd >> 4);
+ 183              		.loc 1 21 2 is_stmt 1 view .LVU29
+ 184 000e 2009     		lsrs	r0, r4, #4
+ 185 0010 FFF7FEFF 		bl	HD44780_Cmd4bit
+ 186              	.LVL18:
+  22:Src/hd44780.c **** 	HD44780_Cmd4bit(cmd & 0x0F);
+ 187              		.loc 1 22 2 view .LVU30
+ 188 0014 04F00F00 		and	r0, r4, #15
+ 189 0018 FFF7FEFF 		bl	HD44780_Cmd4bit
+ 190              	.LVL19:
+  23:Src/hd44780.c **** }
+ 191              		.loc 1 23 1 is_stmt 0 view .LVU31
+ 192 001c 10BD     		pop	{r4, pc}
+ 193              	.L16:
+ 194 001e 00BF     		.align	2
+ 195              	.L15:
+ 196 0020 00140140 		.word	1073812480
+ 197              		.cfi_endproc
+ 198              	.LFE67:
+ 200              		.section	.text.HD44780_Data,"ax",%progbits
+ 201              		.align	1
+ 202              		.global	HD44780_Data
+ 203              		.syntax unified
+ 204              		.thumb
+ 205              		.thumb_func
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 5
+
+
+ 206              		.fpu softvfp
+ 208              	HD44780_Data:
+ 209              	.LVL20:
+ 210              	.LFB68:
+  24:Src/hd44780.c **** 
+  25:Src/hd44780.c **** void HD44780_Data(uint8_t data)
+  26:Src/hd44780.c **** {
+ 211              		.loc 1 26 1 is_stmt 1 view -0
+ 212              		.cfi_startproc
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 0, uses_anonymous_args = 0
+ 215              		.loc 1 26 1 is_stmt 0 view .LVU33
+ 216 0000 10B5     		push	{r4, lr}
+ 217              	.LCFI2:
+ 218              		.cfi_def_cfa_offset 8
+ 219              		.cfi_offset 4, -8
+ 220              		.cfi_offset 14, -4
+ 221 0002 0446     		mov	r4, r0
+  27:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_RS_GPIO_Port, LCD_RS_Pin, GPIO_PIN_SET); //select DR
+ 222              		.loc 1 27 2 is_stmt 1 view .LVU34
+ 223 0004 0122     		movs	r2, #1
+ 224 0006 1021     		movs	r1, #16
+ 225 0008 0548     		ldr	r0, .L19
+ 226              	.LVL21:
+ 227              		.loc 1 27 2 is_stmt 0 view .LVU35
+ 228 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 229              	.LVL22:
+  28:Src/hd44780.c **** 	HD44780_Cmd4bit(data >> 4);
+ 230              		.loc 1 28 2 is_stmt 1 view .LVU36
+ 231 000e 2009     		lsrs	r0, r4, #4
+ 232 0010 FFF7FEFF 		bl	HD44780_Cmd4bit
+ 233              	.LVL23:
+  29:Src/hd44780.c **** 	HD44780_Cmd4bit(data & 0x0F);
+ 234              		.loc 1 29 2 view .LVU37
+ 235 0014 04F00F00 		and	r0, r4, #15
+ 236 0018 FFF7FEFF 		bl	HD44780_Cmd4bit
+ 237              	.LVL24:
+  30:Src/hd44780.c **** }
+ 238              		.loc 1 30 1 is_stmt 0 view .LVU38
+ 239 001c 10BD     		pop	{r4, pc}
+ 240              	.L20:
+ 241 001e 00BF     		.align	2
+ 242              	.L19:
+ 243 0020 00140140 		.word	1073812480
+ 244              		.cfi_endproc
+ 245              	.LFE68:
+ 247              		.section	.text.HD44780_DisplayOn,"ax",%progbits
+ 248              		.align	1
+ 249              		.global	HD44780_DisplayOn
+ 250              		.syntax unified
+ 251              		.thumb
+ 252              		.thumb_func
+ 253              		.fpu softvfp
+ 255              	HD44780_DisplayOn:
+ 256              	.LFB70:
+  31:Src/hd44780.c **** 
+  32:Src/hd44780.c **** void HD44780_Init(uint8_t cols, uint8_t rows)
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 6
+
+
+  33:Src/hd44780.c **** {
+  34:Src/hd44780.c **** 	//HD44780_InitPins();
+  35:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_RW_GPIO_Port, LCD_RW_Pin, GPIO_PIN_RESET);
+  36:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_RS_GPIO_Port, LCD_RS_Pin, GPIO_PIN_RESET);
+  37:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_E_GPIO_Port, LCD_E_Pin, GPIO_PIN_RESET);
+  38:Src/hd44780.c **** 	HAL_Delay(100);
+  39:Src/hd44780.c **** 	hd44780.Rows = rows;
+  40:Src/hd44780.c **** 	hd44780.Cols = cols;
+  41:Src/hd44780.c **** 	hd44780.currentX = 0;
+  42:Src/hd44780.c **** 	hd44780.currentY = 0;
+  43:Src/hd44780.c **** 	//hd44780.light = 0;
+  44:Src/hd44780.c ****     HAL_GPIO_WritePin(LCD_LIGHT_GPIO_Port, LCD_LIGHT_Pin, GPIO_PIN_RESET);
+  45:Src/hd44780.c **** 	hd44780.DisplayFunction = HD44780_4BITMODE | HD44780_5x10DOTS | HD44780_1LINE;
+  46:Src/hd44780.c **** 	if(rows > 1)
+  47:Src/hd44780.c **** 		hd44780.DisplayFunction |= HD44780_2LINE;
+  48:Src/hd44780.c **** 	
+  49:Src/hd44780.c **** 	HD44780_Cmd4bit(0x03);
+  50:Src/hd44780.c **** 	HAL_Delay(1000);
+  51:Src/hd44780.c **** 	HD44780_Cmd4bit(0x03);
+  52:Src/hd44780.c **** 	HAL_Delay(1000);
+  53:Src/hd44780.c **** 	HD44780_Cmd4bit(0x03);
+  54:Src/hd44780.c **** 	HAL_Delay(1000);
+  55:Src/hd44780.c **** 	HD44780_Cmd4bit(0x02);
+  56:Src/hd44780.c **** 	HAL_Delay(1000);
+  57:Src/hd44780.c **** 
+  58:Src/hd44780.c **** 	HD44780_Cmd(HD44780_FUNCTIONSET | hd44780.DisplayFunction);
+  59:Src/hd44780.c **** 	hd44780.DisplayControl = HD44780_DISPLAYON;
+  60:Src/hd44780.c **** 	HD44780_DisplayOn();
+  61:Src/hd44780.c **** 	HD44780_Clear();
+  62:Src/hd44780.c **** 	hd44780.DisplayMode = HD44780_ENTRYLEFT | HD44780_ENTRYSHIFTINCREMENT;
+  63:Src/hd44780.c **** 	HD44780_Cmd(HD44780_ENTRYMODESET | hd44780.DisplayMode);
+  64:Src/hd44780.c **** 	HAL_Delay(1000);
+  65:Src/hd44780.c ****     HAL_GPIO_WritePin(LCD_E_GPIO_Port, LCD_E_Pin, GPIO_PIN_RESET);
+  66:Src/hd44780.c **** }
+  67:Src/hd44780.c **** 
+  68:Src/hd44780.c **** void HD44780_DisplayOn(void)
+  69:Src/hd44780.c **** {
+ 257              		.loc 1 69 1 is_stmt 1 view -0
+ 258              		.cfi_startproc
+ 259              		@ args = 0, pretend = 0, frame = 0
+ 260              		@ frame_needed = 0, uses_anonymous_args = 0
+ 261 0000 08B5     		push	{r3, lr}
+ 262              	.LCFI3:
+ 263              		.cfi_def_cfa_offset 8
+ 264              		.cfi_offset 3, -8
+ 265              		.cfi_offset 14, -4
+  70:Src/hd44780.c **** 	hd44780.DisplayControl |= HD44780_DISPLAYON;
+ 266              		.loc 1 70 2 view .LVU40
+ 267              		.loc 1 70 25 is_stmt 0 view .LVU41
+ 268 0002 054B     		ldr	r3, .L23
+ 269 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 270 0006 40F00400 		orr	r0, r0, #4
+ 271 000a 1870     		strb	r0, [r3]
+  71:Src/hd44780.c **** 	HD44780_Cmd(HD44780_DISPLAYCONTROL | hd44780.DisplayControl);
+ 272              		.loc 1 71 2 is_stmt 1 view .LVU42
+ 273 000c 40F00800 		orr	r0, r0, #8
+ 274 0010 FFF7FEFF 		bl	HD44780_Cmd
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 7
+
+
+ 275              	.LVL25:
+  72:Src/hd44780.c **** }
+ 276              		.loc 1 72 1 is_stmt 0 view .LVU43
+ 277 0014 08BD     		pop	{r3, pc}
+ 278              	.L24:
+ 279 0016 00BF     		.align	2
+ 280              	.L23:
+ 281 0018 00000000 		.word	hd44780
+ 282              		.cfi_endproc
+ 283              	.LFE70:
+ 285              		.section	.text.HD44780_DisplayOff,"ax",%progbits
+ 286              		.align	1
+ 287              		.global	HD44780_DisplayOff
+ 288              		.syntax unified
+ 289              		.thumb
+ 290              		.thumb_func
+ 291              		.fpu softvfp
+ 293              	HD44780_DisplayOff:
+ 294              	.LFB71:
+  73:Src/hd44780.c **** 
+  74:Src/hd44780.c **** void HD44780_DisplayOff(void)
+  75:Src/hd44780.c **** {
+ 295              		.loc 1 75 1 is_stmt 1 view -0
+ 296              		.cfi_startproc
+ 297              		@ args = 0, pretend = 0, frame = 0
+ 298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 299 0000 08B5     		push	{r3, lr}
+ 300              	.LCFI4:
+ 301              		.cfi_def_cfa_offset 8
+ 302              		.cfi_offset 3, -8
+ 303              		.cfi_offset 14, -4
+  76:Src/hd44780.c **** 	hd44780.DisplayControl &= ~HD44780_DISPLAYON;
+ 304              		.loc 1 76 2 view .LVU45
+ 305              		.loc 1 76 25 is_stmt 0 view .LVU46
+ 306 0002 054B     		ldr	r3, .L27
+ 307 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 308 0006 00F0FB00 		and	r0, r0, #251
+ 309 000a 1870     		strb	r0, [r3]
+  77:Src/hd44780.c **** 	HD44780_Cmd(HD44780_DISPLAYCONTROL | hd44780.DisplayControl);
+ 310              		.loc 1 77 2 is_stmt 1 view .LVU47
+ 311 000c 40F00800 		orr	r0, r0, #8
+ 312 0010 FFF7FEFF 		bl	HD44780_Cmd
+ 313              	.LVL26:
+  78:Src/hd44780.c **** }
+ 314              		.loc 1 78 1 is_stmt 0 view .LVU48
+ 315 0014 08BD     		pop	{r3, pc}
+ 316              	.L28:
+ 317 0016 00BF     		.align	2
+ 318              	.L27:
+ 319 0018 00000000 		.word	hd44780
+ 320              		.cfi_endproc
+ 321              	.LFE71:
+ 323              		.section	.text.HD44780_Clear,"ax",%progbits
+ 324              		.align	1
+ 325              		.global	HD44780_Clear
+ 326              		.syntax unified
+ 327              		.thumb
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 8
+
+
+ 328              		.thumb_func
+ 329              		.fpu softvfp
+ 331              	HD44780_Clear:
+ 332              	.LFB72:
+  79:Src/hd44780.c **** 
+  80:Src/hd44780.c **** void HD44780_Clear(void)
+  81:Src/hd44780.c **** {
+ 333              		.loc 1 81 1 is_stmt 1 view -0
+ 334              		.cfi_startproc
+ 335              		@ args = 0, pretend = 0, frame = 0
+ 336              		@ frame_needed = 0, uses_anonymous_args = 0
+ 337 0000 08B5     		push	{r3, lr}
+ 338              	.LCFI5:
+ 339              		.cfi_def_cfa_offset 8
+ 340              		.cfi_offset 3, -8
+ 341              		.cfi_offset 14, -4
+  82:Src/hd44780.c **** 	HD44780_Cmd(0x01);
+ 342              		.loc 1 82 2 view .LVU50
+ 343 0002 0120     		movs	r0, #1
+ 344 0004 FFF7FEFF 		bl	HD44780_Cmd
+ 345              	.LVL27:
+  83:Src/hd44780.c **** }
+ 346              		.loc 1 83 1 is_stmt 0 view .LVU51
+ 347 0008 08BD     		pop	{r3, pc}
+ 348              		.cfi_endproc
+ 349              	.LFE72:
+ 351              		.section	.text.HD44780_Init,"ax",%progbits
+ 352              		.align	1
+ 353              		.global	HD44780_Init
+ 354              		.syntax unified
+ 355              		.thumb
+ 356              		.thumb_func
+ 357              		.fpu softvfp
+ 359              	HD44780_Init:
+ 360              	.LVL28:
+ 361              	.LFB69:
+  33:Src/hd44780.c **** 	//HD44780_InitPins();
+ 362              		.loc 1 33 1 is_stmt 1 view -0
+ 363              		.cfi_startproc
+ 364              		@ args = 0, pretend = 0, frame = 0
+ 365              		@ frame_needed = 0, uses_anonymous_args = 0
+  33:Src/hd44780.c **** 	//HD44780_InitPins();
+ 366              		.loc 1 33 1 is_stmt 0 view .LVU53
+ 367 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 368              	.LCFI6:
+ 369              		.cfi_def_cfa_offset 24
+ 370              		.cfi_offset 3, -24
+ 371              		.cfi_offset 4, -20
+ 372              		.cfi_offset 5, -16
+ 373              		.cfi_offset 6, -12
+ 374              		.cfi_offset 7, -8
+ 375              		.cfi_offset 14, -4
+ 376 0002 0746     		mov	r7, r0
+ 377 0004 0E46     		mov	r6, r1
+  35:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_RS_GPIO_Port, LCD_RS_Pin, GPIO_PIN_RESET);
+ 378              		.loc 1 35 2 is_stmt 1 view .LVU54
+ 379 0006 2D4D     		ldr	r5, .L34
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 9
+
+
+ 380 0008 0022     		movs	r2, #0
+ 381 000a 2021     		movs	r1, #32
+ 382              	.LVL29:
+  35:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_RS_GPIO_Port, LCD_RS_Pin, GPIO_PIN_RESET);
+ 383              		.loc 1 35 2 is_stmt 0 view .LVU55
+ 384 000c 2846     		mov	r0, r5
+ 385              	.LVL30:
+  35:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_RS_GPIO_Port, LCD_RS_Pin, GPIO_PIN_RESET);
+ 386              		.loc 1 35 2 view .LVU56
+ 387 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 388              	.LVL31:
+  36:Src/hd44780.c **** 	HAL_GPIO_WritePin(LCD_E_GPIO_Port, LCD_E_Pin, GPIO_PIN_RESET);
+ 389              		.loc 1 36 2 is_stmt 1 view .LVU57
+ 390 0012 0022     		movs	r2, #0
+ 391 0014 1021     		movs	r1, #16
+ 392 0016 2846     		mov	r0, r5
+ 393 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 394              	.LVL32:
+  37:Src/hd44780.c **** 	HAL_Delay(100);
+ 395              		.loc 1 37 2 view .LVU58
+ 396 001c 0022     		movs	r2, #0
+ 397 001e 4021     		movs	r1, #64
+ 398 0020 2846     		mov	r0, r5
+ 399 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 400              	.LVL33:
+  38:Src/hd44780.c **** 	hd44780.Rows = rows;
+ 401              		.loc 1 38 2 view .LVU59
+ 402 0026 6420     		movs	r0, #100
+ 403 0028 FFF7FEFF 		bl	HAL_Delay
+ 404              	.LVL34:
+  39:Src/hd44780.c **** 	hd44780.Cols = cols;
+ 405              		.loc 1 39 2 view .LVU60
+  39:Src/hd44780.c **** 	hd44780.Cols = cols;
+ 406              		.loc 1 39 15 is_stmt 0 view .LVU61
+ 407 002c 244C     		ldr	r4, .L34+4
+ 408 002e E670     		strb	r6, [r4, #3]
+  40:Src/hd44780.c **** 	hd44780.currentX = 0;
+ 409              		.loc 1 40 2 is_stmt 1 view .LVU62
+  40:Src/hd44780.c **** 	hd44780.currentX = 0;
+ 410              		.loc 1 40 15 is_stmt 0 view .LVU63
+ 411 0030 2771     		strb	r7, [r4, #4]
+  41:Src/hd44780.c **** 	hd44780.currentY = 0;
+ 412              		.loc 1 41 2 is_stmt 1 view .LVU64
+  41:Src/hd44780.c **** 	hd44780.currentY = 0;
+ 413              		.loc 1 41 19 is_stmt 0 view .LVU65
+ 414 0032 0022     		movs	r2, #0
+ 415 0034 6271     		strb	r2, [r4, #5]
+  42:Src/hd44780.c **** 	//hd44780.light = 0;
+ 416              		.loc 1 42 2 is_stmt 1 view .LVU66
+  42:Src/hd44780.c **** 	//hd44780.light = 0;
+ 417              		.loc 1 42 19 is_stmt 0 view .LVU67
+ 418 0036 A271     		strb	r2, [r4, #6]
+  44:Src/hd44780.c **** 	hd44780.DisplayFunction = HD44780_4BITMODE | HD44780_5x10DOTS | HD44780_1LINE;
+ 419              		.loc 1 44 5 is_stmt 1 view .LVU68
+ 420 0038 8021     		movs	r1, #128
+ 421 003a 2846     		mov	r0, r5
+ 422 003c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 10
+
+
+ 423              	.LVL35:
+  45:Src/hd44780.c **** 	if(rows > 1)
+ 424              		.loc 1 45 2 view .LVU69
+  45:Src/hd44780.c **** 	if(rows > 1)
+ 425              		.loc 1 45 26 is_stmt 0 view .LVU70
+ 426 0040 0423     		movs	r3, #4
+ 427 0042 6370     		strb	r3, [r4, #1]
+  46:Src/hd44780.c **** 		hd44780.DisplayFunction |= HD44780_2LINE;
+ 428              		.loc 1 46 2 is_stmt 1 view .LVU71
+  46:Src/hd44780.c **** 		hd44780.DisplayFunction |= HD44780_2LINE;
+ 429              		.loc 1 46 4 is_stmt 0 view .LVU72
+ 430 0044 012E     		cmp	r6, #1
+ 431 0046 01D9     		bls	.L32
+  47:Src/hd44780.c **** 	
+ 432              		.loc 1 47 3 is_stmt 1 view .LVU73
+  47:Src/hd44780.c **** 	
+ 433              		.loc 1 47 27 is_stmt 0 view .LVU74
+ 434 0048 0C22     		movs	r2, #12
+ 435 004a 6270     		strb	r2, [r4, #1]
+ 436              	.L32:
+  49:Src/hd44780.c **** 	HAL_Delay(1000);
+ 437              		.loc 1 49 2 is_stmt 1 view .LVU75
+ 438 004c 0320     		movs	r0, #3
+ 439 004e FFF7FEFF 		bl	HD44780_Cmd4bit
+ 440              	.LVL36:
+  50:Src/hd44780.c **** 	HD44780_Cmd4bit(0x03);
+ 441              		.loc 1 50 2 view .LVU76
+ 442 0052 4FF47A70 		mov	r0, #1000
+ 443 0056 FFF7FEFF 		bl	HAL_Delay
+ 444              	.LVL37:
+  51:Src/hd44780.c **** 	HAL_Delay(1000);
+ 445              		.loc 1 51 2 view .LVU77
+ 446 005a 0320     		movs	r0, #3
+ 447 005c FFF7FEFF 		bl	HD44780_Cmd4bit
+ 448              	.LVL38:
+  52:Src/hd44780.c **** 	HD44780_Cmd4bit(0x03);
+ 449              		.loc 1 52 2 view .LVU78
+ 450 0060 4FF47A70 		mov	r0, #1000
+ 451 0064 FFF7FEFF 		bl	HAL_Delay
+ 452              	.LVL39:
+  53:Src/hd44780.c **** 	HAL_Delay(1000);
+ 453              		.loc 1 53 2 view .LVU79
+ 454 0068 0320     		movs	r0, #3
+ 455 006a FFF7FEFF 		bl	HD44780_Cmd4bit
+ 456              	.LVL40:
+  54:Src/hd44780.c **** 	HD44780_Cmd4bit(0x02);
+ 457              		.loc 1 54 2 view .LVU80
+ 458 006e 4FF47A70 		mov	r0, #1000
+ 459 0072 FFF7FEFF 		bl	HAL_Delay
+ 460              	.LVL41:
+  55:Src/hd44780.c **** 	HAL_Delay(1000);
+ 461              		.loc 1 55 2 view .LVU81
+ 462 0076 0220     		movs	r0, #2
+ 463 0078 FFF7FEFF 		bl	HD44780_Cmd4bit
+ 464              	.LVL42:
+  56:Src/hd44780.c **** 
+ 465              		.loc 1 56 2 view .LVU82
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 11
+
+
+ 466 007c 4FF47A70 		mov	r0, #1000
+ 467 0080 FFF7FEFF 		bl	HAL_Delay
+ 468              	.LVL43:
+  58:Src/hd44780.c **** 	hd44780.DisplayControl = HD44780_DISPLAYON;
+ 469              		.loc 1 58 2 view .LVU83
+  58:Src/hd44780.c **** 	hd44780.DisplayControl = HD44780_DISPLAYON;
+ 470              		.loc 1 58 43 is_stmt 0 view .LVU84
+ 471 0084 0E4C     		ldr	r4, .L34+4
+ 472 0086 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+  58:Src/hd44780.c **** 	hd44780.DisplayControl = HD44780_DISPLAYON;
+ 473              		.loc 1 58 2 view .LVU85
+ 474 0088 40F02000 		orr	r0, r0, #32
+ 475 008c FFF7FEFF 		bl	HD44780_Cmd
+ 476              	.LVL44:
+  59:Src/hd44780.c **** 	HD44780_DisplayOn();
+ 477              		.loc 1 59 2 is_stmt 1 view .LVU86
+  59:Src/hd44780.c **** 	HD44780_DisplayOn();
+ 478              		.loc 1 59 25 is_stmt 0 view .LVU87
+ 479 0090 0423     		movs	r3, #4
+ 480 0092 2370     		strb	r3, [r4]
+  60:Src/hd44780.c **** 	HD44780_Clear();
+ 481              		.loc 1 60 2 is_stmt 1 view .LVU88
+ 482 0094 FFF7FEFF 		bl	HD44780_DisplayOn
+ 483              	.LVL45:
+  61:Src/hd44780.c **** 	hd44780.DisplayMode = HD44780_ENTRYLEFT | HD44780_ENTRYSHIFTINCREMENT;
+ 484              		.loc 1 61 2 view .LVU89
+ 485 0098 FFF7FEFF 		bl	HD44780_Clear
+ 486              	.LVL46:
+  62:Src/hd44780.c **** 	HD44780_Cmd(HD44780_ENTRYMODESET | hd44780.DisplayMode);
+ 487              		.loc 1 62 2 view .LVU90
+  62:Src/hd44780.c **** 	HD44780_Cmd(HD44780_ENTRYMODESET | hd44780.DisplayMode);
+ 488              		.loc 1 62 22 is_stmt 0 view .LVU91
+ 489 009c 0323     		movs	r3, #3
+ 490 009e A370     		strb	r3, [r4, #2]
+  63:Src/hd44780.c **** 	HAL_Delay(1000);
+ 491              		.loc 1 63 2 is_stmt 1 view .LVU92
+ 492 00a0 0720     		movs	r0, #7
+ 493 00a2 FFF7FEFF 		bl	HD44780_Cmd
+ 494              	.LVL47:
+  64:Src/hd44780.c ****     HAL_GPIO_WritePin(LCD_E_GPIO_Port, LCD_E_Pin, GPIO_PIN_RESET);
+ 495              		.loc 1 64 2 view .LVU93
+ 496 00a6 4FF47A70 		mov	r0, #1000
+ 497 00aa FFF7FEFF 		bl	HAL_Delay
+ 498              	.LVL48:
+  65:Src/hd44780.c **** }
+ 499              		.loc 1 65 5 view .LVU94
+ 500 00ae 0022     		movs	r2, #0
+ 501 00b0 4021     		movs	r1, #64
+ 502 00b2 0248     		ldr	r0, .L34
+ 503 00b4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 504              	.LVL49:
+  66:Src/hd44780.c **** 
+ 505              		.loc 1 66 1 is_stmt 0 view .LVU95
+ 506 00b8 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 507              	.L35:
+ 508 00ba 00BF     		.align	2
+ 509              	.L34:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 12
+
+
+ 510 00bc 00140140 		.word	1073812480
+ 511 00c0 00000000 		.word	hd44780
+ 512              		.cfi_endproc
+ 513              	.LFE69:
+ 515              		.section	.text.HD44780_CursorSet,"ax",%progbits
+ 516              		.align	1
+ 517              		.global	HD44780_CursorSet
+ 518              		.syntax unified
+ 519              		.thumb
+ 520              		.thumb_func
+ 521              		.fpu softvfp
+ 523              	HD44780_CursorSet:
+ 524              	.LVL50:
+ 525              	.LFB73:
+  84:Src/hd44780.c **** 
+  85:Src/hd44780.c **** void HD44780_CursorSet(uint8_t col, uint8_t row)
+  86:Src/hd44780.c **** {
+ 526              		.loc 1 86 1 is_stmt 1 view -0
+ 527              		.cfi_startproc
+ 528              		@ args = 0, pretend = 0, frame = 8
+ 529              		@ frame_needed = 0, uses_anonymous_args = 0
+ 530              		.loc 1 86 1 is_stmt 0 view .LVU97
+ 531 0000 00B5     		push	{lr}
+ 532              	.LCFI7:
+ 533              		.cfi_def_cfa_offset 4
+ 534              		.cfi_offset 14, -4
+ 535 0002 83B0     		sub	sp, sp, #12
+ 536              	.LCFI8:
+ 537              		.cfi_def_cfa_offset 16
+  87:Src/hd44780.c **** 	uint8_t row_offsets[] = {0x00, 0x40, 0x14, 0x54};
+ 538              		.loc 1 87 2 is_stmt 1 view .LVU98
+ 539              		.loc 1 87 10 is_stmt 0 view .LVU99
+ 540 0004 0E4B     		ldr	r3, .L40
+ 541 0006 1B68     		ldr	r3, [r3]
+ 542 0008 0193     		str	r3, [sp, #4]
+  88:Src/hd44780.c **** 	if(row >= hd44780.Rows) row = 0;
+ 543              		.loc 1 88 2 is_stmt 1 view .LVU100
+ 544              		.loc 1 88 19 is_stmt 0 view .LVU101
+ 545 000a 0E4B     		ldr	r3, .L40+4
+ 546 000c DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 547              		.loc 1 88 4 view .LVU102
+ 548 000e 8B42     		cmp	r3, r1
+ 549 0010 00D8     		bhi	.L37
+ 550              		.loc 1 88 30 view .LVU103
+ 551 0012 0021     		movs	r1, #0
+ 552              	.LVL51:
+ 553              	.L37:
+  89:Src/hd44780.c **** 	hd44780.currentX = col;
+ 554              		.loc 1 89 2 is_stmt 1 view .LVU104
+ 555              		.loc 1 89 19 is_stmt 0 view .LVU105
+ 556 0014 0B4B     		ldr	r3, .L40+4
+ 557 0016 5871     		strb	r0, [r3, #5]
+  90:Src/hd44780.c **** 	hd44780.currentY = row;
+ 558              		.loc 1 90 2 is_stmt 1 view .LVU106
+ 559              		.loc 1 90 19 is_stmt 0 view .LVU107
+ 560 0018 9971     		strb	r1, [r3, #6]
+  91:Src/hd44780.c **** 	HD44780_Cmd(HD44780_SETDDRAMADDR | (col + row_offsets[row]));
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 13
+
+
+ 561              		.loc 1 91 2 is_stmt 1 view .LVU108
+ 562              		.loc 1 91 55 is_stmt 0 view .LVU109
+ 563 001a 02AB     		add	r3, sp, #8
+ 564 001c 1944     		add	r1, r1, r3
+ 565              	.LVL52:
+ 566              		.loc 1 91 55 view .LVU110
+ 567 001e 11F8043C 		ldrb	r3, [r1, #-4]	@ zero_extendqisi2
+ 568              		.loc 1 91 42 view .LVU111
+ 569 0022 1844     		add	r0, r0, r3
+ 570              	.LVL53:
+ 571              		.loc 1 91 42 view .LVU112
+ 572 0024 40B2     		sxtb	r0, r0
+ 573              		.loc 1 91 35 view .LVU113
+ 574 0026 60F07F00 		orn	r0, r0, #127
+ 575              		.loc 1 91 2 view .LVU114
+ 576 002a C0B2     		uxtb	r0, r0
+ 577 002c FFF7FEFF 		bl	HD44780_Cmd
+ 578              	.LVL54:
+  92:Src/hd44780.c **** 	HAL_Delay(1000);
+ 579              		.loc 1 92 2 is_stmt 1 view .LVU115
+ 580 0030 4FF47A70 		mov	r0, #1000
+ 581 0034 FFF7FEFF 		bl	HAL_Delay
+ 582              	.LVL55:
+  93:Src/hd44780.c **** }
+ 583              		.loc 1 93 1 is_stmt 0 view .LVU116
+ 584 0038 03B0     		add	sp, sp, #12
+ 585              	.LCFI9:
+ 586              		.cfi_def_cfa_offset 4
+ 587              		@ sp needed
+ 588 003a 5DF804FB 		ldr	pc, [sp], #4
+ 589              	.L41:
+ 590 003e 00BF     		.align	2
+ 591              	.L40:
+ 592 0040 00000000 		.word	.LANCHOR0
+ 593 0044 00000000 		.word	hd44780
+ 594              		.cfi_endproc
+ 595              	.LFE73:
+ 597              		.section	.text.HD44780_Puts,"ax",%progbits
+ 598              		.align	1
+ 599              		.global	HD44780_Puts
+ 600              		.syntax unified
+ 601              		.thumb
+ 602              		.thumb_func
+ 603              		.fpu softvfp
+ 605              	HD44780_Puts:
+ 606              	.LVL56:
+ 607              	.LFB74:
+  94:Src/hd44780.c **** 
+  95:Src/hd44780.c **** void HD44780_Puts(uint8_t x, uint8_t y, char* str)
+  96:Src/hd44780.c **** {
+ 608              		.loc 1 96 1 is_stmt 1 view -0
+ 609              		.cfi_startproc
+ 610              		@ args = 0, pretend = 0, frame = 0
+ 611              		@ frame_needed = 0, uses_anonymous_args = 0
+ 612              		.loc 1 96 1 is_stmt 0 view .LVU118
+ 613 0000 10B5     		push	{r4, lr}
+ 614              	.LCFI10:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 14
+
+
+ 615              		.cfi_def_cfa_offset 8
+ 616              		.cfi_offset 4, -8
+ 617              		.cfi_offset 14, -4
+ 618 0002 1446     		mov	r4, r2
+  97:Src/hd44780.c **** 	HD44780_CursorSet(x, y);
+ 619              		.loc 1 97 2 is_stmt 1 view .LVU119
+ 620 0004 FFF7FEFF 		bl	HD44780_CursorSet
+ 621              	.LVL57:
+  98:Src/hd44780.c **** 	while(*str)
+ 622              		.loc 1 98 2 view .LVU120
+ 623              		.loc 1 98 7 is_stmt 0 view .LVU121
+ 624 0008 19E0     		b	.L43
+ 625              	.L51:
+  99:Src/hd44780.c **** 	{
+ 100:Src/hd44780.c **** 		if(hd44780.currentX >= hd44780.Cols)
+ 101:Src/hd44780.c **** 		{
+ 102:Src/hd44780.c **** 			hd44780.currentX = 0;
+ 626              		.loc 1 102 4 is_stmt 1 view .LVU122
+ 627              		.loc 1 102 21 is_stmt 0 view .LVU123
+ 628 000a 164B     		ldr	r3, .L53
+ 629 000c 0020     		movs	r0, #0
+ 630 000e 5871     		strb	r0, [r3, #5]
+ 103:Src/hd44780.c **** 			hd44780.currentY++;
+ 631              		.loc 1 103 4 is_stmt 1 view .LVU124
+ 632              		.loc 1 103 11 is_stmt 0 view .LVU125
+ 633 0010 9979     		ldrb	r1, [r3, #6]	@ zero_extendqisi2
+ 634              		.loc 1 103 20 view .LVU126
+ 635 0012 0131     		adds	r1, r1, #1
+ 636 0014 C9B2     		uxtb	r1, r1
+ 637 0016 9971     		strb	r1, [r3, #6]
+ 104:Src/hd44780.c **** 			HD44780_CursorSet(hd44780.currentX, hd44780.currentY);
+ 638              		.loc 1 104 4 is_stmt 1 view .LVU127
+ 639 0018 FFF7FEFF 		bl	HD44780_CursorSet
+ 640              	.LVL58:
+ 641 001c 16E0     		b	.L44
+ 642              	.L52:
+ 105:Src/hd44780.c **** 		}
+ 106:Src/hd44780.c **** 		if(*str == '\n')
+ 107:Src/hd44780.c **** 		{
+ 108:Src/hd44780.c **** 			hd44780.currentY++;
+ 643              		.loc 1 108 4 view .LVU128
+ 644              		.loc 1 108 11 is_stmt 0 view .LVU129
+ 645 001e 114B     		ldr	r3, .L53
+ 646 0020 9979     		ldrb	r1, [r3, #6]	@ zero_extendqisi2
+ 647              		.loc 1 108 20 view .LVU130
+ 648 0022 0131     		adds	r1, r1, #1
+ 649 0024 C9B2     		uxtb	r1, r1
+ 650 0026 9971     		strb	r1, [r3, #6]
+ 109:Src/hd44780.c **** 			HD44780_CursorSet(hd44780.currentX, hd44780.currentY);
+ 651              		.loc 1 109 4 is_stmt 1 view .LVU131
+ 652 0028 5879     		ldrb	r0, [r3, #5]	@ zero_extendqisi2
+ 653 002a FFF7FEFF 		bl	HD44780_CursorSet
+ 654              	.LVL59:
+ 655 002e 05E0     		b	.L46
+ 656              	.L47:
+ 110:Src/hd44780.c **** 		}
+ 111:Src/hd44780.c **** 		else if(*str == '\r')
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 15
+
+
+ 112:Src/hd44780.c **** 		{
+ 113:Src/hd44780.c **** 			HD44780_CursorSet(0, hd44780.currentY);
+ 114:Src/hd44780.c **** 		}
+ 115:Src/hd44780.c **** 		else
+ 116:Src/hd44780.c **** 		{
+ 117:Src/hd44780.c **** 			HD44780_Data(*str);
+ 657              		.loc 1 117 4 view .LVU132
+ 658 0030 FFF7FEFF 		bl	HD44780_Data
+ 659              	.LVL60:
+ 118:Src/hd44780.c **** 			hd44780.currentX++;
+ 660              		.loc 1 118 4 view .LVU133
+ 661              		.loc 1 118 11 is_stmt 0 view .LVU134
+ 662 0034 0B4A     		ldr	r2, .L53
+ 663 0036 5379     		ldrb	r3, [r2, #5]	@ zero_extendqisi2
+ 664              		.loc 1 118 20 view .LVU135
+ 665 0038 0133     		adds	r3, r3, #1
+ 666 003a 5371     		strb	r3, [r2, #5]
+ 667              	.L46:
+ 119:Src/hd44780.c **** 		}
+ 120:Src/hd44780.c **** 		str++;
+ 668              		.loc 1 120 3 is_stmt 1 view .LVU136
+ 669              		.loc 1 120 6 is_stmt 0 view .LVU137
+ 670 003c 0134     		adds	r4, r4, #1
+ 671              	.LVL61:
+ 672              	.L43:
+  98:Src/hd44780.c **** 	{
+ 673              		.loc 1 98 8 view .LVU138
+ 674 003e 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+  98:Src/hd44780.c **** 	{
+ 675              		.loc 1 98 7 view .LVU139
+ 676 0040 7BB1     		cbz	r3, .L50
+ 100:Src/hd44780.c **** 		{
+ 677              		.loc 1 100 3 is_stmt 1 view .LVU140
+ 100:Src/hd44780.c **** 		{
+ 678              		.loc 1 100 13 is_stmt 0 view .LVU141
+ 679 0042 084B     		ldr	r3, .L53
+ 680 0044 5A79     		ldrb	r2, [r3, #5]	@ zero_extendqisi2
+ 100:Src/hd44780.c **** 		{
+ 681              		.loc 1 100 33 view .LVU142
+ 682 0046 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 100:Src/hd44780.c **** 		{
+ 683              		.loc 1 100 5 view .LVU143
+ 684 0048 9A42     		cmp	r2, r3
+ 685 004a DED2     		bcs	.L51
+ 686              	.L44:
+ 106:Src/hd44780.c **** 		{
+ 687              		.loc 1 106 3 is_stmt 1 view .LVU144
+ 106:Src/hd44780.c **** 		{
+ 688              		.loc 1 106 6 is_stmt 0 view .LVU145
+ 689 004c 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 106:Src/hd44780.c **** 		{
+ 690              		.loc 1 106 5 view .LVU146
+ 691 004e 0A28     		cmp	r0, #10
+ 692 0050 E5D0     		beq	.L52
+ 111:Src/hd44780.c **** 		{
+ 693              		.loc 1 111 8 is_stmt 1 view .LVU147
+ 111:Src/hd44780.c **** 		{
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 16
+
+
+ 694              		.loc 1 111 10 is_stmt 0 view .LVU148
+ 695 0052 0D28     		cmp	r0, #13
+ 696 0054 ECD1     		bne	.L47
+ 113:Src/hd44780.c **** 		}
+ 697              		.loc 1 113 4 is_stmt 1 view .LVU149
+ 698 0056 034B     		ldr	r3, .L53
+ 699 0058 9979     		ldrb	r1, [r3, #6]	@ zero_extendqisi2
+ 700 005a 0020     		movs	r0, #0
+ 701 005c FFF7FEFF 		bl	HD44780_CursorSet
+ 702              	.LVL62:
+ 703 0060 ECE7     		b	.L46
+ 704              	.L50:
+ 121:Src/hd44780.c **** 	}
+ 122:Src/hd44780.c **** }
+ 705              		.loc 1 122 1 is_stmt 0 view .LVU150
+ 706 0062 10BD     		pop	{r4, pc}
+ 707              	.LVL63:
+ 708              	.L54:
+ 709              		.loc 1 122 1 view .LVU151
+ 710              		.align	2
+ 711              	.L53:
+ 712 0064 00000000 		.word	hd44780
+ 713              		.cfi_endproc
+ 714              	.LFE74:
+ 716              		.section	.text.HD44780_BlinkOn,"ax",%progbits
+ 717              		.align	1
+ 718              		.global	HD44780_BlinkOn
+ 719              		.syntax unified
+ 720              		.thumb
+ 721              		.thumb_func
+ 722              		.fpu softvfp
+ 724              	HD44780_BlinkOn:
+ 725              	.LFB75:
+ 123:Src/hd44780.c **** 
+ 124:Src/hd44780.c **** void HD44780_BlinkOn(void)
+ 125:Src/hd44780.c **** {
+ 726              		.loc 1 125 1 is_stmt 1 view -0
+ 727              		.cfi_startproc
+ 728              		@ args = 0, pretend = 0, frame = 0
+ 729              		@ frame_needed = 0, uses_anonymous_args = 0
+ 730 0000 08B5     		push	{r3, lr}
+ 731              	.LCFI11:
+ 732              		.cfi_def_cfa_offset 8
+ 733              		.cfi_offset 3, -8
+ 734              		.cfi_offset 14, -4
+ 126:Src/hd44780.c **** 	hd44780.DisplayControl |= HD44780_DISPLAYON;
+ 735              		.loc 1 126 2 view .LVU153
+ 736              		.loc 1 126 25 is_stmt 0 view .LVU154
+ 737 0002 054B     		ldr	r3, .L57
+ 738 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 739 0006 40F00400 		orr	r0, r0, #4
+ 740 000a 1870     		strb	r0, [r3]
+ 127:Src/hd44780.c **** 	HD44780_Cmd(HD44780_DISPLAYCONTROL | hd44780.DisplayControl);
+ 741              		.loc 1 127 2 is_stmt 1 view .LVU155
+ 742 000c 40F00800 		orr	r0, r0, #8
+ 743 0010 FFF7FEFF 		bl	HD44780_Cmd
+ 744              	.LVL64:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 17
+
+
+ 128:Src/hd44780.c **** }
+ 745              		.loc 1 128 1 is_stmt 0 view .LVU156
+ 746 0014 08BD     		pop	{r3, pc}
+ 747              	.L58:
+ 748 0016 00BF     		.align	2
+ 749              	.L57:
+ 750 0018 00000000 		.word	hd44780
+ 751              		.cfi_endproc
+ 752              	.LFE75:
+ 754              		.section	.text.HD44780_BlinkOff,"ax",%progbits
+ 755              		.align	1
+ 756              		.global	HD44780_BlinkOff
+ 757              		.syntax unified
+ 758              		.thumb
+ 759              		.thumb_func
+ 760              		.fpu softvfp
+ 762              	HD44780_BlinkOff:
+ 763              	.LFB76:
+ 129:Src/hd44780.c **** 
+ 130:Src/hd44780.c **** void HD44780_BlinkOff(void)
+ 131:Src/hd44780.c **** {
+ 764              		.loc 1 131 1 is_stmt 1 view -0
+ 765              		.cfi_startproc
+ 766              		@ args = 0, pretend = 0, frame = 0
+ 767              		@ frame_needed = 0, uses_anonymous_args = 0
+ 768 0000 08B5     		push	{r3, lr}
+ 769              	.LCFI12:
+ 770              		.cfi_def_cfa_offset 8
+ 771              		.cfi_offset 3, -8
+ 772              		.cfi_offset 14, -4
+ 132:Src/hd44780.c **** 	hd44780.DisplayControl &= ~HD44780_DISPLAYON;
+ 773              		.loc 1 132 2 view .LVU158
+ 774              		.loc 1 132 25 is_stmt 0 view .LVU159
+ 775 0002 054B     		ldr	r3, .L61
+ 776 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 777 0006 00F0FB00 		and	r0, r0, #251
+ 778 000a 1870     		strb	r0, [r3]
+ 133:Src/hd44780.c **** 	HD44780_Cmd(HD44780_DISPLAYCONTROL | hd44780.DisplayControl);
+ 779              		.loc 1 133 2 is_stmt 1 view .LVU160
+ 780 000c 40F00800 		orr	r0, r0, #8
+ 781 0010 FFF7FEFF 		bl	HD44780_Cmd
+ 782              	.LVL65:
+ 134:Src/hd44780.c **** }
+ 783              		.loc 1 134 1 is_stmt 0 view .LVU161
+ 784 0014 08BD     		pop	{r3, pc}
+ 785              	.L62:
+ 786 0016 00BF     		.align	2
+ 787              	.L61:
+ 788 0018 00000000 		.word	hd44780
+ 789              		.cfi_endproc
+ 790              	.LFE76:
+ 792              		.section	.text.HD44780_CursorOn,"ax",%progbits
+ 793              		.align	1
+ 794              		.global	HD44780_CursorOn
+ 795              		.syntax unified
+ 796              		.thumb
+ 797              		.thumb_func
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 18
+
+
+ 798              		.fpu softvfp
+ 800              	HD44780_CursorOn:
+ 801              	.LFB77:
+ 135:Src/hd44780.c **** 
+ 136:Src/hd44780.c **** void HD44780_CursorOn(void)
+ 137:Src/hd44780.c **** {
+ 802              		.loc 1 137 1 is_stmt 1 view -0
+ 803              		.cfi_startproc
+ 804              		@ args = 0, pretend = 0, frame = 0
+ 805              		@ frame_needed = 0, uses_anonymous_args = 0
+ 806 0000 08B5     		push	{r3, lr}
+ 807              	.LCFI13:
+ 808              		.cfi_def_cfa_offset 8
+ 809              		.cfi_offset 3, -8
+ 810              		.cfi_offset 14, -4
+ 138:Src/hd44780.c **** 	hd44780.DisplayControl |= HD44780_CURSORON;
+ 811              		.loc 1 138 2 view .LVU163
+ 812              		.loc 1 138 25 is_stmt 0 view .LVU164
+ 813 0002 054B     		ldr	r3, .L65
+ 814 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 815 0006 40F00200 		orr	r0, r0, #2
+ 816 000a 1870     		strb	r0, [r3]
+ 139:Src/hd44780.c **** 	HD44780_Cmd(HD44780_DISPLAYCONTROL | hd44780.DisplayControl);
+ 817              		.loc 1 139 2 is_stmt 1 view .LVU165
+ 818 000c 40F00800 		orr	r0, r0, #8
+ 819 0010 FFF7FEFF 		bl	HD44780_Cmd
+ 820              	.LVL66:
+ 140:Src/hd44780.c **** }
+ 821              		.loc 1 140 1 is_stmt 0 view .LVU166
+ 822 0014 08BD     		pop	{r3, pc}
+ 823              	.L66:
+ 824 0016 00BF     		.align	2
+ 825              	.L65:
+ 826 0018 00000000 		.word	hd44780
+ 827              		.cfi_endproc
+ 828              	.LFE77:
+ 830              		.section	.text.HD44780_CursorOff,"ax",%progbits
+ 831              		.align	1
+ 832              		.global	HD44780_CursorOff
+ 833              		.syntax unified
+ 834              		.thumb
+ 835              		.thumb_func
+ 836              		.fpu softvfp
+ 838              	HD44780_CursorOff:
+ 839              	.LFB78:
+ 141:Src/hd44780.c **** 
+ 142:Src/hd44780.c **** void HD44780_CursorOff(void)
+ 143:Src/hd44780.c **** {
+ 840              		.loc 1 143 1 is_stmt 1 view -0
+ 841              		.cfi_startproc
+ 842              		@ args = 0, pretend = 0, frame = 0
+ 843              		@ frame_needed = 0, uses_anonymous_args = 0
+ 844 0000 08B5     		push	{r3, lr}
+ 845              	.LCFI14:
+ 846              		.cfi_def_cfa_offset 8
+ 847              		.cfi_offset 3, -8
+ 848              		.cfi_offset 14, -4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 19
+
+
+ 144:Src/hd44780.c **** 	hd44780.DisplayControl &= ~HD44780_CURSORON;
+ 849              		.loc 1 144 2 view .LVU168
+ 850              		.loc 1 144 25 is_stmt 0 view .LVU169
+ 851 0002 054B     		ldr	r3, .L69
+ 852 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 853 0006 00F0FD00 		and	r0, r0, #253
+ 854 000a 1870     		strb	r0, [r3]
+ 145:Src/hd44780.c **** 	HD44780_Cmd(HD44780_DISPLAYCONTROL | hd44780.DisplayControl);
+ 855              		.loc 1 145 2 is_stmt 1 view .LVU170
+ 856 000c 40F00800 		orr	r0, r0, #8
+ 857 0010 FFF7FEFF 		bl	HD44780_Cmd
+ 858              	.LVL67:
+ 146:Src/hd44780.c **** }
+ 859              		.loc 1 146 1 is_stmt 0 view .LVU171
+ 860 0014 08BD     		pop	{r3, pc}
+ 861              	.L70:
+ 862 0016 00BF     		.align	2
+ 863              	.L69:
+ 864 0018 00000000 		.word	hd44780
+ 865              		.cfi_endproc
+ 866              	.LFE78:
+ 868              		.section	.text.HD44780_ScrollLeft,"ax",%progbits
+ 869              		.align	1
+ 870              		.global	HD44780_ScrollLeft
+ 871              		.syntax unified
+ 872              		.thumb
+ 873              		.thumb_func
+ 874              		.fpu softvfp
+ 876              	HD44780_ScrollLeft:
+ 877              	.LFB79:
+ 147:Src/hd44780.c **** 
+ 148:Src/hd44780.c **** void HD44780_ScrollLeft(void)
+ 149:Src/hd44780.c **** {
+ 878              		.loc 1 149 1 is_stmt 1 view -0
+ 879              		.cfi_startproc
+ 880              		@ args = 0, pretend = 0, frame = 0
+ 881              		@ frame_needed = 0, uses_anonymous_args = 0
+ 882 0000 08B5     		push	{r3, lr}
+ 883              	.LCFI15:
+ 884              		.cfi_def_cfa_offset 8
+ 885              		.cfi_offset 3, -8
+ 886              		.cfi_offset 14, -4
+ 150:Src/hd44780.c **** 	HD44780_Cmd(HD44780_CURSORSHIFT | HD44780_DISPLAYMOVE | HD44780_MOVELEFT);
+ 887              		.loc 1 150 2 view .LVU173
+ 888 0002 1820     		movs	r0, #24
+ 889 0004 FFF7FEFF 		bl	HD44780_Cmd
+ 890              	.LVL68:
+ 151:Src/hd44780.c **** }
+ 891              		.loc 1 151 1 is_stmt 0 view .LVU174
+ 892 0008 08BD     		pop	{r3, pc}
+ 893              		.cfi_endproc
+ 894              	.LFE79:
+ 896              		.section	.text.HD44780_ScrollRight,"ax",%progbits
+ 897              		.align	1
+ 898              		.global	HD44780_ScrollRight
+ 899              		.syntax unified
+ 900              		.thumb
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 20
+
+
+ 901              		.thumb_func
+ 902              		.fpu softvfp
+ 904              	HD44780_ScrollRight:
+ 905              	.LFB80:
+ 152:Src/hd44780.c **** 
+ 153:Src/hd44780.c **** void HD44780_ScrollRight(void)
+ 154:Src/hd44780.c **** {
+ 906              		.loc 1 154 1 is_stmt 1 view -0
+ 907              		.cfi_startproc
+ 908              		@ args = 0, pretend = 0, frame = 0
+ 909              		@ frame_needed = 0, uses_anonymous_args = 0
+ 910 0000 08B5     		push	{r3, lr}
+ 911              	.LCFI16:
+ 912              		.cfi_def_cfa_offset 8
+ 913              		.cfi_offset 3, -8
+ 914              		.cfi_offset 14, -4
+ 155:Src/hd44780.c **** 	HD44780_Cmd(HD44780_CURSORSHIFT | HD44780_DISPLAYMOVE | HD44780_MOVERIGHT);
+ 915              		.loc 1 155 2 view .LVU176
+ 916 0002 1C20     		movs	r0, #28
+ 917 0004 FFF7FEFF 		bl	HD44780_Cmd
+ 918              	.LVL69:
+ 156:Src/hd44780.c **** }
+ 919              		.loc 1 156 1 is_stmt 0 view .LVU177
+ 920 0008 08BD     		pop	{r3, pc}
+ 921              		.cfi_endproc
+ 922              	.LFE80:
+ 924              		.section	.text.HD44780_CreateChar,"ax",%progbits
+ 925              		.align	1
+ 926              		.global	HD44780_CreateChar
+ 927              		.syntax unified
+ 928              		.thumb
+ 929              		.thumb_func
+ 930              		.fpu softvfp
+ 932              	HD44780_CreateChar:
+ 933              	.LVL70:
+ 934              	.LFB81:
+ 157:Src/hd44780.c **** 
+ 158:Src/hd44780.c **** void HD44780_CreateChar(uint8_t location, uint8_t *data)
+ 159:Src/hd44780.c **** {
+ 935              		.loc 1 159 1 is_stmt 1 view -0
+ 936              		.cfi_startproc
+ 937              		@ args = 0, pretend = 0, frame = 0
+ 938              		@ frame_needed = 0, uses_anonymous_args = 0
+ 939              		.loc 1 159 1 is_stmt 0 view .LVU179
+ 940 0000 38B5     		push	{r3, r4, r5, lr}
+ 941              	.LCFI17:
+ 942              		.cfi_def_cfa_offset 16
+ 943              		.cfi_offset 3, -16
+ 944              		.cfi_offset 4, -12
+ 945              		.cfi_offset 5, -8
+ 946              		.cfi_offset 14, -4
+ 947 0002 0D46     		mov	r5, r1
+ 160:Src/hd44780.c **** 	uint8_t i;
+ 948              		.loc 1 160 2 is_stmt 1 view .LVU180
+ 161:Src/hd44780.c **** 	location &= 0x07; 
+ 949              		.loc 1 161 2 view .LVU181
+ 950              		.loc 1 161 11 is_stmt 0 view .LVU182
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 21
+
+
+ 951 0004 00F00700 		and	r0, r0, #7
+ 952              	.LVL71:
+ 162:Src/hd44780.c **** 	HD44780_Cmd(HD44780_SETCGRAMADDR | (location <<3));
+ 953              		.loc 1 162 2 is_stmt 1 view .LVU183
+ 954              		.loc 1 162 47 is_stmt 0 view .LVU184
+ 955 0008 C000     		lsls	r0, r0, #3
+ 956              	.LVL72:
+ 957              		.loc 1 162 2 view .LVU185
+ 958 000a 40F04000 		orr	r0, r0, #64
+ 959 000e FFF7FEFF 		bl	HD44780_Cmd
+ 960              	.LVL73:
+ 163:Src/hd44780.c **** 	for(i = 0; i < 8; i++)
+ 961              		.loc 1 163 2 is_stmt 1 view .LVU186
+ 962              		.loc 1 163 8 is_stmt 0 view .LVU187
+ 963 0012 0024     		movs	r4, #0
+ 964              		.loc 1 163 2 view .LVU188
+ 965 0014 04E0     		b	.L76
+ 966              	.LVL74:
+ 967              	.L77:
+ 164:Src/hd44780.c **** 		HD44780_Data(data[i]);
+ 968              		.loc 1 164 3 is_stmt 1 discriminator 3 view .LVU189
+ 969 0016 285D     		ldrb	r0, [r5, r4]	@ zero_extendqisi2
+ 970 0018 FFF7FEFF 		bl	HD44780_Data
+ 971              	.LVL75:
+ 163:Src/hd44780.c **** 	for(i = 0; i < 8; i++)
+ 972              		.loc 1 163 21 is_stmt 0 discriminator 3 view .LVU190
+ 973 001c 0134     		adds	r4, r4, #1
+ 974              	.LVL76:
+ 163:Src/hd44780.c **** 	for(i = 0; i < 8; i++)
+ 975              		.loc 1 163 21 discriminator 3 view .LVU191
+ 976 001e E4B2     		uxtb	r4, r4
+ 977              	.LVL77:
+ 978              	.L76:
+ 163:Src/hd44780.c **** 	for(i = 0; i < 8; i++)
+ 979              		.loc 1 163 2 discriminator 1 view .LVU192
+ 980 0020 072C     		cmp	r4, #7
+ 981 0022 F8D9     		bls	.L77
+ 165:Src/hd44780.c **** }
+ 982              		.loc 1 165 1 view .LVU193
+ 983 0024 38BD     		pop	{r3, r4, r5, pc}
+ 984              		.loc 1 165 1 view .LVU194
+ 985              		.cfi_endproc
+ 986              	.LFE81:
+ 988              		.section	.text.HD44780_PutCustom,"ax",%progbits
+ 989              		.align	1
+ 990              		.global	HD44780_PutCustom
+ 991              		.syntax unified
+ 992              		.thumb
+ 993              		.thumb_func
+ 994              		.fpu softvfp
+ 996              	HD44780_PutCustom:
+ 997              	.LVL78:
+ 998              	.LFB82:
+ 166:Src/hd44780.c **** 
+ 167:Src/hd44780.c **** void HD44780_PutCustom(uint8_t x, uint8_t y, uint8_t location)
+ 168:Src/hd44780.c **** {
+ 999              		.loc 1 168 1 is_stmt 1 view -0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 22
+
+
+ 1000              		.cfi_startproc
+ 1001              		@ args = 0, pretend = 0, frame = 0
+ 1002              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1003              		.loc 1 168 1 is_stmt 0 view .LVU196
+ 1004 0000 10B5     		push	{r4, lr}
+ 1005              	.LCFI18:
+ 1006              		.cfi_def_cfa_offset 8
+ 1007              		.cfi_offset 4, -8
+ 1008              		.cfi_offset 14, -4
+ 1009 0002 1446     		mov	r4, r2
+ 169:Src/hd44780.c **** 	HD44780_CursorSet(x, y);
+ 1010              		.loc 1 169 2 is_stmt 1 view .LVU197
+ 1011 0004 FFF7FEFF 		bl	HD44780_CursorSet
+ 1012              	.LVL79:
+ 170:Src/hd44780.c **** 	HD44780_Data(location);
+ 1013              		.loc 1 170 2 view .LVU198
+ 1014 0008 2046     		mov	r0, r4
+ 1015 000a FFF7FEFF 		bl	HD44780_Data
+ 1016              	.LVL80:
+ 171:Src/hd44780.c **** }
+ 1017              		.loc 1 171 1 is_stmt 0 view .LVU199
+ 1018 000e 10BD     		pop	{r4, pc}
+ 1019              		.cfi_endproc
+ 1020              	.LFE82:
+ 1022              		.section	.text.LCD_DisplayCGRAM0,"ax",%progbits
+ 1023              		.align	1
+ 1024              		.global	LCD_DisplayCGRAM0
+ 1025              		.syntax unified
+ 1026              		.thumb
+ 1027              		.thumb_func
+ 1028              		.fpu softvfp
+ 1030              	LCD_DisplayCGRAM0:
+ 1031              	.LVL81:
+ 1032              	.LFB83:
+ 172:Src/hd44780.c **** 
+ 173:Src/hd44780.c **** void LCD_DisplayCGRAM0(uint8_t address, uint8_t *ptrTable)
+ 174:Src/hd44780.c **** {
+ 1033              		.loc 1 174 1 is_stmt 1 view -0
+ 1034              		.cfi_startproc
+ 1035              		@ args = 0, pretend = 0, frame = 0
+ 1036              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1037              		.loc 1 174 1 is_stmt 0 view .LVU201
+ 1038 0000 70B5     		push	{r4, r5, r6, lr}
+ 1039              	.LCFI19:
+ 1040              		.cfi_def_cfa_offset 16
+ 1041              		.cfi_offset 4, -16
+ 1042              		.cfi_offset 5, -12
+ 1043              		.cfi_offset 6, -8
+ 1044              		.cfi_offset 14, -4
+ 1045 0002 0646     		mov	r6, r0
+ 1046 0004 0D46     		mov	r5, r1
+ 175:Src/hd44780.c **** 
+ 176:Src/hd44780.c ****   uint8_t u;
+ 1047              		.loc 1 176 3 is_stmt 1 view .LVU202
+ 177:Src/hd44780.c **** 
+ 178:Src/hd44780.c ****   /* Set CGRAM Address */
+ 179:Src/hd44780.c ****   HD44780_Cmd((uint8_t)0x40);
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 23
+
+
+ 1048              		.loc 1 179 3 view .LVU203
+ 1049 0006 4020     		movs	r0, #64
+ 1050              	.LVL82:
+ 1051              		.loc 1 179 3 is_stmt 0 view .LVU204
+ 1052 0008 FFF7FEFF 		bl	HD44780_Cmd
+ 1053              	.LVL83:
+ 180:Src/hd44780.c **** 
+ 181:Src/hd44780.c ****   u = 32; /* Nb byte in the table */
+ 1054              		.loc 1 181 3 is_stmt 1 view .LVU205
+ 182:Src/hd44780.c ****   while (u)
+ 1055              		.loc 1 182 3 view .LVU206
+ 181:Src/hd44780.c ****   while (u)
+ 1056              		.loc 1 181 5 is_stmt 0 view .LVU207
+ 1057 000c 2024     		movs	r4, #32
+ 1058              	.LVL84:
+ 1059              	.L82:
+ 1060              		.loc 1 182 9 view .LVU208
+ 1061 000e 3CB1     		cbz	r4, .L85
+ 183:Src/hd44780.c ****   {
+ 184:Src/hd44780.c ****     HD44780_Data(ptrTable[32 - u]);
+ 1062              		.loc 1 184 5 is_stmt 1 view .LVU209
+ 1063              		.loc 1 184 30 is_stmt 0 view .LVU210
+ 1064 0010 C4F12003 		rsb	r3, r4, #32
+ 1065              		.loc 1 184 5 view .LVU211
+ 1066 0014 E85C     		ldrb	r0, [r5, r3]	@ zero_extendqisi2
+ 1067 0016 FFF7FEFF 		bl	HD44780_Data
+ 1068              	.LVL85:
+ 185:Src/hd44780.c ****     u--;
+ 1069              		.loc 1 185 5 is_stmt 1 view .LVU212
+ 1070              		.loc 1 185 6 is_stmt 0 view .LVU213
+ 1071 001a 013C     		subs	r4, r4, #1
+ 1072              	.LVL86:
+ 1073              		.loc 1 185 6 view .LVU214
+ 1074 001c E4B2     		uxtb	r4, r4
+ 1075              	.LVL87:
+ 1076              		.loc 1 185 6 view .LVU215
+ 1077 001e F6E7     		b	.L82
+ 1078              	.L85:
+ 186:Src/hd44780.c ****   }
+ 187:Src/hd44780.c **** 
+ 188:Src/hd44780.c ****   /* Setup Display Address */
+ 189:Src/hd44780.c ****   HD44780_Cmd(address);
+ 1079              		.loc 1 189 3 is_stmt 1 view .LVU216
+ 1080 0020 3046     		mov	r0, r6
+ 1081 0022 FFF7FEFF 		bl	HD44780_Cmd
+ 1082              	.LVL88:
+ 190:Src/hd44780.c ****   HD44780_Data((uint8_t)0x00);
+ 1083              		.loc 1 190 3 view .LVU217
+ 1084 0026 0020     		movs	r0, #0
+ 1085 0028 FFF7FEFF 		bl	HD44780_Data
+ 1086              	.LVL89:
+ 191:Src/hd44780.c ****   HD44780_Data((uint8_t)0x00);
+ 1087              		.loc 1 191 3 view .LVU218
+ 1088 002c 0020     		movs	r0, #0
+ 1089 002e FFF7FEFF 		bl	HD44780_Data
+ 1090              	.LVL90:
+ 192:Src/hd44780.c **** }
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 24
+
+
+ 1091              		.loc 1 192 1 is_stmt 0 view .LVU219
+ 1092 0032 70BD     		pop	{r4, r5, r6, pc}
+ 1093              		.loc 1 192 1 view .LVU220
+ 1094              		.cfi_endproc
+ 1095              	.LFE83:
+ 1097              		.section	.text.LCD_DisplayCGRAM1,"ax",%progbits
+ 1098              		.align	1
+ 1099              		.global	LCD_DisplayCGRAM1
+ 1100              		.syntax unified
+ 1101              		.thumb
+ 1102              		.thumb_func
+ 1103              		.fpu softvfp
+ 1105              	LCD_DisplayCGRAM1:
+ 1106              	.LVL91:
+ 1107              	.LFB84:
+ 193:Src/hd44780.c **** 
+ 194:Src/hd44780.c **** void LCD_DisplayCGRAM1(uint8_t address, uint8_t *ptrTable)
+ 195:Src/hd44780.c **** {
+ 1108              		.loc 1 195 1 is_stmt 1 view -0
+ 1109              		.cfi_startproc
+ 1110              		@ args = 0, pretend = 0, frame = 0
+ 1111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1112              		.loc 1 195 1 is_stmt 0 view .LVU222
+ 1113 0000 70B5     		push	{r4, r5, r6, lr}
+ 1114              	.LCFI20:
+ 1115              		.cfi_def_cfa_offset 16
+ 1116              		.cfi_offset 4, -16
+ 1117              		.cfi_offset 5, -12
+ 1118              		.cfi_offset 6, -8
+ 1119              		.cfi_offset 14, -4
+ 1120 0002 0646     		mov	r6, r0
+ 1121 0004 0D46     		mov	r5, r1
+ 196:Src/hd44780.c **** 
+ 197:Src/hd44780.c ****   uint8_t u;
+ 1122              		.loc 1 197 3 is_stmt 1 view .LVU223
+ 198:Src/hd44780.c **** 
+ 199:Src/hd44780.c ****  /* Set CGRAM Address */
+ 200:Src/hd44780.c ****   HD44780_Cmd((uint8_t)((uint8_t)0x40 | (uint8_t)0x10));
+ 1123              		.loc 1 200 3 view .LVU224
+ 1124 0006 5020     		movs	r0, #80
+ 1125              	.LVL92:
+ 1126              		.loc 1 200 3 is_stmt 0 view .LVU225
+ 1127 0008 FFF7FEFF 		bl	HD44780_Cmd
+ 1128              	.LVL93:
+ 201:Src/hd44780.c **** 
+ 202:Src/hd44780.c ****   u = 32; /* Nb byte in the table */
+ 1129              		.loc 1 202 3 is_stmt 1 view .LVU226
+ 203:Src/hd44780.c ****   while (u)
+ 1130              		.loc 1 203 3 view .LVU227
+ 202:Src/hd44780.c ****   while (u)
+ 1131              		.loc 1 202 5 is_stmt 0 view .LVU228
+ 1132 000c 2024     		movs	r4, #32
+ 1133              	.LVL94:
+ 1134              	.L87:
+ 1135              		.loc 1 203 9 view .LVU229
+ 1136 000e 3CB1     		cbz	r4, .L90
+ 204:Src/hd44780.c ****   {
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 25
+
+
+ 205:Src/hd44780.c ****     HD44780_Data(ptrTable[32 - u]);
+ 1137              		.loc 1 205 5 is_stmt 1 view .LVU230
+ 1138              		.loc 1 205 30 is_stmt 0 view .LVU231
+ 1139 0010 C4F12003 		rsb	r3, r4, #32
+ 1140              		.loc 1 205 5 view .LVU232
+ 1141 0014 E85C     		ldrb	r0, [r5, r3]	@ zero_extendqisi2
+ 1142 0016 FFF7FEFF 		bl	HD44780_Data
+ 1143              	.LVL95:
+ 206:Src/hd44780.c ****     u--;
+ 1144              		.loc 1 206 5 is_stmt 1 view .LVU233
+ 1145              		.loc 1 206 6 is_stmt 0 view .LVU234
+ 1146 001a 013C     		subs	r4, r4, #1
+ 1147              	.LVL96:
+ 1148              		.loc 1 206 6 view .LVU235
+ 1149 001c E4B2     		uxtb	r4, r4
+ 1150              	.LVL97:
+ 1151              		.loc 1 206 6 view .LVU236
+ 1152 001e F6E7     		b	.L87
+ 1153              	.L90:
+ 207:Src/hd44780.c ****   }
+ 208:Src/hd44780.c **** 
+ 209:Src/hd44780.c ****   /* Setup Display Address */
+ 210:Src/hd44780.c ****   HD44780_Cmd((uint8_t)(address + 1));
+ 1154              		.loc 1 210 3 is_stmt 1 view .LVU237
+ 1155 0020 701C     		adds	r0, r6, #1
+ 1156 0022 C0B2     		uxtb	r0, r0
+ 1157 0024 FFF7FEFF 		bl	HD44780_Cmd
+ 1158              	.LVL98:
+ 211:Src/hd44780.c ****   HD44780_Data((uint8_t)0x00);
+ 1159              		.loc 1 211 3 view .LVU238
+ 1160 0028 0020     		movs	r0, #0
+ 1161 002a FFF7FEFF 		bl	HD44780_Data
+ 1162              	.LVL99:
+ 212:Src/hd44780.c ****   HD44780_Data((uint8_t)0x02);
+ 1163              		.loc 1 212 3 view .LVU239
+ 1164 002e 0220     		movs	r0, #2
+ 1165 0030 FFF7FEFF 		bl	HD44780_Data
+ 1166              	.LVL100:
+ 213:Src/hd44780.c **** }
+ 1167              		.loc 1 213 1 is_stmt 0 view .LVU240
+ 1168 0034 70BD     		pop	{r4, r5, r6, pc}
+ 1169              		.loc 1 213 1 view .LVU241
+ 1170              		.cfi_endproc
+ 1171              	.LFE84:
+ 1173              		.section	.text.LCD_LIGHT,"ax",%progbits
+ 1174              		.align	1
+ 1175              		.global	LCD_LIGHT
+ 1176              		.syntax unified
+ 1177              		.thumb
+ 1178              		.thumb_func
+ 1179              		.fpu softvfp
+ 1181              	LCD_LIGHT:
+ 1182              	.LFB85:
+ 214:Src/hd44780.c **** 
+ 215:Src/hd44780.c **** // bool get_lcd_light(void)
+ 216:Src/hd44780.c **** // {
+ 217:Src/hd44780.c **** // 	return hd44780.light;
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 26
+
+
+ 218:Src/hd44780.c **** // }
+ 219:Src/hd44780.c **** 
+ 220:Src/hd44780.c **** void LCD_LIGHT()
+ 221:Src/hd44780.c **** {
+ 1183              		.loc 1 221 1 is_stmt 1 view -0
+ 1184              		.cfi_startproc
+ 1185              		@ args = 0, pretend = 0, frame = 0
+ 1186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1187 0000 08B5     		push	{r3, lr}
+ 1188              	.LCFI21:
+ 1189              		.cfi_def_cfa_offset 8
+ 1190              		.cfi_offset 3, -8
+ 1191              		.cfi_offset 14, -4
+ 222:Src/hd44780.c **** 		HAL_GPIO_WritePin(LCD_LIGHT_GPIO_Port, LCD_LIGHT_Pin, GPIO_PIN_SET);
+ 1192              		.loc 1 222 3 view .LVU243
+ 1193 0002 0122     		movs	r2, #1
+ 1194 0004 8021     		movs	r1, #128
+ 1195 0006 0248     		ldr	r0, .L93
+ 1196 0008 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1197              	.LVL101:
+ 223:Src/hd44780.c **** }...
+ 1198              		.loc 1 223 1 is_stmt 0 view .LVU244
+ 1199 000c 08BD     		pop	{r3, pc}
+ 1200              	.L94:
+ 1201 000e 00BF     		.align	2
+ 1202              	.L93:
+ 1203 0010 00140140 		.word	1073812480
+ 1204              		.cfi_endproc
+ 1205              	.LFE85:
+ 1207              		.comm	hd44780,7,4
+ 1208              		.section	.rodata
+ 1209              		.align	2
+ 1210              		.set	.LANCHOR0,. + 0
+ 1211              	.LC0:
+ 1212 0000 00       		.byte	0
+ 1213 0001 40       		.byte	64
+ 1214 0002 14       		.byte	20
+ 1215 0003 54       		.byte	84
+ 1216              		.text
+ 1217              	.Letext0:
+ 1218              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 1219              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 1220              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 1221              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 1222              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 1223              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
+ 1224              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 1225              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 1226              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
+ 1227              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 1228              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1229              		.file 13 "Inc/hd44780.h"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 27
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 hd44780.c
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:16     .text.HD44780_Cmd4bit:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:24     .text.HD44780_Cmd4bit:00000000 HD44780_Cmd4bit
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:149    .text.HD44780_Cmd4bit:000000a8 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:154    .text.HD44780_Cmd:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:161    .text.HD44780_Cmd:00000000 HD44780_Cmd
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:196    .text.HD44780_Cmd:00000020 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:201    .text.HD44780_Data:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:208    .text.HD44780_Data:00000000 HD44780_Data
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:243    .text.HD44780_Data:00000020 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:248    .text.HD44780_DisplayOn:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:255    .text.HD44780_DisplayOn:00000000 HD44780_DisplayOn
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:281    .text.HD44780_DisplayOn:00000018 $d
+                            *COM*:00000007 hd44780
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:286    .text.HD44780_DisplayOff:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:293    .text.HD44780_DisplayOff:00000000 HD44780_DisplayOff
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:319    .text.HD44780_DisplayOff:00000018 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:324    .text.HD44780_Clear:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:331    .text.HD44780_Clear:00000000 HD44780_Clear
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:352    .text.HD44780_Init:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:359    .text.HD44780_Init:00000000 HD44780_Init
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:510    .text.HD44780_Init:000000bc $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:516    .text.HD44780_CursorSet:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:523    .text.HD44780_CursorSet:00000000 HD44780_CursorSet
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:592    .text.HD44780_CursorSet:00000040 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:598    .text.HD44780_Puts:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:605    .text.HD44780_Puts:00000000 HD44780_Puts
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:712    .text.HD44780_Puts:00000064 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:717    .text.HD44780_BlinkOn:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:724    .text.HD44780_BlinkOn:00000000 HD44780_BlinkOn
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:750    .text.HD44780_BlinkOn:00000018 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:755    .text.HD44780_BlinkOff:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:762    .text.HD44780_BlinkOff:00000000 HD44780_BlinkOff
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:788    .text.HD44780_BlinkOff:00000018 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:793    .text.HD44780_CursorOn:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:800    .text.HD44780_CursorOn:00000000 HD44780_CursorOn
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:826    .text.HD44780_CursorOn:00000018 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:831    .text.HD44780_CursorOff:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:838    .text.HD44780_CursorOff:00000000 HD44780_CursorOff
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:864    .text.HD44780_CursorOff:00000018 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:869    .text.HD44780_ScrollLeft:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:876    .text.HD44780_ScrollLeft:00000000 HD44780_ScrollLeft
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:897    .text.HD44780_ScrollRight:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:904    .text.HD44780_ScrollRight:00000000 HD44780_ScrollRight
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:925    .text.HD44780_CreateChar:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:932    .text.HD44780_CreateChar:00000000 HD44780_CreateChar
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:989    .text.HD44780_PutCustom:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:996    .text.HD44780_PutCustom:00000000 HD44780_PutCustom
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:1023   .text.LCD_DisplayCGRAM0:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:1030   .text.LCD_DisplayCGRAM0:00000000 LCD_DisplayCGRAM0
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:1098   .text.LCD_DisplayCGRAM1:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:1105   .text.LCD_DisplayCGRAM1:00000000 LCD_DisplayCGRAM1
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:1174   .text.LCD_LIGHT:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:1181   .text.LCD_LIGHT:00000000 LCD_LIGHT
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:1203   .text.LCD_LIGHT:00000010 $d
+C:\Users\behun\AppData\Local\Temp\ccHP08zD.s:1209   .rodata:00000000 $d
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHP08zD.s 			page 28
+
+
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_Delay

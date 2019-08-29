@@ -1,0 +1,802 @@
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"lcd.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.LCD_Delay,"ax",%progbits
+  16              		.align	1
+  17              		.global	LCD_Delay
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	LCD_Delay:
+  25              	.LFB66:
+  26              		.file 1 "Src/lcd.c"
+   1:Src/lcd.c     **** #include "lcd.h"
+   2:Src/lcd.c     **** 
+   3:Src/lcd.c     **** void LCD_Delay(void);
+   4:Src/lcd.c     **** void LCD_Write4Bits(uint8_t nb);
+   5:Src/lcd.c     **** void LCD_PulseEnable(void);
+   6:Src/lcd.c     **** 
+   7:Src/lcd.c     **** void LCD_Delay(void)
+   8:Src/lcd.c     **** {
+  27              		.loc 1 8 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+   9:Src/lcd.c     ****   uint16_t i;
+  32              		.loc 1 9 3 view .LVU1
+  10:Src/lcd.c     ****   for (i = 0; i < 1000; i++) {}
+  33              		.loc 1 10 3 view .LVU2
+  34              	.LVL0:
+  35              		.loc 1 10 10 is_stmt 0 view .LVU3
+  36 0000 0023     		movs	r3, #0
+  37              	.LVL1:
+  38              	.L2:
+  39              		.loc 1 10 3 discriminator 1 view .LVU4
+  40 0002 B3F57A7F 		cmp	r3, #1000
+  41 0006 02D2     		bcs	.L4
+  42              		.loc 1 10 31 is_stmt 1 discriminator 3 view .LVU5
+  43              		.loc 1 10 26 is_stmt 0 discriminator 3 view .LVU6
+  44 0008 0133     		adds	r3, r3, #1
+  45              	.LVL2:
+  46              		.loc 1 10 26 discriminator 3 view .LVU7
+  47 000a 9BB2     		uxth	r3, r3
+  48              	.LVL3:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 2
+
+
+  49              		.loc 1 10 26 discriminator 3 view .LVU8
+  50 000c F9E7     		b	.L2
+  51              	.L4:
+  11:Src/lcd.c     **** }
+  52              		.loc 1 11 1 view .LVU9
+  53 000e 7047     		bx	lr
+  54              		.cfi_endproc
+  55              	.LFE66:
+  57              		.section	.text.LCD_PulseEnable,"ax",%progbits
+  58              		.align	1
+  59              		.global	LCD_PulseEnable
+  60              		.syntax unified
+  61              		.thumb
+  62              		.thumb_func
+  63              		.fpu softvfp
+  65              	LCD_PulseEnable:
+  66              	.LFB67:
+  12:Src/lcd.c     **** 
+  13:Src/lcd.c     **** void LCD_PulseEnable(void)
+  14:Src/lcd.c     **** {
+  67              		.loc 1 14 1 is_stmt 1 view -0
+  68              		.cfi_startproc
+  69              		@ args = 0, pretend = 0, frame = 0
+  70              		@ frame_needed = 0, uses_anonymous_args = 0
+  71 0000 10B5     		push	{r4, lr}
+  72              	.LCFI0:
+  73              		.cfi_def_cfa_offset 8
+  74              		.cfi_offset 4, -8
+  75              		.cfi_offset 14, -4
+  15:Src/lcd.c     ****   EN_RESET();
+  76              		.loc 1 15 3 view .LVU11
+  77 0002 0A4C     		ldr	r4, .L7
+  78 0004 0022     		movs	r2, #0
+  79 0006 4021     		movs	r1, #64
+  80 0008 2046     		mov	r0, r4
+  81 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  82              	.LVL4:
+  83              		.loc 1 15 13 view .LVU12
+  16:Src/lcd.c     ****   LCD_Delay();
+  84              		.loc 1 16 3 view .LVU13
+  17:Src/lcd.c     ****   EN_SET();
+  85              		.loc 1 17 3 view .LVU14
+  86 000e 0122     		movs	r2, #1
+  87 0010 4021     		movs	r1, #64
+  88 0012 2046     		mov	r0, r4
+  89 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  90              	.LVL5:
+  91              		.loc 1 17 11 view .LVU15
+  18:Src/lcd.c     ****   LCD_Delay();
+  92              		.loc 1 18 3 view .LVU16
+  19:Src/lcd.c     ****   EN_RESET();
+  93              		.loc 1 19 3 view .LVU17
+  94 0018 0022     		movs	r2, #0
+  95 001a 4021     		movs	r1, #64
+  96 001c 2046     		mov	r0, r4
+  97 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  98              	.LVL6:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 3
+
+
+  99              		.loc 1 19 13 view .LVU18
+  20:Src/lcd.c     ****   HAL_Delay(1);
+ 100              		.loc 1 20 3 view .LVU19
+ 101 0022 0120     		movs	r0, #1
+ 102 0024 FFF7FEFF 		bl	HAL_Delay
+ 103              	.LVL7:
+  21:Src/lcd.c     **** }
+ 104              		.loc 1 21 1 is_stmt 0 view .LVU20
+ 105 0028 10BD     		pop	{r4, pc}
+ 106              	.L8:
+ 107 002a 00BF     		.align	2
+ 108              	.L7:
+ 109 002c 00140140 		.word	1073812480
+ 110              		.cfi_endproc
+ 111              	.LFE67:
+ 113              		.section	.text.LCD_Write4Bits,"ax",%progbits
+ 114              		.align	1
+ 115              		.global	LCD_Write4Bits
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.fpu softvfp
+ 121              	LCD_Write4Bits:
+ 122              	.LVL8:
+ 123              	.LFB68:
+  22:Src/lcd.c     **** 
+  23:Src/lcd.c     **** void LCD_Write4Bits(uint8_t nb)
+  24:Src/lcd.c     **** {
+ 124              		.loc 1 24 1 is_stmt 1 view -0
+ 125              		.cfi_startproc
+ 126              		@ args = 0, pretend = 0, frame = 0
+ 127              		@ frame_needed = 0, uses_anonymous_args = 0
+ 128              		.loc 1 24 1 is_stmt 0 view .LVU22
+ 129 0000 10B5     		push	{r4, lr}
+ 130              	.LCFI1:
+ 131              		.cfi_def_cfa_offset 8
+ 132              		.cfi_offset 4, -8
+ 133              		.cfi_offset 14, -4
+ 134 0002 0446     		mov	r4, r0
+  25:Src/lcd.c     ****   if (((nb >> 0) & 0x01) == 1) { D4_SET(); } else { D4_RESET(); }
+ 135              		.loc 1 25 3 is_stmt 1 view .LVU23
+ 136              		.loc 1 25 6 is_stmt 0 view .LVU24
+ 137 0004 10F0010F 		tst	r0, #1
+ 138 0008 1FD0     		beq	.L10
+ 139              		.loc 1 25 34 is_stmt 1 discriminator 1 view .LVU25
+ 140 000a 0122     		movs	r2, #1
+ 141 000c 1146     		mov	r1, r2
+ 142 000e 1B48     		ldr	r0, .L19
+ 143              	.LVL9:
+ 144              		.loc 1 25 34 is_stmt 0 discriminator 1 view .LVU26
+ 145 0010 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 146              	.LVL10:
+ 147              		.loc 1 25 42 is_stmt 1 discriminator 1 view .LVU27
+ 148              	.L11:
+ 149              		.loc 1 25 63 discriminator 4 view .LVU28
+  26:Src/lcd.c     ****   if (((nb >> 1) & 0x01) == 1) { D5_SET(); } else { D5_RESET(); }
+ 150              		.loc 1 26 3 discriminator 4 view .LVU29
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 4
+
+
+ 151              		.loc 1 26 6 is_stmt 0 discriminator 4 view .LVU30
+ 152 0014 14F0020F 		tst	r4, #2
+ 153 0018 1DD0     		beq	.L12
+ 154              		.loc 1 26 34 is_stmt 1 discriminator 1 view .LVU31
+ 155 001a 0122     		movs	r2, #1
+ 156 001c 0221     		movs	r1, #2
+ 157 001e 1748     		ldr	r0, .L19
+ 158 0020 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 159              	.LVL11:
+ 160              		.loc 1 26 42 discriminator 1 view .LVU32
+ 161              	.L13:
+ 162              		.loc 1 26 63 discriminator 4 view .LVU33
+  27:Src/lcd.c     ****   if (((nb >> 2) & 0x01) == 1) { D6_SET(); } else { D6_RESET(); }
+ 163              		.loc 1 27 3 discriminator 4 view .LVU34
+ 164              		.loc 1 27 6 is_stmt 0 discriminator 4 view .LVU35
+ 165 0024 14F0040F 		tst	r4, #4
+ 166 0028 1BD0     		beq	.L14
+ 167              		.loc 1 27 34 is_stmt 1 discriminator 1 view .LVU36
+ 168 002a 0122     		movs	r2, #1
+ 169 002c 0421     		movs	r1, #4
+ 170 002e 1348     		ldr	r0, .L19
+ 171 0030 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 172              	.LVL12:
+ 173              		.loc 1 27 42 discriminator 1 view .LVU37
+ 174              	.L15:
+ 175              		.loc 1 27 63 discriminator 4 view .LVU38
+  28:Src/lcd.c     ****   if (((nb >> 3) & 0x01) == 1) { D7_SET(); } else { D7_RESET(); }
+ 176              		.loc 1 28 3 discriminator 4 view .LVU39
+ 177              		.loc 1 28 6 is_stmt 0 discriminator 4 view .LVU40
+ 178 0034 14F0080F 		tst	r4, #8
+ 179 0038 19D0     		beq	.L16
+ 180              		.loc 1 28 34 is_stmt 1 discriminator 1 view .LVU41
+ 181 003a 0122     		movs	r2, #1
+ 182 003c 0821     		movs	r1, #8
+ 183 003e 0F48     		ldr	r0, .L19
+ 184 0040 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 185              	.LVL13:
+ 186              		.loc 1 28 42 discriminator 1 view .LVU42
+ 187              	.L17:
+ 188              		.loc 1 28 63 discriminator 4 view .LVU43
+  29:Src/lcd.c     ****   LCD_PulseEnable();
+ 189              		.loc 1 29 3 discriminator 4 view .LVU44
+ 190 0044 FFF7FEFF 		bl	LCD_PulseEnable
+ 191              	.LVL14:
+  30:Src/lcd.c     **** }
+ 192              		.loc 1 30 1 is_stmt 0 discriminator 4 view .LVU45
+ 193 0048 10BD     		pop	{r4, pc}
+ 194              	.LVL15:
+ 195              	.L10:
+  25:Src/lcd.c     ****   if (((nb >> 1) & 0x01) == 1) { D5_SET(); } else { D5_RESET(); }
+ 196              		.loc 1 25 53 is_stmt 1 discriminator 2 view .LVU46
+ 197 004a 0022     		movs	r2, #0
+ 198 004c 0121     		movs	r1, #1
+ 199 004e 0B48     		ldr	r0, .L19
+ 200              	.LVL16:
+  25:Src/lcd.c     ****   if (((nb >> 1) & 0x01) == 1) { D5_SET(); } else { D5_RESET(); }
+ 201              		.loc 1 25 53 is_stmt 0 discriminator 2 view .LVU47
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 5
+
+
+ 202 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 203              	.LVL17:
+ 204 0054 DEE7     		b	.L11
+ 205              	.L12:
+  26:Src/lcd.c     ****   if (((nb >> 2) & 0x01) == 1) { D6_SET(); } else { D6_RESET(); }
+ 206              		.loc 1 26 53 is_stmt 1 discriminator 2 view .LVU48
+ 207 0056 0022     		movs	r2, #0
+ 208 0058 0221     		movs	r1, #2
+ 209 005a 0848     		ldr	r0, .L19
+ 210 005c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 211              	.LVL18:
+ 212 0060 E0E7     		b	.L13
+ 213              	.L14:
+  27:Src/lcd.c     ****   if (((nb >> 3) & 0x01) == 1) { D7_SET(); } else { D7_RESET(); }
+ 214              		.loc 1 27 53 discriminator 2 view .LVU49
+ 215 0062 0022     		movs	r2, #0
+ 216 0064 0421     		movs	r1, #4
+ 217 0066 0548     		ldr	r0, .L19
+ 218 0068 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 219              	.LVL19:
+ 220 006c E2E7     		b	.L15
+ 221              	.L16:
+  28:Src/lcd.c     ****   LCD_PulseEnable();
+ 222              		.loc 1 28 53 discriminator 2 view .LVU50
+ 223 006e 0022     		movs	r2, #0
+ 224 0070 0821     		movs	r1, #8
+ 225 0072 0248     		ldr	r0, .L19
+ 226 0074 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 227              	.LVL20:
+ 228 0078 E4E7     		b	.L17
+ 229              	.L20:
+ 230 007a 00BF     		.align	2
+ 231              	.L19:
+ 232 007c 00140140 		.word	1073812480
+ 233              		.cfi_endproc
+ 234              	.LFE68:
+ 236              		.section	.text.LCD_Command,"ax",%progbits
+ 237              		.align	1
+ 238              		.global	LCD_Command
+ 239              		.syntax unified
+ 240              		.thumb
+ 241              		.thumb_func
+ 242              		.fpu softvfp
+ 244              	LCD_Command:
+ 245              	.LVL21:
+ 246              	.LFB69:
+  31:Src/lcd.c     **** 
+  32:Src/lcd.c     **** void LCD_Command(uint8_t cmd)
+  33:Src/lcd.c     **** {
+ 247              		.loc 1 33 1 view -0
+ 248              		.cfi_startproc
+ 249              		@ args = 0, pretend = 0, frame = 0
+ 250              		@ frame_needed = 0, uses_anonymous_args = 0
+ 251              		.loc 1 33 1 is_stmt 0 view .LVU52
+ 252 0000 38B5     		push	{r3, r4, r5, lr}
+ 253              	.LCFI2:
+ 254              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 6
+
+
+ 255              		.cfi_offset 3, -16
+ 256              		.cfi_offset 4, -12
+ 257              		.cfi_offset 5, -8
+ 258              		.cfi_offset 14, -4
+ 259 0002 0446     		mov	r4, r0
+  34:Src/lcd.c     ****   RS_RESET();
+ 260              		.loc 1 34 3 is_stmt 1 view .LVU53
+ 261 0004 084D     		ldr	r5, .L23
+ 262 0006 0022     		movs	r2, #0
+ 263 0008 1021     		movs	r1, #16
+ 264 000a 2846     		mov	r0, r5
+ 265              	.LVL22:
+ 266              		.loc 1 34 3 is_stmt 0 view .LVU54
+ 267 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 268              	.LVL23:
+ 269              		.loc 1 34 13 is_stmt 1 view .LVU55
+  35:Src/lcd.c     ****   RW_RESET();
+ 270              		.loc 1 35 3 view .LVU56
+ 271 0010 0022     		movs	r2, #0
+ 272 0012 2021     		movs	r1, #32
+ 273 0014 2846     		mov	r0, r5
+ 274 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 275              	.LVL24:
+ 276              		.loc 1 35 13 view .LVU57
+  36:Src/lcd.c     ****   LCD_Write4Bits(cmd >> 4);
+ 277              		.loc 1 36 3 view .LVU58
+ 278 001a 2009     		lsrs	r0, r4, #4
+ 279 001c FFF7FEFF 		bl	LCD_Write4Bits
+ 280              	.LVL25:
+  37:Src/lcd.c     ****   LCD_Write4Bits(cmd);
+ 281              		.loc 1 37 3 view .LVU59
+ 282 0020 2046     		mov	r0, r4
+ 283 0022 FFF7FEFF 		bl	LCD_Write4Bits
+ 284              	.LVL26:
+  38:Src/lcd.c     **** }
+ 285              		.loc 1 38 1 is_stmt 0 view .LVU60
+ 286 0026 38BD     		pop	{r3, r4, r5, pc}
+ 287              	.L24:
+ 288              		.align	2
+ 289              	.L23:
+ 290 0028 00140140 		.word	1073812480
+ 291              		.cfi_endproc
+ 292              	.LFE69:
+ 294              		.section	.text.LCD_Data,"ax",%progbits
+ 295              		.align	1
+ 296              		.global	LCD_Data
+ 297              		.syntax unified
+ 298              		.thumb
+ 299              		.thumb_func
+ 300              		.fpu softvfp
+ 302              	LCD_Data:
+ 303              	.LVL27:
+ 304              	.LFB70:
+  39:Src/lcd.c     **** 
+  40:Src/lcd.c     **** void LCD_Data(uint8_t dt)
+  41:Src/lcd.c     **** {
+ 305              		.loc 1 41 1 is_stmt 1 view -0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 7
+
+
+ 306              		.cfi_startproc
+ 307              		@ args = 0, pretend = 0, frame = 0
+ 308              		@ frame_needed = 0, uses_anonymous_args = 0
+ 309              		.loc 1 41 1 is_stmt 0 view .LVU62
+ 310 0000 38B5     		push	{r3, r4, r5, lr}
+ 311              	.LCFI3:
+ 312              		.cfi_def_cfa_offset 16
+ 313              		.cfi_offset 3, -16
+ 314              		.cfi_offset 4, -12
+ 315              		.cfi_offset 5, -8
+ 316              		.cfi_offset 14, -4
+ 317 0002 0546     		mov	r5, r0
+  42:Src/lcd.c     ****   LIGHT_SET();
+ 318              		.loc 1 42 3 is_stmt 1 view .LVU63
+ 319 0004 0B4C     		ldr	r4, .L27
+ 320 0006 0122     		movs	r2, #1
+ 321 0008 8021     		movs	r1, #128
+ 322 000a 2046     		mov	r0, r4
+ 323              	.LVL28:
+ 324              		.loc 1 42 3 is_stmt 0 view .LVU64
+ 325 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 326              	.LVL29:
+ 327              		.loc 1 42 14 is_stmt 1 view .LVU65
+  43:Src/lcd.c     ****   RS_SET();
+ 328              		.loc 1 43 3 view .LVU66
+ 329 0010 0122     		movs	r2, #1
+ 330 0012 1021     		movs	r1, #16
+ 331 0014 2046     		mov	r0, r4
+ 332 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 333              	.LVL30:
+ 334              		.loc 1 43 11 view .LVU67
+  44:Src/lcd.c     ****   RW_RESET();
+ 335              		.loc 1 44 3 view .LVU68
+ 336 001a 0022     		movs	r2, #0
+ 337 001c 2021     		movs	r1, #32
+ 338 001e 2046     		mov	r0, r4
+ 339 0020 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 340              	.LVL31:
+ 341              		.loc 1 44 13 view .LVU69
+  45:Src/lcd.c     ****   LCD_Write4Bits(dt >> 4);
+ 342              		.loc 1 45 3 view .LVU70
+ 343 0024 2809     		lsrs	r0, r5, #4
+ 344 0026 FFF7FEFF 		bl	LCD_Write4Bits
+ 345              	.LVL32:
+  46:Src/lcd.c     ****   LCD_Write4Bits(dt);
+ 346              		.loc 1 46 3 view .LVU71
+ 347 002a 2846     		mov	r0, r5
+ 348 002c FFF7FEFF 		bl	LCD_Write4Bits
+ 349              	.LVL33:
+  47:Src/lcd.c     **** }
+ 350              		.loc 1 47 1 is_stmt 0 view .LVU72
+ 351 0030 38BD     		pop	{r3, r4, r5, pc}
+ 352              	.L28:
+ 353 0032 00BF     		.align	2
+ 354              	.L27:
+ 355 0034 00140140 		.word	1073812480
+ 356              		.cfi_endproc
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 8
+
+
+ 357              	.LFE70:
+ 359              		.section	.text.LCD_Char,"ax",%progbits
+ 360              		.align	1
+ 361              		.global	LCD_Char
+ 362              		.syntax unified
+ 363              		.thumb
+ 364              		.thumb_func
+ 365              		.fpu softvfp
+ 367              	LCD_Char:
+ 368              	.LVL34:
+ 369              	.LFB71:
+  48:Src/lcd.c     **** 
+  49:Src/lcd.c     **** void LCD_Char(char chr)
+  50:Src/lcd.c     **** {
+ 370              		.loc 1 50 1 is_stmt 1 view -0
+ 371              		.cfi_startproc
+ 372              		@ args = 0, pretend = 0, frame = 0
+ 373              		@ frame_needed = 0, uses_anonymous_args = 0
+ 374              		.loc 1 50 1 is_stmt 0 view .LVU74
+ 375 0000 08B5     		push	{r3, lr}
+ 376              	.LCFI4:
+ 377              		.cfi_def_cfa_offset 8
+ 378              		.cfi_offset 3, -8
+ 379              		.cfi_offset 14, -4
+  51:Src/lcd.c     ****   LCD_Data((uint8_t) chr);
+ 380              		.loc 1 51 3 is_stmt 1 view .LVU75
+ 381 0002 FFF7FEFF 		bl	LCD_Data
+ 382              	.LVL35:
+  52:Src/lcd.c     **** }
+ 383              		.loc 1 52 1 is_stmt 0 view .LVU76
+ 384 0006 08BD     		pop	{r3, pc}
+ 385              		.cfi_endproc
+ 386              	.LFE71:
+ 388              		.section	.text.LCD_String,"ax",%progbits
+ 389              		.align	1
+ 390              		.global	LCD_String
+ 391              		.syntax unified
+ 392              		.thumb
+ 393              		.thumb_func
+ 394              		.fpu softvfp
+ 396              	LCD_String:
+ 397              	.LVL36:
+ 398              	.LFB72:
+  53:Src/lcd.c     **** 
+  54:Src/lcd.c     **** void LCD_String(char * str)
+  55:Src/lcd.c     **** {
+ 399              		.loc 1 55 1 is_stmt 1 view -0
+ 400              		.cfi_startproc
+ 401              		@ args = 0, pretend = 0, frame = 0
+ 402              		@ frame_needed = 0, uses_anonymous_args = 0
+ 403              		.loc 1 55 1 is_stmt 0 view .LVU78
+ 404 0000 38B5     		push	{r3, r4, r5, lr}
+ 405              	.LCFI5:
+ 406              		.cfi_def_cfa_offset 16
+ 407              		.cfi_offset 3, -16
+ 408              		.cfi_offset 4, -12
+ 409              		.cfi_offset 5, -8
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 9
+
+
+ 410              		.cfi_offset 14, -4
+ 411 0002 0546     		mov	r5, r0
+  56:Src/lcd.c     ****   uint8_t i = 0;
+ 412              		.loc 1 56 3 is_stmt 1 view .LVU79
+ 413              	.LVL37:
+  57:Src/lcd.c     ****   while (str[i] != 0)
+ 414              		.loc 1 57 3 view .LVU80
+  56:Src/lcd.c     ****   uint8_t i = 0;
+ 415              		.loc 1 56 11 is_stmt 0 view .LVU81
+ 416 0004 0024     		movs	r4, #0
+ 417              	.LVL38:
+ 418              	.L32:
+ 419              		.loc 1 57 13 view .LVU82
+ 420 0006 285D     		ldrb	r0, [r5, r4]	@ zero_extendqisi2
+ 421              		.loc 1 57 9 view .LVU83
+ 422 0008 20B1     		cbz	r0, .L35
+  58:Src/lcd.c     ****   {
+  59:Src/lcd.c     ****    LCD_Char(str[i]);
+ 423              		.loc 1 59 4 is_stmt 1 view .LVU84
+ 424 000a FFF7FEFF 		bl	LCD_Char
+ 425              	.LVL39:
+  60:Src/lcd.c     ****    i++;
+ 426              		.loc 1 60 4 view .LVU85
+ 427              		.loc 1 60 5 is_stmt 0 view .LVU86
+ 428 000e 0134     		adds	r4, r4, #1
+ 429              	.LVL40:
+ 430              		.loc 1 60 5 view .LVU87
+ 431 0010 E4B2     		uxtb	r4, r4
+ 432              	.LVL41:
+ 433              		.loc 1 60 5 view .LVU88
+ 434 0012 F8E7     		b	.L32
+ 435              	.L35:
+  61:Src/lcd.c     ****   }
+  62:Src/lcd.c     **** }
+ 436              		.loc 1 62 1 view .LVU89
+ 437 0014 38BD     		pop	{r3, r4, r5, pc}
+ 438              		.loc 1 62 1 view .LVU90
+ 439              		.cfi_endproc
+ 440              	.LFE72:
+ 442              		.section	.text.LCD_SetPos,"ax",%progbits
+ 443              		.align	1
+ 444              		.global	LCD_SetPos
+ 445              		.syntax unified
+ 446              		.thumb
+ 447              		.thumb_func
+ 448              		.fpu softvfp
+ 450              	LCD_SetPos:
+ 451              	.LVL42:
+ 452              	.LFB73:
+  63:Src/lcd.c     **** 
+  64:Src/lcd.c     **** void LCD_SetPos(uint8_t x, uint8_t y)
+  65:Src/lcd.c     **** {
+ 453              		.loc 1 65 1 is_stmt 1 view -0
+ 454              		.cfi_startproc
+ 455              		@ args = 0, pretend = 0, frame = 8
+ 456              		@ frame_needed = 0, uses_anonymous_args = 0
+ 457              		.loc 1 65 1 is_stmt 0 view .LVU92
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 10
+
+
+ 458 0000 00B5     		push	{lr}
+ 459              	.LCFI6:
+ 460              		.cfi_def_cfa_offset 4
+ 461              		.cfi_offset 14, -4
+ 462 0002 83B0     		sub	sp, sp, #12
+ 463              	.LCFI7:
+ 464              		.cfi_def_cfa_offset 16
+  66:Src/lcd.c     ****   uint8_t firstChar[] = {0x80, 0xC0, 0x94, 0xD4};
+ 465              		.loc 1 66 3 is_stmt 1 view .LVU93
+ 466              		.loc 1 66 11 is_stmt 0 view .LVU94
+ 467 0004 064B     		ldr	r3, .L38
+ 468 0006 1B68     		ldr	r3, [r3]
+ 469 0008 0193     		str	r3, [sp, #4]
+  67:Src/lcd.c     ****   //uint8_t firstChar[] = {0x00, 0x40, 0x14, 0x54};
+  68:Src/lcd.c     ****   LCD_Command(firstChar[y] + x);
+ 470              		.loc 1 68 3 is_stmt 1 view .LVU95
+ 471              		.loc 1 68 24 is_stmt 0 view .LVU96
+ 472 000a 02AB     		add	r3, sp, #8
+ 473 000c 1944     		add	r1, r1, r3
+ 474              	.LVL43:
+ 475              		.loc 1 68 24 view .LVU97
+ 476 000e 11F8043C 		ldrb	r3, [r1, #-4]	@ zero_extendqisi2
+ 477              		.loc 1 68 3 view .LVU98
+ 478 0012 1844     		add	r0, r0, r3
+ 479              	.LVL44:
+ 480              		.loc 1 68 3 view .LVU99
+ 481 0014 C0B2     		uxtb	r0, r0
+ 482 0016 FFF7FEFF 		bl	LCD_Command
+ 483              	.LVL45:
+  69:Src/lcd.c     **** }
+ 484              		.loc 1 69 1 view .LVU100
+ 485 001a 03B0     		add	sp, sp, #12
+ 486              	.LCFI8:
+ 487              		.cfi_def_cfa_offset 4
+ 488              		@ sp needed
+ 489 001c 5DF804FB 		ldr	pc, [sp], #4
+ 490              	.L39:
+ 491              		.align	2
+ 492              	.L38:
+ 493 0020 00000000 		.word	.LANCHOR0
+ 494              		.cfi_endproc
+ 495              	.LFE73:
+ 497              		.section	.text.LCD_Clear,"ax",%progbits
+ 498              		.align	1
+ 499              		.global	LCD_Clear
+ 500              		.syntax unified
+ 501              		.thumb
+ 502              		.thumb_func
+ 503              		.fpu softvfp
+ 505              	LCD_Clear:
+ 506              	.LFB74:
+  70:Src/lcd.c     **** 
+  71:Src/lcd.c     **** void LCD_Clear(void)
+  72:Src/lcd.c     **** {
+ 507              		.loc 1 72 1 is_stmt 1 view -0
+ 508              		.cfi_startproc
+ 509              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 11
+
+
+ 510              		@ frame_needed = 0, uses_anonymous_args = 0
+ 511 0000 08B5     		push	{r3, lr}
+ 512              	.LCFI9:
+ 513              		.cfi_def_cfa_offset 8
+ 514              		.cfi_offset 3, -8
+ 515              		.cfi_offset 14, -4
+  73:Src/lcd.c     ****   LCD_Command(0x01);
+ 516              		.loc 1 73 3 view .LVU102
+ 517 0002 0120     		movs	r0, #1
+ 518 0004 FFF7FEFF 		bl	LCD_Command
+ 519              	.LVL46:
+  74:Src/lcd.c     ****   HAL_Delay(2);
+ 520              		.loc 1 74 3 view .LVU103
+ 521 0008 0220     		movs	r0, #2
+ 522 000a FFF7FEFF 		bl	HAL_Delay
+ 523              	.LVL47:
+  75:Src/lcd.c     **** }
+ 524              		.loc 1 75 1 is_stmt 0 view .LVU104
+ 525 000e 08BD     		pop	{r3, pc}
+ 526              		.cfi_endproc
+ 527              	.LFE74:
+ 529              		.section	.text.LCD_Init,"ax",%progbits
+ 530              		.align	1
+ 531              		.global	LCD_Init
+ 532              		.syntax unified
+ 533              		.thumb
+ 534              		.thumb_func
+ 535              		.fpu softvfp
+ 537              	LCD_Init:
+ 538              	.LFB75:
+  76:Src/lcd.c     **** 
+  77:Src/lcd.c     **** void LCD_Init(void)
+  78:Src/lcd.c     **** {
+ 539              		.loc 1 78 1 is_stmt 1 view -0
+ 540              		.cfi_startproc
+ 541              		@ args = 0, pretend = 0, frame = 0
+ 542              		@ frame_needed = 0, uses_anonymous_args = 0
+ 543 0000 10B5     		push	{r4, lr}
+ 544              	.LCFI10:
+ 545              		.cfi_def_cfa_offset 8
+ 546              		.cfi_offset 4, -8
+ 547              		.cfi_offset 14, -4
+  79:Src/lcd.c     ****   HAL_Delay(50);
+ 548              		.loc 1 79 3 view .LVU106
+ 549 0002 3220     		movs	r0, #50
+ 550 0004 FFF7FEFF 		bl	HAL_Delay
+ 551              	.LVL48:
+  80:Src/lcd.c     ****   RS_RESET();
+ 552              		.loc 1 80 3 view .LVU107
+ 553 0008 184C     		ldr	r4, .L44
+ 554 000a 0022     		movs	r2, #0
+ 555 000c 1021     		movs	r1, #16
+ 556 000e 2046     		mov	r0, r4
+ 557 0010 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 558              	.LVL49:
+ 559              		.loc 1 80 13 view .LVU108
+  81:Src/lcd.c     ****   EN_RESET();
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 12
+
+
+ 560              		.loc 1 81 3 view .LVU109
+ 561 0014 0022     		movs	r2, #0
+ 562 0016 4021     		movs	r1, #64
+ 563 0018 2046     		mov	r0, r4
+ 564 001a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 565              	.LVL50:
+ 566              		.loc 1 81 13 view .LVU110
+  82:Src/lcd.c     ****   RW_RESET();
+ 567              		.loc 1 82 3 view .LVU111
+ 568 001e 0022     		movs	r2, #0
+ 569 0020 2021     		movs	r1, #32
+ 570 0022 2046     		mov	r0, r4
+ 571 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 572              	.LVL51:
+ 573              		.loc 1 82 13 view .LVU112
+  83:Src/lcd.c     ****   LCD_Write4Bits(0x03);
+ 574              		.loc 1 83 3 view .LVU113
+ 575 0028 0320     		movs	r0, #3
+ 576 002a FFF7FEFF 		bl	LCD_Write4Bits
+ 577              	.LVL52:
+  84:Src/lcd.c     ****   HAL_Delay(5);
+ 578              		.loc 1 84 3 view .LVU114
+ 579 002e 0520     		movs	r0, #5
+ 580 0030 FFF7FEFF 		bl	HAL_Delay
+ 581              	.LVL53:
+  85:Src/lcd.c     ****   LCD_Write4Bits(0x03);
+ 582              		.loc 1 85 3 view .LVU115
+ 583 0034 0320     		movs	r0, #3
+ 584 0036 FFF7FEFF 		bl	LCD_Write4Bits
+ 585              	.LVL54:
+  86:Src/lcd.c     ****   HAL_Delay(5);
+ 586              		.loc 1 86 3 view .LVU116
+ 587 003a 0520     		movs	r0, #5
+ 588 003c FFF7FEFF 		bl	HAL_Delay
+ 589              	.LVL55:
+  87:Src/lcd.c     ****   LCD_Write4Bits(0x03);
+ 590              		.loc 1 87 3 view .LVU117
+ 591 0040 0320     		movs	r0, #3
+ 592 0042 FFF7FEFF 		bl	LCD_Write4Bits
+ 593              	.LVL56:
+  88:Src/lcd.c     ****   HAL_Delay(1);
+ 594              		.loc 1 88 3 view .LVU118
+ 595 0046 0120     		movs	r0, #1
+ 596 0048 FFF7FEFF 		bl	HAL_Delay
+ 597              	.LVL57:
+  89:Src/lcd.c     ****   LCD_Write4Bits(0x02);
+ 598              		.loc 1 89 3 view .LVU119
+ 599 004c 0220     		movs	r0, #2
+ 600 004e FFF7FEFF 		bl	LCD_Write4Bits
+ 601              	.LVL58:
+  90:Src/lcd.c     ****   LCD_Command(0x28);
+ 602              		.loc 1 90 3 view .LVU120
+ 603 0052 2820     		movs	r0, #40
+ 604 0054 FFF7FEFF 		bl	LCD_Command
+ 605              	.LVL59:
+  91:Src/lcd.c     ****   //LCD_Command(0x20);
+  92:Src/lcd.c     ****   LCD_Command(0x0C);
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 13
+
+
+ 606              		.loc 1 92 3 view .LVU121
+ 607 0058 0C20     		movs	r0, #12
+ 608 005a FFF7FEFF 		bl	LCD_Command
+ 609              	.LVL60:
+  93:Src/lcd.c     ****   LCD_Clear();
+ 610              		.loc 1 93 3 view .LVU122
+ 611 005e FFF7FEFF 		bl	LCD_Clear
+ 612              	.LVL61:
+  94:Src/lcd.c     ****   LCD_Command(0x06);
+ 613              		.loc 1 94 3 view .LVU123
+ 614 0062 0620     		movs	r0, #6
+ 615 0064 FFF7FEFF 		bl	LCD_Command
+ 616              	.LVL62:
+  95:Src/lcd.c     **** }...
+ 617              		.loc 1 95 1 is_stmt 0 view .LVU124
+ 618 0068 10BD     		pop	{r4, pc}
+ 619              	.L45:
+ 620 006a 00BF     		.align	2
+ 621              	.L44:
+ 622 006c 00140140 		.word	1073812480
+ 623              		.cfi_endproc
+ 624              	.LFE75:
+ 626              		.section	.rodata
+ 627              		.align	2
+ 628              		.set	.LANCHOR0,. + 0
+ 629              	.LC0:
+ 630 0000 80       		.byte	-128
+ 631 0001 C0       		.byte	-64
+ 632 0002 94       		.byte	-108
+ 633 0003 D4       		.byte	-44
+ 634              		.text
+ 635              	.Letext0:
+ 636              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 637              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 638              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 639              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 640              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 641              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
+ 642              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 643              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 644              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
+ 645              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 646              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lcd.c
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:16     .text.LCD_Delay:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:24     .text.LCD_Delay:00000000 LCD_Delay
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:58     .text.LCD_PulseEnable:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:65     .text.LCD_PulseEnable:00000000 LCD_PulseEnable
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:109    .text.LCD_PulseEnable:0000002c $d
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:114    .text.LCD_Write4Bits:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:121    .text.LCD_Write4Bits:00000000 LCD_Write4Bits
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:232    .text.LCD_Write4Bits:0000007c $d
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:237    .text.LCD_Command:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:244    .text.LCD_Command:00000000 LCD_Command
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:290    .text.LCD_Command:00000028 $d
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:295    .text.LCD_Data:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:302    .text.LCD_Data:00000000 LCD_Data
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:355    .text.LCD_Data:00000034 $d
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:360    .text.LCD_Char:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:367    .text.LCD_Char:00000000 LCD_Char
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:389    .text.LCD_String:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:396    .text.LCD_String:00000000 LCD_String
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:443    .text.LCD_SetPos:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:450    .text.LCD_SetPos:00000000 LCD_SetPos
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:493    .text.LCD_SetPos:00000020 $d
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:498    .text.LCD_Clear:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:505    .text.LCD_Clear:00000000 LCD_Clear
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:530    .text.LCD_Init:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:537    .text.LCD_Init:00000000 LCD_Init
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:622    .text.LCD_Init:0000006c $d
+C:\Users\behun\AppData\Local\Temp\ccaWr5aM.s:627    .rodata:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_Delay
