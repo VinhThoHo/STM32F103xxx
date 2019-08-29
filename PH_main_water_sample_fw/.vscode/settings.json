@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "timertick.h": "c",
+        "rcc.h": "c"
+    }
+}
