@@ -13,7 +13,5 @@
 #define atsh_reset_led1() HAL_GPIO_WritePin(atsh_led1_gpio_port, atsh_led1_pin, GPIO_PIN_RESET);
 #define atsh_reset_led2() HAL_GPIO_WritePin(atsh_led2_gpio_port, atsh_led2_pin, GPIO_PIN_RESET);
 
-void time();
-void led_init(void);
-void gpio_init(void);
+static void led_init(void);
 #endif
