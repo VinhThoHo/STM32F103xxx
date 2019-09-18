@@ -1,0 +1,254 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8x8_u8toa.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8x8_u8toap,"ax",%progbits
+  16              		.align	1
+  17              		.global	u8x8_u8toap
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	u8x8_u8toap:
+  24              	.LFB0:
+  25              		.file 1 "u8g2/csrc/u8x8_u8toa.c"
+   1:u8g2/csrc/u8x8_u8toa.c **** /*
+   2:u8g2/csrc/u8x8_u8toa.c **** 
+   3:u8g2/csrc/u8x8_u8toa.c ****   u8x8_u8toa.c
+   4:u8g2/csrc/u8x8_u8toa.c **** 
+   5:u8g2/csrc/u8x8_u8toa.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   6:u8g2/csrc/u8x8_u8toa.c **** 
+   7:u8g2/csrc/u8x8_u8toa.c ****   Copyright (c) 2016, olikraus@gmail.com
+   8:u8g2/csrc/u8x8_u8toa.c ****   All rights reserved.
+   9:u8g2/csrc/u8x8_u8toa.c **** 
+  10:u8g2/csrc/u8x8_u8toa.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  11:u8g2/csrc/u8x8_u8toa.c ****   are permitted provided that the following conditions are met:
+  12:u8g2/csrc/u8x8_u8toa.c **** 
+  13:u8g2/csrc/u8x8_u8toa.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  14:u8g2/csrc/u8x8_u8toa.c ****     of conditions and the following disclaimer.
+  15:u8g2/csrc/u8x8_u8toa.c ****     
+  16:u8g2/csrc/u8x8_u8toa.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  17:u8g2/csrc/u8x8_u8toa.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  18:u8g2/csrc/u8x8_u8toa.c ****     materials provided with the distribution.
+  19:u8g2/csrc/u8x8_u8toa.c **** 
+  20:u8g2/csrc/u8x8_u8toa.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  21:u8g2/csrc/u8x8_u8toa.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  22:u8g2/csrc/u8x8_u8toa.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  23:u8g2/csrc/u8x8_u8toa.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  24:u8g2/csrc/u8x8_u8toa.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  25:u8g2/csrc/u8x8_u8toa.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  26:u8g2/csrc/u8x8_u8toa.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  27:u8g2/csrc/u8x8_u8toa.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  28:u8g2/csrc/u8x8_u8toa.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  29:u8g2/csrc/u8x8_u8toa.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  30:u8g2/csrc/u8x8_u8toa.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:u8g2/csrc/u8x8_u8toa.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+  32:u8g2/csrc/u8x8_u8toa.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
+  33:u8g2/csrc/u8x8_u8toa.c ****   
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s 			page 2
+
+
+  34:u8g2/csrc/u8x8_u8toa.c **** */
+  35:u8g2/csrc/u8x8_u8toa.c **** 
+  36:u8g2/csrc/u8x8_u8toa.c **** 
+  37:u8g2/csrc/u8x8_u8toa.c **** #include "u8x8.h"
+  38:u8g2/csrc/u8x8_u8toa.c **** 
+  39:u8g2/csrc/u8x8_u8toa.c **** static const unsigned char u8x8_u8toa_tab[3]  = { 100, 10, 1 } ;
+  40:u8g2/csrc/u8x8_u8toa.c **** const char *u8x8_u8toap(char * dest, uint8_t v)
+  41:u8g2/csrc/u8x8_u8toa.c **** {
+  26              		.loc 1 41 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31              	.LVL0:
+  32 0000 30B4     		push	{r4, r5}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 5, -4
+  37              	.LVL1:
+  42:u8g2/csrc/u8x8_u8toa.c ****   uint8_t pos;
+  43:u8g2/csrc/u8x8_u8toa.c ****   uint8_t d;
+  44:u8g2/csrc/u8x8_u8toa.c ****   uint8_t c;
+  45:u8g2/csrc/u8x8_u8toa.c ****   for( pos = 0; pos < 3; pos++ )
+  38              		.loc 1 45 0
+  39 0002 0024     		movs	r4, #0
+  40 0004 08E0     		b	.L2
+  41              	.LVL2:
+  42              	.L4:
+  46:u8g2/csrc/u8x8_u8toa.c ****   {
+  47:u8g2/csrc/u8x8_u8toa.c ****       d = '0';
+  48:u8g2/csrc/u8x8_u8toa.c ****       c = *(u8x8_u8toa_tab+pos);
+  49:u8g2/csrc/u8x8_u8toa.c ****       while( v >= c )
+  50:u8g2/csrc/u8x8_u8toa.c ****       {
+  51:u8g2/csrc/u8x8_u8toa.c **** 	v -= c;
+  43              		.loc 1 51 0
+  44 0006 891A     		subs	r1, r1, r2
+  45              	.LVL3:
+  46 0008 C9B2     		uxtb	r1, r1
+  47              	.LVL4:
+  52:u8g2/csrc/u8x8_u8toa.c **** 	d++;
+  48              		.loc 1 52 0
+  49 000a 0133     		adds	r3, r3, #1
+  50              	.LVL5:
+  51 000c DBB2     		uxtb	r3, r3
+  52              	.LVL6:
+  53              	.L3:
+  49:u8g2/csrc/u8x8_u8toa.c ****       {
+  54              		.loc 1 49 0
+  55 000e 9142     		cmp	r1, r2
+  56 0010 F9D2     		bcs	.L4
+  53:u8g2/csrc/u8x8_u8toa.c ****       }
+  54:u8g2/csrc/u8x8_u8toa.c ****       dest[pos] = d;
+  57              		.loc 1 54 0 discriminator 2
+  58 0012 4355     		strb	r3, [r0, r5]
+  45:u8g2/csrc/u8x8_u8toa.c ****   {
+  59              		.loc 1 45 0 discriminator 2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s 			page 3
+
+
+  60 0014 0134     		adds	r4, r4, #1
+  61              	.LVL7:
+  62 0016 E4B2     		uxtb	r4, r4
+  63              	.LVL8:
+  64              	.L2:
+  45:u8g2/csrc/u8x8_u8toa.c ****   {
+  65              		.loc 1 45 0 is_stmt 0 discriminator 1
+  66 0018 022C     		cmp	r4, #2
+  67 001a 04D8     		bhi	.L7
+  68              	.LVL9:
+  48:u8g2/csrc/u8x8_u8toa.c ****       while( v >= c )
+  69              		.loc 1 48 0 is_stmt 1
+  70 001c 2546     		mov	r5, r4
+  71 001e 044B     		ldr	r3, .L8
+  72 0020 1A5D     		ldrb	r2, [r3, r4]	@ zero_extendqisi2
+  73              	.LVL10:
+  47:u8g2/csrc/u8x8_u8toa.c ****       c = *(u8x8_u8toa_tab+pos);
+  74              		.loc 1 47 0
+  75 0022 3023     		movs	r3, #48
+  49:u8g2/csrc/u8x8_u8toa.c ****       {
+  76              		.loc 1 49 0
+  77 0024 F3E7     		b	.L3
+  78              	.LVL11:
+  79              	.L7:
+  55:u8g2/csrc/u8x8_u8toa.c ****   }  
+  56:u8g2/csrc/u8x8_u8toa.c ****   dest[3] = '\0';
+  80              		.loc 1 56 0
+  81 0026 0023     		movs	r3, #0
+  82 0028 C370     		strb	r3, [r0, #3]
+  57:u8g2/csrc/u8x8_u8toa.c ****   return dest;
+  58:u8g2/csrc/u8x8_u8toa.c **** }
+  83              		.loc 1 58 0
+  84 002a 30BC     		pop	{r4, r5}
+  85              	.LCFI1:
+  86              		.cfi_restore 5
+  87              		.cfi_restore 4
+  88              		.cfi_def_cfa_offset 0
+  89              	.LVL12:
+  90 002c 7047     		bx	lr
+  91              	.L9:
+  92 002e 00BF     		.align	2
+  93              	.L8:
+  94 0030 00000000 		.word	.LANCHOR0
+  95              		.cfi_endproc
+  96              	.LFE0:
+  98              		.section	.text.u8x8_u8toa,"ax",%progbits
+  99              		.align	1
+ 100              		.global	u8x8_u8toa
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu softvfp
+ 106              	u8x8_u8toa:
+ 107              	.LFB1:
+  59:u8g2/csrc/u8x8_u8toa.c **** 
+  60:u8g2/csrc/u8x8_u8toa.c **** /* v = value, d = number of digits */
+  61:u8g2/csrc/u8x8_u8toa.c **** const char *u8x8_u8toa(uint8_t v, uint8_t d)
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s 			page 4
+
+
+  62:u8g2/csrc/u8x8_u8toa.c **** {
+ 108              		.loc 1 62 0
+ 109              		.cfi_startproc
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 112              	.LVL13:
+ 113 0000 10B5     		push	{r4, lr}
+ 114              	.LCFI2:
+ 115              		.cfi_def_cfa_offset 8
+ 116              		.cfi_offset 4, -8
+ 117              		.cfi_offset 14, -4
+  63:u8g2/csrc/u8x8_u8toa.c ****   static char buf[4];
+  64:u8g2/csrc/u8x8_u8toa.c ****   d = 3-d;
+ 118              		.loc 1 64 0
+ 119 0002 C1F10301 		rsb	r1, r1, #3
+ 120              	.LVL14:
+ 121 0006 CCB2     		uxtb	r4, r1
+ 122              	.LVL15:
+  65:u8g2/csrc/u8x8_u8toa.c ****   return u8x8_u8toap(buf, v) + d;
+ 123              		.loc 1 65 0
+ 124 0008 0146     		mov	r1, r0
+ 125 000a 0248     		ldr	r0, .L12
+ 126              	.LVL16:
+ 127 000c FFF7FEFF 		bl	u8x8_u8toap
+ 128              	.LVL17:
+  66:u8g2/csrc/u8x8_u8toa.c **** }
+ 129              		.loc 1 66 0
+ 130 0010 2044     		add	r0, r0, r4
+ 131 0012 10BD     		pop	{r4, pc}
+ 132              	.LVL18:
+ 133              	.L13:
+ 134              		.align	2
+ 135              	.L12:
+ 136 0014 00000000 		.word	.LANCHOR1
+ 137              		.cfi_endproc
+ 138              	.LFE1:
+ 140              		.section	.bss.buf.5010,"aw",%nobits
+ 141              		.align	2
+ 142              		.set	.LANCHOR1,. + 0
+ 145              	buf.5010:
+ 146 0000 00000000 		.space	4
+ 147              		.section	.rodata.u8x8_u8toa_tab,"a",%progbits
+ 148              		.align	2
+ 149              		.set	.LANCHOR0,. + 0
+ 152              	u8x8_u8toa_tab:
+ 153 0000 64       		.byte	100
+ 154 0001 0A       		.byte	10
+ 155 0002 01       		.byte	1
+ 156              		.text
+ 157              	.Letext0:
+ 158              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 159              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 160              		.file 4 "u8g2/csrc/u8x8.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8x8_u8toa.c
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:16     .text.u8x8_u8toap:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:23     .text.u8x8_u8toap:00000000 u8x8_u8toap
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:94     .text.u8x8_u8toap:00000030 $d
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:99     .text.u8x8_u8toa:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:106    .text.u8x8_u8toa:00000000 u8x8_u8toa
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:136    .text.u8x8_u8toa:00000014 $d
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:141    .bss.buf.5010:00000000 $d
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:145    .bss.buf.5010:00000000 buf.5010
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:148    .rodata.u8x8_u8toa_tab:00000000 $d
+C:\Users\nhantt\AppData\Local\Temp\ccKSBnzz.s:152    .rodata.u8x8_u8toa_tab:00000000 u8x8_u8toa_tab
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

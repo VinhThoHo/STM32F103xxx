@@ -1,0 +1,2865 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8x8_cad.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8x8_i2c_data_transfer,"ax",%progbits
+  16              		.align	1
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu softvfp
+  22              	u8x8_i2c_data_transfer:
+  23              	.LFB13:
+  24              		.file 1 "u8g2/csrc/u8x8_cad.c"
+   1:u8g2/csrc/u8x8_cad.c **** /*
+   2:u8g2/csrc/u8x8_cad.c ****   
+   3:u8g2/csrc/u8x8_cad.c ****   u8x8_cad.c
+   4:u8g2/csrc/u8x8_cad.c ****   
+   5:u8g2/csrc/u8x8_cad.c ****   "command arg data" interface to the graphics controller
+   6:u8g2/csrc/u8x8_cad.c **** 
+   7:u8g2/csrc/u8x8_cad.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   8:u8g2/csrc/u8x8_cad.c **** 
+   9:u8g2/csrc/u8x8_cad.c ****   Copyright (c) 2016, olikraus@gmail.com
+  10:u8g2/csrc/u8x8_cad.c ****   All rights reserved.
+  11:u8g2/csrc/u8x8_cad.c **** 
+  12:u8g2/csrc/u8x8_cad.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  13:u8g2/csrc/u8x8_cad.c ****   are permitted provided that the following conditions are met:
+  14:u8g2/csrc/u8x8_cad.c **** 
+  15:u8g2/csrc/u8x8_cad.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  16:u8g2/csrc/u8x8_cad.c ****     of conditions and the following disclaimer.
+  17:u8g2/csrc/u8x8_cad.c ****     
+  18:u8g2/csrc/u8x8_cad.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  19:u8g2/csrc/u8x8_cad.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  20:u8g2/csrc/u8x8_cad.c ****     materials provided with the distribution.
+  21:u8g2/csrc/u8x8_cad.c **** 
+  22:u8g2/csrc/u8x8_cad.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  23:u8g2/csrc/u8x8_cad.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  24:u8g2/csrc/u8x8_cad.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  25:u8g2/csrc/u8x8_cad.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  26:u8g2/csrc/u8x8_cad.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  27:u8g2/csrc/u8x8_cad.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  28:u8g2/csrc/u8x8_cad.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  29:u8g2/csrc/u8x8_cad.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  30:u8g2/csrc/u8x8_cad.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  31:u8g2/csrc/u8x8_cad.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  32:u8g2/csrc/u8x8_cad.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  33:u8g2/csrc/u8x8_cad.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+  34:u8g2/csrc/u8x8_cad.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 2
+
+
+  35:u8g2/csrc/u8x8_cad.c **** 
+  36:u8g2/csrc/u8x8_cad.c **** 
+  37:u8g2/csrc/u8x8_cad.c ****   The following sequence must be used for any data, which is set to the display:
+  38:u8g2/csrc/u8x8_cad.c ****   
+  39:u8g2/csrc/u8x8_cad.c ****   
+  40:u8g2/csrc/u8x8_cad.c ****   uint8_t u8x8_cad_StartTransfer(u8x8_t *u8x8)
+  41:u8g2/csrc/u8x8_cad.c **** 
+  42:u8g2/csrc/u8x8_cad.c ****   any of the following calls
+  43:u8g2/csrc/u8x8_cad.c ****     uint8_t u8x8_cad_SendCmd(u8x8_t *u8x8, uint8_t cmd)
+  44:u8g2/csrc/u8x8_cad.c ****     uint8_t u8x8_cad_SendArg(u8x8_t *u8x8, uint8_t arg)
+  45:u8g2/csrc/u8x8_cad.c ****     uint8_t u8x8_cad_SendData(u8x8_t *u8x8, uint8_t cnt, uint8_t *data)
+  46:u8g2/csrc/u8x8_cad.c ****   
+  47:u8g2/csrc/u8x8_cad.c ****   uint8_t u8x8_cad_EndTransfer(u8x8_t *u8x8)
+  48:u8g2/csrc/u8x8_cad.c **** 
+  49:u8g2/csrc/u8x8_cad.c **** 
+  50:u8g2/csrc/u8x8_cad.c **** 
+  51:u8g2/csrc/u8x8_cad.c **** */
+  52:u8g2/csrc/u8x8_cad.c **** /*
+  53:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_template(u8x8_t *u8x8, uint8_t msg, uint16_t arg_int, void *arg_ptr)
+  54:u8g2/csrc/u8x8_cad.c **** {
+  55:u8g2/csrc/u8x8_cad.c ****   uint8_t i;
+  56:u8g2/csrc/u8x8_cad.c ****   
+  57:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+  58:u8g2/csrc/u8x8_cad.c ****   {
+  59:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+  60:u8g2/csrc/u8x8_cad.c ****       u8x8_mcd_byte_SetDC(mcd->next, 1);
+  61:u8g2/csrc/u8x8_cad.c ****       u8x8_mcd_byte_Send(mcd->next, arg_int);
+  62:u8g2/csrc/u8x8_cad.c ****       break;
+  63:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+  64:u8g2/csrc/u8x8_cad.c ****       u8x8_mcd_byte_SetDC(mcd->next, 1);
+  65:u8g2/csrc/u8x8_cad.c ****       u8x8_mcd_byte_Send(mcd->next, arg_int);
+  66:u8g2/csrc/u8x8_cad.c ****       break;
+  67:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+  68:u8g2/csrc/u8x8_cad.c ****       u8x8_mcd_byte_SetDC(mcd->next, 0);
+  69:u8g2/csrc/u8x8_cad.c ****       for( i = 0; i < 8; i++ )
+  70:u8g2/csrc/u8x8_cad.c **** 	u8x8_mcd_byte_Send(mcd->next, ((uint8_t *)arg_ptr)[i]);
+  71:u8g2/csrc/u8x8_cad.c ****       break;
+  72:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_RESET:
+  73:u8g2/csrc/u8x8_cad.c ****       return mcd->next->cb(mcd->next, msg, arg_int, arg_ptr);
+  74:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+  75:u8g2/csrc/u8x8_cad.c ****       return mcd->next->cb(mcd->next, msg, arg_int, arg_ptr);
+  76:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+  77:u8g2/csrc/u8x8_cad.c ****       return mcd->next->cb(mcd->next, msg, arg_int, arg_ptr);
+  78:u8g2/csrc/u8x8_cad.c ****     default:
+  79:u8g2/csrc/u8x8_cad.c ****       break;
+  80:u8g2/csrc/u8x8_cad.c ****   }
+  81:u8g2/csrc/u8x8_cad.c ****   return 1;
+  82:u8g2/csrc/u8x8_cad.c **** }
+  83:u8g2/csrc/u8x8_cad.c **** 
+  84:u8g2/csrc/u8x8_cad.c **** */
+  85:u8g2/csrc/u8x8_cad.c **** 
+  86:u8g2/csrc/u8x8_cad.c **** #include "u8x8.h"
+  87:u8g2/csrc/u8x8_cad.c **** 
+  88:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_SendCmd(u8x8_t *u8x8, uint8_t cmd)
+  89:u8g2/csrc/u8x8_cad.c **** {
+  90:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_SEND_CMD, cmd, NULL);
+  91:u8g2/csrc/u8x8_cad.c **** }
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 3
+
+
+  92:u8g2/csrc/u8x8_cad.c **** 
+  93:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_SendArg(u8x8_t *u8x8, uint8_t arg)
+  94:u8g2/csrc/u8x8_cad.c **** {
+  95:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_SEND_ARG, arg, NULL);
+  96:u8g2/csrc/u8x8_cad.c **** }
+  97:u8g2/csrc/u8x8_cad.c **** 
+  98:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_SendMultipleArg(u8x8_t *u8x8, uint8_t cnt, uint8_t arg)
+  99:u8g2/csrc/u8x8_cad.c **** {
+ 100:u8g2/csrc/u8x8_cad.c ****   while( cnt > 0 )
+ 101:u8g2/csrc/u8x8_cad.c ****   {
+ 102:u8g2/csrc/u8x8_cad.c ****     u8x8->cad_cb(u8x8, U8X8_MSG_CAD_SEND_ARG, arg, NULL);
+ 103:u8g2/csrc/u8x8_cad.c ****     cnt--;
+ 104:u8g2/csrc/u8x8_cad.c ****   }
+ 105:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 106:u8g2/csrc/u8x8_cad.c **** }
+ 107:u8g2/csrc/u8x8_cad.c **** 
+ 108:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_SendData(u8x8_t *u8x8, uint8_t cnt, uint8_t *data)
+ 109:u8g2/csrc/u8x8_cad.c **** {
+ 110:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_SEND_DATA, cnt, data);
+ 111:u8g2/csrc/u8x8_cad.c **** }
+ 112:u8g2/csrc/u8x8_cad.c **** 
+ 113:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_StartTransfer(u8x8_t *u8x8)
+ 114:u8g2/csrc/u8x8_cad.c **** {
+ 115:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_START_TRANSFER, 0, NULL);
+ 116:u8g2/csrc/u8x8_cad.c **** }
+ 117:u8g2/csrc/u8x8_cad.c **** 
+ 118:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_EndTransfer(u8x8_t *u8x8)
+ 119:u8g2/csrc/u8x8_cad.c **** {
+ 120:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_END_TRANSFER, 0, NULL);
+ 121:u8g2/csrc/u8x8_cad.c **** }
+ 122:u8g2/csrc/u8x8_cad.c **** 
+ 123:u8g2/csrc/u8x8_cad.c **** /*
+ 124:u8g2/csrc/u8x8_cad.c ****   21 c		send command c
+ 125:u8g2/csrc/u8x8_cad.c ****   22 a		send arg a
+ 126:u8g2/csrc/u8x8_cad.c ****   23 d		send data d
+ 127:u8g2/csrc/u8x8_cad.c ****   24			CS on
+ 128:u8g2/csrc/u8x8_cad.c ****   25			CS off
+ 129:u8g2/csrc/u8x8_cad.c ****   254 milli	delay by milliseconds
+ 130:u8g2/csrc/u8x8_cad.c ****   255		end of sequence
+ 131:u8g2/csrc/u8x8_cad.c **** */
+ 132:u8g2/csrc/u8x8_cad.c **** 
+ 133:u8g2/csrc/u8x8_cad.c **** void u8x8_cad_SendSequence(u8x8_t *u8x8, uint8_t const *data)
+ 134:u8g2/csrc/u8x8_cad.c **** {
+ 135:u8g2/csrc/u8x8_cad.c ****   uint8_t cmd;
+ 136:u8g2/csrc/u8x8_cad.c ****   uint8_t v;
+ 137:u8g2/csrc/u8x8_cad.c **** 
+ 138:u8g2/csrc/u8x8_cad.c ****   for(;;)
+ 139:u8g2/csrc/u8x8_cad.c ****   {
+ 140:u8g2/csrc/u8x8_cad.c ****     cmd = *data;
+ 141:u8g2/csrc/u8x8_cad.c ****     data++;
+ 142:u8g2/csrc/u8x8_cad.c ****     switch( cmd )
+ 143:u8g2/csrc/u8x8_cad.c ****     {
+ 144:u8g2/csrc/u8x8_cad.c ****       case U8X8_MSG_CAD_SEND_CMD:
+ 145:u8g2/csrc/u8x8_cad.c ****       case U8X8_MSG_CAD_SEND_ARG:
+ 146:u8g2/csrc/u8x8_cad.c **** 	  v = *data;
+ 147:u8g2/csrc/u8x8_cad.c **** 	  u8x8->cad_cb(u8x8, cmd, v, NULL);
+ 148:u8g2/csrc/u8x8_cad.c **** 	  data++;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 4
+
+
+ 149:u8g2/csrc/u8x8_cad.c **** 	  break;
+ 150:u8g2/csrc/u8x8_cad.c ****       case U8X8_MSG_CAD_SEND_DATA:
+ 151:u8g2/csrc/u8x8_cad.c **** 	  v = *data;
+ 152:u8g2/csrc/u8x8_cad.c **** 	  u8x8_cad_SendData(u8x8, 1, &v);
+ 153:u8g2/csrc/u8x8_cad.c **** 	  data++;
+ 154:u8g2/csrc/u8x8_cad.c **** 	  break;
+ 155:u8g2/csrc/u8x8_cad.c ****       case U8X8_MSG_CAD_START_TRANSFER:
+ 156:u8g2/csrc/u8x8_cad.c ****       case U8X8_MSG_CAD_END_TRANSFER:
+ 157:u8g2/csrc/u8x8_cad.c **** 	  u8x8->cad_cb(u8x8, cmd, 0, NULL);
+ 158:u8g2/csrc/u8x8_cad.c **** 	  break;
+ 159:u8g2/csrc/u8x8_cad.c ****       case 0x0fe:
+ 160:u8g2/csrc/u8x8_cad.c **** 	  v = *data;
+ 161:u8g2/csrc/u8x8_cad.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_MILLI, v);	    
+ 162:u8g2/csrc/u8x8_cad.c **** 	  data++;
+ 163:u8g2/csrc/u8x8_cad.c **** 	  break;
+ 164:u8g2/csrc/u8x8_cad.c ****       default:
+ 165:u8g2/csrc/u8x8_cad.c **** 	return;
+ 166:u8g2/csrc/u8x8_cad.c ****     }
+ 167:u8g2/csrc/u8x8_cad.c ****   }
+ 168:u8g2/csrc/u8x8_cad.c **** }
+ 169:u8g2/csrc/u8x8_cad.c **** 
+ 170:u8g2/csrc/u8x8_cad.c **** 
+ 171:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_empty(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 172:u8g2/csrc/u8x8_cad.c **** {
+ 173:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 174:u8g2/csrc/u8x8_cad.c ****   {
+ 175:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 176:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 177:u8g2/csrc/u8x8_cad.c ****       break;
+ 178:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 179:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 180:u8g2/csrc/u8x8_cad.c ****       break;
+ 181:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 182:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 183:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 184:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 185:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 186:u8g2/csrc/u8x8_cad.c ****     default:
+ 187:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 188:u8g2/csrc/u8x8_cad.c ****   }
+ 189:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 190:u8g2/csrc/u8x8_cad.c **** }
+ 191:u8g2/csrc/u8x8_cad.c **** 
+ 192:u8g2/csrc/u8x8_cad.c **** 
+ 193:u8g2/csrc/u8x8_cad.c **** /*
+ 194:u8g2/csrc/u8x8_cad.c ****   convert to bytes by using 
+ 195:u8g2/csrc/u8x8_cad.c ****     dc = 1 for commands and args and
+ 196:u8g2/csrc/u8x8_cad.c ****     dc = 0 for data
+ 197:u8g2/csrc/u8x8_cad.c **** */
+ 198:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_110(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 199:u8g2/csrc/u8x8_cad.c **** {
+ 200:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 201:u8g2/csrc/u8x8_cad.c ****   {
+ 202:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 203:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 1);
+ 204:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 205:u8g2/csrc/u8x8_cad.c ****       break;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 5
+
+
+ 206:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 207:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 1);
+ 208:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 209:u8g2/csrc/u8x8_cad.c ****       break;
+ 210:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 211:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 0);
+ 212:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendBytes(u8x8, arg_int, arg_ptr);
+ 213:u8g2/csrc/u8x8_cad.c ****       //break;
+ 214:u8g2/csrc/u8x8_cad.c ****       /* fall through */
+ 215:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 216:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 217:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 218:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 219:u8g2/csrc/u8x8_cad.c ****     default:
+ 220:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 221:u8g2/csrc/u8x8_cad.c ****   }
+ 222:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 223:u8g2/csrc/u8x8_cad.c **** }
+ 224:u8g2/csrc/u8x8_cad.c **** 
+ 225:u8g2/csrc/u8x8_cad.c **** /*
+ 226:u8g2/csrc/u8x8_cad.c ****   convert to bytes by using 
+ 227:u8g2/csrc/u8x8_cad.c ****     dc = 1 for commands and args and
+ 228:u8g2/csrc/u8x8_cad.c ****     dc = 0 for data
+ 229:u8g2/csrc/u8x8_cad.c ****     t6963
+ 230:u8g2/csrc/u8x8_cad.c **** */
+ 231:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_100(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 232:u8g2/csrc/u8x8_cad.c **** {
+ 233:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 234:u8g2/csrc/u8x8_cad.c ****   {
+ 235:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 236:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 1);
+ 237:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 238:u8g2/csrc/u8x8_cad.c ****       break;
+ 239:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 240:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 0);
+ 241:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 242:u8g2/csrc/u8x8_cad.c ****       break;
+ 243:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 244:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 0);
+ 245:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendBytes(u8x8, arg_int, arg_ptr);
+ 246:u8g2/csrc/u8x8_cad.c ****       //break;
+ 247:u8g2/csrc/u8x8_cad.c ****       /* fall through */
+ 248:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 249:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 250:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 251:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 252:u8g2/csrc/u8x8_cad.c ****     default:
+ 253:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 254:u8g2/csrc/u8x8_cad.c ****   }
+ 255:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 256:u8g2/csrc/u8x8_cad.c **** }
+ 257:u8g2/csrc/u8x8_cad.c **** 
+ 258:u8g2/csrc/u8x8_cad.c **** /*
+ 259:u8g2/csrc/u8x8_cad.c ****   convert to bytes by using 
+ 260:u8g2/csrc/u8x8_cad.c ****     dc = 0 for commands and args and
+ 261:u8g2/csrc/u8x8_cad.c ****     dc = 1 for data
+ 262:u8g2/csrc/u8x8_cad.c **** */
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 6
+
+
+ 263:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_001(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 264:u8g2/csrc/u8x8_cad.c **** {
+ 265:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 266:u8g2/csrc/u8x8_cad.c ****   {
+ 267:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 268:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 0);
+ 269:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 270:u8g2/csrc/u8x8_cad.c ****       break;
+ 271:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 272:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 0);
+ 273:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 274:u8g2/csrc/u8x8_cad.c ****       break;
+ 275:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 276:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 1);
+ 277:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendBytes(u8x8, arg_int, arg_ptr);
+ 278:u8g2/csrc/u8x8_cad.c ****       //break;
+ 279:u8g2/csrc/u8x8_cad.c ****       /* fall through */
+ 280:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 281:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 282:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 283:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 284:u8g2/csrc/u8x8_cad.c ****     default:
+ 285:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 286:u8g2/csrc/u8x8_cad.c ****   }
+ 287:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 288:u8g2/csrc/u8x8_cad.c **** }
+ 289:u8g2/csrc/u8x8_cad.c **** 
+ 290:u8g2/csrc/u8x8_cad.c **** /*
+ 291:u8g2/csrc/u8x8_cad.c ****   convert to bytes by using 
+ 292:u8g2/csrc/u8x8_cad.c ****     dc = 0 for commands 
+ 293:u8g2/csrc/u8x8_cad.c ****     dc = 1 for args and data
+ 294:u8g2/csrc/u8x8_cad.c **** */
+ 295:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_011(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 296:u8g2/csrc/u8x8_cad.c **** {
+ 297:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 298:u8g2/csrc/u8x8_cad.c ****   {
+ 299:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 300:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 0);
+ 301:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 302:u8g2/csrc/u8x8_cad.c ****       break;
+ 303:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 304:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 1);
+ 305:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 306:u8g2/csrc/u8x8_cad.c ****       break;
+ 307:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 308:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SetDC(u8x8, 1);
+ 309:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendBytes(u8x8, arg_int, arg_ptr);
+ 310:u8g2/csrc/u8x8_cad.c ****       //break;
+ 311:u8g2/csrc/u8x8_cad.c ****       /* fall through */
+ 312:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 313:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 314:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 315:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 316:u8g2/csrc/u8x8_cad.c ****     default:
+ 317:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 318:u8g2/csrc/u8x8_cad.c ****   }
+ 319:u8g2/csrc/u8x8_cad.c ****   return 1;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 7
+
+
+ 320:u8g2/csrc/u8x8_cad.c **** }
+ 321:u8g2/csrc/u8x8_cad.c **** 
+ 322:u8g2/csrc/u8x8_cad.c **** /* cad procedure for the ST7920 in SPI mode */
+ 323:u8g2/csrc/u8x8_cad.c **** /* u8x8_byte_SetDC is not used */
+ 324:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_st7920_spi(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 325:u8g2/csrc/u8x8_cad.c **** {
+ 326:u8g2/csrc/u8x8_cad.c ****   uint8_t *data;
+ 327:u8g2/csrc/u8x8_cad.c ****   uint8_t b;
+ 328:u8g2/csrc/u8x8_cad.c ****   uint8_t i;
+ 329:u8g2/csrc/u8x8_cad.c ****   static uint8_t buf[16];
+ 330:u8g2/csrc/u8x8_cad.c ****   uint8_t *ptr;
+ 331:u8g2/csrc/u8x8_cad.c ****   
+ 332:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 333:u8g2/csrc/u8x8_cad.c ****   {
+ 334:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 335:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, 0x0f8);
+ 336:u8g2/csrc/u8x8_cad.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 1);
+ 337:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int & 0x0f0);
+ 338:u8g2/csrc/u8x8_cad.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 1);
+ 339:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int << 4);
+ 340:u8g2/csrc/u8x8_cad.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 1);
+ 341:u8g2/csrc/u8x8_cad.c ****       break;
+ 342:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 343:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, 0x0f8);
+ 344:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int & 0x0f0);
+ 345:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int << 4);
+ 346:u8g2/csrc/u8x8_cad.c ****       break;
+ 347:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 348:u8g2/csrc/u8x8_cad.c ****     
+ 349:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, 0x0fa);
+ 350:u8g2/csrc/u8x8_cad.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 1);
+ 351:u8g2/csrc/u8x8_cad.c **** 
+ 352:u8g2/csrc/u8x8_cad.c ****       /* this loop should be optimized: multiple bytes should be sent */
+ 353:u8g2/csrc/u8x8_cad.c ****       /* u8x8_byte_SendBytes(u8x8, arg_int, arg_ptr); */
+ 354:u8g2/csrc/u8x8_cad.c ****       data = (uint8_t *)arg_ptr;
+ 355:u8g2/csrc/u8x8_cad.c ****     
+ 356:u8g2/csrc/u8x8_cad.c ****       /* the following loop increases speed by 20% */
+ 357:u8g2/csrc/u8x8_cad.c ****       while( arg_int >= 8 )
+ 358:u8g2/csrc/u8x8_cad.c ****       {
+ 359:u8g2/csrc/u8x8_cad.c **** 	i = 8;
+ 360:u8g2/csrc/u8x8_cad.c **** 	ptr = buf;
+ 361:u8g2/csrc/u8x8_cad.c **** 	do
+ 362:u8g2/csrc/u8x8_cad.c **** 	{
+ 363:u8g2/csrc/u8x8_cad.c **** 	  b = *data++;
+ 364:u8g2/csrc/u8x8_cad.c **** 	  *ptr++= b & 0x0f0;
+ 365:u8g2/csrc/u8x8_cad.c **** 	  b <<= 4;
+ 366:u8g2/csrc/u8x8_cad.c **** 	  *ptr++= b;
+ 367:u8g2/csrc/u8x8_cad.c **** 	  i--;
+ 368:u8g2/csrc/u8x8_cad.c **** 	} while( i > 0 );
+ 369:u8g2/csrc/u8x8_cad.c **** 	arg_int -= 8;
+ 370:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_SendBytes(u8x8, 16, buf); 
+ 371:u8g2/csrc/u8x8_cad.c ****       }
+ 372:u8g2/csrc/u8x8_cad.c ****       
+ 373:u8g2/csrc/u8x8_cad.c ****     
+ 374:u8g2/csrc/u8x8_cad.c ****       while( arg_int > 0 )
+ 375:u8g2/csrc/u8x8_cad.c ****       {
+ 376:u8g2/csrc/u8x8_cad.c **** 	b = *data;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 8
+
+
+ 377:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_SendByte(u8x8, b & 0x0f0);
+ 378:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_SendByte(u8x8, b << 4);
+ 379:u8g2/csrc/u8x8_cad.c **** 	data++;
+ 380:u8g2/csrc/u8x8_cad.c **** 	arg_int--;
+ 381:u8g2/csrc/u8x8_cad.c ****       }
+ 382:u8g2/csrc/u8x8_cad.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 1);
+ 383:u8g2/csrc/u8x8_cad.c ****       break;
+ 384:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 385:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 386:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 387:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 388:u8g2/csrc/u8x8_cad.c ****     default:
+ 389:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 390:u8g2/csrc/u8x8_cad.c ****   }
+ 391:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 392:u8g2/csrc/u8x8_cad.c **** }
+ 393:u8g2/csrc/u8x8_cad.c **** 
+ 394:u8g2/csrc/u8x8_cad.c **** 
+ 395:u8g2/csrc/u8x8_cad.c **** /* cad procedure for the SSD13xx family in I2C mode */
+ 396:u8g2/csrc/u8x8_cad.c **** /* this procedure is also used by the ST7588 */
+ 397:u8g2/csrc/u8x8_cad.c **** /* u8x8_byte_SetDC is not used */
+ 398:u8g2/csrc/u8x8_cad.c **** /* U8X8_MSG_BYTE_START_TRANSFER starts i2c transfer, U8X8_MSG_BYTE_END_TRANSFER stops transfer */
+ 399:u8g2/csrc/u8x8_cad.c **** /* After transfer start, a full byte indicates command or data mode */
+ 400:u8g2/csrc/u8x8_cad.c **** 
+ 401:u8g2/csrc/u8x8_cad.c **** static void u8x8_i2c_data_transfer(u8x8_t *u8x8, uint8_t arg_int, void *arg_ptr) U8X8_NOINLINE;
+ 402:u8g2/csrc/u8x8_cad.c **** static void u8x8_i2c_data_transfer(u8x8_t *u8x8, uint8_t arg_int, void *arg_ptr)
+ 403:u8g2/csrc/u8x8_cad.c **** {
+  25              		.loc 1 403 0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              	.LVL0:
+  30 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 24
+  33              		.cfi_offset 3, -24
+  34              		.cfi_offset 4, -20
+  35              		.cfi_offset 5, -16
+  36              		.cfi_offset 6, -12
+  37              		.cfi_offset 7, -8
+  38              		.cfi_offset 14, -4
+  39 0002 0446     		mov	r4, r0
+  40 0004 0E46     		mov	r6, r1
+  41 0006 1746     		mov	r7, r2
+ 404:u8g2/csrc/u8x8_cad.c ****     u8x8_byte_StartTransfer(u8x8);    
+  42              		.loc 1 404 0
+  43 0008 FFF7FEFF 		bl	u8x8_byte_StartTransfer
+  44              	.LVL1:
+ 405:u8g2/csrc/u8x8_cad.c ****     u8x8_byte_SendByte(u8x8, 0x040);
+  45              		.loc 1 405 0
+  46 000c 4021     		movs	r1, #64
+  47 000e 2046     		mov	r0, r4
+  48 0010 FFF7FEFF 		bl	u8x8_byte_SendByte
+  49              	.LVL2:
+ 406:u8g2/csrc/u8x8_cad.c ****     u8x8->byte_cb(u8x8, U8X8_MSG_CAD_SEND_DATA, arg_int, arg_ptr);
+  50              		.loc 1 406 0
+  51 0014 2569     		ldr	r5, [r4, #16]
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 9
+
+
+  52 0016 3B46     		mov	r3, r7
+  53 0018 3246     		mov	r2, r6
+  54 001a 1721     		movs	r1, #23
+  55 001c 2046     		mov	r0, r4
+  56 001e A847     		blx	r5
+  57              	.LVL3:
+ 407:u8g2/csrc/u8x8_cad.c ****     u8x8_byte_EndTransfer(u8x8);
+  58              		.loc 1 407 0
+  59 0020 2046     		mov	r0, r4
+  60 0022 FFF7FEFF 		bl	u8x8_byte_EndTransfer
+  61              	.LVL4:
+  62 0026 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+  63              		.cfi_endproc
+  64              	.LFE13:
+  66              		.section	.text.u8x8_cad_SendCmd,"ax",%progbits
+  67              		.align	1
+  68              		.global	u8x8_cad_SendCmd
+  69              		.syntax unified
+  70              		.thumb
+  71              		.thumb_func
+  72              		.fpu softvfp
+  74              	u8x8_cad_SendCmd:
+  75              	.LFB0:
+  89:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_SEND_CMD, cmd, NULL);
+  76              		.loc 1 89 0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              	.LVL5:
+  81 0000 10B5     		push	{r4, lr}
+  82              	.LCFI1:
+  83              		.cfi_def_cfa_offset 8
+  84              		.cfi_offset 4, -8
+  85              		.cfi_offset 14, -4
+  90:u8g2/csrc/u8x8_cad.c **** }
+  86              		.loc 1 90 0
+  87 0002 C468     		ldr	r4, [r0, #12]
+  88 0004 0023     		movs	r3, #0
+  89 0006 0A46     		mov	r2, r1
+  90 0008 1521     		movs	r1, #21
+  91              	.LVL6:
+  92 000a A047     		blx	r4
+  93              	.LVL7:
+  91:u8g2/csrc/u8x8_cad.c **** 
+  94              		.loc 1 91 0
+  95 000c 10BD     		pop	{r4, pc}
+  96              		.cfi_endproc
+  97              	.LFE0:
+  99              		.section	.text.u8x8_cad_SendArg,"ax",%progbits
+ 100              		.align	1
+ 101              		.global	u8x8_cad_SendArg
+ 102              		.syntax unified
+ 103              		.thumb
+ 104              		.thumb_func
+ 105              		.fpu softvfp
+ 107              	u8x8_cad_SendArg:
+ 108              	.LFB1:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 10
+
+
+  94:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_SEND_ARG, arg, NULL);
+ 109              		.loc 1 94 0
+ 110              		.cfi_startproc
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 0, uses_anonymous_args = 0
+ 113              	.LVL8:
+ 114 0000 10B5     		push	{r4, lr}
+ 115              	.LCFI2:
+ 116              		.cfi_def_cfa_offset 8
+ 117              		.cfi_offset 4, -8
+ 118              		.cfi_offset 14, -4
+  95:u8g2/csrc/u8x8_cad.c **** }
+ 119              		.loc 1 95 0
+ 120 0002 C468     		ldr	r4, [r0, #12]
+ 121 0004 0023     		movs	r3, #0
+ 122 0006 0A46     		mov	r2, r1
+ 123 0008 1621     		movs	r1, #22
+ 124              	.LVL9:
+ 125 000a A047     		blx	r4
+ 126              	.LVL10:
+  96:u8g2/csrc/u8x8_cad.c **** 
+ 127              		.loc 1 96 0
+ 128 000c 10BD     		pop	{r4, pc}
+ 129              		.cfi_endproc
+ 130              	.LFE1:
+ 132              		.section	.text.u8x8_cad_SendMultipleArg,"ax",%progbits
+ 133              		.align	1
+ 134              		.global	u8x8_cad_SendMultipleArg
+ 135              		.syntax unified
+ 136              		.thumb
+ 137              		.thumb_func
+ 138              		.fpu softvfp
+ 140              	u8x8_cad_SendMultipleArg:
+ 141              	.LFB2:
+  99:u8g2/csrc/u8x8_cad.c ****   while( cnt > 0 )
+ 142              		.loc 1 99 0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              	.LVL11:
+ 147 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 148              	.LCFI3:
+ 149              		.cfi_def_cfa_offset 24
+ 150              		.cfi_offset 3, -24
+ 151              		.cfi_offset 4, -20
+ 152              		.cfi_offset 5, -16
+ 153              		.cfi_offset 6, -12
+ 154              		.cfi_offset 7, -8
+ 155              		.cfi_offset 14, -4
+ 156 0002 0546     		mov	r5, r0
+ 157 0004 0C46     		mov	r4, r1
+ 158 0006 1746     		mov	r7, r2
+ 100:u8g2/csrc/u8x8_cad.c ****   {
+ 159              		.loc 1 100 0
+ 160 0008 07E0     		b	.L8
+ 161              	.LVL12:
+ 162              	.L9:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 11
+
+
+ 102:u8g2/csrc/u8x8_cad.c ****     cnt--;
+ 163              		.loc 1 102 0
+ 164 000a EE68     		ldr	r6, [r5, #12]
+ 165 000c 0023     		movs	r3, #0
+ 166 000e 3A46     		mov	r2, r7
+ 167 0010 1621     		movs	r1, #22
+ 168 0012 2846     		mov	r0, r5
+ 169 0014 B047     		blx	r6
+ 170              	.LVL13:
+ 103:u8g2/csrc/u8x8_cad.c ****   }
+ 171              		.loc 1 103 0
+ 172 0016 013C     		subs	r4, r4, #1
+ 173              	.LVL14:
+ 174 0018 E4B2     		uxtb	r4, r4
+ 175              	.LVL15:
+ 176              	.L8:
+ 100:u8g2/csrc/u8x8_cad.c ****   {
+ 177              		.loc 1 100 0
+ 178 001a 002C     		cmp	r4, #0
+ 179 001c F5D1     		bne	.L9
+ 106:u8g2/csrc/u8x8_cad.c **** 
+ 180              		.loc 1 106 0
+ 181 001e 0120     		movs	r0, #1
+ 182 0020 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 183              		.cfi_endproc
+ 184              	.LFE2:
+ 186              		.section	.text.u8x8_cad_SendData,"ax",%progbits
+ 187              		.align	1
+ 188              		.global	u8x8_cad_SendData
+ 189              		.syntax unified
+ 190              		.thumb
+ 191              		.thumb_func
+ 192              		.fpu softvfp
+ 194              	u8x8_cad_SendData:
+ 195              	.LFB3:
+ 109:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_SEND_DATA, cnt, data);
+ 196              		.loc 1 109 0
+ 197              		.cfi_startproc
+ 198              		@ args = 0, pretend = 0, frame = 0
+ 199              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200              	.LVL16:
+ 201 0000 10B5     		push	{r4, lr}
+ 202              	.LCFI4:
+ 203              		.cfi_def_cfa_offset 8
+ 204              		.cfi_offset 4, -8
+ 205              		.cfi_offset 14, -4
+ 110:u8g2/csrc/u8x8_cad.c **** }
+ 206              		.loc 1 110 0
+ 207 0002 C468     		ldr	r4, [r0, #12]
+ 208 0004 1346     		mov	r3, r2
+ 209 0006 0A46     		mov	r2, r1
+ 210              	.LVL17:
+ 211 0008 1721     		movs	r1, #23
+ 212              	.LVL18:
+ 213 000a A047     		blx	r4
+ 214              	.LVL19:
+ 111:u8g2/csrc/u8x8_cad.c **** 
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 12
+
+
+ 215              		.loc 1 111 0
+ 216 000c 10BD     		pop	{r4, pc}
+ 217              		.cfi_endproc
+ 218              	.LFE3:
+ 220              		.section	.text.u8x8_cad_StartTransfer,"ax",%progbits
+ 221              		.align	1
+ 222              		.global	u8x8_cad_StartTransfer
+ 223              		.syntax unified
+ 224              		.thumb
+ 225              		.thumb_func
+ 226              		.fpu softvfp
+ 228              	u8x8_cad_StartTransfer:
+ 229              	.LFB4:
+ 114:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_START_TRANSFER, 0, NULL);
+ 230              		.loc 1 114 0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 0
+ 233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 234              	.LVL20:
+ 235 0000 10B5     		push	{r4, lr}
+ 236              	.LCFI5:
+ 237              		.cfi_def_cfa_offset 8
+ 238              		.cfi_offset 4, -8
+ 239              		.cfi_offset 14, -4
+ 115:u8g2/csrc/u8x8_cad.c **** }
+ 240              		.loc 1 115 0
+ 241 0002 C468     		ldr	r4, [r0, #12]
+ 242 0004 0023     		movs	r3, #0
+ 243 0006 1A46     		mov	r2, r3
+ 244 0008 1821     		movs	r1, #24
+ 245 000a A047     		blx	r4
+ 246              	.LVL21:
+ 116:u8g2/csrc/u8x8_cad.c **** 
+ 247              		.loc 1 116 0
+ 248 000c 10BD     		pop	{r4, pc}
+ 249              		.cfi_endproc
+ 250              	.LFE4:
+ 252              		.section	.text.u8x8_cad_EndTransfer,"ax",%progbits
+ 253              		.align	1
+ 254              		.global	u8x8_cad_EndTransfer
+ 255              		.syntax unified
+ 256              		.thumb
+ 257              		.thumb_func
+ 258              		.fpu softvfp
+ 260              	u8x8_cad_EndTransfer:
+ 261              	.LFB5:
+ 119:u8g2/csrc/u8x8_cad.c ****   return u8x8->cad_cb(u8x8, U8X8_MSG_CAD_END_TRANSFER, 0, NULL);
+ 262              		.loc 1 119 0
+ 263              		.cfi_startproc
+ 264              		@ args = 0, pretend = 0, frame = 0
+ 265              		@ frame_needed = 0, uses_anonymous_args = 0
+ 266              	.LVL22:
+ 267 0000 10B5     		push	{r4, lr}
+ 268              	.LCFI6:
+ 269              		.cfi_def_cfa_offset 8
+ 270              		.cfi_offset 4, -8
+ 271              		.cfi_offset 14, -4
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 13
+
+
+ 120:u8g2/csrc/u8x8_cad.c **** }
+ 272              		.loc 1 120 0
+ 273 0002 C468     		ldr	r4, [r0, #12]
+ 274 0004 0023     		movs	r3, #0
+ 275 0006 1A46     		mov	r2, r3
+ 276 0008 1921     		movs	r1, #25
+ 277 000a A047     		blx	r4
+ 278              	.LVL23:
+ 121:u8g2/csrc/u8x8_cad.c **** 
+ 279              		.loc 1 121 0
+ 280 000c 10BD     		pop	{r4, pc}
+ 281              		.cfi_endproc
+ 282              	.LFE5:
+ 284              		.section	.text.u8x8_cad_SendSequence,"ax",%progbits
+ 285              		.align	1
+ 286              		.global	u8x8_cad_SendSequence
+ 287              		.syntax unified
+ 288              		.thumb
+ 289              		.thumb_func
+ 290              		.fpu softvfp
+ 292              	u8x8_cad_SendSequence:
+ 293              	.LFB6:
+ 134:u8g2/csrc/u8x8_cad.c ****   uint8_t cmd;
+ 294              		.loc 1 134 0
+ 295              		.cfi_startproc
+ 296              		@ args = 0, pretend = 0, frame = 8
+ 297              		@ frame_needed = 0, uses_anonymous_args = 0
+ 298              	.LVL24:
+ 299 0000 70B5     		push	{r4, r5, r6, lr}
+ 300              	.LCFI7:
+ 301              		.cfi_def_cfa_offset 16
+ 302              		.cfi_offset 4, -16
+ 303              		.cfi_offset 5, -12
+ 304              		.cfi_offset 6, -8
+ 305              		.cfi_offset 14, -4
+ 306 0002 82B0     		sub	sp, sp, #8
+ 307              	.LCFI8:
+ 308              		.cfi_def_cfa_offset 24
+ 309 0004 0646     		mov	r6, r0
+ 310 0006 0D46     		mov	r5, r1
+ 311              	.LVL25:
+ 312              	.L18:
+ 140:u8g2/csrc/u8x8_cad.c ****     data++;
+ 313              		.loc 1 140 0
+ 314 0008 2C46     		mov	r4, r5
+ 315 000a 14F8011B 		ldrb	r1, [r4], #1	@ zero_extendqisi2
+ 316              	.LVL26:
+ 142:u8g2/csrc/u8x8_cad.c ****     {
+ 317              		.loc 1 142 0
+ 318 000e 1729     		cmp	r1, #23
+ 319 0010 18D0     		beq	.L20
+ 320 0012 0CD9     		bls	.L28
+ 321 0014 1929     		cmp	r1, #25
+ 322 0016 1FD9     		bls	.L23
+ 323 0018 FE29     		cmp	r1, #254
+ 324 001a 24D1     		bne	.L17
+ 160:u8g2/csrc/u8x8_cad.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_MILLI, v);	    
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 14
+
+
+ 325              		.loc 1 160 0
+ 326 001c 2278     		ldrb	r2, [r4]	@ zero_extendqisi2
+ 327 001e 8DF80720 		strb	r2, [sp, #7]
+ 161:u8g2/csrc/u8x8_cad.c **** 	  data++;
+ 328              		.loc 1 161 0
+ 329 0022 2921     		movs	r1, #41
+ 330              	.LVL27:
+ 331 0024 3046     		mov	r0, r6
+ 332 0026 FFF7FEFF 		bl	u8x8_gpio_call
+ 333              	.LVL28:
+ 162:u8g2/csrc/u8x8_cad.c **** 	  break;
+ 334              		.loc 1 162 0
+ 335 002a 0235     		adds	r5, r5, #2
+ 336              	.LVL29:
+ 163:u8g2/csrc/u8x8_cad.c ****       default:
+ 337              		.loc 1 163 0
+ 338 002c ECE7     		b	.L18
+ 339              	.LVL30:
+ 340              	.L28:
+ 142:u8g2/csrc/u8x8_cad.c ****     {
+ 341              		.loc 1 142 0
+ 342 002e 1529     		cmp	r1, #21
+ 343 0030 19D3     		bcc	.L17
+ 146:u8g2/csrc/u8x8_cad.c **** 	  u8x8->cad_cb(u8x8, cmd, v, NULL);
+ 344              		.loc 1 146 0
+ 345 0032 2278     		ldrb	r2, [r4]	@ zero_extendqisi2
+ 346 0034 8DF80720 		strb	r2, [sp, #7]
+ 147:u8g2/csrc/u8x8_cad.c **** 	  data++;
+ 347              		.loc 1 147 0
+ 348 0038 F468     		ldr	r4, [r6, #12]
+ 349              	.LVL31:
+ 350 003a 0023     		movs	r3, #0
+ 351 003c 3046     		mov	r0, r6
+ 352 003e A047     		blx	r4
+ 353              	.LVL32:
+ 148:u8g2/csrc/u8x8_cad.c **** 	  break;
+ 354              		.loc 1 148 0
+ 355 0040 0235     		adds	r5, r5, #2
+ 356              	.LVL33:
+ 149:u8g2/csrc/u8x8_cad.c ****       case U8X8_MSG_CAD_SEND_DATA:
+ 357              		.loc 1 149 0
+ 358 0042 E1E7     		b	.L18
+ 359              	.LVL34:
+ 360              	.L20:
+ 151:u8g2/csrc/u8x8_cad.c **** 	  u8x8_cad_SendData(u8x8, 1, &v);
+ 361              		.loc 1 151 0
+ 362 0044 6B78     		ldrb	r3, [r5, #1]	@ zero_extendqisi2
+ 363 0046 02AA     		add	r2, sp, #8
+ 364 0048 02F8013D 		strb	r3, [r2, #-1]!
+ 152:u8g2/csrc/u8x8_cad.c **** 	  data++;
+ 365              		.loc 1 152 0
+ 366 004c 0121     		movs	r1, #1
+ 367              	.LVL35:
+ 368 004e 3046     		mov	r0, r6
+ 369 0050 FFF7FEFF 		bl	u8x8_cad_SendData
+ 370              	.LVL36:
+ 153:u8g2/csrc/u8x8_cad.c **** 	  break;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 15
+
+
+ 371              		.loc 1 153 0
+ 372 0054 0235     		adds	r5, r5, #2
+ 373              	.LVL37:
+ 154:u8g2/csrc/u8x8_cad.c ****       case U8X8_MSG_CAD_START_TRANSFER:
+ 374              		.loc 1 154 0
+ 375 0056 D7E7     		b	.L18
+ 376              	.LVL38:
+ 377              	.L23:
+ 157:u8g2/csrc/u8x8_cad.c **** 	  break;
+ 378              		.loc 1 157 0
+ 379 0058 F568     		ldr	r5, [r6, #12]
+ 380 005a 0023     		movs	r3, #0
+ 381 005c 1A46     		mov	r2, r3
+ 382 005e 3046     		mov	r0, r6
+ 383 0060 A847     		blx	r5
+ 384              	.LVL39:
+ 141:u8g2/csrc/u8x8_cad.c ****     switch( cmd )
+ 385              		.loc 1 141 0
+ 386 0062 2546     		mov	r5, r4
+ 158:u8g2/csrc/u8x8_cad.c ****       case 0x0fe:
+ 387              		.loc 1 158 0
+ 388 0064 D0E7     		b	.L18
+ 389              	.LVL40:
+ 390              	.L17:
+ 168:u8g2/csrc/u8x8_cad.c **** 
+ 391              		.loc 1 168 0
+ 392 0066 02B0     		add	sp, sp, #8
+ 393              	.LCFI9:
+ 394              		.cfi_def_cfa_offset 16
+ 395              		@ sp needed
+ 396 0068 70BD     		pop	{r4, r5, r6, pc}
+ 397              		.cfi_endproc
+ 398              	.LFE6:
+ 400              		.section	.text.u8x8_cad_empty,"ax",%progbits
+ 401              		.align	1
+ 402              		.global	u8x8_cad_empty
+ 403              		.syntax unified
+ 404              		.thumb
+ 405              		.thumb_func
+ 406              		.fpu softvfp
+ 408              	u8x8_cad_empty:
+ 409              	.LFB7:
+ 172:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 410              		.loc 1 172 0
+ 411              		.cfi_startproc
+ 412              		@ args = 0, pretend = 0, frame = 0
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 414              	.LVL41:
+ 415 0000 10B5     		push	{r4, lr}
+ 416              	.LCFI10:
+ 417              		.cfi_def_cfa_offset 8
+ 418              		.cfi_offset 4, -8
+ 419              		.cfi_offset 14, -4
+ 173:u8g2/csrc/u8x8_cad.c ****   {
+ 420              		.loc 1 173 0
+ 421 0002 A1F11404 		sub	r4, r1, #20
+ 422 0006 052C     		cmp	r4, #5
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 16
+
+
+ 423 0008 11D8     		bhi	.L35
+ 424 000a DFE804F0 		tbb	[pc, r4]
+ 425              	.L32:
+ 426 000e 0D       		.byte	(.L31-.L32)/2
+ 427 000f 03       		.byte	(.L33-.L32)/2
+ 428 0010 08       		.byte	(.L34-.L32)/2
+ 429 0011 0D       		.byte	(.L31-.L32)/2
+ 430 0012 0D       		.byte	(.L31-.L32)/2
+ 431 0013 0D       		.byte	(.L31-.L32)/2
+ 432              		.p2align 1
+ 433              	.L33:
+ 176:u8g2/csrc/u8x8_cad.c ****       break;
+ 434              		.loc 1 176 0
+ 435 0014 1146     		mov	r1, r2
+ 436              	.LVL42:
+ 437 0016 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 438              	.LVL43:
+ 189:u8g2/csrc/u8x8_cad.c **** }
+ 439              		.loc 1 189 0
+ 440 001a 0120     		movs	r0, #1
+ 177:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 441              		.loc 1 177 0
+ 442 001c 10BD     		pop	{r4, pc}
+ 443              	.LVL44:
+ 444              	.L34:
+ 179:u8g2/csrc/u8x8_cad.c ****       break;
+ 445              		.loc 1 179 0
+ 446 001e 1146     		mov	r1, r2
+ 447              	.LVL45:
+ 448 0020 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 449              	.LVL46:
+ 189:u8g2/csrc/u8x8_cad.c **** }
+ 450              		.loc 1 189 0
+ 451 0024 0120     		movs	r0, #1
+ 180:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 452              		.loc 1 180 0
+ 453 0026 10BD     		pop	{r4, pc}
+ 454              	.LVL47:
+ 455              	.L31:
+ 185:u8g2/csrc/u8x8_cad.c ****     default:
+ 456              		.loc 1 185 0
+ 457 0028 0469     		ldr	r4, [r0, #16]
+ 458 002a A047     		blx	r4
+ 459              	.LVL48:
+ 460 002c 10BD     		pop	{r4, pc}
+ 461              	.LVL49:
+ 462              	.L35:
+ 187:u8g2/csrc/u8x8_cad.c ****   }
+ 463              		.loc 1 187 0
+ 464 002e 0020     		movs	r0, #0
+ 465              	.LVL50:
+ 190:u8g2/csrc/u8x8_cad.c **** 
+ 466              		.loc 1 190 0
+ 467 0030 10BD     		pop	{r4, pc}
+ 468              		.cfi_endproc
+ 469              	.LFE7:
+ 471              		.section	.text.u8x8_cad_110,"ax",%progbits
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 17
+
+
+ 472              		.align	1
+ 473              		.global	u8x8_cad_110
+ 474              		.syntax unified
+ 475              		.thumb
+ 476              		.thumb_func
+ 477              		.fpu softvfp
+ 479              	u8x8_cad_110:
+ 480              	.LFB8:
+ 199:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 481              		.loc 1 199 0
+ 482              		.cfi_startproc
+ 483              		@ args = 0, pretend = 0, frame = 0
+ 484              		@ frame_needed = 0, uses_anonymous_args = 0
+ 485              	.LVL51:
+ 486 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 487              	.LCFI11:
+ 488              		.cfi_def_cfa_offset 24
+ 489              		.cfi_offset 4, -24
+ 490              		.cfi_offset 5, -20
+ 491              		.cfi_offset 6, -16
+ 492              		.cfi_offset 7, -12
+ 493              		.cfi_offset 8, -8
+ 494              		.cfi_offset 14, -4
+ 495 0004 0446     		mov	r4, r0
+ 496 0006 0D46     		mov	r5, r1
+ 497 0008 1646     		mov	r6, r2
+ 498 000a 9846     		mov	r8, r3
+ 200:u8g2/csrc/u8x8_cad.c ****   {
+ 499              		.loc 1 200 0
+ 500 000c A1F11403 		sub	r3, r1, #20
+ 501              	.LVL52:
+ 502 0010 052B     		cmp	r3, #5
+ 503 0012 23D8     		bhi	.L44
+ 504 0014 DFE803F0 		tbb	[pc, r3]
+ 505              	.LVL53:
+ 506              	.L40:
+ 507 0018 1A       		.byte	(.L39-.L40)/2
+ 508 0019 03       		.byte	(.L41-.L40)/2
+ 509 001a 0D       		.byte	(.L42-.L40)/2
+ 510 001b 17       		.byte	(.L43-.L40)/2
+ 511 001c 1A       		.byte	(.L39-.L40)/2
+ 512 001d 1A       		.byte	(.L39-.L40)/2
+ 513              		.p2align 1
+ 514              	.L41:
+ 203:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 515              		.loc 1 203 0
+ 516 001e 0121     		movs	r1, #1
+ 517              	.LVL54:
+ 518 0020 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 519              	.LVL55:
+ 204:u8g2/csrc/u8x8_cad.c ****       break;
+ 520              		.loc 1 204 0
+ 521 0024 3146     		mov	r1, r6
+ 522 0026 2046     		mov	r0, r4
+ 523 0028 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 524              	.LVL56:
+ 222:u8g2/csrc/u8x8_cad.c **** }
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 18
+
+
+ 525              		.loc 1 222 0
+ 526 002c 0120     		movs	r0, #1
+ 205:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 527              		.loc 1 205 0
+ 528 002e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 529              	.LVL57:
+ 530              	.L42:
+ 207:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 531              		.loc 1 207 0
+ 532 0032 0121     		movs	r1, #1
+ 533              	.LVL58:
+ 534 0034 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 535              	.LVL59:
+ 208:u8g2/csrc/u8x8_cad.c ****       break;
+ 536              		.loc 1 208 0
+ 537 0038 3146     		mov	r1, r6
+ 538 003a 2046     		mov	r0, r4
+ 539 003c FFF7FEFF 		bl	u8x8_byte_SendByte
+ 540              	.LVL60:
+ 222:u8g2/csrc/u8x8_cad.c **** }
+ 541              		.loc 1 222 0
+ 542 0040 0120     		movs	r0, #1
+ 209:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 543              		.loc 1 209 0
+ 544 0042 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 545              	.LVL61:
+ 546              	.L43:
+ 211:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendBytes(u8x8, arg_int, arg_ptr);
+ 547              		.loc 1 211 0
+ 548 0046 0021     		movs	r1, #0
+ 549              	.LVL62:
+ 550 0048 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 551              	.LVL63:
+ 552              	.L39:
+ 218:u8g2/csrc/u8x8_cad.c ****     default:
+ 553              		.loc 1 218 0
+ 554 004c 2769     		ldr	r7, [r4, #16]
+ 555 004e 4346     		mov	r3, r8
+ 556 0050 3246     		mov	r2, r6
+ 557 0052 2946     		mov	r1, r5
+ 558 0054 2046     		mov	r0, r4
+ 559 0056 B847     		blx	r7
+ 560              	.LVL64:
+ 561 0058 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 562              	.LVL65:
+ 563              	.L44:
+ 220:u8g2/csrc/u8x8_cad.c ****   }
+ 564              		.loc 1 220 0
+ 565 005c 0020     		movs	r0, #0
+ 566              	.LVL66:
+ 223:u8g2/csrc/u8x8_cad.c **** 
+ 567              		.loc 1 223 0
+ 568 005e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 569              		.cfi_endproc
+ 570              	.LFE8:
+ 572              		.section	.text.u8x8_cad_100,"ax",%progbits
+ 573              		.align	1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 19
+
+
+ 574              		.global	u8x8_cad_100
+ 575              		.syntax unified
+ 576              		.thumb
+ 577              		.thumb_func
+ 578              		.fpu softvfp
+ 580              	u8x8_cad_100:
+ 581              	.LFB9:
+ 232:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 582              		.loc 1 232 0
+ 583              		.cfi_startproc
+ 584              		@ args = 0, pretend = 0, frame = 0
+ 585              		@ frame_needed = 0, uses_anonymous_args = 0
+ 586              	.LVL67:
+ 587 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 588              	.LCFI12:
+ 589              		.cfi_def_cfa_offset 24
+ 590              		.cfi_offset 4, -24
+ 591              		.cfi_offset 5, -20
+ 592              		.cfi_offset 6, -16
+ 593              		.cfi_offset 7, -12
+ 594              		.cfi_offset 8, -8
+ 595              		.cfi_offset 14, -4
+ 596 0004 0446     		mov	r4, r0
+ 597 0006 0D46     		mov	r5, r1
+ 598 0008 1646     		mov	r6, r2
+ 599 000a 9846     		mov	r8, r3
+ 233:u8g2/csrc/u8x8_cad.c ****   {
+ 600              		.loc 1 233 0
+ 601 000c A1F11403 		sub	r3, r1, #20
+ 602              	.LVL68:
+ 603 0010 052B     		cmp	r3, #5
+ 604 0012 23D8     		bhi	.L53
+ 605 0014 DFE803F0 		tbb	[pc, r3]
+ 606              	.LVL69:
+ 607              	.L49:
+ 608 0018 1A       		.byte	(.L48-.L49)/2
+ 609 0019 03       		.byte	(.L50-.L49)/2
+ 610 001a 0D       		.byte	(.L51-.L49)/2
+ 611 001b 17       		.byte	(.L52-.L49)/2
+ 612 001c 1A       		.byte	(.L48-.L49)/2
+ 613 001d 1A       		.byte	(.L48-.L49)/2
+ 614              		.p2align 1
+ 615              	.L50:
+ 236:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 616              		.loc 1 236 0
+ 617 001e 0121     		movs	r1, #1
+ 618              	.LVL70:
+ 619 0020 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 620              	.LVL71:
+ 237:u8g2/csrc/u8x8_cad.c ****       break;
+ 621              		.loc 1 237 0
+ 622 0024 3146     		mov	r1, r6
+ 623 0026 2046     		mov	r0, r4
+ 624 0028 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 625              	.LVL72:
+ 255:u8g2/csrc/u8x8_cad.c **** }
+ 626              		.loc 1 255 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 20
+
+
+ 627 002c 0120     		movs	r0, #1
+ 238:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 628              		.loc 1 238 0
+ 629 002e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 630              	.LVL73:
+ 631              	.L51:
+ 240:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 632              		.loc 1 240 0
+ 633 0032 0021     		movs	r1, #0
+ 634              	.LVL74:
+ 635 0034 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 636              	.LVL75:
+ 241:u8g2/csrc/u8x8_cad.c ****       break;
+ 637              		.loc 1 241 0
+ 638 0038 3146     		mov	r1, r6
+ 639 003a 2046     		mov	r0, r4
+ 640 003c FFF7FEFF 		bl	u8x8_byte_SendByte
+ 641              	.LVL76:
+ 255:u8g2/csrc/u8x8_cad.c **** }
+ 642              		.loc 1 255 0
+ 643 0040 0120     		movs	r0, #1
+ 242:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 644              		.loc 1 242 0
+ 645 0042 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 646              	.LVL77:
+ 647              	.L52:
+ 244:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendBytes(u8x8, arg_int, arg_ptr);
+ 648              		.loc 1 244 0
+ 649 0046 0021     		movs	r1, #0
+ 650              	.LVL78:
+ 651 0048 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 652              	.LVL79:
+ 653              	.L48:
+ 251:u8g2/csrc/u8x8_cad.c ****     default:
+ 654              		.loc 1 251 0
+ 655 004c 2769     		ldr	r7, [r4, #16]
+ 656 004e 4346     		mov	r3, r8
+ 657 0050 3246     		mov	r2, r6
+ 658 0052 2946     		mov	r1, r5
+ 659 0054 2046     		mov	r0, r4
+ 660 0056 B847     		blx	r7
+ 661              	.LVL80:
+ 662 0058 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 663              	.LVL81:
+ 664              	.L53:
+ 253:u8g2/csrc/u8x8_cad.c ****   }
+ 665              		.loc 1 253 0
+ 666 005c 0020     		movs	r0, #0
+ 667              	.LVL82:
+ 256:u8g2/csrc/u8x8_cad.c **** 
+ 668              		.loc 1 256 0
+ 669 005e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 670              		.cfi_endproc
+ 671              	.LFE9:
+ 673              		.section	.text.u8x8_cad_001,"ax",%progbits
+ 674              		.align	1
+ 675              		.global	u8x8_cad_001
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 21
+
+
+ 676              		.syntax unified
+ 677              		.thumb
+ 678              		.thumb_func
+ 679              		.fpu softvfp
+ 681              	u8x8_cad_001:
+ 682              	.LFB10:
+ 264:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 683              		.loc 1 264 0
+ 684              		.cfi_startproc
+ 685              		@ args = 0, pretend = 0, frame = 0
+ 686              		@ frame_needed = 0, uses_anonymous_args = 0
+ 687              	.LVL83:
+ 688 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 689              	.LCFI13:
+ 690              		.cfi_def_cfa_offset 24
+ 691              		.cfi_offset 4, -24
+ 692              		.cfi_offset 5, -20
+ 693              		.cfi_offset 6, -16
+ 694              		.cfi_offset 7, -12
+ 695              		.cfi_offset 8, -8
+ 696              		.cfi_offset 14, -4
+ 697 0004 0446     		mov	r4, r0
+ 698 0006 0D46     		mov	r5, r1
+ 699 0008 1646     		mov	r6, r2
+ 700 000a 9846     		mov	r8, r3
+ 265:u8g2/csrc/u8x8_cad.c ****   {
+ 701              		.loc 1 265 0
+ 702 000c A1F11403 		sub	r3, r1, #20
+ 703              	.LVL84:
+ 704 0010 052B     		cmp	r3, #5
+ 705 0012 23D8     		bhi	.L62
+ 706 0014 DFE803F0 		tbb	[pc, r3]
+ 707              	.LVL85:
+ 708              	.L58:
+ 709 0018 1A       		.byte	(.L57-.L58)/2
+ 710 0019 03       		.byte	(.L59-.L58)/2
+ 711 001a 0D       		.byte	(.L60-.L58)/2
+ 712 001b 17       		.byte	(.L61-.L58)/2
+ 713 001c 1A       		.byte	(.L57-.L58)/2
+ 714 001d 1A       		.byte	(.L57-.L58)/2
+ 715              		.p2align 1
+ 716              	.L59:
+ 268:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 717              		.loc 1 268 0
+ 718 001e 0021     		movs	r1, #0
+ 719              	.LVL86:
+ 720 0020 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 721              	.LVL87:
+ 269:u8g2/csrc/u8x8_cad.c ****       break;
+ 722              		.loc 1 269 0
+ 723 0024 3146     		mov	r1, r6
+ 724 0026 2046     		mov	r0, r4
+ 725 0028 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 726              	.LVL88:
+ 287:u8g2/csrc/u8x8_cad.c **** }
+ 727              		.loc 1 287 0
+ 728 002c 0120     		movs	r0, #1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 22
+
+
+ 270:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 729              		.loc 1 270 0
+ 730 002e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 731              	.LVL89:
+ 732              	.L60:
+ 272:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 733              		.loc 1 272 0
+ 734 0032 0021     		movs	r1, #0
+ 735              	.LVL90:
+ 736 0034 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 737              	.LVL91:
+ 273:u8g2/csrc/u8x8_cad.c ****       break;
+ 738              		.loc 1 273 0
+ 739 0038 3146     		mov	r1, r6
+ 740 003a 2046     		mov	r0, r4
+ 741 003c FFF7FEFF 		bl	u8x8_byte_SendByte
+ 742              	.LVL92:
+ 287:u8g2/csrc/u8x8_cad.c **** }
+ 743              		.loc 1 287 0
+ 744 0040 0120     		movs	r0, #1
+ 274:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 745              		.loc 1 274 0
+ 746 0042 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 747              	.LVL93:
+ 748              	.L61:
+ 276:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendBytes(u8x8, arg_int, arg_ptr);
+ 749              		.loc 1 276 0
+ 750 0046 0121     		movs	r1, #1
+ 751              	.LVL94:
+ 752 0048 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 753              	.LVL95:
+ 754              	.L57:
+ 283:u8g2/csrc/u8x8_cad.c ****     default:
+ 755              		.loc 1 283 0
+ 756 004c 2769     		ldr	r7, [r4, #16]
+ 757 004e 4346     		mov	r3, r8
+ 758 0050 3246     		mov	r2, r6
+ 759 0052 2946     		mov	r1, r5
+ 760 0054 2046     		mov	r0, r4
+ 761 0056 B847     		blx	r7
+ 762              	.LVL96:
+ 763 0058 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 764              	.LVL97:
+ 765              	.L62:
+ 285:u8g2/csrc/u8x8_cad.c ****   }
+ 766              		.loc 1 285 0
+ 767 005c 0020     		movs	r0, #0
+ 768              	.LVL98:
+ 288:u8g2/csrc/u8x8_cad.c **** 
+ 769              		.loc 1 288 0
+ 770 005e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 771              		.cfi_endproc
+ 772              	.LFE10:
+ 774              		.section	.text.u8x8_cad_011,"ax",%progbits
+ 775              		.align	1
+ 776              		.global	u8x8_cad_011
+ 777              		.syntax unified
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 23
+
+
+ 778              		.thumb
+ 779              		.thumb_func
+ 780              		.fpu softvfp
+ 782              	u8x8_cad_011:
+ 783              	.LFB11:
+ 296:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 784              		.loc 1 296 0
+ 785              		.cfi_startproc
+ 786              		@ args = 0, pretend = 0, frame = 0
+ 787              		@ frame_needed = 0, uses_anonymous_args = 0
+ 788              	.LVL99:
+ 789 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 790              	.LCFI14:
+ 791              		.cfi_def_cfa_offset 24
+ 792              		.cfi_offset 4, -24
+ 793              		.cfi_offset 5, -20
+ 794              		.cfi_offset 6, -16
+ 795              		.cfi_offset 7, -12
+ 796              		.cfi_offset 8, -8
+ 797              		.cfi_offset 14, -4
+ 798 0004 0446     		mov	r4, r0
+ 799 0006 0D46     		mov	r5, r1
+ 800 0008 1646     		mov	r6, r2
+ 801 000a 9846     		mov	r8, r3
+ 297:u8g2/csrc/u8x8_cad.c ****   {
+ 802              		.loc 1 297 0
+ 803 000c A1F11403 		sub	r3, r1, #20
+ 804              	.LVL100:
+ 805 0010 052B     		cmp	r3, #5
+ 806 0012 23D8     		bhi	.L71
+ 807 0014 DFE803F0 		tbb	[pc, r3]
+ 808              	.LVL101:
+ 809              	.L67:
+ 810 0018 1A       		.byte	(.L66-.L67)/2
+ 811 0019 03       		.byte	(.L68-.L67)/2
+ 812 001a 0D       		.byte	(.L69-.L67)/2
+ 813 001b 17       		.byte	(.L70-.L67)/2
+ 814 001c 1A       		.byte	(.L66-.L67)/2
+ 815 001d 1A       		.byte	(.L66-.L67)/2
+ 816              		.p2align 1
+ 817              	.L68:
+ 300:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 818              		.loc 1 300 0
+ 819 001e 0021     		movs	r1, #0
+ 820              	.LVL102:
+ 821 0020 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 822              	.LVL103:
+ 301:u8g2/csrc/u8x8_cad.c ****       break;
+ 823              		.loc 1 301 0
+ 824 0024 3146     		mov	r1, r6
+ 825 0026 2046     		mov	r0, r4
+ 826 0028 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 827              	.LVL104:
+ 319:u8g2/csrc/u8x8_cad.c **** }
+ 828              		.loc 1 319 0
+ 829 002c 0120     		movs	r0, #1
+ 302:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 24
+
+
+ 830              		.loc 1 302 0
+ 831 002e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 832              	.LVL105:
+ 833              	.L69:
+ 304:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 834              		.loc 1 304 0
+ 835 0032 0121     		movs	r1, #1
+ 836              	.LVL106:
+ 837 0034 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 838              	.LVL107:
+ 305:u8g2/csrc/u8x8_cad.c ****       break;
+ 839              		.loc 1 305 0
+ 840 0038 3146     		mov	r1, r6
+ 841 003a 2046     		mov	r0, r4
+ 842 003c FFF7FEFF 		bl	u8x8_byte_SendByte
+ 843              	.LVL108:
+ 319:u8g2/csrc/u8x8_cad.c **** }
+ 844              		.loc 1 319 0
+ 845 0040 0120     		movs	r0, #1
+ 306:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 846              		.loc 1 306 0
+ 847 0042 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 848              	.LVL109:
+ 849              	.L70:
+ 308:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendBytes(u8x8, arg_int, arg_ptr);
+ 850              		.loc 1 308 0
+ 851 0046 0121     		movs	r1, #1
+ 852              	.LVL110:
+ 853 0048 FFF7FEFF 		bl	u8x8_byte_SetDC
+ 854              	.LVL111:
+ 855              	.L66:
+ 315:u8g2/csrc/u8x8_cad.c ****     default:
+ 856              		.loc 1 315 0
+ 857 004c 2769     		ldr	r7, [r4, #16]
+ 858 004e 4346     		mov	r3, r8
+ 859 0050 3246     		mov	r2, r6
+ 860 0052 2946     		mov	r1, r5
+ 861 0054 2046     		mov	r0, r4
+ 862 0056 B847     		blx	r7
+ 863              	.LVL112:
+ 864 0058 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 865              	.LVL113:
+ 866              	.L71:
+ 317:u8g2/csrc/u8x8_cad.c ****   }
+ 867              		.loc 1 317 0
+ 868 005c 0020     		movs	r0, #0
+ 869              	.LVL114:
+ 320:u8g2/csrc/u8x8_cad.c **** 
+ 870              		.loc 1 320 0
+ 871 005e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 872              		.cfi_endproc
+ 873              	.LFE11:
+ 875              		.section	.text.u8x8_cad_st7920_spi,"ax",%progbits
+ 876              		.align	1
+ 877              		.global	u8x8_cad_st7920_spi
+ 878              		.syntax unified
+ 879              		.thumb
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 25
+
+
+ 880              		.thumb_func
+ 881              		.fpu softvfp
+ 883              	u8x8_cad_st7920_spi:
+ 884              	.LFB12:
+ 325:u8g2/csrc/u8x8_cad.c ****   uint8_t *data;
+ 885              		.loc 1 325 0
+ 886              		.cfi_startproc
+ 887              		@ args = 0, pretend = 0, frame = 0
+ 888              		@ frame_needed = 0, uses_anonymous_args = 0
+ 889              	.LVL115:
+ 890 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 891              	.LCFI15:
+ 892              		.cfi_def_cfa_offset 24
+ 893              		.cfi_offset 3, -24
+ 894              		.cfi_offset 4, -20
+ 895              		.cfi_offset 5, -16
+ 896              		.cfi_offset 6, -12
+ 897              		.cfi_offset 7, -8
+ 898              		.cfi_offset 14, -4
+ 899 0002 0646     		mov	r6, r0
+ 900 0004 1546     		mov	r5, r2
+ 901 0006 1F46     		mov	r7, r3
+ 332:u8g2/csrc/u8x8_cad.c ****   {
+ 902              		.loc 1 332 0
+ 903 0008 A1F11403 		sub	r3, r1, #20
+ 904              	.LVL116:
+ 905 000c 052B     		cmp	r3, #5
+ 906 000e 74D8     		bhi	.L84
+ 907 0010 DFE803F0 		tbb	[pc, r3]
+ 908              	.LVL117:
+ 909              	.L76:
+ 910 0014 6E       		.byte	(.L75-.L76)/2
+ 911 0015 03       		.byte	(.L77-.L76)/2
+ 912 0016 22       		.byte	(.L78-.L76)/2
+ 913 0017 32       		.byte	(.L79-.L76)/2
+ 914 0018 6E       		.byte	(.L75-.L76)/2
+ 915 0019 6E       		.byte	(.L75-.L76)/2
+ 916              		.p2align 1
+ 917              	.L77:
+ 335:u8g2/csrc/u8x8_cad.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 1);
+ 918              		.loc 1 335 0
+ 919 001a F821     		movs	r1, #248
+ 920              	.LVL118:
+ 921 001c FFF7FEFF 		bl	u8x8_byte_SendByte
+ 922              	.LVL119:
+ 336:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int & 0x0f0);
+ 923              		.loc 1 336 0
+ 924 0020 0122     		movs	r2, #1
+ 925 0022 2C21     		movs	r1, #44
+ 926 0024 3046     		mov	r0, r6
+ 927 0026 FFF7FEFF 		bl	u8x8_gpio_call
+ 928              	.LVL120:
+ 337:u8g2/csrc/u8x8_cad.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 1);
+ 929              		.loc 1 337 0
+ 930 002a 05F0F001 		and	r1, r5, #240
+ 931 002e 3046     		mov	r0, r6
+ 932 0030 FFF7FEFF 		bl	u8x8_byte_SendByte
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 26
+
+
+ 933              	.LVL121:
+ 338:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int << 4);
+ 934              		.loc 1 338 0
+ 935 0034 0122     		movs	r2, #1
+ 936 0036 2C21     		movs	r1, #44
+ 937 0038 3046     		mov	r0, r6
+ 938 003a FFF7FEFF 		bl	u8x8_gpio_call
+ 939              	.LVL122:
+ 339:u8g2/csrc/u8x8_cad.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 1);
+ 940              		.loc 1 339 0
+ 941 003e 2901     		lsls	r1, r5, #4
+ 942 0040 01F0F001 		and	r1, r1, #240
+ 943 0044 3046     		mov	r0, r6
+ 944 0046 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 945              	.LVL123:
+ 340:u8g2/csrc/u8x8_cad.c ****       break;
+ 946              		.loc 1 340 0
+ 947 004a 0122     		movs	r2, #1
+ 948 004c 2C21     		movs	r1, #44
+ 949 004e 3046     		mov	r0, r6
+ 950 0050 FFF7FEFF 		bl	u8x8_gpio_call
+ 951              	.LVL124:
+ 391:u8g2/csrc/u8x8_cad.c **** }
+ 952              		.loc 1 391 0
+ 953 0054 0120     		movs	r0, #1
+ 341:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 954              		.loc 1 341 0
+ 955 0056 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 956              	.LVL125:
+ 957              	.L78:
+ 343:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int & 0x0f0);
+ 958              		.loc 1 343 0
+ 959 0058 F821     		movs	r1, #248
+ 960              	.LVL126:
+ 961 005a FFF7FEFF 		bl	u8x8_byte_SendByte
+ 962              	.LVL127:
+ 344:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int << 4);
+ 963              		.loc 1 344 0
+ 964 005e 05F0F001 		and	r1, r5, #240
+ 965 0062 3046     		mov	r0, r6
+ 966 0064 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 967              	.LVL128:
+ 345:u8g2/csrc/u8x8_cad.c ****       break;
+ 968              		.loc 1 345 0
+ 969 0068 2901     		lsls	r1, r5, #4
+ 970 006a 01F0F001 		and	r1, r1, #240
+ 971 006e 3046     		mov	r0, r6
+ 972 0070 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 973              	.LVL129:
+ 391:u8g2/csrc/u8x8_cad.c **** }
+ 974              		.loc 1 391 0
+ 975 0074 0120     		movs	r0, #1
+ 346:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 976              		.loc 1 346 0
+ 977 0076 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 978              	.LVL130:
+ 979              	.L79:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 27
+
+
+ 349:u8g2/csrc/u8x8_cad.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 1);
+ 980              		.loc 1 349 0
+ 981 0078 FA21     		movs	r1, #250
+ 982              	.LVL131:
+ 983 007a FFF7FEFF 		bl	u8x8_byte_SendByte
+ 984              	.LVL132:
+ 350:u8g2/csrc/u8x8_cad.c **** 
+ 985              		.loc 1 350 0
+ 986 007e 0122     		movs	r2, #1
+ 987 0080 2C21     		movs	r1, #44
+ 988 0082 3046     		mov	r0, r6
+ 989 0084 FFF7FEFF 		bl	u8x8_gpio_call
+ 990              	.LVL133:
+ 357:u8g2/csrc/u8x8_cad.c ****       {
+ 991              		.loc 1 357 0
+ 992 0088 17E0     		b	.L80
+ 993              	.LVL134:
+ 994              	.L85:
+ 995 008a 1D48     		ldr	r0, .L87
+ 996 008c 0822     		movs	r2, #8
+ 997              	.L81:
+ 998              	.LVL135:
+ 363:u8g2/csrc/u8x8_cad.c **** 	  *ptr++= b & 0x0f0;
+ 999              		.loc 1 363 0 discriminator 1
+ 1000 008e 7C1C     		adds	r4, r7, #1
+ 1001              	.LVL136:
+ 1002 0090 3B78     		ldrb	r3, [r7]	@ zero_extendqisi2
+ 1003              	.LVL137:
+ 364:u8g2/csrc/u8x8_cad.c **** 	  b <<= 4;
+ 1004              		.loc 1 364 0 discriminator 1
+ 1005 0092 03F0F007 		and	r7, r3, #240
+ 1006 0096 0146     		mov	r1, r0
+ 1007 0098 01F8027B 		strb	r7, [r1], #2
+ 365:u8g2/csrc/u8x8_cad.c **** 	  *ptr++= b;
+ 1008              		.loc 1 365 0 discriminator 1
+ 1009 009c 1B01     		lsls	r3, r3, #4
+ 1010              	.LVL138:
+ 366:u8g2/csrc/u8x8_cad.c **** 	  i--;
+ 1011              		.loc 1 366 0 discriminator 1
+ 1012 009e 4370     		strb	r3, [r0, #1]
+ 367:u8g2/csrc/u8x8_cad.c **** 	} while( i > 0 );
+ 1013              		.loc 1 367 0 discriminator 1
+ 1014 00a0 013A     		subs	r2, r2, #1
+ 1015              	.LVL139:
+ 363:u8g2/csrc/u8x8_cad.c **** 	  *ptr++= b & 0x0f0;
+ 1016              		.loc 1 363 0 discriminator 1
+ 1017 00a2 2746     		mov	r7, r4
+ 366:u8g2/csrc/u8x8_cad.c **** 	  i--;
+ 1018              		.loc 1 366 0 discriminator 1
+ 1019 00a4 0846     		mov	r0, r1
+ 368:u8g2/csrc/u8x8_cad.c **** 	arg_int -= 8;
+ 1020              		.loc 1 368 0 discriminator 1
+ 1021 00a6 12F0FF02 		ands	r2, r2, #255
+ 1022              	.LVL140:
+ 1023 00aa F0D1     		bne	.L81
+ 369:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_SendBytes(u8x8, 16, buf); 
+ 1024              		.loc 1 369 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 28
+
+
+ 1025 00ac 083D     		subs	r5, r5, #8
+ 1026              	.LVL141:
+ 1027 00ae EDB2     		uxtb	r5, r5
+ 1028              	.LVL142:
+ 370:u8g2/csrc/u8x8_cad.c ****       }
+ 1029              		.loc 1 370 0
+ 1030 00b0 134A     		ldr	r2, .L87
+ 1031 00b2 1021     		movs	r1, #16
+ 1032              	.LVL143:
+ 1033 00b4 3046     		mov	r0, r6
+ 1034              	.LVL144:
+ 1035 00b6 FFF7FEFF 		bl	u8x8_byte_SendBytes
+ 1036              	.LVL145:
+ 1037              	.L80:
+ 357:u8g2/csrc/u8x8_cad.c ****       {
+ 1038              		.loc 1 357 0
+ 1039 00ba 072D     		cmp	r5, #7
+ 1040 00bc E5D8     		bhi	.L85
+ 1041 00be 0EE0     		b	.L82
+ 1042              	.L83:
+ 376:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_SendByte(u8x8, b & 0x0f0);
+ 1043              		.loc 1 376 0
+ 1044 00c0 17F8014B 		ldrb	r4, [r7], #1	@ zero_extendqisi2
+ 1045              	.LVL146:
+ 377:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_SendByte(u8x8, b << 4);
+ 1046              		.loc 1 377 0
+ 1047 00c4 04F0F001 		and	r1, r4, #240
+ 1048 00c8 3046     		mov	r0, r6
+ 1049 00ca FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1050              	.LVL147:
+ 378:u8g2/csrc/u8x8_cad.c **** 	data++;
+ 1051              		.loc 1 378 0
+ 1052 00ce 2101     		lsls	r1, r4, #4
+ 1053 00d0 01F0F001 		and	r1, r1, #240
+ 1054 00d4 3046     		mov	r0, r6
+ 1055 00d6 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1056              	.LVL148:
+ 380:u8g2/csrc/u8x8_cad.c ****       }
+ 1057              		.loc 1 380 0
+ 1058 00da 013D     		subs	r5, r5, #1
+ 1059              	.LVL149:
+ 1060 00dc EDB2     		uxtb	r5, r5
+ 1061              	.LVL150:
+ 1062              	.L82:
+ 374:u8g2/csrc/u8x8_cad.c ****       {
+ 1063              		.loc 1 374 0
+ 1064 00de 002D     		cmp	r5, #0
+ 1065 00e0 EED1     		bne	.L83
+ 382:u8g2/csrc/u8x8_cad.c ****       break;
+ 1066              		.loc 1 382 0
+ 1067 00e2 0122     		movs	r2, #1
+ 1068 00e4 2C21     		movs	r1, #44
+ 1069 00e6 3046     		mov	r0, r6
+ 1070 00e8 FFF7FEFF 		bl	u8x8_gpio_call
+ 1071              	.LVL151:
+ 391:u8g2/csrc/u8x8_cad.c **** }
+ 1072              		.loc 1 391 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 29
+
+
+ 1073 00ec 0120     		movs	r0, #1
+ 383:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 1074              		.loc 1 383 0
+ 1075 00ee F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1076              	.LVL152:
+ 1077              	.L75:
+ 387:u8g2/csrc/u8x8_cad.c ****     default:
+ 1078              		.loc 1 387 0
+ 1079 00f0 0469     		ldr	r4, [r0, #16]
+ 1080 00f2 3B46     		mov	r3, r7
+ 1081 00f4 2A46     		mov	r2, r5
+ 1082 00f6 A047     		blx	r4
+ 1083              	.LVL153:
+ 1084 00f8 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1085              	.LVL154:
+ 1086              	.L84:
+ 389:u8g2/csrc/u8x8_cad.c ****   }
+ 1087              		.loc 1 389 0
+ 1088 00fa 0020     		movs	r0, #0
+ 1089              	.LVL155:
+ 392:u8g2/csrc/u8x8_cad.c **** 
+ 1090              		.loc 1 392 0
+ 1091 00fc F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1092              	.LVL156:
+ 1093              	.L88:
+ 1094 00fe 00BF     		.align	2
+ 1095              	.L87:
+ 1096 0100 00000000 		.word	.LANCHOR0
+ 1097              		.cfi_endproc
+ 1098              	.LFE12:
+ 1100              		.section	.text.u8x8_cad_ssd13xx_i2c,"ax",%progbits
+ 1101              		.align	1
+ 1102              		.global	u8x8_cad_ssd13xx_i2c
+ 1103              		.syntax unified
+ 1104              		.thumb
+ 1105              		.thumb_func
+ 1106              		.fpu softvfp
+ 1108              	u8x8_cad_ssd13xx_i2c:
+ 1109              	.LFB14:
+ 408:u8g2/csrc/u8x8_cad.c **** }
+ 409:u8g2/csrc/u8x8_cad.c **** 
+ 410:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_ssd13xx_i2c(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 411:u8g2/csrc/u8x8_cad.c **** {
+ 1110              		.loc 1 411 0
+ 1111              		.cfi_startproc
+ 1112              		@ args = 0, pretend = 0, frame = 0
+ 1113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1114              	.LVL157:
+ 1115 0000 70B5     		push	{r4, r5, r6, lr}
+ 1116              	.LCFI16:
+ 1117              		.cfi_def_cfa_offset 16
+ 1118              		.cfi_offset 4, -16
+ 1119              		.cfi_offset 5, -12
+ 1120              		.cfi_offset 6, -8
+ 1121              		.cfi_offset 14, -4
+ 1122 0002 0646     		mov	r6, r0
+ 1123 0004 1446     		mov	r4, r2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 30
+
+
+ 412:u8g2/csrc/u8x8_cad.c ****   uint8_t *p;
+ 413:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 1124              		.loc 1 413 0
+ 1125 0006 A1F11402 		sub	r2, r1, #20
+ 1126              	.LVL158:
+ 1127 000a 052A     		cmp	r2, #5
+ 1128 000c 04D8     		bhi	.L90
+ 1129 000e DFE802F0 		tbb	[pc, r2]
+ 1130              	.LVL159:
+ 1131              	.L92:
+ 1132 0012 28       		.byte	(.L91-.L92)/2
+ 1133 0013 05       		.byte	(.L93-.L92)/2
+ 1134 0014 05       		.byte	(.L93-.L92)/2
+ 1135 0015 26       		.byte	(.L98-.L92)/2
+ 1136 0016 35       		.byte	(.L99-.L92)/2
+ 1137 0017 35       		.byte	(.L99-.L92)/2
+ 1138              		.p2align 1
+ 1139              	.L90:
+ 414:u8g2/csrc/u8x8_cad.c ****   {
+ 415:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 416:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 417:u8g2/csrc/u8x8_cad.c ****       /* 7 Nov 2016: Can this be improved?  */
+ 418:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SetDC(u8x8, 0);
+ 419:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_StartTransfer(u8x8);
+ 420:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendByte(u8x8, u8x8_GetI2CAddress(u8x8));
+ 421:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, 0x000);
+ 422:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 423:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_EndTransfer(u8x8);      
+ 424:u8g2/csrc/u8x8_cad.c ****       break;
+ 425:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 426:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SetDC(u8x8, 1);
+ 427:u8g2/csrc/u8x8_cad.c ****     
+ 428:u8g2/csrc/u8x8_cad.c ****       /* the FeatherWing OLED with the 32u4 transfer of long byte */
+ 429:u8g2/csrc/u8x8_cad.c ****       /* streams was not possible. This is broken down to */
+ 430:u8g2/csrc/u8x8_cad.c ****       /* smaller streams, 32 seems to be the limit... */
+ 431:u8g2/csrc/u8x8_cad.c ****       /* I guess this is related to the size of the Wire buffers in Arduino */
+ 432:u8g2/csrc/u8x8_cad.c ****       /* Unfortunately, this can not be handled in the byte level drivers, */
+ 433:u8g2/csrc/u8x8_cad.c ****       /* so this is done here. Even further, only 24 bytes will be sent, */
+ 434:u8g2/csrc/u8x8_cad.c ****       /* because there will be another byte (DC) required during the transfer */
+ 435:u8g2/csrc/u8x8_cad.c ****       p = arg_ptr;
+ 436:u8g2/csrc/u8x8_cad.c ****        while( arg_int > 24 )
+ 437:u8g2/csrc/u8x8_cad.c ****       {
+ 438:u8g2/csrc/u8x8_cad.c **** 	u8x8_i2c_data_transfer(u8x8, 24, p);
+ 439:u8g2/csrc/u8x8_cad.c **** 	arg_int-=24;
+ 440:u8g2/csrc/u8x8_cad.c **** 	p+=24;
+ 441:u8g2/csrc/u8x8_cad.c ****       }
+ 442:u8g2/csrc/u8x8_cad.c ****       u8x8_i2c_data_transfer(u8x8, arg_int, p);
+ 443:u8g2/csrc/u8x8_cad.c ****       break;
+ 444:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 445:u8g2/csrc/u8x8_cad.c ****       /* apply default i2c adr if required so that the start transfer msg can use this */
+ 446:u8g2/csrc/u8x8_cad.c ****       if ( u8x8->i2c_address == 255 )
+ 447:u8g2/csrc/u8x8_cad.c **** 	u8x8->i2c_address = 0x078;
+ 448:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 449:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 450:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 451:u8g2/csrc/u8x8_cad.c ****       /* cad transfer commands are ignored */
+ 452:u8g2/csrc/u8x8_cad.c ****       break;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 31
+
+
+ 453:u8g2/csrc/u8x8_cad.c ****     default:
+ 454:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 1140              		.loc 1 454 0
+ 1141 0018 0020     		movs	r0, #0
+ 1142 001a 70BD     		pop	{r4, r5, r6, pc}
+ 1143              	.LVL160:
+ 1144              	.L93:
+ 419:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SendByte(u8x8, u8x8_GetI2CAddress(u8x8));
+ 1145              		.loc 1 419 0
+ 1146 001c 3046     		mov	r0, r6
+ 1147 001e FFF7FEFF 		bl	u8x8_byte_StartTransfer
+ 1148              	.LVL161:
+ 421:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 1149              		.loc 1 421 0
+ 1150 0022 0021     		movs	r1, #0
+ 1151 0024 3046     		mov	r0, r6
+ 1152 0026 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1153              	.LVL162:
+ 422:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_EndTransfer(u8x8);      
+ 1154              		.loc 1 422 0
+ 1155 002a 2146     		mov	r1, r4
+ 1156 002c 3046     		mov	r0, r6
+ 1157 002e FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1158              	.LVL163:
+ 423:u8g2/csrc/u8x8_cad.c ****       break;
+ 1159              		.loc 1 423 0
+ 1160 0032 3046     		mov	r0, r6
+ 1161 0034 FFF7FEFF 		bl	u8x8_byte_EndTransfer
+ 1162              	.LVL164:
+ 455:u8g2/csrc/u8x8_cad.c ****   }
+ 456:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 1163              		.loc 1 456 0
+ 1164 0038 0120     		movs	r0, #1
+ 424:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 1165              		.loc 1 424 0
+ 1166 003a 70BD     		pop	{r4, r5, r6, pc}
+ 1167              	.LVL165:
+ 1168              	.L96:
+ 438:u8g2/csrc/u8x8_cad.c **** 	arg_int-=24;
+ 1169              		.loc 1 438 0
+ 1170 003c 2A46     		mov	r2, r5
+ 1171 003e 1821     		movs	r1, #24
+ 1172 0040 3046     		mov	r0, r6
+ 1173 0042 FFF7FEFF 		bl	u8x8_i2c_data_transfer
+ 1174              	.LVL166:
+ 439:u8g2/csrc/u8x8_cad.c **** 	p+=24;
+ 1175              		.loc 1 439 0
+ 1176 0046 183C     		subs	r4, r4, #24
+ 1177              	.LVL167:
+ 1178 0048 E4B2     		uxtb	r4, r4
+ 1179              	.LVL168:
+ 440:u8g2/csrc/u8x8_cad.c ****       }
+ 1180              		.loc 1 440 0
+ 1181 004a 1835     		adds	r5, r5, #24
+ 1182              	.LVL169:
+ 1183              	.L94:
+ 436:u8g2/csrc/u8x8_cad.c ****       {
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 32
+
+
+ 1184              		.loc 1 436 0
+ 1185 004c 182C     		cmp	r4, #24
+ 1186 004e F5D8     		bhi	.L96
+ 442:u8g2/csrc/u8x8_cad.c ****       break;
+ 1187              		.loc 1 442 0
+ 1188 0050 2A46     		mov	r2, r5
+ 1189 0052 2146     		mov	r1, r4
+ 1190 0054 3046     		mov	r0, r6
+ 1191 0056 FFF7FEFF 		bl	u8x8_i2c_data_transfer
+ 1192              	.LVL170:
+ 1193              		.loc 1 456 0
+ 1194 005a 0120     		movs	r0, #1
+ 443:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 1195              		.loc 1 443 0
+ 1196 005c 70BD     		pop	{r4, r5, r6, pc}
+ 1197              	.LVL171:
+ 1198              	.L98:
+ 413:u8g2/csrc/u8x8_cad.c ****   {
+ 1199              		.loc 1 413 0
+ 1200 005e 1D46     		mov	r5, r3
+ 1201 0060 F4E7     		b	.L94
+ 1202              	.L91:
+ 446:u8g2/csrc/u8x8_cad.c **** 	u8x8->i2c_address = 0x078;
+ 1203              		.loc 1 446 0
+ 1204 0062 96F82020 		ldrb	r2, [r6, #32]	@ zero_extendqisi2
+ 1205 0066 FF2A     		cmp	r2, #255
+ 1206 0068 04D0     		beq	.L101
+ 1207              	.L97:
+ 448:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 1208              		.loc 1 448 0
+ 1209 006a 3569     		ldr	r5, [r6, #16]
+ 1210 006c 2246     		mov	r2, r4
+ 1211 006e 3046     		mov	r0, r6
+ 1212 0070 A847     		blx	r5
+ 1213              	.LVL172:
+ 1214 0072 70BD     		pop	{r4, r5, r6, pc}
+ 1215              	.LVL173:
+ 1216              	.L101:
+ 447:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 1217              		.loc 1 447 0
+ 1218 0074 7822     		movs	r2, #120
+ 1219 0076 86F82020 		strb	r2, [r6, #32]
+ 1220 007a F6E7     		b	.L97
+ 1221              	.L99:
+ 1222              		.loc 1 456 0
+ 1223 007c 0120     		movs	r0, #1
+ 457:u8g2/csrc/u8x8_cad.c **** }
+ 1224              		.loc 1 457 0
+ 1225 007e 70BD     		pop	{r4, r5, r6, pc}
+ 1226              		.cfi_endproc
+ 1227              	.LFE14:
+ 1229              		.section	.text.u8x8_cad_st75256_i2c,"ax",%progbits
+ 1230              		.align	1
+ 1231              		.global	u8x8_cad_st75256_i2c
+ 1232              		.syntax unified
+ 1233              		.thumb
+ 1234              		.thumb_func
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 33
+
+
+ 1235              		.fpu softvfp
+ 1237              	u8x8_cad_st75256_i2c:
+ 1238              	.LFB15:
+ 458:u8g2/csrc/u8x8_cad.c **** 
+ 459:u8g2/csrc/u8x8_cad.c **** /* the st75256 i2c driver is a copy of the ssd13xx driver, but with arg=1 */
+ 460:u8g2/csrc/u8x8_cad.c **** /* modified from cad001 (ssd13xx) to cad011 */
+ 461:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_st75256_i2c(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 462:u8g2/csrc/u8x8_cad.c **** {
+ 1239              		.loc 1 462 0
+ 1240              		.cfi_startproc
+ 1241              		@ args = 0, pretend = 0, frame = 0
+ 1242              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1243              	.LVL174:
+ 1244 0000 70B5     		push	{r4, r5, r6, lr}
+ 1245              	.LCFI17:
+ 1246              		.cfi_def_cfa_offset 16
+ 1247              		.cfi_offset 4, -16
+ 1248              		.cfi_offset 5, -12
+ 1249              		.cfi_offset 6, -8
+ 1250              		.cfi_offset 14, -4
+ 1251 0002 0646     		mov	r6, r0
+ 1252 0004 1446     		mov	r4, r2
+ 463:u8g2/csrc/u8x8_cad.c ****   uint8_t *p;
+ 464:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 1253              		.loc 1 464 0
+ 1254 0006 A1F11402 		sub	r2, r1, #20
+ 1255              	.LVL175:
+ 1256 000a 052A     		cmp	r2, #5
+ 1257 000c 04D8     		bhi	.L103
+ 1258 000e DFE802F0 		tbb	[pc, r2]
+ 1259              	.LVL176:
+ 1260              	.L105:
+ 1261 0012 38       		.byte	(.L104-.L105)/2
+ 1262 0013 05       		.byte	(.L106-.L105)/2
+ 1263 0014 15       		.byte	(.L107-.L105)/2
+ 1264 0015 36       		.byte	(.L112-.L105)/2
+ 1265 0016 45       		.byte	(.L113-.L105)/2
+ 1266 0017 45       		.byte	(.L113-.L105)/2
+ 1267              		.p2align 1
+ 1268              	.L103:
+ 465:u8g2/csrc/u8x8_cad.c ****   {
+ 466:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 467:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_StartTransfer(u8x8);
+ 468:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, 0x000);
+ 469:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 470:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_EndTransfer(u8x8);      
+ 471:u8g2/csrc/u8x8_cad.c ****       break;
+ 472:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 473:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_StartTransfer(u8x8);
+ 474:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, 0x040);
+ 475:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 476:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_EndTransfer(u8x8);
+ 477:u8g2/csrc/u8x8_cad.c ****       break;
+ 478:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 479:u8g2/csrc/u8x8_cad.c ****       /* see ssd13xx driver */
+ 480:u8g2/csrc/u8x8_cad.c ****       p = arg_ptr;
+ 481:u8g2/csrc/u8x8_cad.c ****        while( arg_int > 24 )
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 34
+
+
+ 482:u8g2/csrc/u8x8_cad.c ****       {
+ 483:u8g2/csrc/u8x8_cad.c **** 	u8x8_i2c_data_transfer(u8x8, 24, p);
+ 484:u8g2/csrc/u8x8_cad.c **** 	arg_int-=24;
+ 485:u8g2/csrc/u8x8_cad.c **** 	p+=24;
+ 486:u8g2/csrc/u8x8_cad.c ****       }
+ 487:u8g2/csrc/u8x8_cad.c ****       u8x8_i2c_data_transfer(u8x8, arg_int, p);
+ 488:u8g2/csrc/u8x8_cad.c ****       break;
+ 489:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 490:u8g2/csrc/u8x8_cad.c ****       /* apply default i2c adr if required so that the start transfer msg can use this */
+ 491:u8g2/csrc/u8x8_cad.c ****       if ( u8x8->i2c_address == 255 )
+ 492:u8g2/csrc/u8x8_cad.c **** 	u8x8->i2c_address = 0x078;	/* ST75256, often this is 0x07e */
+ 493:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 494:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 495:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 496:u8g2/csrc/u8x8_cad.c ****       /* cad transfer commands are ignored */
+ 497:u8g2/csrc/u8x8_cad.c ****       break;
+ 498:u8g2/csrc/u8x8_cad.c ****     default:
+ 499:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 1269              		.loc 1 499 0
+ 1270 0018 0020     		movs	r0, #0
+ 1271 001a 70BD     		pop	{r4, r5, r6, pc}
+ 1272              	.LVL177:
+ 1273              	.L106:
+ 467:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, 0x000);
+ 1274              		.loc 1 467 0
+ 1275 001c 3046     		mov	r0, r6
+ 1276 001e FFF7FEFF 		bl	u8x8_byte_StartTransfer
+ 1277              	.LVL178:
+ 468:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 1278              		.loc 1 468 0
+ 1279 0022 0021     		movs	r1, #0
+ 1280 0024 3046     		mov	r0, r6
+ 1281 0026 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1282              	.LVL179:
+ 469:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_EndTransfer(u8x8);      
+ 1283              		.loc 1 469 0
+ 1284 002a 2146     		mov	r1, r4
+ 1285 002c 3046     		mov	r0, r6
+ 1286 002e FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1287              	.LVL180:
+ 470:u8g2/csrc/u8x8_cad.c ****       break;
+ 1288              		.loc 1 470 0
+ 1289 0032 3046     		mov	r0, r6
+ 1290 0034 FFF7FEFF 		bl	u8x8_byte_EndTransfer
+ 1291              	.LVL181:
+ 500:u8g2/csrc/u8x8_cad.c ****   }
+ 501:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 1292              		.loc 1 501 0
+ 1293 0038 0120     		movs	r0, #1
+ 471:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 1294              		.loc 1 471 0
+ 1295 003a 70BD     		pop	{r4, r5, r6, pc}
+ 1296              	.LVL182:
+ 1297              	.L107:
+ 473:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, 0x040);
+ 1298              		.loc 1 473 0
+ 1299 003c 3046     		mov	r0, r6
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 35
+
+
+ 1300 003e FFF7FEFF 		bl	u8x8_byte_StartTransfer
+ 1301              	.LVL183:
+ 474:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 1302              		.loc 1 474 0
+ 1303 0042 4021     		movs	r1, #64
+ 1304 0044 3046     		mov	r0, r6
+ 1305 0046 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1306              	.LVL184:
+ 475:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_EndTransfer(u8x8);
+ 1307              		.loc 1 475 0
+ 1308 004a 2146     		mov	r1, r4
+ 1309 004c 3046     		mov	r0, r6
+ 1310 004e FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1311              	.LVL185:
+ 476:u8g2/csrc/u8x8_cad.c ****       break;
+ 1312              		.loc 1 476 0
+ 1313 0052 3046     		mov	r0, r6
+ 1314 0054 FFF7FEFF 		bl	u8x8_byte_EndTransfer
+ 1315              	.LVL186:
+ 1316              		.loc 1 501 0
+ 1317 0058 0120     		movs	r0, #1
+ 477:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 1318              		.loc 1 477 0
+ 1319 005a 70BD     		pop	{r4, r5, r6, pc}
+ 1320              	.LVL187:
+ 1321              	.L110:
+ 483:u8g2/csrc/u8x8_cad.c **** 	arg_int-=24;
+ 1322              		.loc 1 483 0
+ 1323 005c 2A46     		mov	r2, r5
+ 1324 005e 1821     		movs	r1, #24
+ 1325 0060 3046     		mov	r0, r6
+ 1326 0062 FFF7FEFF 		bl	u8x8_i2c_data_transfer
+ 1327              	.LVL188:
+ 484:u8g2/csrc/u8x8_cad.c **** 	p+=24;
+ 1328              		.loc 1 484 0
+ 1329 0066 183C     		subs	r4, r4, #24
+ 1330              	.LVL189:
+ 1331 0068 E4B2     		uxtb	r4, r4
+ 1332              	.LVL190:
+ 485:u8g2/csrc/u8x8_cad.c ****       }
+ 1333              		.loc 1 485 0
+ 1334 006a 1835     		adds	r5, r5, #24
+ 1335              	.LVL191:
+ 1336              	.L108:
+ 481:u8g2/csrc/u8x8_cad.c ****       {
+ 1337              		.loc 1 481 0
+ 1338 006c 182C     		cmp	r4, #24
+ 1339 006e F5D8     		bhi	.L110
+ 487:u8g2/csrc/u8x8_cad.c ****       break;
+ 1340              		.loc 1 487 0
+ 1341 0070 2A46     		mov	r2, r5
+ 1342 0072 2146     		mov	r1, r4
+ 1343 0074 3046     		mov	r0, r6
+ 1344 0076 FFF7FEFF 		bl	u8x8_i2c_data_transfer
+ 1345              	.LVL192:
+ 1346              		.loc 1 501 0
+ 1347 007a 0120     		movs	r0, #1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 36
+
+
+ 488:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 1348              		.loc 1 488 0
+ 1349 007c 70BD     		pop	{r4, r5, r6, pc}
+ 1350              	.LVL193:
+ 1351              	.L112:
+ 464:u8g2/csrc/u8x8_cad.c ****   {
+ 1352              		.loc 1 464 0
+ 1353 007e 1D46     		mov	r5, r3
+ 1354 0080 F4E7     		b	.L108
+ 1355              	.L104:
+ 491:u8g2/csrc/u8x8_cad.c **** 	u8x8->i2c_address = 0x078;	/* ST75256, often this is 0x07e */
+ 1356              		.loc 1 491 0
+ 1357 0082 96F82020 		ldrb	r2, [r6, #32]	@ zero_extendqisi2
+ 1358 0086 FF2A     		cmp	r2, #255
+ 1359 0088 04D0     		beq	.L115
+ 1360              	.L111:
+ 493:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 1361              		.loc 1 493 0
+ 1362 008a 3569     		ldr	r5, [r6, #16]
+ 1363 008c 2246     		mov	r2, r4
+ 1364 008e 3046     		mov	r0, r6
+ 1365 0090 A847     		blx	r5
+ 1366              	.LVL194:
+ 1367 0092 70BD     		pop	{r4, r5, r6, pc}
+ 1368              	.LVL195:
+ 1369              	.L115:
+ 492:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 1370              		.loc 1 492 0
+ 1371 0094 7822     		movs	r2, #120
+ 1372 0096 86F82020 		strb	r2, [r6, #32]
+ 1373 009a F6E7     		b	.L111
+ 1374              	.L113:
+ 1375              		.loc 1 501 0
+ 1376 009c 0120     		movs	r0, #1
+ 502:u8g2/csrc/u8x8_cad.c **** }
+ 1377              		.loc 1 502 0
+ 1378 009e 70BD     		pop	{r4, r5, r6, pc}
+ 1379              		.cfi_endproc
+ 1380              	.LFE15:
+ 1382              		.section	.text.u8x8_cad_ld7032_i2c,"ax",%progbits
+ 1383              		.align	1
+ 1384              		.global	u8x8_cad_ld7032_i2c
+ 1385              		.syntax unified
+ 1386              		.thumb
+ 1387              		.thumb_func
+ 1388              		.fpu softvfp
+ 1390              	u8x8_cad_ld7032_i2c:
+ 1391              	.LFB16:
+ 503:u8g2/csrc/u8x8_cad.c **** 
+ 504:u8g2/csrc/u8x8_cad.c **** /* cad i2c procedure for the ld7032 controller */
+ 505:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_ld7032_i2c(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 506:u8g2/csrc/u8x8_cad.c **** {
+ 1392              		.loc 1 506 0
+ 1393              		.cfi_startproc
+ 1394              		@ args = 0, pretend = 0, frame = 0
+ 1395              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1396              	.LVL196:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 37
+
+
+ 1397 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1398              	.LCFI18:
+ 1399              		.cfi_def_cfa_offset 24
+ 1400              		.cfi_offset 3, -24
+ 1401              		.cfi_offset 4, -20
+ 1402              		.cfi_offset 5, -16
+ 1403              		.cfi_offset 6, -12
+ 1404              		.cfi_offset 7, -8
+ 1405              		.cfi_offset 14, -4
+ 1406 0002 0446     		mov	r4, r0
+ 1407 0004 1546     		mov	r5, r2
+ 507:u8g2/csrc/u8x8_cad.c ****   static uint8_t in_transfer = 0;
+ 508:u8g2/csrc/u8x8_cad.c ****   uint8_t *p;
+ 509:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 1408              		.loc 1 509 0
+ 1409 0006 A1F11402 		sub	r2, r1, #20
+ 1410              	.LVL197:
+ 1411 000a 052A     		cmp	r2, #5
+ 1412 000c 57D8     		bhi	.L128
+ 1413 000e DFE802F0 		tbb	[pc, r2]
+ 1414              	.LVL198:
+ 1415              	.L119:
+ 1416 0012 3A       		.byte	(.L118-.L119)/2
+ 1417 0013 03       		.byte	(.L120-.L119)/2
+ 1418 0014 15       		.byte	(.L121-.L119)/2
+ 1419 0015 38       		.byte	(.L129-.L119)/2
+ 1420 0016 47       		.byte	(.L123-.L119)/2
+ 1421 0017 4C       		.byte	(.L124-.L119)/2
+ 1422              		.p2align 1
+ 1423              	.L120:
+ 510:u8g2/csrc/u8x8_cad.c ****   {
+ 511:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 512:u8g2/csrc/u8x8_cad.c ****       if ( in_transfer != 0 )
+ 1424              		.loc 1 512 0
+ 1425 0018 2A4B     		ldr	r3, .L135
+ 1426              	.LVL199:
+ 1427 001a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1428 001c 53B9     		cbnz	r3, .L132
+ 1429              	.LVL200:
+ 1430              	.L125:
+ 513:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_EndTransfer(u8x8); 
+ 514:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_StartTransfer(u8x8);
+ 1431              		.loc 1 514 0
+ 1432 001e 2046     		mov	r0, r4
+ 1433 0020 FFF7FEFF 		bl	u8x8_byte_StartTransfer
+ 1434              	.LVL201:
+ 515:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 1435              		.loc 1 515 0
+ 1436 0024 2946     		mov	r1, r5
+ 1437 0026 2046     		mov	r0, r4
+ 1438 0028 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1439              	.LVL202:
+ 516:u8g2/csrc/u8x8_cad.c ****       in_transfer = 1;
+ 1440              		.loc 1 516 0
+ 1441 002c 0120     		movs	r0, #1
+ 1442 002e 254B     		ldr	r3, .L135
+ 1443 0030 1870     		strb	r0, [r3]
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 38
+
+
+ 517:u8g2/csrc/u8x8_cad.c ****       break;
+ 1444              		.loc 1 517 0
+ 1445 0032 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1446              	.LVL203:
+ 1447              	.L132:
+ 513:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_StartTransfer(u8x8);
+ 1448              		.loc 1 513 0
+ 1449 0034 2046     		mov	r0, r4
+ 1450 0036 FFF7FEFF 		bl	u8x8_byte_EndTransfer
+ 1451              	.LVL204:
+ 1452 003a F0E7     		b	.L125
+ 1453              	.LVL205:
+ 1454              	.L121:
+ 518:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 519:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 1455              		.loc 1 519 0
+ 1456 003c 2946     		mov	r1, r5
+ 1457              	.LVL206:
+ 1458 003e 2046     		mov	r0, r4
+ 1459 0040 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1460              	.LVL207:
+ 520:u8g2/csrc/u8x8_cad.c ****       break;
+ 521:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 522:u8g2/csrc/u8x8_cad.c ****       //u8x8_byte_SetDC(u8x8, 1);
+ 523:u8g2/csrc/u8x8_cad.c ****     
+ 524:u8g2/csrc/u8x8_cad.c ****       /* the FeatherWing OLED with the 32u4 transfer of long byte */
+ 525:u8g2/csrc/u8x8_cad.c ****       /* streams was not possible. This is broken down to */
+ 526:u8g2/csrc/u8x8_cad.c ****       /* smaller streams, 32 seems to be the limit... */
+ 527:u8g2/csrc/u8x8_cad.c ****       /* I guess this is related to the size of the Wire buffers in Arduino */
+ 528:u8g2/csrc/u8x8_cad.c ****       /* Unfortunately, this can not be handled in the byte level drivers, */
+ 529:u8g2/csrc/u8x8_cad.c ****       /* so this is done here. Even further, only 24 bytes will be sent, */
+ 530:u8g2/csrc/u8x8_cad.c ****       /* because there will be another byte (DC) required during the transfer */
+ 531:u8g2/csrc/u8x8_cad.c ****       p = arg_ptr;
+ 532:u8g2/csrc/u8x8_cad.c ****        while( arg_int > 24 )
+ 533:u8g2/csrc/u8x8_cad.c ****       {
+ 534:u8g2/csrc/u8x8_cad.c **** 	u8x8->byte_cb(u8x8, U8X8_MSG_CAD_SEND_DATA, 24, p);
+ 535:u8g2/csrc/u8x8_cad.c **** 	arg_int-=24;
+ 536:u8g2/csrc/u8x8_cad.c **** 	p+=24;
+ 537:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_EndTransfer(u8x8); 
+ 538:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_StartTransfer(u8x8);
+ 539:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_SendByte(u8x8, 0x08);	/* data write for LD7032 */
+ 540:u8g2/csrc/u8x8_cad.c ****       }
+ 541:u8g2/csrc/u8x8_cad.c ****       u8x8->byte_cb(u8x8, U8X8_MSG_CAD_SEND_DATA, arg_int, p);
+ 542:u8g2/csrc/u8x8_cad.c ****       break;
+ 543:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 544:u8g2/csrc/u8x8_cad.c ****       /* apply default i2c adr if required so that the start transfer msg can use this */
+ 545:u8g2/csrc/u8x8_cad.c ****       if ( u8x8->i2c_address == 255 )
+ 546:u8g2/csrc/u8x8_cad.c **** 	u8x8->i2c_address = 0x060;
+ 547:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 548:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 549:u8g2/csrc/u8x8_cad.c ****       in_transfer = 0;
+ 550:u8g2/csrc/u8x8_cad.c ****       break;
+ 551:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 552:u8g2/csrc/u8x8_cad.c ****       if ( in_transfer != 0 )
+ 553:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_EndTransfer(u8x8); 
+ 554:u8g2/csrc/u8x8_cad.c ****       break;
+ 555:u8g2/csrc/u8x8_cad.c ****     default:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 39
+
+
+ 556:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 557:u8g2/csrc/u8x8_cad.c ****   }
+ 558:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 1461              		.loc 1 558 0
+ 1462 0044 0120     		movs	r0, #1
+ 520:u8g2/csrc/u8x8_cad.c ****       break;
+ 1463              		.loc 1 520 0
+ 1464 0046 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1465              	.LVL208:
+ 1466              	.L126:
+ 534:u8g2/csrc/u8x8_cad.c **** 	arg_int-=24;
+ 1467              		.loc 1 534 0
+ 1468 0048 2769     		ldr	r7, [r4, #16]
+ 1469 004a 3346     		mov	r3, r6
+ 1470 004c 1822     		movs	r2, #24
+ 1471 004e 1721     		movs	r1, #23
+ 1472 0050 2046     		mov	r0, r4
+ 1473 0052 B847     		blx	r7
+ 1474              	.LVL209:
+ 535:u8g2/csrc/u8x8_cad.c **** 	p+=24;
+ 1475              		.loc 1 535 0
+ 1476 0054 183D     		subs	r5, r5, #24
+ 1477              	.LVL210:
+ 1478 0056 EDB2     		uxtb	r5, r5
+ 1479              	.LVL211:
+ 536:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_EndTransfer(u8x8); 
+ 1480              		.loc 1 536 0
+ 1481 0058 1836     		adds	r6, r6, #24
+ 1482              	.LVL212:
+ 537:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_StartTransfer(u8x8);
+ 1483              		.loc 1 537 0
+ 1484 005a 2046     		mov	r0, r4
+ 1485 005c FFF7FEFF 		bl	u8x8_byte_EndTransfer
+ 1486              	.LVL213:
+ 538:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_SendByte(u8x8, 0x08);	/* data write for LD7032 */
+ 1487              		.loc 1 538 0
+ 1488 0060 2046     		mov	r0, r4
+ 1489 0062 FFF7FEFF 		bl	u8x8_byte_StartTransfer
+ 1490              	.LVL214:
+ 539:u8g2/csrc/u8x8_cad.c ****       }
+ 1491              		.loc 1 539 0
+ 1492 0066 0821     		movs	r1, #8
+ 1493 0068 2046     		mov	r0, r4
+ 1494 006a FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1495              	.LVL215:
+ 1496              	.L122:
+ 532:u8g2/csrc/u8x8_cad.c ****       {
+ 1497              		.loc 1 532 0
+ 1498 006e 182D     		cmp	r5, #24
+ 1499 0070 EAD8     		bhi	.L126
+ 541:u8g2/csrc/u8x8_cad.c ****       break;
+ 1500              		.loc 1 541 0
+ 1501 0072 2769     		ldr	r7, [r4, #16]
+ 1502 0074 3346     		mov	r3, r6
+ 1503 0076 2A46     		mov	r2, r5
+ 1504 0078 1721     		movs	r1, #23
+ 1505 007a 2046     		mov	r0, r4
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 40
+
+
+ 1506 007c B847     		blx	r7
+ 1507              	.LVL216:
+ 1508              		.loc 1 558 0
+ 1509 007e 0120     		movs	r0, #1
+ 542:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 1510              		.loc 1 542 0
+ 1511 0080 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1512              	.LVL217:
+ 1513              	.L129:
+ 509:u8g2/csrc/u8x8_cad.c ****   {
+ 1514              		.loc 1 509 0
+ 1515 0082 1E46     		mov	r6, r3
+ 1516 0084 F3E7     		b	.L122
+ 1517              	.L118:
+ 545:u8g2/csrc/u8x8_cad.c **** 	u8x8->i2c_address = 0x060;
+ 1518              		.loc 1 545 0
+ 1519 0086 94F82020 		ldrb	r2, [r4, #32]	@ zero_extendqisi2
+ 1520 008a FF2A     		cmp	r2, #255
+ 1521 008c 04D0     		beq	.L133
+ 1522              	.L127:
+ 547:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 1523              		.loc 1 547 0
+ 1524 008e 2669     		ldr	r6, [r4, #16]
+ 1525 0090 2A46     		mov	r2, r5
+ 1526 0092 2046     		mov	r0, r4
+ 1527 0094 B047     		blx	r6
+ 1528              	.LVL218:
+ 1529 0096 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1530              	.LVL219:
+ 1531              	.L133:
+ 546:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 1532              		.loc 1 546 0
+ 1533 0098 6022     		movs	r2, #96
+ 1534 009a 84F82020 		strb	r2, [r4, #32]
+ 1535 009e F6E7     		b	.L127
+ 1536              	.L123:
+ 549:u8g2/csrc/u8x8_cad.c ****       break;
+ 1537              		.loc 1 549 0
+ 1538 00a0 0022     		movs	r2, #0
+ 1539 00a2 084B     		ldr	r3, .L135
+ 1540              	.LVL220:
+ 1541 00a4 1A70     		strb	r2, [r3]
+ 1542              		.loc 1 558 0
+ 1543 00a6 0120     		movs	r0, #1
+ 550:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 1544              		.loc 1 550 0
+ 1545 00a8 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1546              	.LVL221:
+ 1547              	.L124:
+ 552:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_EndTransfer(u8x8); 
+ 1548              		.loc 1 552 0
+ 1549 00aa 064B     		ldr	r3, .L135
+ 1550              	.LVL222:
+ 1551 00ac 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1552 00ae 0BB9     		cbnz	r3, .L134
+ 1553              		.loc 1 558 0
+ 1554 00b0 0120     		movs	r0, #1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 41
+
+
+ 559:u8g2/csrc/u8x8_cad.c **** }
+ 1555              		.loc 1 559 0
+ 1556 00b2 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1557              	.LVL223:
+ 1558              	.L134:
+ 553:u8g2/csrc/u8x8_cad.c ****       break;
+ 1559              		.loc 1 553 0
+ 1560 00b4 2046     		mov	r0, r4
+ 1561 00b6 FFF7FEFF 		bl	u8x8_byte_EndTransfer
+ 1562              	.LVL224:
+ 558:u8g2/csrc/u8x8_cad.c **** }
+ 1563              		.loc 1 558 0
+ 1564 00ba 0120     		movs	r0, #1
+ 1565 00bc F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1566              	.LVL225:
+ 1567              	.L128:
+ 556:u8g2/csrc/u8x8_cad.c ****   }
+ 1568              		.loc 1 556 0
+ 1569 00be 0020     		movs	r0, #0
+ 1570 00c0 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1571              	.LVL226:
+ 1572              	.L136:
+ 1573 00c2 00BF     		.align	2
+ 1574              	.L135:
+ 1575 00c4 00000000 		.word	.LANCHOR1
+ 1576              		.cfi_endproc
+ 1577              	.LFE16:
+ 1579              		.section	.text.u8x8_cad_uc16xx_i2c,"ax",%progbits
+ 1580              		.align	1
+ 1581              		.global	u8x8_cad_uc16xx_i2c
+ 1582              		.syntax unified
+ 1583              		.thumb
+ 1584              		.thumb_func
+ 1585              		.fpu softvfp
+ 1587              	u8x8_cad_uc16xx_i2c:
+ 1588              	.LFB17:
+ 560:u8g2/csrc/u8x8_cad.c **** 
+ 561:u8g2/csrc/u8x8_cad.c **** /* cad procedure for the UC16xx family in I2C mode */
+ 562:u8g2/csrc/u8x8_cad.c **** /* u8x8_byte_SetDC is not used */
+ 563:u8g2/csrc/u8x8_cad.c **** /* DC bit is encoded into the adr byte */
+ 564:u8g2/csrc/u8x8_cad.c **** uint8_t u8x8_cad_uc16xx_i2c(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 565:u8g2/csrc/u8x8_cad.c **** {
+ 1589              		.loc 1 565 0
+ 1590              		.cfi_startproc
+ 1591              		@ args = 0, pretend = 0, frame = 0
+ 1592              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1593              	.LVL227:
+ 1594 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1595              	.LCFI19:
+ 1596              		.cfi_def_cfa_offset 24
+ 1597              		.cfi_offset 3, -24
+ 1598              		.cfi_offset 4, -20
+ 1599              		.cfi_offset 5, -16
+ 1600              		.cfi_offset 6, -12
+ 1601              		.cfi_offset 7, -8
+ 1602              		.cfi_offset 14, -4
+ 1603 0002 0646     		mov	r6, r0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 42
+
+
+ 1604 0004 1446     		mov	r4, r2
+ 1605 0006 1D46     		mov	r5, r3
+ 566:u8g2/csrc/u8x8_cad.c ****   static uint8_t in_transfer = 0;	
+ 567:u8g2/csrc/u8x8_cad.c ****   static uint8_t is_data = 0;
+ 568:u8g2/csrc/u8x8_cad.c ****   uint8_t *p;
+ 569:u8g2/csrc/u8x8_cad.c ****   switch(msg)
+ 1606              		.loc 1 569 0
+ 1607 0008 A1F11403 		sub	r3, r1, #20
+ 1608              	.LVL228:
+ 1609 000c 052B     		cmp	r3, #5
+ 1610 000e 6ED8     		bhi	.L152
+ 1611 0010 DFE803F0 		tbb	[pc, r3]
+ 1612              	.LVL229:
+ 1613              	.L140:
+ 1614 0014 4F       		.byte	(.L139-.L140)/2
+ 1615 0015 03       		.byte	(.L141-.L140)/2
+ 1616 0016 03       		.byte	(.L141-.L140)/2
+ 1617 0017 17       		.byte	(.L142-.L140)/2
+ 1618 0018 5D       		.byte	(.L143-.L140)/2
+ 1619 0019 62       		.byte	(.L144-.L140)/2
+ 1620              		.p2align 1
+ 1621              	.L141:
+ 570:u8g2/csrc/u8x8_cad.c ****   {
+ 571:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_CMD:
+ 572:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_ARG:
+ 573:u8g2/csrc/u8x8_cad.c ****       if ( in_transfer != 0 )
+ 1622              		.loc 1 573 0
+ 1623 001a 364B     		ldr	r3, .L157
+ 1624 001c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1625 001e 3BB1     		cbz	r3, .L154
+ 1626              	.LVL230:
+ 1627              	.L145:
+ 574:u8g2/csrc/u8x8_cad.c ****       {
+ 575:u8g2/csrc/u8x8_cad.c **** 	if ( is_data != 0 )
+ 576:u8g2/csrc/u8x8_cad.c **** 	{
+ 577:u8g2/csrc/u8x8_cad.c **** 	  /* transfer mode is active, but data transfer */
+ 578:u8g2/csrc/u8x8_cad.c **** 	  u8x8_byte_EndTransfer(u8x8); 
+ 579:u8g2/csrc/u8x8_cad.c **** 	  /* clear the lowest two bits of the adr */
+ 580:u8g2/csrc/u8x8_cad.c **** 	  u8x8_SetI2CAddress( u8x8, u8x8_GetI2CAddress(u8x8)&0x0fc );
+ 581:u8g2/csrc/u8x8_cad.c **** 	  u8x8_byte_StartTransfer(u8x8); 
+ 582:u8g2/csrc/u8x8_cad.c **** 	}
+ 583:u8g2/csrc/u8x8_cad.c ****       }
+ 584:u8g2/csrc/u8x8_cad.c ****       else
+ 585:u8g2/csrc/u8x8_cad.c ****       {
+ 586:u8g2/csrc/u8x8_cad.c **** 	/* clear the lowest two bits of the adr */
+ 587:u8g2/csrc/u8x8_cad.c **** 	u8x8_SetI2CAddress( u8x8, u8x8_GetI2CAddress(u8x8)&0x0fc );
+ 588:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_StartTransfer(u8x8);
+ 589:u8g2/csrc/u8x8_cad.c ****       }
+ 590:u8g2/csrc/u8x8_cad.c ****       u8x8_byte_SendByte(u8x8, arg_int);
+ 1628              		.loc 1 590 0
+ 1629 0020 2146     		mov	r1, r4
+ 1630 0022 3046     		mov	r0, r6
+ 1631 0024 FFF7FEFF 		bl	u8x8_byte_SendByte
+ 1632              	.LVL231:
+ 591:u8g2/csrc/u8x8_cad.c ****       in_transfer = 1;
+ 1633              		.loc 1 591 0
+ 1634 0028 0120     		movs	r0, #1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 43
+
+
+ 1635 002a 324B     		ldr	r3, .L157
+ 1636 002c 1870     		strb	r0, [r3]
+ 592:u8g2/csrc/u8x8_cad.c ****       break;
+ 1637              		.loc 1 592 0
+ 1638 002e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1639              	.LVL232:
+ 1640              	.L154:
+ 587:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_StartTransfer(u8x8);
+ 1641              		.loc 1 587 0
+ 1642 0030 90F82030 		ldrb	r3, [r0, #32]	@ zero_extendqisi2
+ 1643 0034 03F0FC03 		and	r3, r3, #252
+ 1644 0038 80F82030 		strb	r3, [r0, #32]
+ 588:u8g2/csrc/u8x8_cad.c ****       }
+ 1645              		.loc 1 588 0
+ 1646 003c FFF7FEFF 		bl	u8x8_byte_StartTransfer
+ 1647              	.LVL233:
+ 1648 0040 EEE7     		b	.L145
+ 1649              	.LVL234:
+ 1650              	.L142:
+ 593:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_SEND_DATA:
+ 594:u8g2/csrc/u8x8_cad.c ****       if ( in_transfer != 0 )
+ 1651              		.loc 1 594 0
+ 1652 0042 2C4B     		ldr	r3, .L157
+ 1653 0044 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1654 0046 6BB1     		cbz	r3, .L146
+ 595:u8g2/csrc/u8x8_cad.c ****       {
+ 596:u8g2/csrc/u8x8_cad.c **** 	if ( is_data == 0 )
+ 597:u8g2/csrc/u8x8_cad.c **** 	{
+ 598:u8g2/csrc/u8x8_cad.c **** 	  /* transfer mode is active, but data transfer */
+ 599:u8g2/csrc/u8x8_cad.c **** 	  u8x8_byte_EndTransfer(u8x8); 
+ 1655              		.loc 1 599 0
+ 1656 0048 FFF7FEFF 		bl	u8x8_byte_EndTransfer
+ 1657              	.LVL235:
+ 600:u8g2/csrc/u8x8_cad.c **** 	  /* clear the lowest two bits of the adr */
+ 601:u8g2/csrc/u8x8_cad.c **** 	  u8x8_SetI2CAddress( u8x8, (u8x8_GetI2CAddress(u8x8)&0x0fc)|2 );
+ 1658              		.loc 1 601 0
+ 1659 004c 96F92030 		ldrsb	r3, [r6, #32]
+ 1660 0050 23F00303 		bic	r3, r3, #3
+ 1661 0054 43F00203 		orr	r3, r3, #2
+ 1662 0058 86F82030 		strb	r3, [r6, #32]
+ 602:u8g2/csrc/u8x8_cad.c **** 	  u8x8_byte_StartTransfer(u8x8); 
+ 1663              		.loc 1 602 0
+ 1664 005c 3046     		mov	r0, r6
+ 1665 005e FFF7FEFF 		bl	u8x8_byte_StartTransfer
+ 1666              	.LVL236:
+ 1667 0062 09E0     		b	.L147
+ 1668              	.LVL237:
+ 1669              	.L146:
+ 603:u8g2/csrc/u8x8_cad.c **** 	}
+ 604:u8g2/csrc/u8x8_cad.c ****       }
+ 605:u8g2/csrc/u8x8_cad.c ****       else
+ 606:u8g2/csrc/u8x8_cad.c ****       {
+ 607:u8g2/csrc/u8x8_cad.c **** 	/* clear the lowest two bits of the adr */
+ 608:u8g2/csrc/u8x8_cad.c **** 	u8x8_SetI2CAddress( u8x8, (u8x8_GetI2CAddress(u8x8)&0x0fc)|2 );
+ 1670              		.loc 1 608 0
+ 1671 0064 90F92030 		ldrsb	r3, [r0, #32]
+ 1672 0068 23F00303 		bic	r3, r3, #3
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 44
+
+
+ 1673 006c 43F00203 		orr	r3, r3, #2
+ 1674 0070 80F82030 		strb	r3, [r0, #32]
+ 609:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_StartTransfer(u8x8);
+ 1675              		.loc 1 609 0
+ 1676 0074 FFF7FEFF 		bl	u8x8_byte_StartTransfer
+ 1677              	.LVL238:
+ 1678              	.L147:
+ 610:u8g2/csrc/u8x8_cad.c ****       }
+ 611:u8g2/csrc/u8x8_cad.c ****       in_transfer = 1;
+ 1679              		.loc 1 611 0
+ 1680 0078 0122     		movs	r2, #1
+ 1681 007a 1E4B     		ldr	r3, .L157
+ 1682 007c 1A70     		strb	r2, [r3]
+ 1683              	.LVL239:
+ 612:u8g2/csrc/u8x8_cad.c ****       
+ 613:u8g2/csrc/u8x8_cad.c ****       p = arg_ptr;
+ 614:u8g2/csrc/u8x8_cad.c ****       while( arg_int > 24 )
+ 1684              		.loc 1 614 0
+ 1685 007e 0EE0     		b	.L148
+ 1686              	.LVL240:
+ 1687              	.L149:
+ 615:u8g2/csrc/u8x8_cad.c ****       {
+ 616:u8g2/csrc/u8x8_cad.c **** 	u8x8->byte_cb(u8x8, U8X8_MSG_CAD_SEND_DATA, 24, p);
+ 1688              		.loc 1 616 0
+ 1689 0080 3769     		ldr	r7, [r6, #16]
+ 1690 0082 2B46     		mov	r3, r5
+ 1691 0084 1822     		movs	r2, #24
+ 1692 0086 1721     		movs	r1, #23
+ 1693 0088 3046     		mov	r0, r6
+ 1694 008a B847     		blx	r7
+ 1695              	.LVL241:
+ 617:u8g2/csrc/u8x8_cad.c **** 	arg_int-=24;
+ 1696              		.loc 1 617 0
+ 1697 008c 183C     		subs	r4, r4, #24
+ 1698              	.LVL242:
+ 1699 008e E4B2     		uxtb	r4, r4
+ 1700              	.LVL243:
+ 618:u8g2/csrc/u8x8_cad.c **** 	p+=24;
+ 1701              		.loc 1 618 0
+ 1702 0090 1835     		adds	r5, r5, #24
+ 1703              	.LVL244:
+ 619:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_EndTransfer(u8x8); 
+ 1704              		.loc 1 619 0
+ 1705 0092 3046     		mov	r0, r6
+ 1706 0094 FFF7FEFF 		bl	u8x8_byte_EndTransfer
+ 1707              	.LVL245:
+ 620:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_StartTransfer(u8x8);
+ 1708              		.loc 1 620 0
+ 1709 0098 3046     		mov	r0, r6
+ 1710 009a FFF7FEFF 		bl	u8x8_byte_StartTransfer
+ 1711              	.LVL246:
+ 1712              	.L148:
+ 614:u8g2/csrc/u8x8_cad.c ****       {
+ 1713              		.loc 1 614 0
+ 1714 009e 182C     		cmp	r4, #24
+ 1715 00a0 EED8     		bhi	.L149
+ 621:u8g2/csrc/u8x8_cad.c ****       }
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 45
+
+
+ 622:u8g2/csrc/u8x8_cad.c ****       u8x8->byte_cb(u8x8, U8X8_MSG_CAD_SEND_DATA, arg_int, p);
+ 1716              		.loc 1 622 0
+ 1717 00a2 3769     		ldr	r7, [r6, #16]
+ 1718 00a4 2B46     		mov	r3, r5
+ 1719 00a6 2246     		mov	r2, r4
+ 1720 00a8 1721     		movs	r1, #23
+ 1721 00aa 3046     		mov	r0, r6
+ 1722 00ac B847     		blx	r7
+ 1723              	.LVL247:
+ 623:u8g2/csrc/u8x8_cad.c ****       
+ 624:u8g2/csrc/u8x8_cad.c ****       break;
+ 625:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 626:u8g2/csrc/u8x8_cad.c ****       /* apply default i2c adr if required so that the start transfer msg can use this */
+ 627:u8g2/csrc/u8x8_cad.c ****       if ( u8x8->i2c_address == 255 )
+ 628:u8g2/csrc/u8x8_cad.c **** 	u8x8->i2c_address = 0x070;
+ 629:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 630:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 631:u8g2/csrc/u8x8_cad.c ****       in_transfer = 0;    
+ 632:u8g2/csrc/u8x8_cad.c ****       /* actual start is delayed, because we do not whether this is data or cmd transfer */
+ 633:u8g2/csrc/u8x8_cad.c ****       break;
+ 634:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 635:u8g2/csrc/u8x8_cad.c ****       if ( in_transfer != 0 )
+ 636:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_EndTransfer(u8x8);
+ 637:u8g2/csrc/u8x8_cad.c ****       in_transfer = 0;
+ 638:u8g2/csrc/u8x8_cad.c ****       break;
+ 639:u8g2/csrc/u8x8_cad.c ****     default:
+ 640:u8g2/csrc/u8x8_cad.c ****       return 0;
+ 641:u8g2/csrc/u8x8_cad.c ****   }
+ 642:u8g2/csrc/u8x8_cad.c ****   return 1;
+ 1724              		.loc 1 642 0
+ 1725 00ae 0120     		movs	r0, #1
+ 624:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_INIT:
+ 1726              		.loc 1 624 0
+ 1727 00b0 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1728              	.LVL248:
+ 1729              	.L139:
+ 627:u8g2/csrc/u8x8_cad.c **** 	u8x8->i2c_address = 0x070;
+ 1730              		.loc 1 627 0
+ 1731 00b2 90F82030 		ldrb	r3, [r0, #32]	@ zero_extendqisi2
+ 1732 00b6 FF2B     		cmp	r3, #255
+ 1733 00b8 05D0     		beq	.L155
+ 1734              	.L150:
+ 629:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_START_TRANSFER:
+ 1735              		.loc 1 629 0
+ 1736 00ba 3769     		ldr	r7, [r6, #16]
+ 1737 00bc 2B46     		mov	r3, r5
+ 1738 00be 2246     		mov	r2, r4
+ 1739 00c0 3046     		mov	r0, r6
+ 1740              	.LVL249:
+ 1741 00c2 B847     		blx	r7
+ 1742              	.LVL250:
+ 1743 00c4 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1744              	.LVL251:
+ 1745              	.L155:
+ 628:u8g2/csrc/u8x8_cad.c ****       return u8x8->byte_cb(u8x8, msg, arg_int, arg_ptr);
+ 1746              		.loc 1 628 0
+ 1747 00c6 7023     		movs	r3, #112
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 46
+
+
+ 1748 00c8 80F82030 		strb	r3, [r0, #32]
+ 1749 00cc F5E7     		b	.L150
+ 1750              	.L143:
+ 631:u8g2/csrc/u8x8_cad.c ****       /* actual start is delayed, because we do not whether this is data or cmd transfer */
+ 1751              		.loc 1 631 0
+ 1752 00ce 0022     		movs	r2, #0
+ 1753 00d0 084B     		ldr	r3, .L157
+ 1754 00d2 1A70     		strb	r2, [r3]
+ 1755              		.loc 1 642 0
+ 1756 00d4 0120     		movs	r0, #1
+ 1757              	.LVL252:
+ 633:u8g2/csrc/u8x8_cad.c ****     case U8X8_MSG_CAD_END_TRANSFER:
+ 1758              		.loc 1 633 0
+ 1759 00d6 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1760              	.LVL253:
+ 1761              	.L144:
+ 635:u8g2/csrc/u8x8_cad.c **** 	u8x8_byte_EndTransfer(u8x8);
+ 1762              		.loc 1 635 0
+ 1763 00d8 064B     		ldr	r3, .L157
+ 1764 00da 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1765 00dc 23B9     		cbnz	r3, .L156
+ 1766              	.LVL254:
+ 1767              	.L151:
+ 637:u8g2/csrc/u8x8_cad.c ****       break;
+ 1768              		.loc 1 637 0
+ 1769 00de 0022     		movs	r2, #0
+ 1770 00e0 044B     		ldr	r3, .L157
+ 1771 00e2 1A70     		strb	r2, [r3]
+ 1772              		.loc 1 642 0
+ 1773 00e4 0120     		movs	r0, #1
+ 638:u8g2/csrc/u8x8_cad.c ****     default:
+ 1774              		.loc 1 638 0
+ 1775 00e6 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1776              	.LVL255:
+ 1777              	.L156:
+ 636:u8g2/csrc/u8x8_cad.c ****       in_transfer = 0;
+ 1778              		.loc 1 636 0
+ 1779 00e8 FFF7FEFF 		bl	u8x8_byte_EndTransfer
+ 1780              	.LVL256:
+ 1781 00ec F7E7     		b	.L151
+ 1782              	.LVL257:
+ 1783              	.L152:
+ 640:u8g2/csrc/u8x8_cad.c ****   }
+ 1784              		.loc 1 640 0
+ 1785 00ee 0020     		movs	r0, #0
+ 1786              	.LVL258:
+ 643:u8g2/csrc/u8x8_cad.c **** }
+ 1787              		.loc 1 643 0
+ 1788 00f0 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1789              	.LVL259:
+ 1790              	.L158:
+ 1791 00f2 00BF     		.align	2
+ 1792              	.L157:
+ 1793 00f4 00000000 		.word	.LANCHOR2
+ 1794              		.cfi_endproc
+ 1795              	.LFE17:
+ 1797              		.section	.bss.buf.5113,"aw",%nobits
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 47
+
+
+ 1798              		.align	2
+ 1799              		.set	.LANCHOR0,. + 0
+ 1802              	buf.5113:
+ 1803 0000 00000000 		.space	16
+ 1803      00000000 
+ 1803      00000000 
+ 1803      00000000 
+ 1804              		.section	.bss.in_transfer.5182,"aw",%nobits
+ 1805              		.set	.LANCHOR1,. + 0
+ 1808              	in_transfer.5182:
+ 1809 0000 00       		.space	1
+ 1810              		.section	.bss.in_transfer.5201,"aw",%nobits
+ 1811              		.set	.LANCHOR2,. + 0
+ 1814              	in_transfer.5201:
+ 1815 0000 00       		.space	1
+ 1816              		.text
+ 1817              	.Letext0:
+ 1818              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 1819              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 1820              		.file 4 "u8g2/csrc/u8x8.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 48
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8x8_cad.c
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:16     .text.u8x8_i2c_data_transfer:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:22     .text.u8x8_i2c_data_transfer:00000000 u8x8_i2c_data_transfer
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:67     .text.u8x8_cad_SendCmd:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:74     .text.u8x8_cad_SendCmd:00000000 u8x8_cad_SendCmd
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:100    .text.u8x8_cad_SendArg:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:107    .text.u8x8_cad_SendArg:00000000 u8x8_cad_SendArg
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:133    .text.u8x8_cad_SendMultipleArg:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:140    .text.u8x8_cad_SendMultipleArg:00000000 u8x8_cad_SendMultipleArg
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:187    .text.u8x8_cad_SendData:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:194    .text.u8x8_cad_SendData:00000000 u8x8_cad_SendData
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:221    .text.u8x8_cad_StartTransfer:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:228    .text.u8x8_cad_StartTransfer:00000000 u8x8_cad_StartTransfer
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:253    .text.u8x8_cad_EndTransfer:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:260    .text.u8x8_cad_EndTransfer:00000000 u8x8_cad_EndTransfer
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:285    .text.u8x8_cad_SendSequence:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:292    .text.u8x8_cad_SendSequence:00000000 u8x8_cad_SendSequence
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:401    .text.u8x8_cad_empty:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:408    .text.u8x8_cad_empty:00000000 u8x8_cad_empty
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:426    .text.u8x8_cad_empty:0000000e $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:432    .text.u8x8_cad_empty:00000014 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:472    .text.u8x8_cad_110:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:479    .text.u8x8_cad_110:00000000 u8x8_cad_110
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:507    .text.u8x8_cad_110:00000018 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:513    .text.u8x8_cad_110:0000001e $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:573    .text.u8x8_cad_100:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:580    .text.u8x8_cad_100:00000000 u8x8_cad_100
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:608    .text.u8x8_cad_100:00000018 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:614    .text.u8x8_cad_100:0000001e $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:674    .text.u8x8_cad_001:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:681    .text.u8x8_cad_001:00000000 u8x8_cad_001
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:709    .text.u8x8_cad_001:00000018 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:715    .text.u8x8_cad_001:0000001e $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:775    .text.u8x8_cad_011:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:782    .text.u8x8_cad_011:00000000 u8x8_cad_011
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:810    .text.u8x8_cad_011:00000018 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:816    .text.u8x8_cad_011:0000001e $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:876    .text.u8x8_cad_st7920_spi:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:883    .text.u8x8_cad_st7920_spi:00000000 u8x8_cad_st7920_spi
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:910    .text.u8x8_cad_st7920_spi:00000014 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:916    .text.u8x8_cad_st7920_spi:0000001a $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1096   .text.u8x8_cad_st7920_spi:00000100 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1101   .text.u8x8_cad_ssd13xx_i2c:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1108   .text.u8x8_cad_ssd13xx_i2c:00000000 u8x8_cad_ssd13xx_i2c
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1132   .text.u8x8_cad_ssd13xx_i2c:00000012 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1138   .text.u8x8_cad_ssd13xx_i2c:00000018 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1230   .text.u8x8_cad_st75256_i2c:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1237   .text.u8x8_cad_st75256_i2c:00000000 u8x8_cad_st75256_i2c
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1261   .text.u8x8_cad_st75256_i2c:00000012 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1267   .text.u8x8_cad_st75256_i2c:00000018 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1383   .text.u8x8_cad_ld7032_i2c:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1390   .text.u8x8_cad_ld7032_i2c:00000000 u8x8_cad_ld7032_i2c
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1416   .text.u8x8_cad_ld7032_i2c:00000012 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1422   .text.u8x8_cad_ld7032_i2c:00000018 $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1575   .text.u8x8_cad_ld7032_i2c:000000c4 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1580   .text.u8x8_cad_uc16xx_i2c:00000000 $t
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s 			page 49
+
+
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1587   .text.u8x8_cad_uc16xx_i2c:00000000 u8x8_cad_uc16xx_i2c
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1614   .text.u8x8_cad_uc16xx_i2c:00000014 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1620   .text.u8x8_cad_uc16xx_i2c:0000001a $t
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1793   .text.u8x8_cad_uc16xx_i2c:000000f4 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1798   .bss.buf.5113:00000000 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1802   .bss.buf.5113:00000000 buf.5113
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1808   .bss.in_transfer.5182:00000000 in_transfer.5182
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1809   .bss.in_transfer.5182:00000000 $d
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1814   .bss.in_transfer.5201:00000000 in_transfer.5201
+C:\Users\nhantt\AppData\Local\Temp\cc5U6Qud.s:1815   .bss.in_transfer.5201:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+u8x8_byte_StartTransfer
+u8x8_byte_SendByte
+u8x8_byte_EndTransfer
+u8x8_gpio_call
+u8x8_byte_SetDC
+u8x8_byte_SendBytes

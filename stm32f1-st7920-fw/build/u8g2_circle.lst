@@ -1,0 +1,2243 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8g2_circle.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8g2_draw_circle_section,"ax",%progbits
+  16              		.align	1
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu softvfp
+  22              	u8g2_draw_circle_section:
+  23              	.LFB0:
+  24              		.file 1 "u8g2/csrc/u8g2_circle.c"
+   1:u8g2/csrc/u8g2_circle.c **** /*
+   2:u8g2/csrc/u8g2_circle.c **** 
+   3:u8g2/csrc/u8g2_circle.c ****   u8g2_box.c
+   4:u8g2/csrc/u8g2_circle.c **** 
+   5:u8g2/csrc/u8g2_circle.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   6:u8g2/csrc/u8g2_circle.c **** 
+   7:u8g2/csrc/u8g2_circle.c ****   Copyright (c) 2016, olikraus@gmail.com
+   8:u8g2/csrc/u8g2_circle.c ****   All rights reserved.
+   9:u8g2/csrc/u8g2_circle.c **** 
+  10:u8g2/csrc/u8g2_circle.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  11:u8g2/csrc/u8g2_circle.c ****   are permitted provided that the following conditions are met:
+  12:u8g2/csrc/u8g2_circle.c **** 
+  13:u8g2/csrc/u8g2_circle.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  14:u8g2/csrc/u8g2_circle.c ****     of conditions and the following disclaimer.
+  15:u8g2/csrc/u8g2_circle.c ****     
+  16:u8g2/csrc/u8g2_circle.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  17:u8g2/csrc/u8g2_circle.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  18:u8g2/csrc/u8g2_circle.c ****     materials provided with the distribution.
+  19:u8g2/csrc/u8g2_circle.c **** 
+  20:u8g2/csrc/u8g2_circle.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  21:u8g2/csrc/u8g2_circle.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  22:u8g2/csrc/u8g2_circle.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  23:u8g2/csrc/u8g2_circle.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  24:u8g2/csrc/u8g2_circle.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  25:u8g2/csrc/u8g2_circle.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  26:u8g2/csrc/u8g2_circle.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  27:u8g2/csrc/u8g2_circle.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  28:u8g2/csrc/u8g2_circle.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  29:u8g2/csrc/u8g2_circle.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  30:u8g2/csrc/u8g2_circle.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:u8g2/csrc/u8g2_circle.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+  32:u8g2/csrc/u8g2_circle.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
+  33:u8g2/csrc/u8g2_circle.c **** 
+  34:u8g2/csrc/u8g2_circle.c **** */
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 2
+
+
+  35:u8g2/csrc/u8g2_circle.c **** 
+  36:u8g2/csrc/u8g2_circle.c **** #include "u8g2.h"
+  37:u8g2/csrc/u8g2_circle.c **** 
+  38:u8g2/csrc/u8g2_circle.c **** /*==============================================*/
+  39:u8g2/csrc/u8g2_circle.c **** /* Circle */
+  40:u8g2/csrc/u8g2_circle.c **** 
+  41:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_circle_section(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t x0, u8
+  42:u8g2/csrc/u8g2_circle.c **** 
+  43:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_circle_section(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t x0, u8
+  44:u8g2/csrc/u8g2_circle.c **** {
+  25              		.loc 1 44 0
+  26              		.cfi_startproc
+  27              		@ args = 8, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              	.LVL0:
+  30 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 32
+  33              		.cfi_offset 3, -32
+  34              		.cfi_offset 4, -28
+  35              		.cfi_offset 5, -24
+  36              		.cfi_offset 6, -20
+  37              		.cfi_offset 7, -16
+  38              		.cfi_offset 8, -12
+  39              		.cfi_offset 9, -8
+  40              		.cfi_offset 14, -4
+  41 0004 0746     		mov	r7, r0
+  42 0006 0E46     		mov	r6, r1
+  43 0008 9046     		mov	r8, r2
+  44 000a 1D46     		mov	r5, r3
+  45 000c 9DF82090 		ldrb	r9, [sp, #32]	@ zero_extendqisi2
+  46 0010 9DF82440 		ldrb	r4, [sp, #36]	@ zero_extendqisi2
+  45:u8g2/csrc/u8g2_circle.c ****     /* upper right */
+  46:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_UPPER_RIGHT )
+  47              		.loc 1 46 0
+  48 0014 14F0010F 		tst	r4, #1
+  49 0018 0AD1     		bne	.L7
+  50              	.LVL1:
+  51              	.L2:
+  47:u8g2/csrc/u8g2_circle.c ****     {
+  48:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 + x, y0 - y);
+  49:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 + y, y0 - x);
+  50:u8g2/csrc/u8g2_circle.c ****     }
+  51:u8g2/csrc/u8g2_circle.c ****     
+  52:u8g2/csrc/u8g2_circle.c ****     /* upper left */
+  53:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_UPPER_LEFT )
+  52              		.loc 1 53 0
+  53 001a 14F0020F 		tst	r4, #2
+  54 001e 18D1     		bne	.L8
+  55              	.L3:
+  54:u8g2/csrc/u8g2_circle.c ****     {
+  55:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 - x, y0 - y);
+  56:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 - y, y0 - x);
+  57:u8g2/csrc/u8g2_circle.c ****     }
+  58:u8g2/csrc/u8g2_circle.c ****     
+  59:u8g2/csrc/u8g2_circle.c ****     /* lower right */
+  60:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_LOWER_RIGHT )
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 3
+
+
+  56              		.loc 1 60 0
+  57 0020 14F0080F 		tst	r4, #8
+  58 0024 27D1     		bne	.L9
+  59              	.L4:
+  61:u8g2/csrc/u8g2_circle.c ****     {
+  62:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 + x, y0 + y);
+  63:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 + y, y0 + x);
+  64:u8g2/csrc/u8g2_circle.c ****     }
+  65:u8g2/csrc/u8g2_circle.c ****     
+  66:u8g2/csrc/u8g2_circle.c ****     /* lower left */
+  67:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_LOWER_LEFT )
+  60              		.loc 1 67 0
+  61 0026 14F0040F 		tst	r4, #4
+  62 002a 36D1     		bne	.L10
+  63              	.L1:
+  64 002c BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+  65              	.LVL2:
+  66              	.L7:
+  48:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 + y, y0 - x);
+  67              		.loc 1 48 0
+  68 0030 A9EB0202 		sub	r2, r9, r2
+  69              	.LVL3:
+  70 0034 5918     		adds	r1, r3, r1
+  71              	.LVL4:
+  72 0036 D2B2     		uxtb	r2, r2
+  73 0038 C9B2     		uxtb	r1, r1
+  74 003a FFF7FEFF 		bl	u8g2_DrawPixel
+  75              	.LVL5:
+  49:u8g2/csrc/u8g2_circle.c ****     }
+  76              		.loc 1 49 0
+  77 003e A9EB0602 		sub	r2, r9, r6
+  78 0042 05EB0801 		add	r1, r5, r8
+  79 0046 D2B2     		uxtb	r2, r2
+  80 0048 C9B2     		uxtb	r1, r1
+  81 004a 3846     		mov	r0, r7
+  82 004c FFF7FEFF 		bl	u8g2_DrawPixel
+  83              	.LVL6:
+  84 0050 E3E7     		b	.L2
+  85              	.L8:
+  55:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 - y, y0 - x);
+  86              		.loc 1 55 0
+  87 0052 A9EB0802 		sub	r2, r9, r8
+  88 0056 A91B     		subs	r1, r5, r6
+  89 0058 D2B2     		uxtb	r2, r2
+  90 005a C9B2     		uxtb	r1, r1
+  91 005c 3846     		mov	r0, r7
+  92 005e FFF7FEFF 		bl	u8g2_DrawPixel
+  93              	.LVL7:
+  56:u8g2/csrc/u8g2_circle.c ****     }
+  94              		.loc 1 56 0
+  95 0062 A9EB0602 		sub	r2, r9, r6
+  96 0066 A5EB0801 		sub	r1, r5, r8
+  97 006a D2B2     		uxtb	r2, r2
+  98 006c C9B2     		uxtb	r1, r1
+  99 006e 3846     		mov	r0, r7
+ 100 0070 FFF7FEFF 		bl	u8g2_DrawPixel
+ 101              	.LVL8:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 4
+
+
+ 102 0074 D4E7     		b	.L3
+ 103              	.L9:
+  62:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 + y, y0 + x);
+ 104              		.loc 1 62 0
+ 105 0076 09EB0802 		add	r2, r9, r8
+ 106 007a A919     		adds	r1, r5, r6
+ 107 007c D2B2     		uxtb	r2, r2
+ 108 007e C9B2     		uxtb	r1, r1
+ 109 0080 3846     		mov	r0, r7
+ 110 0082 FFF7FEFF 		bl	u8g2_DrawPixel
+ 111              	.LVL9:
+  63:u8g2/csrc/u8g2_circle.c ****     }
+ 112              		.loc 1 63 0
+ 113 0086 06EB0902 		add	r2, r6, r9
+ 114 008a 05EB0801 		add	r1, r5, r8
+ 115 008e D2B2     		uxtb	r2, r2
+ 116 0090 C9B2     		uxtb	r1, r1
+ 117 0092 3846     		mov	r0, r7
+ 118 0094 FFF7FEFF 		bl	u8g2_DrawPixel
+ 119              	.LVL10:
+ 120 0098 C5E7     		b	.L4
+ 121              	.L10:
+  68:u8g2/csrc/u8g2_circle.c ****     {
+  69:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 - x, y0 + y);
+ 122              		.loc 1 69 0
+ 123 009a 09EB0802 		add	r2, r9, r8
+ 124 009e A91B     		subs	r1, r5, r6
+ 125 00a0 D2B2     		uxtb	r2, r2
+ 126 00a2 C9B2     		uxtb	r1, r1
+ 127 00a4 3846     		mov	r0, r7
+ 128 00a6 FFF7FEFF 		bl	u8g2_DrawPixel
+ 129              	.LVL11:
+  70:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 - y, y0 + x);
+ 130              		.loc 1 70 0
+ 131 00aa 06EB0902 		add	r2, r6, r9
+ 132 00ae A5EB0801 		sub	r1, r5, r8
+ 133 00b2 D2B2     		uxtb	r2, r2
+ 134 00b4 C9B2     		uxtb	r1, r1
+ 135 00b6 3846     		mov	r0, r7
+ 136 00b8 FFF7FEFF 		bl	u8g2_DrawPixel
+ 137              	.LVL12:
+  71:u8g2/csrc/u8g2_circle.c ****     }
+  72:u8g2/csrc/u8g2_circle.c **** }
+ 138              		.loc 1 72 0
+ 139 00bc B6E7     		b	.L1
+ 140              		.cfi_endproc
+ 141              	.LFE0:
+ 143              		.section	.text.u8g2_draw_circle,"ax",%progbits
+ 144              		.align	1
+ 145              		.syntax unified
+ 146              		.thumb
+ 147              		.thumb_func
+ 148              		.fpu softvfp
+ 150              	u8g2_draw_circle:
+ 151              	.LFB1:
+  73:u8g2/csrc/u8g2_circle.c **** 
+  74:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_circle(u8g2_t *u8g2, u8g2_uint_t x0, u8g2_uint_t y0, u8g2_uint_t rad, uint8_t
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 5
+
+
+  75:u8g2/csrc/u8g2_circle.c **** {
+ 152              		.loc 1 75 0
+ 153              		.cfi_startproc
+ 154              		@ args = 4, pretend = 0, frame = 8
+ 155              		@ frame_needed = 0, uses_anonymous_args = 0
+ 156              	.LVL13:
+ 157 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 158              	.LCFI1:
+ 159              		.cfi_def_cfa_offset 36
+ 160              		.cfi_offset 4, -36
+ 161              		.cfi_offset 5, -32
+ 162              		.cfi_offset 6, -28
+ 163              		.cfi_offset 7, -24
+ 164              		.cfi_offset 8, -20
+ 165              		.cfi_offset 9, -16
+ 166              		.cfi_offset 10, -12
+ 167              		.cfi_offset 11, -8
+ 168              		.cfi_offset 14, -4
+ 169 0004 85B0     		sub	sp, sp, #20
+ 170              	.LCFI2:
+ 171              		.cfi_def_cfa_offset 56
+ 172 0006 0390     		str	r0, [sp, #12]
+ 173 0008 8946     		mov	r9, r1
+ 174 000a 9246     		mov	r10, r2
+ 175 000c 1F46     		mov	r7, r3
+ 176 000e 9DF838B0 		ldrb	fp, [sp, #56]	@ zero_extendqisi2
+ 177              	.LVL14:
+  76:u8g2/csrc/u8g2_circle.c ****     u8g2_int_t f;
+  77:u8g2/csrc/u8g2_circle.c ****     u8g2_int_t ddF_x;
+  78:u8g2/csrc/u8g2_circle.c ****     u8g2_int_t ddF_y;
+  79:u8g2/csrc/u8g2_circle.c ****     u8g2_uint_t x;
+  80:u8g2/csrc/u8g2_circle.c ****     u8g2_uint_t y;
+  81:u8g2/csrc/u8g2_circle.c **** 
+  82:u8g2/csrc/u8g2_circle.c ****     f = 1;
+  83:u8g2/csrc/u8g2_circle.c ****     f -= rad;
+ 178              		.loc 1 83 0
+ 179 0012 C3F10108 		rsb	r8, r3, #1
+ 180 0016 4FFA88F8 		sxtb	r8, r8
+ 181              	.LVL15:
+  84:u8g2/csrc/u8g2_circle.c ****     ddF_x = 1;
+  85:u8g2/csrc/u8g2_circle.c ****     ddF_y = 0;
+  86:u8g2/csrc/u8g2_circle.c ****     ddF_y -= rad;
+  87:u8g2/csrc/u8g2_circle.c ****     ddF_y *= 2;
+ 182              		.loc 1 87 0
+ 183 001a C3EBC313 		rsb	r3, r3, r3, lsl #7
+ 184              	.LVL16:
+ 185 001e 5D00     		lsls	r5, r3, #1
+ 186 0020 6DB2     		sxtb	r5, r5
+ 187              	.LVL17:
+  88:u8g2/csrc/u8g2_circle.c ****     x = 0;
+  89:u8g2/csrc/u8g2_circle.c ****     y = rad;
+  90:u8g2/csrc/u8g2_circle.c **** 
+  91:u8g2/csrc/u8g2_circle.c ****     u8g2_draw_circle_section(u8g2, x, y, x0, y0, option);
+ 188              		.loc 1 91 0
+ 189 0022 CDF804B0 		str	fp, [sp, #4]
+ 190 0026 0092     		str	r2, [sp]
+ 191 0028 0B46     		mov	r3, r1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 6
+
+
+ 192 002a 3A46     		mov	r2, r7
+ 193              	.LVL18:
+ 194 002c 0021     		movs	r1, #0
+ 195              	.LVL19:
+ 196 002e FFF7FEFF 		bl	u8g2_draw_circle_section
+ 197              	.LVL20:
+  88:u8g2/csrc/u8g2_circle.c ****     x = 0;
+ 198              		.loc 1 88 0
+ 199 0032 0026     		movs	r6, #0
+  84:u8g2/csrc/u8g2_circle.c ****     ddF_x = 1;
+ 200              		.loc 1 84 0
+ 201 0034 0124     		movs	r4, #1
+  92:u8g2/csrc/u8g2_circle.c ****     
+  93:u8g2/csrc/u8g2_circle.c ****     while ( x < y )
+ 202              		.loc 1 93 0
+ 203 0036 11E0     		b	.L12
+ 204              	.LVL21:
+ 205              	.L13:
+  94:u8g2/csrc/u8g2_circle.c ****     {
+  95:u8g2/csrc/u8g2_circle.c ****       if (f >= 0) 
+  96:u8g2/csrc/u8g2_circle.c ****       {
+  97:u8g2/csrc/u8g2_circle.c ****         y--;
+  98:u8g2/csrc/u8g2_circle.c ****         ddF_y += 2;
+  99:u8g2/csrc/u8g2_circle.c ****         f += ddF_y;
+ 100:u8g2/csrc/u8g2_circle.c ****       }
+ 101:u8g2/csrc/u8g2_circle.c ****       x++;
+ 206              		.loc 1 101 0
+ 207 0038 0136     		adds	r6, r6, #1
+ 208              	.LVL22:
+ 209 003a F6B2     		uxtb	r6, r6
+ 210              	.LVL23:
+ 102:u8g2/csrc/u8g2_circle.c ****       ddF_x += 2;
+ 211              		.loc 1 102 0
+ 212 003c 0234     		adds	r4, r4, #2
+ 213              	.LVL24:
+ 214 003e E3B2     		uxtb	r3, r4
+ 215 0040 5CB2     		sxtb	r4, r3
+ 216              	.LVL25:
+ 103:u8g2/csrc/u8g2_circle.c ****       f += ddF_x;
+ 217              		.loc 1 103 0
+ 218 0042 9844     		add	r8, r8, r3
+ 219              	.LVL26:
+ 220 0044 4FFA88F8 		sxtb	r8, r8
+ 221              	.LVL27:
+ 104:u8g2/csrc/u8g2_circle.c **** 
+ 105:u8g2/csrc/u8g2_circle.c ****       u8g2_draw_circle_section(u8g2, x, y, x0, y0, option);    
+ 222              		.loc 1 105 0
+ 223 0048 CDF804B0 		str	fp, [sp, #4]
+ 224 004c CDF800A0 		str	r10, [sp]
+ 225 0050 4B46     		mov	r3, r9
+ 226 0052 3A46     		mov	r2, r7
+ 227 0054 3146     		mov	r1, r6
+ 228 0056 0398     		ldr	r0, [sp, #12]
+ 229 0058 FFF7FEFF 		bl	u8g2_draw_circle_section
+ 230              	.LVL28:
+ 231              	.L12:
+  93:u8g2/csrc/u8g2_circle.c ****     {
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 7
+
+
+ 232              		.loc 1 93 0
+ 233 005c BE42     		cmp	r6, r7
+ 234 005e 0BD2     		bcs	.L16
+  95:u8g2/csrc/u8g2_circle.c ****       {
+ 235              		.loc 1 95 0
+ 236 0060 B8F1000F 		cmp	r8, #0
+ 237 0064 E8DB     		blt	.L13
+  97:u8g2/csrc/u8g2_circle.c ****         ddF_y += 2;
+ 238              		.loc 1 97 0
+ 239 0066 013F     		subs	r7, r7, #1
+ 240              	.LVL29:
+ 241 0068 FFB2     		uxtb	r7, r7
+ 242              	.LVL30:
+  98:u8g2/csrc/u8g2_circle.c ****         f += ddF_y;
+ 243              		.loc 1 98 0
+ 244 006a 0235     		adds	r5, r5, #2
+ 245              	.LVL31:
+ 246 006c EBB2     		uxtb	r3, r5
+ 247 006e 5DB2     		sxtb	r5, r3
+ 248              	.LVL32:
+  99:u8g2/csrc/u8g2_circle.c ****       }
+ 249              		.loc 1 99 0
+ 250 0070 9844     		add	r8, r8, r3
+ 251              	.LVL33:
+ 252 0072 4FFA88F8 		sxtb	r8, r8
+ 253              	.LVL34:
+ 254 0076 DFE7     		b	.L13
+ 255              	.L16:
+ 106:u8g2/csrc/u8g2_circle.c ****     }
+ 107:u8g2/csrc/u8g2_circle.c **** }
+ 256              		.loc 1 107 0
+ 257 0078 05B0     		add	sp, sp, #20
+ 258              	.LCFI3:
+ 259              		.cfi_def_cfa_offset 36
+ 260              		@ sp needed
+ 261 007a BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 262              		.cfi_endproc
+ 263              	.LFE1:
+ 265              		.section	.text.u8g2_draw_ellipse_section,"ax",%progbits
+ 266              		.align	1
+ 267              		.syntax unified
+ 268              		.thumb
+ 269              		.thumb_func
+ 270              		.fpu softvfp
+ 272              	u8g2_draw_ellipse_section:
+ 273              	.LFB6:
+ 108:u8g2/csrc/u8g2_circle.c **** 
+ 109:u8g2/csrc/u8g2_circle.c **** void u8g2_DrawCircle(u8g2_t *u8g2, u8g2_uint_t x0, u8g2_uint_t y0, u8g2_uint_t rad, uint8_t option)
+ 110:u8g2/csrc/u8g2_circle.c **** {
+ 111:u8g2/csrc/u8g2_circle.c ****   /* check for bounding box */
+ 112:u8g2/csrc/u8g2_circle.c **** #ifdef U8G2_WITH_INTERSECTION
+ 113:u8g2/csrc/u8g2_circle.c ****   {
+ 114:u8g2/csrc/u8g2_circle.c ****     if ( u8g2_IsIntersection(u8g2, x0-rad, y0-rad, x0+rad+1, y0+rad+1) == 0 ) 
+ 115:u8g2/csrc/u8g2_circle.c ****       return;
+ 116:u8g2/csrc/u8g2_circle.c ****   }
+ 117:u8g2/csrc/u8g2_circle.c **** #endif /* U8G2_WITH_INTERSECTION */
+ 118:u8g2/csrc/u8g2_circle.c ****   
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 8
+
+
+ 119:u8g2/csrc/u8g2_circle.c ****   
+ 120:u8g2/csrc/u8g2_circle.c ****   /* draw circle */
+ 121:u8g2/csrc/u8g2_circle.c ****   u8g2_draw_circle(u8g2, x0, y0, rad, option);
+ 122:u8g2/csrc/u8g2_circle.c **** }
+ 123:u8g2/csrc/u8g2_circle.c **** 
+ 124:u8g2/csrc/u8g2_circle.c **** /*==============================================*/
+ 125:u8g2/csrc/u8g2_circle.c **** /* Disk */
+ 126:u8g2/csrc/u8g2_circle.c **** 
+ 127:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_disc_section(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t x0, u8g2
+ 128:u8g2/csrc/u8g2_circle.c **** 
+ 129:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_disc_section(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t x0, u8g2
+ 130:u8g2/csrc/u8g2_circle.c **** {
+ 131:u8g2/csrc/u8g2_circle.c ****     /* upper right */
+ 132:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_UPPER_RIGHT )
+ 133:u8g2/csrc/u8g2_circle.c ****     {
+ 134:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0+x, y0-y, y+1);
+ 135:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0+y, y0-x, x+1);
+ 136:u8g2/csrc/u8g2_circle.c ****     }
+ 137:u8g2/csrc/u8g2_circle.c ****     
+ 138:u8g2/csrc/u8g2_circle.c ****     /* upper left */
+ 139:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_UPPER_LEFT )
+ 140:u8g2/csrc/u8g2_circle.c ****     {
+ 141:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0-x, y0-y, y+1);
+ 142:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0-y, y0-x, x+1);
+ 143:u8g2/csrc/u8g2_circle.c ****     }
+ 144:u8g2/csrc/u8g2_circle.c ****     
+ 145:u8g2/csrc/u8g2_circle.c ****     /* lower right */
+ 146:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_LOWER_RIGHT )
+ 147:u8g2/csrc/u8g2_circle.c ****     {
+ 148:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0+x, y0, y+1);
+ 149:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0+y, y0, x+1);
+ 150:u8g2/csrc/u8g2_circle.c ****     }
+ 151:u8g2/csrc/u8g2_circle.c ****     
+ 152:u8g2/csrc/u8g2_circle.c ****     /* lower left */
+ 153:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_LOWER_LEFT )
+ 154:u8g2/csrc/u8g2_circle.c ****     {
+ 155:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0-x, y0, y+1);
+ 156:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0-y, y0, x+1);
+ 157:u8g2/csrc/u8g2_circle.c ****     }
+ 158:u8g2/csrc/u8g2_circle.c **** }
+ 159:u8g2/csrc/u8g2_circle.c **** 
+ 160:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_disc(u8g2_t *u8g2, u8g2_uint_t x0, u8g2_uint_t y0, u8g2_uint_t rad, uint8_t o
+ 161:u8g2/csrc/u8g2_circle.c **** {
+ 162:u8g2/csrc/u8g2_circle.c ****   u8g2_int_t f;
+ 163:u8g2/csrc/u8g2_circle.c ****   u8g2_int_t ddF_x;
+ 164:u8g2/csrc/u8g2_circle.c ****   u8g2_int_t ddF_y;
+ 165:u8g2/csrc/u8g2_circle.c ****   u8g2_uint_t x;
+ 166:u8g2/csrc/u8g2_circle.c ****   u8g2_uint_t y;
+ 167:u8g2/csrc/u8g2_circle.c **** 
+ 168:u8g2/csrc/u8g2_circle.c ****   f = 1;
+ 169:u8g2/csrc/u8g2_circle.c ****   f -= rad;
+ 170:u8g2/csrc/u8g2_circle.c ****   ddF_x = 1;
+ 171:u8g2/csrc/u8g2_circle.c ****   ddF_y = 0;
+ 172:u8g2/csrc/u8g2_circle.c ****   ddF_y -= rad;
+ 173:u8g2/csrc/u8g2_circle.c ****   ddF_y *= 2;
+ 174:u8g2/csrc/u8g2_circle.c ****   x = 0;
+ 175:u8g2/csrc/u8g2_circle.c ****   y = rad;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 9
+
+
+ 176:u8g2/csrc/u8g2_circle.c **** 
+ 177:u8g2/csrc/u8g2_circle.c ****   u8g2_draw_disc_section(u8g2, x, y, x0, y0, option);
+ 178:u8g2/csrc/u8g2_circle.c ****   
+ 179:u8g2/csrc/u8g2_circle.c ****   while ( x < y )
+ 180:u8g2/csrc/u8g2_circle.c ****   {
+ 181:u8g2/csrc/u8g2_circle.c ****     if (f >= 0) 
+ 182:u8g2/csrc/u8g2_circle.c ****     {
+ 183:u8g2/csrc/u8g2_circle.c ****       y--;
+ 184:u8g2/csrc/u8g2_circle.c ****       ddF_y += 2;
+ 185:u8g2/csrc/u8g2_circle.c ****       f += ddF_y;
+ 186:u8g2/csrc/u8g2_circle.c ****     }
+ 187:u8g2/csrc/u8g2_circle.c ****     x++;
+ 188:u8g2/csrc/u8g2_circle.c ****     ddF_x += 2;
+ 189:u8g2/csrc/u8g2_circle.c ****     f += ddF_x;
+ 190:u8g2/csrc/u8g2_circle.c **** 
+ 191:u8g2/csrc/u8g2_circle.c ****     u8g2_draw_disc_section(u8g2, x, y, x0, y0, option);    
+ 192:u8g2/csrc/u8g2_circle.c ****   }
+ 193:u8g2/csrc/u8g2_circle.c **** }
+ 194:u8g2/csrc/u8g2_circle.c **** 
+ 195:u8g2/csrc/u8g2_circle.c **** void u8g2_DrawDisc(u8g2_t *u8g2, u8g2_uint_t x0, u8g2_uint_t y0, u8g2_uint_t rad, uint8_t option)
+ 196:u8g2/csrc/u8g2_circle.c **** {
+ 197:u8g2/csrc/u8g2_circle.c ****   /* check for bounding box */
+ 198:u8g2/csrc/u8g2_circle.c **** #ifdef U8G2_WITH_INTERSECTION
+ 199:u8g2/csrc/u8g2_circle.c ****   {
+ 200:u8g2/csrc/u8g2_circle.c ****     if ( u8g2_IsIntersection(u8g2, x0-rad, y0-rad, x0+rad+1, y0+rad+1) == 0 ) 
+ 201:u8g2/csrc/u8g2_circle.c ****       return;
+ 202:u8g2/csrc/u8g2_circle.c ****   }
+ 203:u8g2/csrc/u8g2_circle.c **** #endif /* U8G2_WITH_INTERSECTION */
+ 204:u8g2/csrc/u8g2_circle.c ****   
+ 205:u8g2/csrc/u8g2_circle.c ****   /* draw disc */
+ 206:u8g2/csrc/u8g2_circle.c ****   u8g2_draw_disc(u8g2, x0, y0, rad, option);
+ 207:u8g2/csrc/u8g2_circle.c **** }
+ 208:u8g2/csrc/u8g2_circle.c **** 
+ 209:u8g2/csrc/u8g2_circle.c **** /*==============================================*/
+ 210:u8g2/csrc/u8g2_circle.c **** /* Ellipse */
+ 211:u8g2/csrc/u8g2_circle.c **** 
+ 212:u8g2/csrc/u8g2_circle.c **** /*
+ 213:u8g2/csrc/u8g2_circle.c ****   Source: 
+ 214:u8g2/csrc/u8g2_circle.c ****     Foley, Computer Graphics, p 90
+ 215:u8g2/csrc/u8g2_circle.c **** */
+ 216:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_ellipse_section(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t x0, u
+ 217:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_ellipse_section(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t x0, u
+ 218:u8g2/csrc/u8g2_circle.c **** {
+ 274              		.loc 1 218 0
+ 275              		.cfi_startproc
+ 276              		@ args = 8, pretend = 0, frame = 0
+ 277              		@ frame_needed = 0, uses_anonymous_args = 0
+ 278              	.LVL35:
+ 279 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 280              	.LCFI4:
+ 281              		.cfi_def_cfa_offset 32
+ 282              		.cfi_offset 3, -32
+ 283              		.cfi_offset 4, -28
+ 284              		.cfi_offset 5, -24
+ 285              		.cfi_offset 6, -20
+ 286              		.cfi_offset 7, -16
+ 287              		.cfi_offset 8, -12
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 10
+
+
+ 288              		.cfi_offset 9, -8
+ 289              		.cfi_offset 14, -4
+ 290 0004 0746     		mov	r7, r0
+ 291 0006 8846     		mov	r8, r1
+ 292 0008 9146     		mov	r9, r2
+ 293 000a 1D46     		mov	r5, r3
+ 294 000c 9DF82060 		ldrb	r6, [sp, #32]	@ zero_extendqisi2
+ 295 0010 9DF82440 		ldrb	r4, [sp, #36]	@ zero_extendqisi2
+ 219:u8g2/csrc/u8g2_circle.c ****     /* upper right */
+ 220:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_UPPER_RIGHT )
+ 296              		.loc 1 220 0
+ 297 0014 14F0010F 		tst	r4, #1
+ 298 0018 0AD1     		bne	.L23
+ 299              	.LVL36:
+ 300              	.L18:
+ 221:u8g2/csrc/u8g2_circle.c ****     {
+ 222:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 + x, y0 - y);
+ 223:u8g2/csrc/u8g2_circle.c ****     }
+ 224:u8g2/csrc/u8g2_circle.c ****     
+ 225:u8g2/csrc/u8g2_circle.c ****     /* upper left */
+ 226:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_UPPER_LEFT )
+ 301              		.loc 1 226 0
+ 302 001a 14F0020F 		tst	r4, #2
+ 303 001e 0ED1     		bne	.L24
+ 304              	.L19:
+ 227:u8g2/csrc/u8g2_circle.c ****     {
+ 228:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 - x, y0 - y);
+ 229:u8g2/csrc/u8g2_circle.c ****     }
+ 230:u8g2/csrc/u8g2_circle.c ****     
+ 231:u8g2/csrc/u8g2_circle.c ****     /* lower right */
+ 232:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_LOWER_RIGHT )
+ 305              		.loc 1 232 0
+ 306 0020 14F0080F 		tst	r4, #8
+ 307 0024 15D1     		bne	.L25
+ 308              	.L20:
+ 233:u8g2/csrc/u8g2_circle.c ****     {
+ 234:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 + x, y0 + y);
+ 235:u8g2/csrc/u8g2_circle.c ****     }
+ 236:u8g2/csrc/u8g2_circle.c ****     
+ 237:u8g2/csrc/u8g2_circle.c ****     /* lower left */
+ 238:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_LOWER_LEFT )
+ 309              		.loc 1 238 0
+ 310 0026 14F0040F 		tst	r4, #4
+ 311 002a 1CD1     		bne	.L26
+ 312              	.L17:
+ 313 002c BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 314              	.LVL37:
+ 315              	.L23:
+ 222:u8g2/csrc/u8g2_circle.c ****     }
+ 316              		.loc 1 222 0
+ 317 0030 B21A     		subs	r2, r6, r2
+ 318              	.LVL38:
+ 319 0032 5918     		adds	r1, r3, r1
+ 320              	.LVL39:
+ 321 0034 D2B2     		uxtb	r2, r2
+ 322 0036 C9B2     		uxtb	r1, r1
+ 323 0038 FFF7FEFF 		bl	u8g2_DrawPixel
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 11
+
+
+ 324              	.LVL40:
+ 325 003c EDE7     		b	.L18
+ 326              	.L24:
+ 228:u8g2/csrc/u8g2_circle.c ****     }
+ 327              		.loc 1 228 0
+ 328 003e A6EB0902 		sub	r2, r6, r9
+ 329 0042 A5EB0801 		sub	r1, r5, r8
+ 330 0046 D2B2     		uxtb	r2, r2
+ 331 0048 C9B2     		uxtb	r1, r1
+ 332 004a 3846     		mov	r0, r7
+ 333 004c FFF7FEFF 		bl	u8g2_DrawPixel
+ 334              	.LVL41:
+ 335 0050 E6E7     		b	.L19
+ 336              	.L25:
+ 234:u8g2/csrc/u8g2_circle.c ****     }
+ 337              		.loc 1 234 0
+ 338 0052 06EB0902 		add	r2, r6, r9
+ 339 0056 05EB0801 		add	r1, r5, r8
+ 340 005a D2B2     		uxtb	r2, r2
+ 341 005c C9B2     		uxtb	r1, r1
+ 342 005e 3846     		mov	r0, r7
+ 343 0060 FFF7FEFF 		bl	u8g2_DrawPixel
+ 344              	.LVL42:
+ 345 0064 DFE7     		b	.L20
+ 346              	.L26:
+ 239:u8g2/csrc/u8g2_circle.c ****     {
+ 240:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawPixel(u8g2, x0 - x, y0 + y);
+ 347              		.loc 1 240 0
+ 348 0066 06EB0902 		add	r2, r6, r9
+ 349 006a A5EB0801 		sub	r1, r5, r8
+ 350 006e D2B2     		uxtb	r2, r2
+ 351 0070 C9B2     		uxtb	r1, r1
+ 352 0072 3846     		mov	r0, r7
+ 353 0074 FFF7FEFF 		bl	u8g2_DrawPixel
+ 354              	.LVL43:
+ 241:u8g2/csrc/u8g2_circle.c ****     }
+ 242:u8g2/csrc/u8g2_circle.c **** }
+ 355              		.loc 1 242 0
+ 356 0078 D8E7     		b	.L17
+ 357              		.cfi_endproc
+ 358              	.LFE6:
+ 360              		.section	.text.u8g2_draw_ellipse,"ax",%progbits
+ 361              		.align	1
+ 362              		.syntax unified
+ 363              		.thumb
+ 364              		.thumb_func
+ 365              		.fpu softvfp
+ 367              	u8g2_draw_ellipse:
+ 368              	.LFB7:
+ 243:u8g2/csrc/u8g2_circle.c **** 
+ 244:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_ellipse(u8g2_t *u8g2, u8g2_uint_t x0, u8g2_uint_t y0, u8g2_uint_t rx, u8g2_ui
+ 245:u8g2/csrc/u8g2_circle.c **** {
+ 369              		.loc 1 245 0
+ 370              		.cfi_startproc
+ 371              		@ args = 8, pretend = 0, frame = 40
+ 372              		@ frame_needed = 0, uses_anonymous_args = 0
+ 373              	.LVL44:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 12
+
+
+ 374 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 375              	.LCFI5:
+ 376              		.cfi_def_cfa_offset 36
+ 377              		.cfi_offset 4, -36
+ 378              		.cfi_offset 5, -32
+ 379              		.cfi_offset 6, -28
+ 380              		.cfi_offset 7, -24
+ 381              		.cfi_offset 8, -20
+ 382              		.cfi_offset 9, -16
+ 383              		.cfi_offset 10, -12
+ 384              		.cfi_offset 11, -8
+ 385              		.cfi_offset 14, -4
+ 386 0004 8DB0     		sub	sp, sp, #52
+ 387              	.LCFI6:
+ 388              		.cfi_def_cfa_offset 88
+ 389 0006 0790     		str	r0, [sp, #28]
+ 390 0008 0891     		str	r1, [sp, #32]
+ 391 000a 0992     		str	r2, [sp, #36]
+ 392 000c 0393     		str	r3, [sp, #12]
+ 393 000e 9DF85820 		ldrb	r2, [sp, #88]	@ zero_extendqisi2
+ 394              	.LVL45:
+ 395 0012 1146     		mov	r1, r2
+ 396              	.LVL46:
+ 397 0014 0492     		str	r2, [sp, #16]
+ 398 0016 9DF85C90 		ldrb	r9, [sp, #92]	@ zero_extendqisi2
+ 399              	.LVL47:
+ 246:u8g2/csrc/u8g2_circle.c ****   u8g2_uint_t x, y;
+ 247:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t xchg, ychg;
+ 248:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t err;
+ 249:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t rxrx2;
+ 250:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t ryry2;
+ 251:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t stopx, stopy;
+ 252:u8g2/csrc/u8g2_circle.c ****   
+ 253:u8g2/csrc/u8g2_circle.c ****   rxrx2 = rx;
+ 254:u8g2/csrc/u8g2_circle.c ****   rxrx2 *= rx;
+ 400              		.loc 1 254 0
+ 401 001a 9BB2     		uxth	r3, r3
+ 402              	.LVL48:
+ 403 001c 0A93     		str	r3, [sp, #40]
+ 404 001e 03FB03F7 		mul	r7, r3, r3
+ 405 0022 3AB2     		sxth	r2, r7
+ 406 0024 0692     		str	r2, [sp, #24]
+ 407              	.LVL49:
+ 255:u8g2/csrc/u8g2_circle.c ****   rxrx2 *= 2;
+ 408              		.loc 1 255 0
+ 409 0026 7F00     		lsls	r7, r7, #1
+ 410 0028 BFB2     		uxth	r7, r7
+ 411              	.LVL50:
+ 256:u8g2/csrc/u8g2_circle.c ****   
+ 257:u8g2/csrc/u8g2_circle.c ****   ryry2 = ry;
+ 258:u8g2/csrc/u8g2_circle.c ****   ryry2 *= ry;
+ 412              		.loc 1 258 0
+ 413 002a 8AB2     		uxth	r2, r1
+ 414 002c 1046     		mov	r0, r2
+ 415              	.LVL51:
+ 416 002e 0B92     		str	r2, [sp, #44]
+ 417 0030 02FB02F8 		mul	r8, r2, r2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 13
+
+
+ 418 0034 0FFA88F2 		sxth	r2, r8
+ 419 0038 0592     		str	r2, [sp, #20]
+ 420              	.LVL52:
+ 259:u8g2/csrc/u8g2_circle.c ****   ryry2 *= 2;
+ 421              		.loc 1 259 0
+ 422 003a 4FEA4808 		lsl	r8, r8, #1
+ 423 003e 1FFA88F8 		uxth	r8, r8
+ 424              	.LVL53:
+ 260:u8g2/csrc/u8g2_circle.c ****   
+ 261:u8g2/csrc/u8g2_circle.c ****   x = rx;
+ 262:u8g2/csrc/u8g2_circle.c ****   y = 0;
+ 263:u8g2/csrc/u8g2_circle.c ****   
+ 264:u8g2/csrc/u8g2_circle.c ****   xchg = 1;
+ 265:u8g2/csrc/u8g2_circle.c ****   xchg -= rx;
+ 425              		.loc 1 265 0
+ 426 0042 C3F10105 		rsb	r5, r3, #1
+ 427 0046 ADB2     		uxth	r5, r5
+ 428              	.LVL54:
+ 266:u8g2/csrc/u8g2_circle.c ****   xchg -= rx;
+ 429              		.loc 1 266 0
+ 430 0048 ED1A     		subs	r5, r5, r3
+ 431              	.LVL55:
+ 432 004a ADB2     		uxth	r5, r5
+ 433              	.LVL56:
+ 267:u8g2/csrc/u8g2_circle.c ****   xchg *= ry;
+ 434              		.loc 1 267 0
+ 435 004c 05FB00F5 		mul	r5, r5, r0
+ 436              	.LVL57:
+ 437 0050 ADB2     		uxth	r5, r5
+ 438              	.LVL58:
+ 268:u8g2/csrc/u8g2_circle.c ****   xchg *= ry;
+ 439              		.loc 1 268 0
+ 440 0052 05FB00F5 		mul	r5, r5, r0
+ 441              	.LVL59:
+ 442 0056 2DB2     		sxth	r5, r5
+ 443              	.LVL60:
+ 269:u8g2/csrc/u8g2_circle.c ****   
+ 270:u8g2/csrc/u8g2_circle.c ****   ychg = rx;
+ 271:u8g2/csrc/u8g2_circle.c ****   ychg *= rx;
+ 272:u8g2/csrc/u8g2_circle.c ****   
+ 273:u8g2/csrc/u8g2_circle.c ****   err = 0;
+ 274:u8g2/csrc/u8g2_circle.c ****   
+ 275:u8g2/csrc/u8g2_circle.c ****   stopx = ryry2;
+ 276:u8g2/csrc/u8g2_circle.c ****   stopx *= rx;
+ 444              		.loc 1 276 0
+ 445 0058 08FB03FB 		mul	fp, r8, r3
+ 446 005c 0FFA8BFB 		sxth	fp, fp
+ 447              	.LVL61:
+ 277:u8g2/csrc/u8g2_circle.c ****   stopy = 0;
+ 448              		.loc 1 277 0
+ 449 0060 0026     		movs	r6, #0
+ 273:u8g2/csrc/u8g2_circle.c ****   
+ 450              		.loc 1 273 0
+ 451 0062 3446     		mov	r4, r6
+ 262:u8g2/csrc/u8g2_circle.c ****   
+ 452              		.loc 1 262 0
+ 453 0064 B246     		mov	r10, r6
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 14
+
+
+ 454              	.LVL62:
+ 455              	.L28:
+ 278:u8g2/csrc/u8g2_circle.c ****   
+ 279:u8g2/csrc/u8g2_circle.c ****   while( stopx >= stopy )
+ 456              		.loc 1 279 0
+ 457 0066 B345     		cmp	fp, r6
+ 458 0068 29DB     		blt	.L35
+ 280:u8g2/csrc/u8g2_circle.c ****   {
+ 281:u8g2/csrc/u8g2_circle.c ****     u8g2_draw_ellipse_section(u8g2, x, y, x0, y0, option);
+ 459              		.loc 1 281 0
+ 460 006a CDF80490 		str	r9, [sp, #4]
+ 461 006e 099B     		ldr	r3, [sp, #36]
+ 462 0070 0093     		str	r3, [sp]
+ 463 0072 089B     		ldr	r3, [sp, #32]
+ 464 0074 5246     		mov	r2, r10
+ 465 0076 0399     		ldr	r1, [sp, #12]
+ 466 0078 0798     		ldr	r0, [sp, #28]
+ 467 007a FFF7FEFF 		bl	u8g2_draw_ellipse_section
+ 468              	.LVL63:
+ 282:u8g2/csrc/u8g2_circle.c ****     y++;
+ 469              		.loc 1 282 0
+ 470 007e 0AF1010A 		add	r10, r10, #1
+ 471              	.LVL64:
+ 472 0082 5FFA8AFA 		uxtb	r10, r10
+ 473              	.LVL65:
+ 283:u8g2/csrc/u8g2_circle.c ****     stopy += rxrx2;
+ 474              		.loc 1 283 0
+ 475 0086 3E44     		add	r6, r6, r7
+ 476              	.LVL66:
+ 477 0088 36B2     		sxth	r6, r6
+ 478              	.LVL67:
+ 284:u8g2/csrc/u8g2_circle.c ****     err += ychg;
+ 479              		.loc 1 284 0
+ 480 008a BDF81820 		ldrh	r2, [sp, #24]
+ 481 008e 1444     		add	r4, r4, r2
+ 482              	.LVL68:
+ 483 0090 A3B2     		uxth	r3, r4
+ 484 0092 1CB2     		sxth	r4, r3
+ 485              	.LVL69:
+ 285:u8g2/csrc/u8g2_circle.c ****     ychg += rxrx2;
+ 486              		.loc 1 285 0
+ 487 0094 3A44     		add	r2, r2, r7
+ 488 0096 12B2     		sxth	r2, r2
+ 489 0098 0692     		str	r2, [sp, #24]
+ 490              	.LVL70:
+ 286:u8g2/csrc/u8g2_circle.c ****     if ( 2*err+xchg > 0 )
+ 491              		.loc 1 286 0
+ 492 009a 05EB4402 		add	r2, r5, r4, lsl #1
+ 493 009e 002A     		cmp	r2, #0
+ 494 00a0 E1DD     		ble	.L28
+ 287:u8g2/csrc/u8g2_circle.c ****     {
+ 288:u8g2/csrc/u8g2_circle.c ****       x--;
+ 495              		.loc 1 288 0
+ 496 00a2 039A     		ldr	r2, [sp, #12]
+ 497 00a4 013A     		subs	r2, r2, #1
+ 498 00a6 D2B2     		uxtb	r2, r2
+ 499 00a8 0392     		str	r2, [sp, #12]
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 15
+
+
+ 500              	.LVL71:
+ 289:u8g2/csrc/u8g2_circle.c ****       stopx -= ryry2;
+ 501              		.loc 1 289 0
+ 502 00aa ABEB080B 		sub	fp, fp, r8
+ 503              	.LVL72:
+ 504 00ae 0FFA8BFB 		sxth	fp, fp
+ 505              	.LVL73:
+ 290:u8g2/csrc/u8g2_circle.c ****       err += xchg;
+ 506              		.loc 1 290 0
+ 507 00b2 ADB2     		uxth	r5, r5
+ 508 00b4 5C19     		adds	r4, r3, r5
+ 509              	.LVL74:
+ 510 00b6 24B2     		sxth	r4, r4
+ 511              	.LVL75:
+ 291:u8g2/csrc/u8g2_circle.c ****       xchg += ryry2;      
+ 512              		.loc 1 291 0
+ 513 00b8 4544     		add	r5, r5, r8
+ 514              	.LVL76:
+ 515 00ba 2DB2     		sxth	r5, r5
+ 516              	.LVL77:
+ 517 00bc D3E7     		b	.L28
+ 518              	.L35:
+ 519              	.LVL78:
+ 292:u8g2/csrc/u8g2_circle.c ****     }
+ 293:u8g2/csrc/u8g2_circle.c ****   }
+ 294:u8g2/csrc/u8g2_circle.c **** 
+ 295:u8g2/csrc/u8g2_circle.c ****   x = 0;
+ 296:u8g2/csrc/u8g2_circle.c ****   y = ry;
+ 297:u8g2/csrc/u8g2_circle.c ****   
+ 298:u8g2/csrc/u8g2_circle.c ****   xchg = ry;
+ 299:u8g2/csrc/u8g2_circle.c ****   xchg *= ry;
+ 300:u8g2/csrc/u8g2_circle.c ****   
+ 301:u8g2/csrc/u8g2_circle.c ****   ychg = 1;
+ 302:u8g2/csrc/u8g2_circle.c ****   ychg -= ry;
+ 520              		.loc 1 302 0
+ 521 00be 0B9A     		ldr	r2, [sp, #44]
+ 522 00c0 1346     		mov	r3, r2
+ 523 00c2 C2F10105 		rsb	r5, r2, #1
+ 524 00c6 ADB2     		uxth	r5, r5
+ 525              	.LVL79:
+ 303:u8g2/csrc/u8g2_circle.c ****   ychg -= ry;
+ 526              		.loc 1 303 0
+ 527 00c8 AD1A     		subs	r5, r5, r2
+ 528              	.LVL80:
+ 529 00ca ADB2     		uxth	r5, r5
+ 530              	.LVL81:
+ 304:u8g2/csrc/u8g2_circle.c ****   ychg *= rx;
+ 531              		.loc 1 304 0
+ 532 00cc 0A9A     		ldr	r2, [sp, #40]
+ 533 00ce 05FB02F5 		mul	r5, r5, r2
+ 534              	.LVL82:
+ 535 00d2 ADB2     		uxth	r5, r5
+ 536              	.LVL83:
+ 305:u8g2/csrc/u8g2_circle.c ****   ychg *= rx;
+ 537              		.loc 1 305 0
+ 538 00d4 05FB02F5 		mul	r5, r5, r2
+ 539              	.LVL84:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 16
+
+
+ 540 00d8 2DB2     		sxth	r5, r5
+ 541              	.LVL85:
+ 306:u8g2/csrc/u8g2_circle.c ****   
+ 307:u8g2/csrc/u8g2_circle.c ****   err = 0;
+ 308:u8g2/csrc/u8g2_circle.c ****   
+ 309:u8g2/csrc/u8g2_circle.c ****   stopx = 0;
+ 310:u8g2/csrc/u8g2_circle.c **** 
+ 311:u8g2/csrc/u8g2_circle.c ****   stopy = rxrx2;
+ 312:u8g2/csrc/u8g2_circle.c ****   stopy *= ry;
+ 542              		.loc 1 312 0
+ 543 00da 03FB07FA 		mul	r10, r3, r7
+ 544 00de 0FFA8AFA 		sxth	r10, r10
+ 545              	.LVL86:
+ 309:u8g2/csrc/u8g2_circle.c **** 
+ 546              		.loc 1 309 0
+ 547 00e2 0026     		movs	r6, #0
+ 307:u8g2/csrc/u8g2_circle.c ****   
+ 548              		.loc 1 307 0
+ 549 00e4 3446     		mov	r4, r6
+ 295:u8g2/csrc/u8g2_circle.c ****   y = ry;
+ 550              		.loc 1 295 0
+ 551 00e6 B346     		mov	fp, r6
+ 552              	.LVL87:
+ 553              	.L31:
+ 313:u8g2/csrc/u8g2_circle.c ****   
+ 314:u8g2/csrc/u8g2_circle.c **** 
+ 315:u8g2/csrc/u8g2_circle.c ****   while( stopx <= stopy )
+ 554              		.loc 1 315 0
+ 555 00e8 5645     		cmp	r6, r10
+ 556 00ea 29DC     		bgt	.L36
+ 316:u8g2/csrc/u8g2_circle.c ****   {
+ 317:u8g2/csrc/u8g2_circle.c ****     u8g2_draw_ellipse_section(u8g2, x, y, x0, y0, option);
+ 557              		.loc 1 317 0
+ 558 00ec CDF80490 		str	r9, [sp, #4]
+ 559 00f0 099B     		ldr	r3, [sp, #36]
+ 560 00f2 0093     		str	r3, [sp]
+ 561 00f4 089B     		ldr	r3, [sp, #32]
+ 562 00f6 049A     		ldr	r2, [sp, #16]
+ 563 00f8 5946     		mov	r1, fp
+ 564 00fa 0798     		ldr	r0, [sp, #28]
+ 565 00fc FFF7FEFF 		bl	u8g2_draw_ellipse_section
+ 566              	.LVL88:
+ 318:u8g2/csrc/u8g2_circle.c ****     x++;
+ 567              		.loc 1 318 0
+ 568 0100 0BF1010B 		add	fp, fp, #1
+ 569              	.LVL89:
+ 570 0104 5FFA8BFB 		uxtb	fp, fp
+ 571              	.LVL90:
+ 319:u8g2/csrc/u8g2_circle.c ****     stopx += ryry2;
+ 572              		.loc 1 319 0
+ 573 0108 4644     		add	r6, r6, r8
+ 574              	.LVL91:
+ 575 010a 36B2     		sxth	r6, r6
+ 576              	.LVL92:
+ 320:u8g2/csrc/u8g2_circle.c ****     err += xchg;
+ 577              		.loc 1 320 0
+ 578 010c BDF81420 		ldrh	r2, [sp, #20]
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 17
+
+
+ 579 0110 1444     		add	r4, r4, r2
+ 580              	.LVL93:
+ 581 0112 A3B2     		uxth	r3, r4
+ 582 0114 1CB2     		sxth	r4, r3
+ 583              	.LVL94:
+ 321:u8g2/csrc/u8g2_circle.c ****     xchg += ryry2;
+ 584              		.loc 1 321 0
+ 585 0116 4244     		add	r2, r2, r8
+ 586 0118 12B2     		sxth	r2, r2
+ 587 011a 0592     		str	r2, [sp, #20]
+ 588              	.LVL95:
+ 322:u8g2/csrc/u8g2_circle.c ****     if ( 2*err+ychg > 0 )
+ 589              		.loc 1 322 0
+ 590 011c 05EB4402 		add	r2, r5, r4, lsl #1
+ 591 0120 002A     		cmp	r2, #0
+ 592 0122 E1DD     		ble	.L31
+ 323:u8g2/csrc/u8g2_circle.c ****     {
+ 324:u8g2/csrc/u8g2_circle.c ****       y--;
+ 593              		.loc 1 324 0
+ 594 0124 049A     		ldr	r2, [sp, #16]
+ 595 0126 013A     		subs	r2, r2, #1
+ 596 0128 D2B2     		uxtb	r2, r2
+ 597 012a 0492     		str	r2, [sp, #16]
+ 598              	.LVL96:
+ 325:u8g2/csrc/u8g2_circle.c ****       stopy -= rxrx2;
+ 599              		.loc 1 325 0
+ 600 012c AAEB070A 		sub	r10, r10, r7
+ 601              	.LVL97:
+ 602 0130 0FFA8AFA 		sxth	r10, r10
+ 603              	.LVL98:
+ 326:u8g2/csrc/u8g2_circle.c ****       err += ychg;
+ 604              		.loc 1 326 0
+ 605 0134 ADB2     		uxth	r5, r5
+ 606 0136 5C19     		adds	r4, r3, r5
+ 607              	.LVL99:
+ 608 0138 24B2     		sxth	r4, r4
+ 609              	.LVL100:
+ 327:u8g2/csrc/u8g2_circle.c ****       ychg += rxrx2;
+ 610              		.loc 1 327 0
+ 611 013a 3D44     		add	r5, r5, r7
+ 612              	.LVL101:
+ 613 013c 2DB2     		sxth	r5, r5
+ 614              	.LVL102:
+ 615 013e D3E7     		b	.L31
+ 616              	.L36:
+ 328:u8g2/csrc/u8g2_circle.c ****     }
+ 329:u8g2/csrc/u8g2_circle.c ****   }
+ 330:u8g2/csrc/u8g2_circle.c ****   
+ 331:u8g2/csrc/u8g2_circle.c **** }
+ 617              		.loc 1 331 0
+ 618 0140 0DB0     		add	sp, sp, #52
+ 619              	.LCFI7:
+ 620              		.cfi_def_cfa_offset 36
+ 621              		@ sp needed
+ 622 0142 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 623              		.cfi_endproc
+ 624              	.LFE7:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 18
+
+
+ 626              		.section	.text.u8g2_draw_disc_section,"ax",%progbits
+ 627              		.align	1
+ 628              		.syntax unified
+ 629              		.thumb
+ 630              		.thumb_func
+ 631              		.fpu softvfp
+ 633              	u8g2_draw_disc_section:
+ 634              	.LFB3:
+ 130:u8g2/csrc/u8g2_circle.c ****     /* upper right */
+ 635              		.loc 1 130 0
+ 636              		.cfi_startproc
+ 637              		@ args = 8, pretend = 0, frame = 0
+ 638              		@ frame_needed = 0, uses_anonymous_args = 0
+ 639              	.LVL103:
+ 640 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 641              	.LCFI8:
+ 642              		.cfi_def_cfa_offset 32
+ 643              		.cfi_offset 3, -32
+ 644              		.cfi_offset 4, -28
+ 645              		.cfi_offset 5, -24
+ 646              		.cfi_offset 6, -20
+ 647              		.cfi_offset 7, -16
+ 648              		.cfi_offset 8, -12
+ 649              		.cfi_offset 9, -8
+ 650              		.cfi_offset 14, -4
+ 651 0004 8046     		mov	r8, r0
+ 652 0006 0D46     		mov	r5, r1
+ 653 0008 1746     		mov	r7, r2
+ 654 000a 1E46     		mov	r6, r3
+ 655 000c 9DF82090 		ldrb	r9, [sp, #32]	@ zero_extendqisi2
+ 656 0010 9DF82440 		ldrb	r4, [sp, #36]	@ zero_extendqisi2
+ 132:u8g2/csrc/u8g2_circle.c ****     {
+ 657              		.loc 1 132 0
+ 658 0014 14F0010F 		tst	r4, #1
+ 659 0018 0AD1     		bne	.L43
+ 660              	.LVL104:
+ 661              	.L38:
+ 139:u8g2/csrc/u8g2_circle.c ****     {
+ 662              		.loc 1 139 0
+ 663 001a 14F0020F 		tst	r4, #2
+ 664 001e 1BD1     		bne	.L44
+ 665              	.L39:
+ 146:u8g2/csrc/u8g2_circle.c ****     {
+ 666              		.loc 1 146 0
+ 667 0020 14F0080F 		tst	r4, #8
+ 668 0024 2DD1     		bne	.L45
+ 669              	.L40:
+ 153:u8g2/csrc/u8g2_circle.c ****     {
+ 670              		.loc 1 153 0
+ 671 0026 14F0040F 		tst	r4, #4
+ 672 002a 3BD1     		bne	.L46
+ 673              	.L37:
+ 674 002c BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 675              	.LVL105:
+ 676              	.L43:
+ 134:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0+y, y0-x, x+1);
+ 677              		.loc 1 134 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 19
+
+
+ 678 0030 531C     		adds	r3, r2, #1
+ 679              	.LVL106:
+ 680 0032 A9EB0202 		sub	r2, r9, r2
+ 681              	.LVL107:
+ 682 0036 7118     		adds	r1, r6, r1
+ 683              	.LVL108:
+ 684 0038 DBB2     		uxtb	r3, r3
+ 685 003a D2B2     		uxtb	r2, r2
+ 686 003c C9B2     		uxtb	r1, r1
+ 687 003e FFF7FEFF 		bl	u8g2_DrawVLine
+ 688              	.LVL109:
+ 135:u8g2/csrc/u8g2_circle.c ****     }
+ 689              		.loc 1 135 0
+ 690 0042 6B1C     		adds	r3, r5, #1
+ 691 0044 A9EB0502 		sub	r2, r9, r5
+ 692 0048 F119     		adds	r1, r6, r7
+ 693 004a DBB2     		uxtb	r3, r3
+ 694 004c D2B2     		uxtb	r2, r2
+ 695 004e C9B2     		uxtb	r1, r1
+ 696 0050 4046     		mov	r0, r8
+ 697 0052 FFF7FEFF 		bl	u8g2_DrawVLine
+ 698              	.LVL110:
+ 699 0056 E0E7     		b	.L38
+ 700              	.L44:
+ 141:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0-y, y0-x, x+1);
+ 701              		.loc 1 141 0
+ 702 0058 7B1C     		adds	r3, r7, #1
+ 703 005a A9EB0702 		sub	r2, r9, r7
+ 704 005e 711B     		subs	r1, r6, r5
+ 705 0060 DBB2     		uxtb	r3, r3
+ 706 0062 D2B2     		uxtb	r2, r2
+ 707 0064 C9B2     		uxtb	r1, r1
+ 708 0066 4046     		mov	r0, r8
+ 709 0068 FFF7FEFF 		bl	u8g2_DrawVLine
+ 710              	.LVL111:
+ 142:u8g2/csrc/u8g2_circle.c ****     }
+ 711              		.loc 1 142 0
+ 712 006c 6B1C     		adds	r3, r5, #1
+ 713 006e A9EB0502 		sub	r2, r9, r5
+ 714 0072 F11B     		subs	r1, r6, r7
+ 715 0074 DBB2     		uxtb	r3, r3
+ 716 0076 D2B2     		uxtb	r2, r2
+ 717 0078 C9B2     		uxtb	r1, r1
+ 718 007a 4046     		mov	r0, r8
+ 719 007c FFF7FEFF 		bl	u8g2_DrawVLine
+ 720              	.LVL112:
+ 721 0080 CEE7     		b	.L39
+ 722              	.L45:
+ 148:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0+y, y0, x+1);
+ 723              		.loc 1 148 0
+ 724 0082 7B1C     		adds	r3, r7, #1
+ 725 0084 7119     		adds	r1, r6, r5
+ 726 0086 DBB2     		uxtb	r3, r3
+ 727 0088 4A46     		mov	r2, r9
+ 728 008a C9B2     		uxtb	r1, r1
+ 729 008c 4046     		mov	r0, r8
+ 730 008e FFF7FEFF 		bl	u8g2_DrawVLine
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 20
+
+
+ 731              	.LVL113:
+ 149:u8g2/csrc/u8g2_circle.c ****     }
+ 732              		.loc 1 149 0
+ 733 0092 6B1C     		adds	r3, r5, #1
+ 734 0094 F119     		adds	r1, r6, r7
+ 735 0096 DBB2     		uxtb	r3, r3
+ 736 0098 4A46     		mov	r2, r9
+ 737 009a C9B2     		uxtb	r1, r1
+ 738 009c 4046     		mov	r0, r8
+ 739 009e FFF7FEFF 		bl	u8g2_DrawVLine
+ 740              	.LVL114:
+ 741 00a2 C0E7     		b	.L40
+ 742              	.L46:
+ 155:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0-y, y0, x+1);
+ 743              		.loc 1 155 0
+ 744 00a4 7B1C     		adds	r3, r7, #1
+ 745 00a6 711B     		subs	r1, r6, r5
+ 746 00a8 DBB2     		uxtb	r3, r3
+ 747 00aa 4A46     		mov	r2, r9
+ 748 00ac C9B2     		uxtb	r1, r1
+ 749 00ae 4046     		mov	r0, r8
+ 750 00b0 FFF7FEFF 		bl	u8g2_DrawVLine
+ 751              	.LVL115:
+ 156:u8g2/csrc/u8g2_circle.c ****     }
+ 752              		.loc 1 156 0
+ 753 00b4 6B1C     		adds	r3, r5, #1
+ 754 00b6 F11B     		subs	r1, r6, r7
+ 755 00b8 DBB2     		uxtb	r3, r3
+ 756 00ba 4A46     		mov	r2, r9
+ 757 00bc C9B2     		uxtb	r1, r1
+ 758 00be 4046     		mov	r0, r8
+ 759 00c0 FFF7FEFF 		bl	u8g2_DrawVLine
+ 760              	.LVL116:
+ 158:u8g2/csrc/u8g2_circle.c **** 
+ 761              		.loc 1 158 0
+ 762 00c4 B2E7     		b	.L37
+ 763              		.cfi_endproc
+ 764              	.LFE3:
+ 766              		.section	.text.u8g2_draw_disc,"ax",%progbits
+ 767              		.align	1
+ 768              		.syntax unified
+ 769              		.thumb
+ 770              		.thumb_func
+ 771              		.fpu softvfp
+ 773              	u8g2_draw_disc:
+ 774              	.LFB4:
+ 161:u8g2/csrc/u8g2_circle.c ****   u8g2_int_t f;
+ 775              		.loc 1 161 0
+ 776              		.cfi_startproc
+ 777              		@ args = 4, pretend = 0, frame = 8
+ 778              		@ frame_needed = 0, uses_anonymous_args = 0
+ 779              	.LVL117:
+ 780 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 781              	.LCFI9:
+ 782              		.cfi_def_cfa_offset 36
+ 783              		.cfi_offset 4, -36
+ 784              		.cfi_offset 5, -32
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 21
+
+
+ 785              		.cfi_offset 6, -28
+ 786              		.cfi_offset 7, -24
+ 787              		.cfi_offset 8, -20
+ 788              		.cfi_offset 9, -16
+ 789              		.cfi_offset 10, -12
+ 790              		.cfi_offset 11, -8
+ 791              		.cfi_offset 14, -4
+ 792 0004 85B0     		sub	sp, sp, #20
+ 793              	.LCFI10:
+ 794              		.cfi_def_cfa_offset 56
+ 795 0006 0390     		str	r0, [sp, #12]
+ 796 0008 8946     		mov	r9, r1
+ 797 000a 9246     		mov	r10, r2
+ 798 000c 1F46     		mov	r7, r3
+ 799 000e 9DF838B0 		ldrb	fp, [sp, #56]	@ zero_extendqisi2
+ 800              	.LVL118:
+ 169:u8g2/csrc/u8g2_circle.c ****   ddF_x = 1;
+ 801              		.loc 1 169 0
+ 802 0012 C3F10108 		rsb	r8, r3, #1
+ 803 0016 4FFA88F8 		sxtb	r8, r8
+ 804              	.LVL119:
+ 173:u8g2/csrc/u8g2_circle.c ****   x = 0;
+ 805              		.loc 1 173 0
+ 806 001a C3EBC313 		rsb	r3, r3, r3, lsl #7
+ 807              	.LVL120:
+ 808 001e 5D00     		lsls	r5, r3, #1
+ 809 0020 6DB2     		sxtb	r5, r5
+ 810              	.LVL121:
+ 177:u8g2/csrc/u8g2_circle.c ****   
+ 811              		.loc 1 177 0
+ 812 0022 CDF804B0 		str	fp, [sp, #4]
+ 813 0026 0092     		str	r2, [sp]
+ 814 0028 0B46     		mov	r3, r1
+ 815 002a 3A46     		mov	r2, r7
+ 816              	.LVL122:
+ 817 002c 0021     		movs	r1, #0
+ 818              	.LVL123:
+ 819 002e FFF7FEFF 		bl	u8g2_draw_disc_section
+ 820              	.LVL124:
+ 174:u8g2/csrc/u8g2_circle.c ****   y = rad;
+ 821              		.loc 1 174 0
+ 822 0032 0026     		movs	r6, #0
+ 170:u8g2/csrc/u8g2_circle.c ****   ddF_y = 0;
+ 823              		.loc 1 170 0
+ 824 0034 0124     		movs	r4, #1
+ 179:u8g2/csrc/u8g2_circle.c ****   {
+ 825              		.loc 1 179 0
+ 826 0036 11E0     		b	.L48
+ 827              	.LVL125:
+ 828              	.L49:
+ 187:u8g2/csrc/u8g2_circle.c ****     ddF_x += 2;
+ 829              		.loc 1 187 0
+ 830 0038 0136     		adds	r6, r6, #1
+ 831              	.LVL126:
+ 832 003a F6B2     		uxtb	r6, r6
+ 833              	.LVL127:
+ 188:u8g2/csrc/u8g2_circle.c ****     f += ddF_x;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 22
+
+
+ 834              		.loc 1 188 0
+ 835 003c 0234     		adds	r4, r4, #2
+ 836              	.LVL128:
+ 837 003e E3B2     		uxtb	r3, r4
+ 838 0040 5CB2     		sxtb	r4, r3
+ 839              	.LVL129:
+ 189:u8g2/csrc/u8g2_circle.c **** 
+ 840              		.loc 1 189 0
+ 841 0042 9844     		add	r8, r8, r3
+ 842              	.LVL130:
+ 843 0044 4FFA88F8 		sxtb	r8, r8
+ 844              	.LVL131:
+ 191:u8g2/csrc/u8g2_circle.c ****   }
+ 845              		.loc 1 191 0
+ 846 0048 CDF804B0 		str	fp, [sp, #4]
+ 847 004c CDF800A0 		str	r10, [sp]
+ 848 0050 4B46     		mov	r3, r9
+ 849 0052 3A46     		mov	r2, r7
+ 850 0054 3146     		mov	r1, r6
+ 851 0056 0398     		ldr	r0, [sp, #12]
+ 852 0058 FFF7FEFF 		bl	u8g2_draw_disc_section
+ 853              	.LVL132:
+ 854              	.L48:
+ 179:u8g2/csrc/u8g2_circle.c ****   {
+ 855              		.loc 1 179 0
+ 856 005c BE42     		cmp	r6, r7
+ 857 005e 0BD2     		bcs	.L52
+ 181:u8g2/csrc/u8g2_circle.c ****     {
+ 858              		.loc 1 181 0
+ 859 0060 B8F1000F 		cmp	r8, #0
+ 860 0064 E8DB     		blt	.L49
+ 183:u8g2/csrc/u8g2_circle.c ****       ddF_y += 2;
+ 861              		.loc 1 183 0
+ 862 0066 013F     		subs	r7, r7, #1
+ 863              	.LVL133:
+ 864 0068 FFB2     		uxtb	r7, r7
+ 865              	.LVL134:
+ 184:u8g2/csrc/u8g2_circle.c ****       f += ddF_y;
+ 866              		.loc 1 184 0
+ 867 006a 0235     		adds	r5, r5, #2
+ 868              	.LVL135:
+ 869 006c EBB2     		uxtb	r3, r5
+ 870 006e 5DB2     		sxtb	r5, r3
+ 871              	.LVL136:
+ 185:u8g2/csrc/u8g2_circle.c ****     }
+ 872              		.loc 1 185 0
+ 873 0070 9844     		add	r8, r8, r3
+ 874              	.LVL137:
+ 875 0072 4FFA88F8 		sxtb	r8, r8
+ 876              	.LVL138:
+ 877 0076 DFE7     		b	.L49
+ 878              	.L52:
+ 193:u8g2/csrc/u8g2_circle.c **** 
+ 879              		.loc 1 193 0
+ 880 0078 05B0     		add	sp, sp, #20
+ 881              	.LCFI11:
+ 882              		.cfi_def_cfa_offset 36
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 23
+
+
+ 883              		@ sp needed
+ 884 007a BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 885              		.cfi_endproc
+ 886              	.LFE4:
+ 888              		.section	.text.u8g2_draw_filled_ellipse_section,"ax",%progbits
+ 889              		.align	1
+ 890              		.syntax unified
+ 891              		.thumb
+ 892              		.thumb_func
+ 893              		.fpu softvfp
+ 895              	u8g2_draw_filled_ellipse_section:
+ 896              	.LFB9:
+ 332:u8g2/csrc/u8g2_circle.c **** 
+ 333:u8g2/csrc/u8g2_circle.c **** void u8g2_DrawEllipse(u8g2_t *u8g2, u8g2_uint_t x0, u8g2_uint_t y0, u8g2_uint_t rx, u8g2_uint_t ry,
+ 334:u8g2/csrc/u8g2_circle.c **** {
+ 335:u8g2/csrc/u8g2_circle.c ****   /* check for bounding box */
+ 336:u8g2/csrc/u8g2_circle.c **** #ifdef U8G2_WITH_INTERSECTION
+ 337:u8g2/csrc/u8g2_circle.c ****   {
+ 338:u8g2/csrc/u8g2_circle.c ****     if ( u8g2_IsIntersection(u8g2, x0-rx, y0-ry, x0+rx+1, y0+ry+1) == 0 ) 
+ 339:u8g2/csrc/u8g2_circle.c ****       return;
+ 340:u8g2/csrc/u8g2_circle.c ****   }
+ 341:u8g2/csrc/u8g2_circle.c **** #endif /* U8G2_WITH_INTERSECTION */
+ 342:u8g2/csrc/u8g2_circle.c ****   
+ 343:u8g2/csrc/u8g2_circle.c ****   u8g2_draw_ellipse(u8g2, x0, y0, rx, ry, option);
+ 344:u8g2/csrc/u8g2_circle.c **** }
+ 345:u8g2/csrc/u8g2_circle.c **** 
+ 346:u8g2/csrc/u8g2_circle.c **** /*==============================================*/
+ 347:u8g2/csrc/u8g2_circle.c **** /* Filled Ellipse */
+ 348:u8g2/csrc/u8g2_circle.c **** 
+ 349:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_filled_ellipse_section(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_
+ 350:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_filled_ellipse_section(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_
+ 351:u8g2/csrc/u8g2_circle.c **** {
+ 897              		.loc 1 351 0
+ 898              		.cfi_startproc
+ 899              		@ args = 8, pretend = 0, frame = 0
+ 900              		@ frame_needed = 0, uses_anonymous_args = 0
+ 901              	.LVL139:
+ 902 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 903              	.LCFI12:
+ 904              		.cfi_def_cfa_offset 32
+ 905              		.cfi_offset 3, -32
+ 906              		.cfi_offset 4, -28
+ 907              		.cfi_offset 5, -24
+ 908              		.cfi_offset 6, -20
+ 909              		.cfi_offset 7, -16
+ 910              		.cfi_offset 8, -12
+ 911              		.cfi_offset 9, -8
+ 912              		.cfi_offset 14, -4
+ 913 0004 0746     		mov	r7, r0
+ 914 0006 8946     		mov	r9, r1
+ 915 0008 1546     		mov	r5, r2
+ 916 000a 1E46     		mov	r6, r3
+ 917 000c 9DF82080 		ldrb	r8, [sp, #32]	@ zero_extendqisi2
+ 918 0010 9DF82440 		ldrb	r4, [sp, #36]	@ zero_extendqisi2
+ 352:u8g2/csrc/u8g2_circle.c ****     /* upper right */
+ 353:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_UPPER_RIGHT )
+ 919              		.loc 1 353 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 24
+
+
+ 920 0014 14F0010F 		tst	r4, #1
+ 921 0018 0AD1     		bne	.L59
+ 922              	.LVL140:
+ 923              	.L54:
+ 354:u8g2/csrc/u8g2_circle.c ****     {
+ 355:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0+x, y0-y, y+1);
+ 356:u8g2/csrc/u8g2_circle.c ****     }
+ 357:u8g2/csrc/u8g2_circle.c ****     
+ 358:u8g2/csrc/u8g2_circle.c ****     /* upper left */
+ 359:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_UPPER_LEFT )
+ 924              		.loc 1 359 0
+ 925 001a 14F0020F 		tst	r4, #2
+ 926 001e 11D1     		bne	.L60
+ 927              	.L55:
+ 360:u8g2/csrc/u8g2_circle.c ****     {
+ 361:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0-x, y0-y, y+1);
+ 362:u8g2/csrc/u8g2_circle.c ****     }
+ 363:u8g2/csrc/u8g2_circle.c ****     
+ 364:u8g2/csrc/u8g2_circle.c ****     /* lower right */
+ 365:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_LOWER_RIGHT )
+ 928              		.loc 1 365 0
+ 929 0020 14F0080F 		tst	r4, #8
+ 930 0024 1AD1     		bne	.L61
+ 931              	.L56:
+ 366:u8g2/csrc/u8g2_circle.c ****     {
+ 367:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0+x, y0, y+1);
+ 368:u8g2/csrc/u8g2_circle.c ****     }
+ 369:u8g2/csrc/u8g2_circle.c ****     
+ 370:u8g2/csrc/u8g2_circle.c ****     /* lower left */
+ 371:u8g2/csrc/u8g2_circle.c ****     if ( option & U8G2_DRAW_LOWER_LEFT )
+ 932              		.loc 1 371 0
+ 933 0026 14F0040F 		tst	r4, #4
+ 934 002a 21D1     		bne	.L62
+ 935              	.L53:
+ 936 002c BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 937              	.LVL141:
+ 938              	.L59:
+ 355:u8g2/csrc/u8g2_circle.c ****     }
+ 939              		.loc 1 355 0
+ 940 0030 531C     		adds	r3, r2, #1
+ 941              	.LVL142:
+ 942 0032 A8EB0202 		sub	r2, r8, r2
+ 943              	.LVL143:
+ 944 0036 7118     		adds	r1, r6, r1
+ 945              	.LVL144:
+ 946 0038 DBB2     		uxtb	r3, r3
+ 947 003a D2B2     		uxtb	r2, r2
+ 948 003c C9B2     		uxtb	r1, r1
+ 949 003e FFF7FEFF 		bl	u8g2_DrawVLine
+ 950              	.LVL145:
+ 951 0042 EAE7     		b	.L54
+ 952              	.L60:
+ 361:u8g2/csrc/u8g2_circle.c ****     }
+ 953              		.loc 1 361 0
+ 954 0044 6B1C     		adds	r3, r5, #1
+ 955 0046 A8EB0502 		sub	r2, r8, r5
+ 956 004a A6EB0901 		sub	r1, r6, r9
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 25
+
+
+ 957 004e DBB2     		uxtb	r3, r3
+ 958 0050 D2B2     		uxtb	r2, r2
+ 959 0052 C9B2     		uxtb	r1, r1
+ 960 0054 3846     		mov	r0, r7
+ 961 0056 FFF7FEFF 		bl	u8g2_DrawVLine
+ 962              	.LVL146:
+ 963 005a E1E7     		b	.L55
+ 964              	.L61:
+ 367:u8g2/csrc/u8g2_circle.c ****     }
+ 965              		.loc 1 367 0
+ 966 005c 6B1C     		adds	r3, r5, #1
+ 967 005e 06EB0901 		add	r1, r6, r9
+ 968 0062 DBB2     		uxtb	r3, r3
+ 969 0064 4246     		mov	r2, r8
+ 970 0066 C9B2     		uxtb	r1, r1
+ 971 0068 3846     		mov	r0, r7
+ 972 006a FFF7FEFF 		bl	u8g2_DrawVLine
+ 973              	.LVL147:
+ 974 006e DAE7     		b	.L56
+ 975              	.L62:
+ 372:u8g2/csrc/u8g2_circle.c ****     {
+ 373:u8g2/csrc/u8g2_circle.c ****       u8g2_DrawVLine(u8g2, x0-x, y0, y+1);
+ 976              		.loc 1 373 0
+ 977 0070 6B1C     		adds	r3, r5, #1
+ 978 0072 A6EB0901 		sub	r1, r6, r9
+ 979 0076 DBB2     		uxtb	r3, r3
+ 980 0078 4246     		mov	r2, r8
+ 981 007a C9B2     		uxtb	r1, r1
+ 982 007c 3846     		mov	r0, r7
+ 983 007e FFF7FEFF 		bl	u8g2_DrawVLine
+ 984              	.LVL148:
+ 374:u8g2/csrc/u8g2_circle.c ****     }
+ 375:u8g2/csrc/u8g2_circle.c **** }
+ 985              		.loc 1 375 0
+ 986 0082 D3E7     		b	.L53
+ 987              		.cfi_endproc
+ 988              	.LFE9:
+ 990              		.section	.text.u8g2_draw_filled_ellipse,"ax",%progbits
+ 991              		.align	1
+ 992              		.syntax unified
+ 993              		.thumb
+ 994              		.thumb_func
+ 995              		.fpu softvfp
+ 997              	u8g2_draw_filled_ellipse:
+ 998              	.LFB10:
+ 376:u8g2/csrc/u8g2_circle.c **** 
+ 377:u8g2/csrc/u8g2_circle.c **** static void u8g2_draw_filled_ellipse(u8g2_t *u8g2, u8g2_uint_t x0, u8g2_uint_t y0, u8g2_uint_t rx, 
+ 378:u8g2/csrc/u8g2_circle.c **** {
+ 999              		.loc 1 378 0
+ 1000              		.cfi_startproc
+ 1001              		@ args = 8, pretend = 0, frame = 40
+ 1002              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1003              	.LVL149:
+ 1004 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1005              	.LCFI13:
+ 1006              		.cfi_def_cfa_offset 36
+ 1007              		.cfi_offset 4, -36
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 26
+
+
+ 1008              		.cfi_offset 5, -32
+ 1009              		.cfi_offset 6, -28
+ 1010              		.cfi_offset 7, -24
+ 1011              		.cfi_offset 8, -20
+ 1012              		.cfi_offset 9, -16
+ 1013              		.cfi_offset 10, -12
+ 1014              		.cfi_offset 11, -8
+ 1015              		.cfi_offset 14, -4
+ 1016 0004 8DB0     		sub	sp, sp, #52
+ 1017              	.LCFI14:
+ 1018              		.cfi_def_cfa_offset 88
+ 1019 0006 0790     		str	r0, [sp, #28]
+ 1020 0008 0891     		str	r1, [sp, #32]
+ 1021 000a 0992     		str	r2, [sp, #36]
+ 1022 000c 0393     		str	r3, [sp, #12]
+ 1023 000e 9DF85820 		ldrb	r2, [sp, #88]	@ zero_extendqisi2
+ 1024              	.LVL150:
+ 1025 0012 1146     		mov	r1, r2
+ 1026              	.LVL151:
+ 1027 0014 0492     		str	r2, [sp, #16]
+ 1028 0016 9DF85C90 		ldrb	r9, [sp, #92]	@ zero_extendqisi2
+ 1029              	.LVL152:
+ 379:u8g2/csrc/u8g2_circle.c ****   u8g2_uint_t x, y;
+ 380:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t xchg, ychg;
+ 381:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t err;
+ 382:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t rxrx2;
+ 383:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t ryry2;
+ 384:u8g2/csrc/u8g2_circle.c ****   u8g2_long_t stopx, stopy;
+ 385:u8g2/csrc/u8g2_circle.c ****   
+ 386:u8g2/csrc/u8g2_circle.c ****   rxrx2 = rx;
+ 387:u8g2/csrc/u8g2_circle.c ****   rxrx2 *= rx;
+ 1030              		.loc 1 387 0
+ 1031 001a 9BB2     		uxth	r3, r3
+ 1032              	.LVL153:
+ 1033 001c 0A93     		str	r3, [sp, #40]
+ 1034 001e 03FB03F7 		mul	r7, r3, r3
+ 1035 0022 3AB2     		sxth	r2, r7
+ 1036 0024 0692     		str	r2, [sp, #24]
+ 1037              	.LVL154:
+ 388:u8g2/csrc/u8g2_circle.c ****   rxrx2 *= 2;
+ 1038              		.loc 1 388 0
+ 1039 0026 7F00     		lsls	r7, r7, #1
+ 1040 0028 BFB2     		uxth	r7, r7
+ 1041              	.LVL155:
+ 389:u8g2/csrc/u8g2_circle.c ****   
+ 390:u8g2/csrc/u8g2_circle.c ****   ryry2 = ry;
+ 391:u8g2/csrc/u8g2_circle.c ****   ryry2 *= ry;
+ 1042              		.loc 1 391 0
+ 1043 002a 8AB2     		uxth	r2, r1
+ 1044 002c 1046     		mov	r0, r2
+ 1045              	.LVL156:
+ 1046 002e 0B92     		str	r2, [sp, #44]
+ 1047 0030 02FB02F8 		mul	r8, r2, r2
+ 1048 0034 0FFA88F2 		sxth	r2, r8
+ 1049 0038 0592     		str	r2, [sp, #20]
+ 1050              	.LVL157:
+ 392:u8g2/csrc/u8g2_circle.c ****   ryry2 *= 2;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 27
+
+
+ 1051              		.loc 1 392 0
+ 1052 003a 4FEA4808 		lsl	r8, r8, #1
+ 1053 003e 1FFA88F8 		uxth	r8, r8
+ 1054              	.LVL158:
+ 393:u8g2/csrc/u8g2_circle.c ****   
+ 394:u8g2/csrc/u8g2_circle.c ****   x = rx;
+ 395:u8g2/csrc/u8g2_circle.c ****   y = 0;
+ 396:u8g2/csrc/u8g2_circle.c ****   
+ 397:u8g2/csrc/u8g2_circle.c ****   xchg = 1;
+ 398:u8g2/csrc/u8g2_circle.c ****   xchg -= rx;
+ 1055              		.loc 1 398 0
+ 1056 0042 C3F10105 		rsb	r5, r3, #1
+ 1057 0046 ADB2     		uxth	r5, r5
+ 1058              	.LVL159:
+ 399:u8g2/csrc/u8g2_circle.c ****   xchg -= rx;
+ 1059              		.loc 1 399 0
+ 1060 0048 ED1A     		subs	r5, r5, r3
+ 1061              	.LVL160:
+ 1062 004a ADB2     		uxth	r5, r5
+ 1063              	.LVL161:
+ 400:u8g2/csrc/u8g2_circle.c ****   xchg *= ry;
+ 1064              		.loc 1 400 0
+ 1065 004c 05FB00F5 		mul	r5, r5, r0
+ 1066              	.LVL162:
+ 1067 0050 ADB2     		uxth	r5, r5
+ 1068              	.LVL163:
+ 401:u8g2/csrc/u8g2_circle.c ****   xchg *= ry;
+ 1069              		.loc 1 401 0
+ 1070 0052 05FB00F5 		mul	r5, r5, r0
+ 1071              	.LVL164:
+ 1072 0056 2DB2     		sxth	r5, r5
+ 1073              	.LVL165:
+ 402:u8g2/csrc/u8g2_circle.c ****   
+ 403:u8g2/csrc/u8g2_circle.c ****   ychg = rx;
+ 404:u8g2/csrc/u8g2_circle.c ****   ychg *= rx;
+ 405:u8g2/csrc/u8g2_circle.c ****   
+ 406:u8g2/csrc/u8g2_circle.c ****   err = 0;
+ 407:u8g2/csrc/u8g2_circle.c ****   
+ 408:u8g2/csrc/u8g2_circle.c ****   stopx = ryry2;
+ 409:u8g2/csrc/u8g2_circle.c ****   stopx *= rx;
+ 1074              		.loc 1 409 0
+ 1075 0058 08FB03FB 		mul	fp, r8, r3
+ 1076 005c 0FFA8BFB 		sxth	fp, fp
+ 1077              	.LVL166:
+ 410:u8g2/csrc/u8g2_circle.c ****   stopy = 0;
+ 1078              		.loc 1 410 0
+ 1079 0060 0026     		movs	r6, #0
+ 406:u8g2/csrc/u8g2_circle.c ****   
+ 1080              		.loc 1 406 0
+ 1081 0062 3446     		mov	r4, r6
+ 395:u8g2/csrc/u8g2_circle.c ****   
+ 1082              		.loc 1 395 0
+ 1083 0064 B246     		mov	r10, r6
+ 1084              	.LVL167:
+ 1085              	.L64:
+ 411:u8g2/csrc/u8g2_circle.c ****   
+ 412:u8g2/csrc/u8g2_circle.c ****   while( stopx >= stopy )
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 28
+
+
+ 1086              		.loc 1 412 0
+ 1087 0066 B345     		cmp	fp, r6
+ 1088 0068 29DB     		blt	.L71
+ 413:u8g2/csrc/u8g2_circle.c ****   {
+ 414:u8g2/csrc/u8g2_circle.c ****     u8g2_draw_filled_ellipse_section(u8g2, x, y, x0, y0, option);
+ 1089              		.loc 1 414 0
+ 1090 006a CDF80490 		str	r9, [sp, #4]
+ 1091 006e 099B     		ldr	r3, [sp, #36]
+ 1092 0070 0093     		str	r3, [sp]
+ 1093 0072 089B     		ldr	r3, [sp, #32]
+ 1094 0074 5246     		mov	r2, r10
+ 1095 0076 0399     		ldr	r1, [sp, #12]
+ 1096 0078 0798     		ldr	r0, [sp, #28]
+ 1097 007a FFF7FEFF 		bl	u8g2_draw_filled_ellipse_section
+ 1098              	.LVL168:
+ 415:u8g2/csrc/u8g2_circle.c ****     y++;
+ 1099              		.loc 1 415 0
+ 1100 007e 0AF1010A 		add	r10, r10, #1
+ 1101              	.LVL169:
+ 1102 0082 5FFA8AFA 		uxtb	r10, r10
+ 1103              	.LVL170:
+ 416:u8g2/csrc/u8g2_circle.c ****     stopy += rxrx2;
+ 1104              		.loc 1 416 0
+ 1105 0086 3E44     		add	r6, r6, r7
+ 1106              	.LVL171:
+ 1107 0088 36B2     		sxth	r6, r6
+ 1108              	.LVL172:
+ 417:u8g2/csrc/u8g2_circle.c ****     err += ychg;
+ 1109              		.loc 1 417 0
+ 1110 008a BDF81820 		ldrh	r2, [sp, #24]
+ 1111 008e 1444     		add	r4, r4, r2
+ 1112              	.LVL173:
+ 1113 0090 A3B2     		uxth	r3, r4
+ 1114 0092 1CB2     		sxth	r4, r3
+ 1115              	.LVL174:
+ 418:u8g2/csrc/u8g2_circle.c ****     ychg += rxrx2;
+ 1116              		.loc 1 418 0
+ 1117 0094 3A44     		add	r2, r2, r7
+ 1118 0096 12B2     		sxth	r2, r2
+ 1119 0098 0692     		str	r2, [sp, #24]
+ 1120              	.LVL175:
+ 419:u8g2/csrc/u8g2_circle.c ****     if ( 2*err+xchg > 0 )
+ 1121              		.loc 1 419 0
+ 1122 009a 05EB4402 		add	r2, r5, r4, lsl #1
+ 1123 009e 002A     		cmp	r2, #0
+ 1124 00a0 E1DD     		ble	.L64
+ 420:u8g2/csrc/u8g2_circle.c ****     {
+ 421:u8g2/csrc/u8g2_circle.c ****       x--;
+ 1125              		.loc 1 421 0
+ 1126 00a2 039A     		ldr	r2, [sp, #12]
+ 1127 00a4 013A     		subs	r2, r2, #1
+ 1128 00a6 D2B2     		uxtb	r2, r2
+ 1129 00a8 0392     		str	r2, [sp, #12]
+ 1130              	.LVL176:
+ 422:u8g2/csrc/u8g2_circle.c ****       stopx -= ryry2;
+ 1131              		.loc 1 422 0
+ 1132 00aa ABEB080B 		sub	fp, fp, r8
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 29
+
+
+ 1133              	.LVL177:
+ 1134 00ae 0FFA8BFB 		sxth	fp, fp
+ 1135              	.LVL178:
+ 423:u8g2/csrc/u8g2_circle.c ****       err += xchg;
+ 1136              		.loc 1 423 0
+ 1137 00b2 ADB2     		uxth	r5, r5
+ 1138 00b4 5C19     		adds	r4, r3, r5
+ 1139              	.LVL179:
+ 1140 00b6 24B2     		sxth	r4, r4
+ 1141              	.LVL180:
+ 424:u8g2/csrc/u8g2_circle.c ****       xchg += ryry2;      
+ 1142              		.loc 1 424 0
+ 1143 00b8 4544     		add	r5, r5, r8
+ 1144              	.LVL181:
+ 1145 00ba 2DB2     		sxth	r5, r5
+ 1146              	.LVL182:
+ 1147 00bc D3E7     		b	.L64
+ 1148              	.L71:
+ 1149              	.LVL183:
+ 425:u8g2/csrc/u8g2_circle.c ****     }
+ 426:u8g2/csrc/u8g2_circle.c ****   }
+ 427:u8g2/csrc/u8g2_circle.c **** 
+ 428:u8g2/csrc/u8g2_circle.c ****   x = 0;
+ 429:u8g2/csrc/u8g2_circle.c ****   y = ry;
+ 430:u8g2/csrc/u8g2_circle.c ****   
+ 431:u8g2/csrc/u8g2_circle.c ****   xchg = ry;
+ 432:u8g2/csrc/u8g2_circle.c ****   xchg *= ry;
+ 433:u8g2/csrc/u8g2_circle.c ****   
+ 434:u8g2/csrc/u8g2_circle.c ****   ychg = 1;
+ 435:u8g2/csrc/u8g2_circle.c ****   ychg -= ry;
+ 1150              		.loc 1 435 0
+ 1151 00be 0B9A     		ldr	r2, [sp, #44]
+ 1152 00c0 1346     		mov	r3, r2
+ 1153 00c2 C2F10105 		rsb	r5, r2, #1
+ 1154 00c6 ADB2     		uxth	r5, r5
+ 1155              	.LVL184:
+ 436:u8g2/csrc/u8g2_circle.c ****   ychg -= ry;
+ 1156              		.loc 1 436 0
+ 1157 00c8 AD1A     		subs	r5, r5, r2
+ 1158              	.LVL185:
+ 1159 00ca ADB2     		uxth	r5, r5
+ 1160              	.LVL186:
+ 437:u8g2/csrc/u8g2_circle.c ****   ychg *= rx;
+ 1161              		.loc 1 437 0
+ 1162 00cc 0A9A     		ldr	r2, [sp, #40]
+ 1163 00ce 05FB02F5 		mul	r5, r5, r2
+ 1164              	.LVL187:
+ 1165 00d2 ADB2     		uxth	r5, r5
+ 1166              	.LVL188:
+ 438:u8g2/csrc/u8g2_circle.c ****   ychg *= rx;
+ 1167              		.loc 1 438 0
+ 1168 00d4 05FB02F5 		mul	r5, r5, r2
+ 1169              	.LVL189:
+ 1170 00d8 2DB2     		sxth	r5, r5
+ 1171              	.LVL190:
+ 439:u8g2/csrc/u8g2_circle.c ****   
+ 440:u8g2/csrc/u8g2_circle.c ****   err = 0;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 30
+
+
+ 441:u8g2/csrc/u8g2_circle.c ****   
+ 442:u8g2/csrc/u8g2_circle.c ****   stopx = 0;
+ 443:u8g2/csrc/u8g2_circle.c **** 
+ 444:u8g2/csrc/u8g2_circle.c ****   stopy = rxrx2;
+ 445:u8g2/csrc/u8g2_circle.c ****   stopy *= ry;
+ 1172              		.loc 1 445 0
+ 1173 00da 03FB07FA 		mul	r10, r3, r7
+ 1174 00de 0FFA8AFA 		sxth	r10, r10
+ 1175              	.LVL191:
+ 442:u8g2/csrc/u8g2_circle.c **** 
+ 1176              		.loc 1 442 0
+ 1177 00e2 0026     		movs	r6, #0
+ 440:u8g2/csrc/u8g2_circle.c ****   
+ 1178              		.loc 1 440 0
+ 1179 00e4 3446     		mov	r4, r6
+ 428:u8g2/csrc/u8g2_circle.c ****   y = ry;
+ 1180              		.loc 1 428 0
+ 1181 00e6 B346     		mov	fp, r6
+ 1182              	.LVL192:
+ 1183              	.L67:
+ 446:u8g2/csrc/u8g2_circle.c ****   
+ 447:u8g2/csrc/u8g2_circle.c **** 
+ 448:u8g2/csrc/u8g2_circle.c ****   while( stopx <= stopy )
+ 1184              		.loc 1 448 0
+ 1185 00e8 5645     		cmp	r6, r10
+ 1186 00ea 29DC     		bgt	.L72
+ 449:u8g2/csrc/u8g2_circle.c ****   {
+ 450:u8g2/csrc/u8g2_circle.c ****     u8g2_draw_filled_ellipse_section(u8g2, x, y, x0, y0, option);
+ 1187              		.loc 1 450 0
+ 1188 00ec CDF80490 		str	r9, [sp, #4]
+ 1189 00f0 099B     		ldr	r3, [sp, #36]
+ 1190 00f2 0093     		str	r3, [sp]
+ 1191 00f4 089B     		ldr	r3, [sp, #32]
+ 1192 00f6 049A     		ldr	r2, [sp, #16]
+ 1193 00f8 5946     		mov	r1, fp
+ 1194 00fa 0798     		ldr	r0, [sp, #28]
+ 1195 00fc FFF7FEFF 		bl	u8g2_draw_filled_ellipse_section
+ 1196              	.LVL193:
+ 451:u8g2/csrc/u8g2_circle.c ****     x++;
+ 1197              		.loc 1 451 0
+ 1198 0100 0BF1010B 		add	fp, fp, #1
+ 1199              	.LVL194:
+ 1200 0104 5FFA8BFB 		uxtb	fp, fp
+ 1201              	.LVL195:
+ 452:u8g2/csrc/u8g2_circle.c ****     stopx += ryry2;
+ 1202              		.loc 1 452 0
+ 1203 0108 4644     		add	r6, r6, r8
+ 1204              	.LVL196:
+ 1205 010a 36B2     		sxth	r6, r6
+ 1206              	.LVL197:
+ 453:u8g2/csrc/u8g2_circle.c ****     err += xchg;
+ 1207              		.loc 1 453 0
+ 1208 010c BDF81420 		ldrh	r2, [sp, #20]
+ 1209 0110 1444     		add	r4, r4, r2
+ 1210              	.LVL198:
+ 1211 0112 A3B2     		uxth	r3, r4
+ 1212 0114 1CB2     		sxth	r4, r3
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 31
+
+
+ 1213              	.LVL199:
+ 454:u8g2/csrc/u8g2_circle.c ****     xchg += ryry2;
+ 1214              		.loc 1 454 0
+ 1215 0116 4244     		add	r2, r2, r8
+ 1216 0118 12B2     		sxth	r2, r2
+ 1217 011a 0592     		str	r2, [sp, #20]
+ 1218              	.LVL200:
+ 455:u8g2/csrc/u8g2_circle.c ****     if ( 2*err+ychg > 0 )
+ 1219              		.loc 1 455 0
+ 1220 011c 05EB4402 		add	r2, r5, r4, lsl #1
+ 1221 0120 002A     		cmp	r2, #0
+ 1222 0122 E1DD     		ble	.L67
+ 456:u8g2/csrc/u8g2_circle.c ****     {
+ 457:u8g2/csrc/u8g2_circle.c ****       y--;
+ 1223              		.loc 1 457 0
+ 1224 0124 049A     		ldr	r2, [sp, #16]
+ 1225 0126 013A     		subs	r2, r2, #1
+ 1226 0128 D2B2     		uxtb	r2, r2
+ 1227 012a 0492     		str	r2, [sp, #16]
+ 1228              	.LVL201:
+ 458:u8g2/csrc/u8g2_circle.c ****       stopy -= rxrx2;
+ 1229              		.loc 1 458 0
+ 1230 012c AAEB070A 		sub	r10, r10, r7
+ 1231              	.LVL202:
+ 1232 0130 0FFA8AFA 		sxth	r10, r10
+ 1233              	.LVL203:
+ 459:u8g2/csrc/u8g2_circle.c ****       err += ychg;
+ 1234              		.loc 1 459 0
+ 1235 0134 ADB2     		uxth	r5, r5
+ 1236 0136 5C19     		adds	r4, r3, r5
+ 1237              	.LVL204:
+ 1238 0138 24B2     		sxth	r4, r4
+ 1239              	.LVL205:
+ 460:u8g2/csrc/u8g2_circle.c ****       ychg += rxrx2;
+ 1240              		.loc 1 460 0
+ 1241 013a 3D44     		add	r5, r5, r7
+ 1242              	.LVL206:
+ 1243 013c 2DB2     		sxth	r5, r5
+ 1244              	.LVL207:
+ 1245 013e D3E7     		b	.L67
+ 1246              	.L72:
+ 461:u8g2/csrc/u8g2_circle.c ****     }
+ 462:u8g2/csrc/u8g2_circle.c ****   }
+ 463:u8g2/csrc/u8g2_circle.c ****   
+ 464:u8g2/csrc/u8g2_circle.c **** }
+ 1247              		.loc 1 464 0
+ 1248 0140 0DB0     		add	sp, sp, #52
+ 1249              	.LCFI15:
+ 1250              		.cfi_def_cfa_offset 36
+ 1251              		@ sp needed
+ 1252 0142 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1253              		.cfi_endproc
+ 1254              	.LFE10:
+ 1256              		.section	.text.u8g2_DrawCircle,"ax",%progbits
+ 1257              		.align	1
+ 1258              		.global	u8g2_DrawCircle
+ 1259              		.syntax unified
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 32
+
+
+ 1260              		.thumb
+ 1261              		.thumb_func
+ 1262              		.fpu softvfp
+ 1264              	u8g2_DrawCircle:
+ 1265              	.LFB2:
+ 110:u8g2/csrc/u8g2_circle.c ****   /* check for bounding box */
+ 1266              		.loc 1 110 0
+ 1267              		.cfi_startproc
+ 1268              		@ args = 4, pretend = 0, frame = 0
+ 1269              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1270              	.LVL208:
+ 1271 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1272              	.LCFI16:
+ 1273              		.cfi_def_cfa_offset 24
+ 1274              		.cfi_offset 4, -24
+ 1275              		.cfi_offset 5, -20
+ 1276              		.cfi_offset 6, -16
+ 1277              		.cfi_offset 7, -12
+ 1278              		.cfi_offset 8, -8
+ 1279              		.cfi_offset 14, -4
+ 1280 0004 82B0     		sub	sp, sp, #8
+ 1281              	.LCFI17:
+ 1282              		.cfi_def_cfa_offset 32
+ 1283 0006 8046     		mov	r8, r0
+ 1284 0008 0E46     		mov	r6, r1
+ 1285 000a 1746     		mov	r7, r2
+ 1286 000c 1D46     		mov	r5, r3
+ 114:u8g2/csrc/u8g2_circle.c ****       return;
+ 1287              		.loc 1 114 0
+ 1288 000e CB18     		adds	r3, r1, r3
+ 1289              	.LVL209:
+ 1290 0010 DBB2     		uxtb	r3, r3
+ 1291 0012 AC18     		adds	r4, r5, r2
+ 1292 0014 E4B2     		uxtb	r4, r4
+ 1293 0016 0133     		adds	r3, r3, #1
+ 1294 0018 521B     		subs	r2, r2, r5
+ 1295              	.LVL210:
+ 1296 001a 491B     		subs	r1, r1, r5
+ 1297              	.LVL211:
+ 1298 001c 0134     		adds	r4, r4, #1
+ 1299 001e E4B2     		uxtb	r4, r4
+ 1300 0020 0094     		str	r4, [sp]
+ 1301 0022 DBB2     		uxtb	r3, r3
+ 1302 0024 D2B2     		uxtb	r2, r2
+ 1303 0026 C9B2     		uxtb	r1, r1
+ 1304 0028 FFF7FEFF 		bl	u8g2_IsIntersection
+ 1305              	.LVL212:
+ 1306 002c 10B9     		cbnz	r0, .L76
+ 1307              	.L73:
+ 122:u8g2/csrc/u8g2_circle.c **** 
+ 1308              		.loc 1 122 0
+ 1309 002e 02B0     		add	sp, sp, #8
+ 1310              	.LCFI18:
+ 1311              		.cfi_remember_state
+ 1312              		.cfi_def_cfa_offset 24
+ 1313              		@ sp needed
+ 1314 0030 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 33
+
+
+ 1315              	.LVL213:
+ 1316              	.L76:
+ 1317              	.LCFI19:
+ 1318              		.cfi_restore_state
+ 121:u8g2/csrc/u8g2_circle.c **** }
+ 1319              		.loc 1 121 0
+ 1320 0034 9DF82030 		ldrb	r3, [sp, #32]	@ zero_extendqisi2
+ 1321 0038 0093     		str	r3, [sp]
+ 1322 003a 2B46     		mov	r3, r5
+ 1323 003c 3A46     		mov	r2, r7
+ 1324 003e 3146     		mov	r1, r6
+ 1325 0040 4046     		mov	r0, r8
+ 1326 0042 FFF7FEFF 		bl	u8g2_draw_circle
+ 1327              	.LVL214:
+ 1328 0046 F2E7     		b	.L73
+ 1329              		.cfi_endproc
+ 1330              	.LFE2:
+ 1332              		.section	.text.u8g2_DrawDisc,"ax",%progbits
+ 1333              		.align	1
+ 1334              		.global	u8g2_DrawDisc
+ 1335              		.syntax unified
+ 1336              		.thumb
+ 1337              		.thumb_func
+ 1338              		.fpu softvfp
+ 1340              	u8g2_DrawDisc:
+ 1341              	.LFB5:
+ 196:u8g2/csrc/u8g2_circle.c ****   /* check for bounding box */
+ 1342              		.loc 1 196 0
+ 1343              		.cfi_startproc
+ 1344              		@ args = 4, pretend = 0, frame = 0
+ 1345              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1346              	.LVL215:
+ 1347 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1348              	.LCFI20:
+ 1349              		.cfi_def_cfa_offset 24
+ 1350              		.cfi_offset 4, -24
+ 1351              		.cfi_offset 5, -20
+ 1352              		.cfi_offset 6, -16
+ 1353              		.cfi_offset 7, -12
+ 1354              		.cfi_offset 8, -8
+ 1355              		.cfi_offset 14, -4
+ 1356 0004 82B0     		sub	sp, sp, #8
+ 1357              	.LCFI21:
+ 1358              		.cfi_def_cfa_offset 32
+ 1359 0006 8046     		mov	r8, r0
+ 1360 0008 0E46     		mov	r6, r1
+ 1361 000a 1746     		mov	r7, r2
+ 1362 000c 1D46     		mov	r5, r3
+ 200:u8g2/csrc/u8g2_circle.c ****       return;
+ 1363              		.loc 1 200 0
+ 1364 000e CB18     		adds	r3, r1, r3
+ 1365              	.LVL216:
+ 1366 0010 DBB2     		uxtb	r3, r3
+ 1367 0012 AC18     		adds	r4, r5, r2
+ 1368 0014 E4B2     		uxtb	r4, r4
+ 1369 0016 0133     		adds	r3, r3, #1
+ 1370 0018 521B     		subs	r2, r2, r5
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 34
+
+
+ 1371              	.LVL217:
+ 1372 001a 491B     		subs	r1, r1, r5
+ 1373              	.LVL218:
+ 1374 001c 0134     		adds	r4, r4, #1
+ 1375 001e E4B2     		uxtb	r4, r4
+ 1376 0020 0094     		str	r4, [sp]
+ 1377 0022 DBB2     		uxtb	r3, r3
+ 1378 0024 D2B2     		uxtb	r2, r2
+ 1379 0026 C9B2     		uxtb	r1, r1
+ 1380 0028 FFF7FEFF 		bl	u8g2_IsIntersection
+ 1381              	.LVL219:
+ 1382 002c 10B9     		cbnz	r0, .L80
+ 1383              	.L77:
+ 207:u8g2/csrc/u8g2_circle.c **** 
+ 1384              		.loc 1 207 0
+ 1385 002e 02B0     		add	sp, sp, #8
+ 1386              	.LCFI22:
+ 1387              		.cfi_remember_state
+ 1388              		.cfi_def_cfa_offset 24
+ 1389              		@ sp needed
+ 1390 0030 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1391              	.LVL220:
+ 1392              	.L80:
+ 1393              	.LCFI23:
+ 1394              		.cfi_restore_state
+ 206:u8g2/csrc/u8g2_circle.c **** }
+ 1395              		.loc 1 206 0
+ 1396 0034 9DF82030 		ldrb	r3, [sp, #32]	@ zero_extendqisi2
+ 1397 0038 0093     		str	r3, [sp]
+ 1398 003a 2B46     		mov	r3, r5
+ 1399 003c 3A46     		mov	r2, r7
+ 1400 003e 3146     		mov	r1, r6
+ 1401 0040 4046     		mov	r0, r8
+ 1402 0042 FFF7FEFF 		bl	u8g2_draw_disc
+ 1403              	.LVL221:
+ 1404 0046 F2E7     		b	.L77
+ 1405              		.cfi_endproc
+ 1406              	.LFE5:
+ 1408              		.section	.text.u8g2_DrawEllipse,"ax",%progbits
+ 1409              		.align	1
+ 1410              		.global	u8g2_DrawEllipse
+ 1411              		.syntax unified
+ 1412              		.thumb
+ 1413              		.thumb_func
+ 1414              		.fpu softvfp
+ 1416              	u8g2_DrawEllipse:
+ 1417              	.LFB8:
+ 334:u8g2/csrc/u8g2_circle.c ****   /* check for bounding box */
+ 1418              		.loc 1 334 0
+ 1419              		.cfi_startproc
+ 1420              		@ args = 8, pretend = 0, frame = 0
+ 1421              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1422              	.LVL222:
+ 1423 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 1424              	.LCFI24:
+ 1425              		.cfi_def_cfa_offset 28
+ 1426              		.cfi_offset 4, -28
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 35
+
+
+ 1427              		.cfi_offset 5, -24
+ 1428              		.cfi_offset 6, -20
+ 1429              		.cfi_offset 7, -16
+ 1430              		.cfi_offset 8, -12
+ 1431              		.cfi_offset 9, -8
+ 1432              		.cfi_offset 14, -4
+ 1433 0004 83B0     		sub	sp, sp, #12
+ 1434              	.LCFI25:
+ 1435              		.cfi_def_cfa_offset 40
+ 1436 0006 8146     		mov	r9, r0
+ 1437 0008 0D46     		mov	r5, r1
+ 1438 000a 1646     		mov	r6, r2
+ 1439 000c 1F46     		mov	r7, r3
+ 1440 000e 9DF82880 		ldrb	r8, [sp, #40]	@ zero_extendqisi2
+ 338:u8g2/csrc/u8g2_circle.c ****       return;
+ 1441              		.loc 1 338 0
+ 1442 0012 CB18     		adds	r3, r1, r3
+ 1443              	.LVL223:
+ 1444 0014 DBB2     		uxtb	r3, r3
+ 1445 0016 02EB0804 		add	r4, r2, r8
+ 1446 001a E4B2     		uxtb	r4, r4
+ 1447 001c 0133     		adds	r3, r3, #1
+ 1448 001e A2EB0802 		sub	r2, r2, r8
+ 1449              	.LVL224:
+ 1450 0022 C91B     		subs	r1, r1, r7
+ 1451              	.LVL225:
+ 1452 0024 0134     		adds	r4, r4, #1
+ 1453 0026 E4B2     		uxtb	r4, r4
+ 1454 0028 0094     		str	r4, [sp]
+ 1455 002a DBB2     		uxtb	r3, r3
+ 1456 002c D2B2     		uxtb	r2, r2
+ 1457 002e C9B2     		uxtb	r1, r1
+ 1458 0030 FFF7FEFF 		bl	u8g2_IsIntersection
+ 1459              	.LVL226:
+ 1460 0034 10B9     		cbnz	r0, .L84
+ 1461              	.L81:
+ 344:u8g2/csrc/u8g2_circle.c **** 
+ 1462              		.loc 1 344 0
+ 1463 0036 03B0     		add	sp, sp, #12
+ 1464              	.LCFI26:
+ 1465              		.cfi_remember_state
+ 1466              		.cfi_def_cfa_offset 28
+ 1467              		@ sp needed
+ 1468 0038 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 1469              	.LVL227:
+ 1470              	.L84:
+ 1471              	.LCFI27:
+ 1472              		.cfi_restore_state
+ 343:u8g2/csrc/u8g2_circle.c **** }
+ 1473              		.loc 1 343 0
+ 1474 003c 9DF82C30 		ldrb	r3, [sp, #44]	@ zero_extendqisi2
+ 1475 0040 0193     		str	r3, [sp, #4]
+ 1476 0042 CDF80080 		str	r8, [sp]
+ 1477 0046 3B46     		mov	r3, r7
+ 1478 0048 3246     		mov	r2, r6
+ 1479 004a 2946     		mov	r1, r5
+ 1480 004c 4846     		mov	r0, r9
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 36
+
+
+ 1481 004e FFF7FEFF 		bl	u8g2_draw_ellipse
+ 1482              	.LVL228:
+ 1483 0052 F0E7     		b	.L81
+ 1484              		.cfi_endproc
+ 1485              	.LFE8:
+ 1487              		.section	.text.u8g2_DrawFilledEllipse,"ax",%progbits
+ 1488              		.align	1
+ 1489              		.global	u8g2_DrawFilledEllipse
+ 1490              		.syntax unified
+ 1491              		.thumb
+ 1492              		.thumb_func
+ 1493              		.fpu softvfp
+ 1495              	u8g2_DrawFilledEllipse:
+ 1496              	.LFB11:
+ 465:u8g2/csrc/u8g2_circle.c **** 
+ 466:u8g2/csrc/u8g2_circle.c **** void u8g2_DrawFilledEllipse(u8g2_t *u8g2, u8g2_uint_t x0, u8g2_uint_t y0, u8g2_uint_t rx, u8g2_uint
+ 467:u8g2/csrc/u8g2_circle.c **** {
+ 1497              		.loc 1 467 0
+ 1498              		.cfi_startproc
+ 1499              		@ args = 8, pretend = 0, frame = 0
+ 1500              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1501              	.LVL229:
+ 1502 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 1503              	.LCFI28:
+ 1504              		.cfi_def_cfa_offset 28
+ 1505              		.cfi_offset 4, -28
+ 1506              		.cfi_offset 5, -24
+ 1507              		.cfi_offset 6, -20
+ 1508              		.cfi_offset 7, -16
+ 1509              		.cfi_offset 8, -12
+ 1510              		.cfi_offset 9, -8
+ 1511              		.cfi_offset 14, -4
+ 1512 0004 83B0     		sub	sp, sp, #12
+ 1513              	.LCFI29:
+ 1514              		.cfi_def_cfa_offset 40
+ 1515 0006 8146     		mov	r9, r0
+ 1516 0008 0D46     		mov	r5, r1
+ 1517 000a 1646     		mov	r6, r2
+ 1518 000c 1F46     		mov	r7, r3
+ 1519 000e 9DF82880 		ldrb	r8, [sp, #40]	@ zero_extendqisi2
+ 468:u8g2/csrc/u8g2_circle.c ****   /* check for bounding box */
+ 469:u8g2/csrc/u8g2_circle.c **** #ifdef U8G2_WITH_INTERSECTION
+ 470:u8g2/csrc/u8g2_circle.c ****   {
+ 471:u8g2/csrc/u8g2_circle.c ****     if ( u8g2_IsIntersection(u8g2, x0-rx, y0-ry, x0+rx+1, y0+ry+1) == 0 ) 
+ 1520              		.loc 1 471 0
+ 1521 0012 CB18     		adds	r3, r1, r3
+ 1522              	.LVL230:
+ 1523 0014 DBB2     		uxtb	r3, r3
+ 1524 0016 02EB0804 		add	r4, r2, r8
+ 1525 001a E4B2     		uxtb	r4, r4
+ 1526 001c 0133     		adds	r3, r3, #1
+ 1527 001e A2EB0802 		sub	r2, r2, r8
+ 1528              	.LVL231:
+ 1529 0022 C91B     		subs	r1, r1, r7
+ 1530              	.LVL232:
+ 1531 0024 0134     		adds	r4, r4, #1
+ 1532 0026 E4B2     		uxtb	r4, r4
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 37
+
+
+ 1533 0028 0094     		str	r4, [sp]
+ 1534 002a DBB2     		uxtb	r3, r3
+ 1535 002c D2B2     		uxtb	r2, r2
+ 1536 002e C9B2     		uxtb	r1, r1
+ 1537 0030 FFF7FEFF 		bl	u8g2_IsIntersection
+ 1538              	.LVL233:
+ 1539 0034 10B9     		cbnz	r0, .L88
+ 1540              	.L85:
+ 472:u8g2/csrc/u8g2_circle.c ****       return;
+ 473:u8g2/csrc/u8g2_circle.c ****   }
+ 474:u8g2/csrc/u8g2_circle.c **** #endif /* U8G2_WITH_INTERSECTION */
+ 475:u8g2/csrc/u8g2_circle.c ****   
+ 476:u8g2/csrc/u8g2_circle.c ****   u8g2_draw_filled_ellipse(u8g2, x0, y0, rx, ry, option);
+ 477:u8g2/csrc/u8g2_circle.c **** }
+ 1541              		.loc 1 477 0
+ 1542 0036 03B0     		add	sp, sp, #12
+ 1543              	.LCFI30:
+ 1544              		.cfi_remember_state
+ 1545              		.cfi_def_cfa_offset 28
+ 1546              		@ sp needed
+ 1547 0038 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 1548              	.LVL234:
+ 1549              	.L88:
+ 1550              	.LCFI31:
+ 1551              		.cfi_restore_state
+ 476:u8g2/csrc/u8g2_circle.c **** }
+ 1552              		.loc 1 476 0
+ 1553 003c 9DF82C30 		ldrb	r3, [sp, #44]	@ zero_extendqisi2
+ 1554 0040 0193     		str	r3, [sp, #4]
+ 1555 0042 CDF80080 		str	r8, [sp]
+ 1556 0046 3B46     		mov	r3, r7
+ 1557 0048 3246     		mov	r2, r6
+ 1558 004a 2946     		mov	r1, r5
+ 1559 004c 4846     		mov	r0, r9
+ 1560 004e FFF7FEFF 		bl	u8g2_draw_filled_ellipse
+ 1561              	.LVL235:
+ 1562 0052 F0E7     		b	.L85
+ 1563              		.cfi_endproc
+ 1564              	.LFE11:
+ 1566              		.text
+ 1567              	.Letext0:
+ 1568              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 1569              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 1570              		.file 4 "u8g2/csrc/u8x8.h"
+ 1571              		.file 5 "u8g2/csrc/u8g2.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s 			page 38
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8g2_circle.c
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:16     .text.u8g2_draw_circle_section:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:22     .text.u8g2_draw_circle_section:00000000 u8g2_draw_circle_section
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:144    .text.u8g2_draw_circle:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:150    .text.u8g2_draw_circle:00000000 u8g2_draw_circle
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:266    .text.u8g2_draw_ellipse_section:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:272    .text.u8g2_draw_ellipse_section:00000000 u8g2_draw_ellipse_section
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:361    .text.u8g2_draw_ellipse:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:367    .text.u8g2_draw_ellipse:00000000 u8g2_draw_ellipse
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:627    .text.u8g2_draw_disc_section:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:633    .text.u8g2_draw_disc_section:00000000 u8g2_draw_disc_section
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:767    .text.u8g2_draw_disc:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:773    .text.u8g2_draw_disc:00000000 u8g2_draw_disc
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:889    .text.u8g2_draw_filled_ellipse_section:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:895    .text.u8g2_draw_filled_ellipse_section:00000000 u8g2_draw_filled_ellipse_section
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:991    .text.u8g2_draw_filled_ellipse:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:997    .text.u8g2_draw_filled_ellipse:00000000 u8g2_draw_filled_ellipse
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:1257   .text.u8g2_DrawCircle:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:1264   .text.u8g2_DrawCircle:00000000 u8g2_DrawCircle
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:1333   .text.u8g2_DrawDisc:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:1340   .text.u8g2_DrawDisc:00000000 u8g2_DrawDisc
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:1409   .text.u8g2_DrawEllipse:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:1416   .text.u8g2_DrawEllipse:00000000 u8g2_DrawEllipse
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:1488   .text.u8g2_DrawFilledEllipse:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccaZEVkQ.s:1495   .text.u8g2_DrawFilledEllipse:00000000 u8g2_DrawFilledEllipse
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+u8g2_DrawPixel
+u8g2_DrawVLine
+u8g2_IsIntersection

@@ -1,0 +1,828 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8x8_display.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8x8_d_helper_display_setup_memory,"ax",%progbits
+  16              		.align	1
+  17              		.global	u8x8_d_helper_display_setup_memory
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	u8x8_d_helper_display_setup_memory:
+  24              	.LFB0:
+  25              		.file 1 "u8g2/csrc/u8x8_display.c"
+   1:u8g2/csrc/u8x8_display.c **** /*
+   2:u8g2/csrc/u8x8_display.c ****   
+   3:u8g2/csrc/u8x8_display.c ****   u8x8_display.c
+   4:u8g2/csrc/u8x8_display.c ****   
+   5:u8g2/csrc/u8x8_display.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   6:u8g2/csrc/u8x8_display.c **** 
+   7:u8g2/csrc/u8x8_display.c ****   Copyright (c) 2016, olikraus@gmail.com
+   8:u8g2/csrc/u8x8_display.c ****   All rights reserved.
+   9:u8g2/csrc/u8x8_display.c **** 
+  10:u8g2/csrc/u8x8_display.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  11:u8g2/csrc/u8x8_display.c ****   are permitted provided that the following conditions are met:
+  12:u8g2/csrc/u8x8_display.c **** 
+  13:u8g2/csrc/u8x8_display.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  14:u8g2/csrc/u8x8_display.c ****     of conditions and the following disclaimer.
+  15:u8g2/csrc/u8x8_display.c ****     
+  16:u8g2/csrc/u8x8_display.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  17:u8g2/csrc/u8x8_display.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  18:u8g2/csrc/u8x8_display.c ****     materials provided with the distribution.
+  19:u8g2/csrc/u8x8_display.c **** 
+  20:u8g2/csrc/u8x8_display.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  21:u8g2/csrc/u8x8_display.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  22:u8g2/csrc/u8x8_display.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  23:u8g2/csrc/u8x8_display.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  24:u8g2/csrc/u8x8_display.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  25:u8g2/csrc/u8x8_display.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  26:u8g2/csrc/u8x8_display.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  27:u8g2/csrc/u8x8_display.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  28:u8g2/csrc/u8x8_display.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  29:u8g2/csrc/u8x8_display.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  30:u8g2/csrc/u8x8_display.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:u8g2/csrc/u8x8_display.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+  32:u8g2/csrc/u8x8_display.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
+  33:u8g2/csrc/u8x8_display.c ****   
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 2
+
+
+  34:u8g2/csrc/u8x8_display.c ****   
+  35:u8g2/csrc/u8x8_display.c ****   Abstraction layer for the graphics controller.
+  36:u8g2/csrc/u8x8_display.c ****   Main goal is the placement of a 8x8 pixel block (tile) on the display.
+  37:u8g2/csrc/u8x8_display.c ****   
+  38:u8g2/csrc/u8x8_display.c **** */
+  39:u8g2/csrc/u8x8_display.c **** 
+  40:u8g2/csrc/u8x8_display.c **** 
+  41:u8g2/csrc/u8x8_display.c **** #include "u8x8.h"
+  42:u8g2/csrc/u8x8_display.c **** 
+  43:u8g2/csrc/u8x8_display.c **** 
+  44:u8g2/csrc/u8x8_display.c **** /*==========================================*/
+  45:u8g2/csrc/u8x8_display.c **** /* internal library function */
+  46:u8g2/csrc/u8x8_display.c **** 
+  47:u8g2/csrc/u8x8_display.c **** /*
+  48:u8g2/csrc/u8x8_display.c ****   this is a helper function for the U8X8_MSG_DISPLAY_SETUP_MEMORY function.
+  49:u8g2/csrc/u8x8_display.c ****   It can be called within the display callback function to carry out the usual standard tasks.
+  50:u8g2/csrc/u8x8_display.c ****   
+  51:u8g2/csrc/u8x8_display.c **** */
+  52:u8g2/csrc/u8x8_display.c **** void u8x8_d_helper_display_setup_memory(u8x8_t *u8x8, const u8x8_display_info_t *display_info)
+  53:u8g2/csrc/u8x8_display.c **** {
+  26              		.loc 1 53 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31              	.LVL0:
+  54:u8g2/csrc/u8x8_display.c ****       /* 1) set display info struct */
+  55:u8g2/csrc/u8x8_display.c ****       u8x8->display_info = display_info;
+  32              		.loc 1 55 0
+  33 0000 0160     		str	r1, [r0]
+  56:u8g2/csrc/u8x8_display.c ****       u8x8->x_offset = u8x8->display_info->default_x_offset;
+  34              		.loc 1 56 0
+  35 0002 8B7C     		ldrb	r3, [r1, #18]	@ zero_extendqisi2
+  36 0004 8377     		strb	r3, [r0, #30]
+  37 0006 7047     		bx	lr
+  38              		.cfi_endproc
+  39              	.LFE0:
+  41              		.section	.text.u8x8_d_helper_display_init,"ax",%progbits
+  42              		.align	1
+  43              		.global	u8x8_d_helper_display_init
+  44              		.syntax unified
+  45              		.thumb
+  46              		.thumb_func
+  47              		.fpu softvfp
+  49              	u8x8_d_helper_display_init:
+  50              	.LFB1:
+  57:u8g2/csrc/u8x8_display.c **** }
+  58:u8g2/csrc/u8x8_display.c **** 
+  59:u8g2/csrc/u8x8_display.c **** /*
+  60:u8g2/csrc/u8x8_display.c ****   this is a helper function for the U8X8_MSG_DISPLAY_INIT function.
+  61:u8g2/csrc/u8x8_display.c ****   It can be called within the display callback function to carry out the usual standard tasks.
+  62:u8g2/csrc/u8x8_display.c ****   
+  63:u8g2/csrc/u8x8_display.c **** */
+  64:u8g2/csrc/u8x8_display.c **** void u8x8_d_helper_display_init(u8x8_t *u8x8)
+  65:u8g2/csrc/u8x8_display.c **** {
+  51              		.loc 1 65 0
+  52              		.cfi_startproc
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 3
+
+
+  53              		@ args = 0, pretend = 0, frame = 0
+  54              		@ frame_needed = 0, uses_anonymous_args = 0
+  55              	.LVL1:
+  56 0000 38B5     		push	{r3, r4, r5, lr}
+  57              	.LCFI0:
+  58              		.cfi_def_cfa_offset 16
+  59              		.cfi_offset 3, -16
+  60              		.cfi_offset 4, -12
+  61              		.cfi_offset 5, -8
+  62              		.cfi_offset 14, -4
+  63 0002 0446     		mov	r4, r0
+  66:u8g2/csrc/u8x8_display.c ****       /* 2) apply port directions to the GPIO lines and apply default values for the IO lines*/
+  67:u8g2/csrc/u8x8_display.c ****       u8x8_gpio_Init(u8x8);
+  64              		.loc 1 67 0
+  65 0004 4569     		ldr	r5, [r0, #20]
+  66 0006 0023     		movs	r3, #0
+  67 0008 1A46     		mov	r2, r3
+  68 000a 2821     		movs	r1, #40
+  69 000c A847     		blx	r5
+  70              	.LVL2:
+  68:u8g2/csrc/u8x8_display.c ****       u8x8_cad_Init(u8x8);
+  71              		.loc 1 68 0
+  72 000e E568     		ldr	r5, [r4, #12]
+  73 0010 0023     		movs	r3, #0
+  74 0012 1A46     		mov	r2, r3
+  75 0014 1421     		movs	r1, #20
+  76 0016 2046     		mov	r0, r4
+  77 0018 A847     		blx	r5
+  78              	.LVL3:
+  69:u8g2/csrc/u8x8_display.c **** 
+  70:u8g2/csrc/u8x8_display.c ****       /* 3) do reset */
+  71:u8g2/csrc/u8x8_display.c ****       u8x8_gpio_SetReset(u8x8, 1);
+  79              		.loc 1 71 0
+  80 001a 0122     		movs	r2, #1
+  81 001c 4B21     		movs	r1, #75
+  82 001e 2046     		mov	r0, r4
+  83 0020 FFF7FEFF 		bl	u8x8_gpio_call
+  84              	.LVL4:
+  72:u8g2/csrc/u8x8_display.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_MILLI, u8x8->display_info->reset_pulse_width_ms);
+  85              		.loc 1 72 0
+  86 0024 2368     		ldr	r3, [r4]
+  87 0026 1A79     		ldrb	r2, [r3, #4]	@ zero_extendqisi2
+  88 0028 2921     		movs	r1, #41
+  89 002a 2046     		mov	r0, r4
+  90 002c FFF7FEFF 		bl	u8x8_gpio_call
+  91              	.LVL5:
+  73:u8g2/csrc/u8x8_display.c ****       u8x8_gpio_SetReset(u8x8, 0);
+  92              		.loc 1 73 0
+  93 0030 0022     		movs	r2, #0
+  94 0032 4B21     		movs	r1, #75
+  95 0034 2046     		mov	r0, r4
+  96 0036 FFF7FEFF 		bl	u8x8_gpio_call
+  97              	.LVL6:
+  74:u8g2/csrc/u8x8_display.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_MILLI, u8x8->display_info->reset_pulse_width_ms);
+  98              		.loc 1 74 0
+  99 003a 2368     		ldr	r3, [r4]
+ 100 003c 1A79     		ldrb	r2, [r3, #4]	@ zero_extendqisi2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 4
+
+
+ 101 003e 2921     		movs	r1, #41
+ 102 0040 2046     		mov	r0, r4
+ 103 0042 FFF7FEFF 		bl	u8x8_gpio_call
+ 104              	.LVL7:
+  75:u8g2/csrc/u8x8_display.c ****       u8x8_gpio_SetReset(u8x8, 1);
+ 105              		.loc 1 75 0
+ 106 0046 0122     		movs	r2, #1
+ 107 0048 4B21     		movs	r1, #75
+ 108 004a 2046     		mov	r0, r4
+ 109 004c FFF7FEFF 		bl	u8x8_gpio_call
+ 110              	.LVL8:
+  76:u8g2/csrc/u8x8_display.c ****       u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_MILLI, u8x8->display_info->post_reset_wait_ms);
+ 111              		.loc 1 76 0
+ 112 0050 2368     		ldr	r3, [r4]
+ 113 0052 5A79     		ldrb	r2, [r3, #5]	@ zero_extendqisi2
+ 114 0054 2921     		movs	r1, #41
+ 115 0056 2046     		mov	r0, r4
+ 116 0058 FFF7FEFF 		bl	u8x8_gpio_call
+ 117              	.LVL9:
+ 118 005c 38BD     		pop	{r3, r4, r5, pc}
+ 119              		.cfi_endproc
+ 120              	.LFE1:
+ 122              		.section	.text.u8x8_DrawTile,"ax",%progbits
+ 123              		.align	1
+ 124              		.global	u8x8_DrawTile
+ 125              		.syntax unified
+ 126              		.thumb
+ 127              		.thumb_func
+ 128              		.fpu softvfp
+ 130              	u8x8_DrawTile:
+ 131              	.LFB2:
+  77:u8g2/csrc/u8x8_display.c **** }    
+  78:u8g2/csrc/u8x8_display.c **** 
+  79:u8g2/csrc/u8x8_display.c **** /*==========================================*/
+  80:u8g2/csrc/u8x8_display.c **** /* official functions */
+  81:u8g2/csrc/u8x8_display.c **** 
+  82:u8g2/csrc/u8x8_display.c **** uint8_t u8x8_DrawTile(u8x8_t *u8x8, uint8_t x, uint8_t y, uint8_t cnt, uint8_t *tile_ptr)
+  83:u8g2/csrc/u8x8_display.c **** {
+ 132              		.loc 1 83 0
+ 133              		.cfi_startproc
+ 134              		@ args = 4, pretend = 0, frame = 8
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136              	.LVL10:
+ 137 0000 10B5     		push	{r4, lr}
+ 138              	.LCFI1:
+ 139              		.cfi_def_cfa_offset 8
+ 140              		.cfi_offset 4, -8
+ 141              		.cfi_offset 14, -4
+ 142 0002 82B0     		sub	sp, sp, #8
+ 143              	.LCFI2:
+ 144              		.cfi_def_cfa_offset 16
+  84:u8g2/csrc/u8x8_display.c ****   u8x8_tile_t tile;
+  85:u8g2/csrc/u8x8_display.c ****   tile.x_pos = x;
+ 145              		.loc 1 85 0
+ 146 0004 8DF80510 		strb	r1, [sp, #5]
+  86:u8g2/csrc/u8x8_display.c ****   tile.y_pos = y;
+ 147              		.loc 1 86 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 5
+
+
+ 148 0008 8DF80620 		strb	r2, [sp, #6]
+  87:u8g2/csrc/u8x8_display.c ****   tile.cnt = cnt;
+ 149              		.loc 1 87 0
+ 150 000c 8DF80430 		strb	r3, [sp, #4]
+  88:u8g2/csrc/u8x8_display.c ****   tile.tile_ptr = tile_ptr;
+ 151              		.loc 1 88 0
+ 152 0010 02AB     		add	r3, sp, #8
+ 153              	.LVL11:
+ 154 0012 049A     		ldr	r2, [sp, #16]
+ 155              	.LVL12:
+ 156 0014 43F8082D 		str	r2, [r3, #-8]!
+  89:u8g2/csrc/u8x8_display.c ****   return u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_DRAW_TILE, 1, (void *)&tile);
+ 157              		.loc 1 89 0
+ 158 0018 8468     		ldr	r4, [r0, #8]
+ 159 001a 0122     		movs	r2, #1
+ 160 001c 0F21     		movs	r1, #15
+ 161              	.LVL13:
+ 162 001e A047     		blx	r4
+ 163              	.LVL14:
+  90:u8g2/csrc/u8x8_display.c **** }
+ 164              		.loc 1 90 0
+ 165 0020 02B0     		add	sp, sp, #8
+ 166              	.LCFI3:
+ 167              		.cfi_def_cfa_offset 8
+ 168              		@ sp needed
+ 169 0022 10BD     		pop	{r4, pc}
+ 170              		.cfi_endproc
+ 171              	.LFE2:
+ 173              		.section	.text.u8x8_SetupMemory,"ax",%progbits
+ 174              		.align	1
+ 175              		.global	u8x8_SetupMemory
+ 176              		.syntax unified
+ 177              		.thumb
+ 178              		.thumb_func
+ 179              		.fpu softvfp
+ 181              	u8x8_SetupMemory:
+ 182              	.LFB3:
+  91:u8g2/csrc/u8x8_display.c **** 
+  92:u8g2/csrc/u8x8_display.c **** /* should be implemented as macro */
+  93:u8g2/csrc/u8x8_display.c **** void u8x8_SetupMemory(u8x8_t *u8x8)
+  94:u8g2/csrc/u8x8_display.c **** {
+ 183              		.loc 1 94 0
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 0
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187              	.LVL15:
+ 188 0000 10B5     		push	{r4, lr}
+ 189              	.LCFI4:
+ 190              		.cfi_def_cfa_offset 8
+ 191              		.cfi_offset 4, -8
+ 192              		.cfi_offset 14, -4
+  95:u8g2/csrc/u8x8_display.c ****   u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_SETUP_MEMORY, 0, NULL);  
+ 193              		.loc 1 95 0
+ 194 0002 8468     		ldr	r4, [r0, #8]
+ 195 0004 0023     		movs	r3, #0
+ 196 0006 1A46     		mov	r2, r3
+ 197 0008 0921     		movs	r1, #9
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 6
+
+
+ 198 000a A047     		blx	r4
+ 199              	.LVL16:
+ 200 000c 10BD     		pop	{r4, pc}
+ 201              		.cfi_endproc
+ 202              	.LFE3:
+ 204              		.section	.text.u8x8_InitDisplay,"ax",%progbits
+ 205              		.align	1
+ 206              		.global	u8x8_InitDisplay
+ 207              		.syntax unified
+ 208              		.thumb
+ 209              		.thumb_func
+ 210              		.fpu softvfp
+ 212              	u8x8_InitDisplay:
+ 213              	.LFB4:
+  96:u8g2/csrc/u8x8_display.c **** }
+  97:u8g2/csrc/u8x8_display.c **** 
+  98:u8g2/csrc/u8x8_display.c **** void u8x8_InitDisplay(u8x8_t *u8x8)
+  99:u8g2/csrc/u8x8_display.c **** {
+ 214              		.loc 1 99 0
+ 215              		.cfi_startproc
+ 216              		@ args = 0, pretend = 0, frame = 0
+ 217              		@ frame_needed = 0, uses_anonymous_args = 0
+ 218              	.LVL17:
+ 219 0000 10B5     		push	{r4, lr}
+ 220              	.LCFI5:
+ 221              		.cfi_def_cfa_offset 8
+ 222              		.cfi_offset 4, -8
+ 223              		.cfi_offset 14, -4
+ 100:u8g2/csrc/u8x8_display.c ****   u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_INIT, 0, NULL);  
+ 224              		.loc 1 100 0
+ 225 0002 8468     		ldr	r4, [r0, #8]
+ 226 0004 0023     		movs	r3, #0
+ 227 0006 1A46     		mov	r2, r3
+ 228 0008 0A21     		movs	r1, #10
+ 229 000a A047     		blx	r4
+ 230              	.LVL18:
+ 231 000c 10BD     		pop	{r4, pc}
+ 232              		.cfi_endproc
+ 233              	.LFE4:
+ 235              		.section	.text.u8x8_SetPowerSave,"ax",%progbits
+ 236              		.align	1
+ 237              		.global	u8x8_SetPowerSave
+ 238              		.syntax unified
+ 239              		.thumb
+ 240              		.thumb_func
+ 241              		.fpu softvfp
+ 243              	u8x8_SetPowerSave:
+ 244              	.LFB5:
+ 101:u8g2/csrc/u8x8_display.c **** }
+ 102:u8g2/csrc/u8x8_display.c **** 
+ 103:u8g2/csrc/u8x8_display.c **** void u8x8_SetPowerSave(u8x8_t *u8x8, uint8_t is_enable)
+ 104:u8g2/csrc/u8x8_display.c **** {
+ 245              		.loc 1 104 0
+ 246              		.cfi_startproc
+ 247              		@ args = 0, pretend = 0, frame = 0
+ 248              		@ frame_needed = 0, uses_anonymous_args = 0
+ 249              	.LVL19:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 7
+
+
+ 250 0000 10B5     		push	{r4, lr}
+ 251              	.LCFI6:
+ 252              		.cfi_def_cfa_offset 8
+ 253              		.cfi_offset 4, -8
+ 254              		.cfi_offset 14, -4
+ 105:u8g2/csrc/u8x8_display.c ****   u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_SET_POWER_SAVE, is_enable, NULL);  
+ 255              		.loc 1 105 0
+ 256 0002 8468     		ldr	r4, [r0, #8]
+ 257 0004 0023     		movs	r3, #0
+ 258 0006 0A46     		mov	r2, r1
+ 259 0008 0B21     		movs	r1, #11
+ 260              	.LVL20:
+ 261 000a A047     		blx	r4
+ 262              	.LVL21:
+ 263 000c 10BD     		pop	{r4, pc}
+ 264              		.cfi_endproc
+ 265              	.LFE5:
+ 267              		.section	.text.u8x8_SetFlipMode,"ax",%progbits
+ 268              		.align	1
+ 269              		.global	u8x8_SetFlipMode
+ 270              		.syntax unified
+ 271              		.thumb
+ 272              		.thumb_func
+ 273              		.fpu softvfp
+ 275              	u8x8_SetFlipMode:
+ 276              	.LFB6:
+ 106:u8g2/csrc/u8x8_display.c **** }
+ 107:u8g2/csrc/u8x8_display.c **** 
+ 108:u8g2/csrc/u8x8_display.c **** void u8x8_SetFlipMode(u8x8_t *u8x8, uint8_t mode)
+ 109:u8g2/csrc/u8x8_display.c **** {
+ 277              		.loc 1 109 0
+ 278              		.cfi_startproc
+ 279              		@ args = 0, pretend = 0, frame = 0
+ 280              		@ frame_needed = 0, uses_anonymous_args = 0
+ 281              	.LVL22:
+ 282 0000 10B5     		push	{r4, lr}
+ 283              	.LCFI7:
+ 284              		.cfi_def_cfa_offset 8
+ 285              		.cfi_offset 4, -8
+ 286              		.cfi_offset 14, -4
+ 110:u8g2/csrc/u8x8_display.c ****   u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_SET_FLIP_MODE, mode, NULL);  
+ 287              		.loc 1 110 0
+ 288 0002 8468     		ldr	r4, [r0, #8]
+ 289 0004 0023     		movs	r3, #0
+ 290 0006 0A46     		mov	r2, r1
+ 291 0008 0D21     		movs	r1, #13
+ 292              	.LVL23:
+ 293 000a A047     		blx	r4
+ 294              	.LVL24:
+ 295 000c 10BD     		pop	{r4, pc}
+ 296              		.cfi_endproc
+ 297              	.LFE6:
+ 299              		.section	.text.u8x8_SetContrast,"ax",%progbits
+ 300              		.align	1
+ 301              		.global	u8x8_SetContrast
+ 302              		.syntax unified
+ 303              		.thumb
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 8
+
+
+ 304              		.thumb_func
+ 305              		.fpu softvfp
+ 307              	u8x8_SetContrast:
+ 308              	.LFB7:
+ 111:u8g2/csrc/u8x8_display.c **** }
+ 112:u8g2/csrc/u8x8_display.c **** 
+ 113:u8g2/csrc/u8x8_display.c **** void u8x8_SetContrast(u8x8_t *u8x8, uint8_t value)
+ 114:u8g2/csrc/u8x8_display.c **** {
+ 309              		.loc 1 114 0
+ 310              		.cfi_startproc
+ 311              		@ args = 0, pretend = 0, frame = 0
+ 312              		@ frame_needed = 0, uses_anonymous_args = 0
+ 313              	.LVL25:
+ 314 0000 10B5     		push	{r4, lr}
+ 315              	.LCFI8:
+ 316              		.cfi_def_cfa_offset 8
+ 317              		.cfi_offset 4, -8
+ 318              		.cfi_offset 14, -4
+ 115:u8g2/csrc/u8x8_display.c ****   u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_SET_CONTRAST, value, NULL);  
+ 319              		.loc 1 115 0
+ 320 0002 8468     		ldr	r4, [r0, #8]
+ 321 0004 0023     		movs	r3, #0
+ 322 0006 0A46     		mov	r2, r1
+ 323 0008 0E21     		movs	r1, #14
+ 324              	.LVL26:
+ 325 000a A047     		blx	r4
+ 326              	.LVL27:
+ 327 000c 10BD     		pop	{r4, pc}
+ 328              		.cfi_endproc
+ 329              	.LFE7:
+ 331              		.section	.text.u8x8_RefreshDisplay,"ax",%progbits
+ 332              		.align	1
+ 333              		.global	u8x8_RefreshDisplay
+ 334              		.syntax unified
+ 335              		.thumb
+ 336              		.thumb_func
+ 337              		.fpu softvfp
+ 339              	u8x8_RefreshDisplay:
+ 340              	.LFB8:
+ 116:u8g2/csrc/u8x8_display.c **** }
+ 117:u8g2/csrc/u8x8_display.c **** 
+ 118:u8g2/csrc/u8x8_display.c **** void u8x8_RefreshDisplay(u8x8_t *u8x8)
+ 119:u8g2/csrc/u8x8_display.c **** {
+ 341              		.loc 1 119 0
+ 342              		.cfi_startproc
+ 343              		@ args = 0, pretend = 0, frame = 0
+ 344              		@ frame_needed = 0, uses_anonymous_args = 0
+ 345              	.LVL28:
+ 346 0000 10B5     		push	{r4, lr}
+ 347              	.LCFI9:
+ 348              		.cfi_def_cfa_offset 8
+ 349              		.cfi_offset 4, -8
+ 350              		.cfi_offset 14, -4
+ 120:u8g2/csrc/u8x8_display.c ****   u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_REFRESH, 0, NULL);  
+ 351              		.loc 1 120 0
+ 352 0002 8468     		ldr	r4, [r0, #8]
+ 353 0004 0023     		movs	r3, #0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 9
+
+
+ 354 0006 1A46     		mov	r2, r3
+ 355 0008 1021     		movs	r1, #16
+ 356 000a A047     		blx	r4
+ 357              	.LVL29:
+ 358 000c 10BD     		pop	{r4, pc}
+ 359              		.cfi_endproc
+ 360              	.LFE8:
+ 362              		.section	.text.u8x8_ClearDisplayWithTile,"ax",%progbits
+ 363              		.align	1
+ 364              		.global	u8x8_ClearDisplayWithTile
+ 365              		.syntax unified
+ 366              		.thumb
+ 367              		.thumb_func
+ 368              		.fpu softvfp
+ 370              	u8x8_ClearDisplayWithTile:
+ 371              	.LFB9:
+ 121:u8g2/csrc/u8x8_display.c **** }
+ 122:u8g2/csrc/u8x8_display.c **** 
+ 123:u8g2/csrc/u8x8_display.c **** void u8x8_ClearDisplayWithTile(u8x8_t *u8x8, const uint8_t *buf)
+ 124:u8g2/csrc/u8x8_display.c **** {
+ 372              		.loc 1 124 0
+ 373              		.cfi_startproc
+ 374              		@ args = 0, pretend = 0, frame = 8
+ 375              		@ frame_needed = 0, uses_anonymous_args = 0
+ 376              	.LVL30:
+ 377 0000 70B5     		push	{r4, r5, r6, lr}
+ 378              	.LCFI10:
+ 379              		.cfi_def_cfa_offset 16
+ 380              		.cfi_offset 4, -16
+ 381              		.cfi_offset 5, -12
+ 382              		.cfi_offset 6, -8
+ 383              		.cfi_offset 14, -4
+ 384 0002 82B0     		sub	sp, sp, #8
+ 385              	.LCFI11:
+ 386              		.cfi_def_cfa_offset 24
+ 387 0004 0446     		mov	r4, r0
+ 125:u8g2/csrc/u8x8_display.c ****   u8x8_tile_t tile;
+ 126:u8g2/csrc/u8x8_display.c ****   uint8_t h;
+ 127:u8g2/csrc/u8x8_display.c **** 
+ 128:u8g2/csrc/u8x8_display.c ****   tile.x_pos = 0;
+ 388              		.loc 1 128 0
+ 389 0006 0023     		movs	r3, #0
+ 390 0008 8DF80530 		strb	r3, [sp, #5]
+ 129:u8g2/csrc/u8x8_display.c ****   tile.cnt = 1;
+ 391              		.loc 1 129 0
+ 392 000c 0122     		movs	r2, #1
+ 393 000e 8DF80420 		strb	r2, [sp, #4]
+ 130:u8g2/csrc/u8x8_display.c ****   tile.tile_ptr = (uint8_t *)buf;		/* tile_ptr should be const, but isn't */
+ 394              		.loc 1 130 0
+ 395 0012 0091     		str	r1, [sp]
+ 131:u8g2/csrc/u8x8_display.c ****   
+ 132:u8g2/csrc/u8x8_display.c ****   h = u8x8->display_info->tile_height;
+ 396              		.loc 1 132 0
+ 397 0014 0268     		ldr	r2, [r0]
+ 398 0016 567C     		ldrb	r6, [r2, #17]	@ zero_extendqisi2
+ 399              	.LVL31:
+ 133:u8g2/csrc/u8x8_display.c ****   tile.y_pos = 0;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 10
+
+
+ 400              		.loc 1 133 0
+ 401 0018 8DF80630 		strb	r3, [sp, #6]
+ 402              	.LVL32:
+ 403              	.L19:
+ 134:u8g2/csrc/u8x8_display.c ****   do
+ 135:u8g2/csrc/u8x8_display.c ****   {
+ 136:u8g2/csrc/u8x8_display.c ****     u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_DRAW_TILE, u8x8->display_info->tile_width, (void *)&til
+ 404              		.loc 1 136 0 discriminator 1
+ 405 001c A568     		ldr	r5, [r4, #8]
+ 406 001e 2268     		ldr	r2, [r4]
+ 407 0020 6B46     		mov	r3, sp
+ 408 0022 127C     		ldrb	r2, [r2, #16]	@ zero_extendqisi2
+ 409 0024 0F21     		movs	r1, #15
+ 410 0026 2046     		mov	r0, r4
+ 411 0028 A847     		blx	r5
+ 412              	.LVL33:
+ 137:u8g2/csrc/u8x8_display.c ****     tile.y_pos++;
+ 413              		.loc 1 137 0 discriminator 1
+ 414 002a 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 415 002e 0133     		adds	r3, r3, #1
+ 416 0030 DBB2     		uxtb	r3, r3
+ 417 0032 8DF80630 		strb	r3, [sp, #6]
+ 138:u8g2/csrc/u8x8_display.c ****   } while( tile.y_pos < h );
+ 418              		.loc 1 138 0 discriminator 1
+ 419 0036 9E42     		cmp	r6, r3
+ 420 0038 F0D8     		bhi	.L19
+ 139:u8g2/csrc/u8x8_display.c **** }
+ 421              		.loc 1 139 0
+ 422 003a 02B0     		add	sp, sp, #8
+ 423              	.LCFI12:
+ 424              		.cfi_def_cfa_offset 16
+ 425              		@ sp needed
+ 426 003c 70BD     		pop	{r4, r5, r6, pc}
+ 427              		.cfi_endproc
+ 428              	.LFE9:
+ 430              		.section	.text.u8x8_ClearDisplay,"ax",%progbits
+ 431              		.align	1
+ 432              		.global	u8x8_ClearDisplay
+ 433              		.syntax unified
+ 434              		.thumb
+ 435              		.thumb_func
+ 436              		.fpu softvfp
+ 438              	u8x8_ClearDisplay:
+ 439              	.LFB10:
+ 140:u8g2/csrc/u8x8_display.c **** 
+ 141:u8g2/csrc/u8x8_display.c **** void u8x8_ClearDisplay(u8x8_t *u8x8)
+ 142:u8g2/csrc/u8x8_display.c **** {
+ 440              		.loc 1 142 0
+ 441              		.cfi_startproc
+ 442              		@ args = 0, pretend = 0, frame = 8
+ 443              		@ frame_needed = 0, uses_anonymous_args = 0
+ 444              	.LVL34:
+ 445 0000 00B5     		push	{lr}
+ 446              	.LCFI13:
+ 447              		.cfi_def_cfa_offset 4
+ 448              		.cfi_offset 14, -4
+ 449 0002 83B0     		sub	sp, sp, #12
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 11
+
+
+ 450              	.LCFI14:
+ 451              		.cfi_def_cfa_offset 16
+ 143:u8g2/csrc/u8x8_display.c ****   uint8_t buf[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+ 452              		.loc 1 143 0
+ 453 0004 0023     		movs	r3, #0
+ 454 0006 0093     		str	r3, [sp]
+ 455 0008 0193     		str	r3, [sp, #4]
+ 144:u8g2/csrc/u8x8_display.c ****   u8x8_ClearDisplayWithTile(u8x8, buf);
+ 456              		.loc 1 144 0
+ 457 000a 6946     		mov	r1, sp
+ 458 000c FFF7FEFF 		bl	u8x8_ClearDisplayWithTile
+ 459              	.LVL35:
+ 145:u8g2/csrc/u8x8_display.c **** }
+ 460              		.loc 1 145 0
+ 461 0010 03B0     		add	sp, sp, #12
+ 462              	.LCFI15:
+ 463              		.cfi_def_cfa_offset 4
+ 464              		@ sp needed
+ 465 0012 5DF804FB 		ldr	pc, [sp], #4
+ 466              		.cfi_endproc
+ 467              	.LFE10:
+ 469              		.section	.text.u8x8_FillDisplay,"ax",%progbits
+ 470              		.align	1
+ 471              		.global	u8x8_FillDisplay
+ 472              		.syntax unified
+ 473              		.thumb
+ 474              		.thumb_func
+ 475              		.fpu softvfp
+ 477              	u8x8_FillDisplay:
+ 478              	.LFB11:
+ 146:u8g2/csrc/u8x8_display.c **** 
+ 147:u8g2/csrc/u8x8_display.c **** void u8x8_FillDisplay(u8x8_t *u8x8)
+ 148:u8g2/csrc/u8x8_display.c **** {
+ 479              		.loc 1 148 0
+ 480              		.cfi_startproc
+ 481              		@ args = 0, pretend = 0, frame = 8
+ 482              		@ frame_needed = 0, uses_anonymous_args = 0
+ 483              	.LVL36:
+ 484 0000 10B5     		push	{r4, lr}
+ 485              	.LCFI16:
+ 486              		.cfi_def_cfa_offset 8
+ 487              		.cfi_offset 4, -8
+ 488              		.cfi_offset 14, -4
+ 489 0002 82B0     		sub	sp, sp, #8
+ 490              	.LCFI17:
+ 491              		.cfi_def_cfa_offset 16
+ 492 0004 0446     		mov	r4, r0
+ 149:u8g2/csrc/u8x8_display.c ****   uint8_t buf[8] = { 255, 255, 255, 255, 255, 255, 255, 255 };
+ 493              		.loc 1 149 0
+ 494 0006 054A     		ldr	r2, .L25
+ 495 0008 6B46     		mov	r3, sp
+ 496 000a 1068     		ldr	r0, [r2]	@ unaligned
+ 497              	.LVL37:
+ 498 000c 5168     		ldr	r1, [r2, #4]	@ unaligned
+ 499 000e 03C3     		stmia	r3!, {r0, r1}
+ 150:u8g2/csrc/u8x8_display.c ****   u8x8_ClearDisplayWithTile(u8x8, buf);
+ 500              		.loc 1 150 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 12
+
+
+ 501 0010 6946     		mov	r1, sp
+ 502 0012 2046     		mov	r0, r4
+ 503 0014 FFF7FEFF 		bl	u8x8_ClearDisplayWithTile
+ 504              	.LVL38:
+ 151:u8g2/csrc/u8x8_display.c **** }
+ 505              		.loc 1 151 0
+ 506 0018 02B0     		add	sp, sp, #8
+ 507              	.LCFI18:
+ 508              		.cfi_def_cfa_offset 8
+ 509              		@ sp needed
+ 510 001a 10BD     		pop	{r4, pc}
+ 511              	.LVL39:
+ 512              	.L26:
+ 513              		.align	2
+ 514              	.L25:
+ 515 001c 00000000 		.word	.LANCHOR0
+ 516              		.cfi_endproc
+ 517              	.LFE11:
+ 519              		.section	.text.u8x8_ClearLine,"ax",%progbits
+ 520              		.align	1
+ 521              		.global	u8x8_ClearLine
+ 522              		.syntax unified
+ 523              		.thumb
+ 524              		.thumb_func
+ 525              		.fpu softvfp
+ 527              	u8x8_ClearLine:
+ 528              	.LFB12:
+ 152:u8g2/csrc/u8x8_display.c **** 
+ 153:u8g2/csrc/u8x8_display.c **** void u8x8_ClearLine(u8x8_t *u8x8, uint8_t line)
+ 154:u8g2/csrc/u8x8_display.c **** {
+ 529              		.loc 1 154 0
+ 530              		.cfi_startproc
+ 531              		@ args = 0, pretend = 0, frame = 16
+ 532              		@ frame_needed = 0, uses_anonymous_args = 0
+ 533              	.LVL40:
+ 534 0000 10B5     		push	{r4, lr}
+ 535              	.LCFI19:
+ 536              		.cfi_def_cfa_offset 8
+ 537              		.cfi_offset 4, -8
+ 538              		.cfi_offset 14, -4
+ 539 0002 84B0     		sub	sp, sp, #16
+ 540              	.LCFI20:
+ 541              		.cfi_def_cfa_offset 24
+ 155:u8g2/csrc/u8x8_display.c ****   uint8_t buf[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+ 542              		.loc 1 155 0
+ 543 0004 0023     		movs	r3, #0
+ 544 0006 0293     		str	r3, [sp, #8]
+ 545 0008 0393     		str	r3, [sp, #12]
+ 156:u8g2/csrc/u8x8_display.c ****   u8x8_tile_t tile;
+ 157:u8g2/csrc/u8x8_display.c ****   if ( line < u8x8->display_info->tile_height )
+ 546              		.loc 1 157 0
+ 547 000a 0368     		ldr	r3, [r0]
+ 548 000c 5B7C     		ldrb	r3, [r3, #17]	@ zero_extendqisi2
+ 549 000e 8B42     		cmp	r3, r1
+ 550 0010 01D8     		bhi	.L30
+ 551              	.LVL41:
+ 552              	.L27:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 13
+
+
+ 158:u8g2/csrc/u8x8_display.c ****   {
+ 159:u8g2/csrc/u8x8_display.c ****     tile.x_pos = 0;
+ 160:u8g2/csrc/u8x8_display.c ****     tile.y_pos = line;
+ 161:u8g2/csrc/u8x8_display.c ****     tile.cnt = 1;
+ 162:u8g2/csrc/u8x8_display.c ****     tile.tile_ptr = (uint8_t *)buf;		/* tile_ptr should be const, but isn't */
+ 163:u8g2/csrc/u8x8_display.c ****     u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_DRAW_TILE, u8x8->display_info->tile_width, (void *)&til
+ 164:u8g2/csrc/u8x8_display.c ****   }  
+ 165:u8g2/csrc/u8x8_display.c **** }...
+ 553              		.loc 1 165 0
+ 554 0012 04B0     		add	sp, sp, #16
+ 555              	.LCFI21:
+ 556              		.cfi_remember_state
+ 557              		.cfi_def_cfa_offset 8
+ 558              		@ sp needed
+ 559 0014 10BD     		pop	{r4, pc}
+ 560              	.LVL42:
+ 561              	.L30:
+ 562              	.LCFI22:
+ 563              		.cfi_restore_state
+ 159:u8g2/csrc/u8x8_display.c ****     tile.x_pos = 0;
+ 564              		.loc 1 159 0
+ 565 0016 0023     		movs	r3, #0
+ 566 0018 8DF80530 		strb	r3, [sp, #5]
+ 160:u8g2/csrc/u8x8_display.c ****     tile.y_pos = line;
+ 567              		.loc 1 160 0
+ 568 001c 8DF80610 		strb	r1, [sp, #6]
+ 161:u8g2/csrc/u8x8_display.c ****     tile.cnt = 1;
+ 569              		.loc 1 161 0
+ 570 0020 0123     		movs	r3, #1
+ 571 0022 8DF80430 		strb	r3, [sp, #4]
+ 162:u8g2/csrc/u8x8_display.c ****     tile.tile_ptr = (uint8_t *)buf;		/* tile_ptr should be const, but isn't */
+ 572              		.loc 1 162 0
+ 573 0026 04AB     		add	r3, sp, #16
+ 574 0028 02AA     		add	r2, sp, #8
+ 575 002a 43F8102D 		str	r2, [r3, #-16]!
+ 163:u8g2/csrc/u8x8_display.c ****     u8x8->display_cb(u8x8, U8X8_MSG_DISPLAY_DRAW_TILE, u8x8->display_info->tile_width, (void *)&til
+ 576              		.loc 1 163 0
+ 577 002e 8468     		ldr	r4, [r0, #8]
+ 578 0030 0268     		ldr	r2, [r0]
+ 579 0032 127C     		ldrb	r2, [r2, #16]	@ zero_extendqisi2
+ 580 0034 0F21     		movs	r1, #15
+ 581              	.LVL43:
+ 582 0036 A047     		blx	r4
+ 583              	.LVL44:
+ 584              		.loc 1 165 0
+ 585 0038 EBE7     		b	.L27
+ 586              		.cfi_endproc
+ 587              	.LFE12:
+ 589              		.section	.rodata
+ 590              		.align	2
+ 591              		.set	.LANCHOR0,. + 0
+ 592              	.LC0:
+ 593 0000 FF       		.byte	-1
+ 594 0001 FF       		.byte	-1
+ 595 0002 FF       		.byte	-1
+ 596 0003 FF       		.byte	-1
+ 597 0004 FF       		.byte	-1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 14
+
+
+ 598 0005 FF       		.byte	-1
+ 599 0006 FF       		.byte	-1
+ 600 0007 FF       		.byte	-1
+ 601              		.text
+ 602              	.Letext0:
+ 603              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 604              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 605              		.file 4 "u8g2/csrc/u8x8.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8x8_display.c
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:16     .text.u8x8_d_helper_display_setup_memory:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:23     .text.u8x8_d_helper_display_setup_memory:00000000 u8x8_d_helper_display_setup_memory
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:42     .text.u8x8_d_helper_display_init:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:49     .text.u8x8_d_helper_display_init:00000000 u8x8_d_helper_display_init
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:123    .text.u8x8_DrawTile:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:130    .text.u8x8_DrawTile:00000000 u8x8_DrawTile
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:174    .text.u8x8_SetupMemory:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:181    .text.u8x8_SetupMemory:00000000 u8x8_SetupMemory
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:205    .text.u8x8_InitDisplay:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:212    .text.u8x8_InitDisplay:00000000 u8x8_InitDisplay
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:236    .text.u8x8_SetPowerSave:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:243    .text.u8x8_SetPowerSave:00000000 u8x8_SetPowerSave
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:268    .text.u8x8_SetFlipMode:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:275    .text.u8x8_SetFlipMode:00000000 u8x8_SetFlipMode
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:300    .text.u8x8_SetContrast:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:307    .text.u8x8_SetContrast:00000000 u8x8_SetContrast
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:332    .text.u8x8_RefreshDisplay:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:339    .text.u8x8_RefreshDisplay:00000000 u8x8_RefreshDisplay
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:363    .text.u8x8_ClearDisplayWithTile:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:370    .text.u8x8_ClearDisplayWithTile:00000000 u8x8_ClearDisplayWithTile
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:431    .text.u8x8_ClearDisplay:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:438    .text.u8x8_ClearDisplay:00000000 u8x8_ClearDisplay
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:470    .text.u8x8_FillDisplay:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:477    .text.u8x8_FillDisplay:00000000 u8x8_FillDisplay
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:515    .text.u8x8_FillDisplay:0000001c $d
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:520    .text.u8x8_ClearLine:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:527    .text.u8x8_ClearLine:00000000 u8x8_ClearLine
+C:\Users\nhantt\AppData\Local\Temp\cck0LrXU.s:590    .rodata:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+u8x8_gpio_call

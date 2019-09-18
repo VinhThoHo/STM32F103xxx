@@ -1,0 +1,3176 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8x8_byte.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.i2c_delay,"ax",%progbits
+  16              		.align	1
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu softvfp
+  22              	i2c_delay:
+  23              	.LFB12:
+  24              		.file 1 "u8g2/csrc/u8x8_byte.c"
+   1:u8g2/csrc/u8x8_byte.c **** /*
+   2:u8g2/csrc/u8x8_byte.c **** 
+   3:u8g2/csrc/u8x8_byte.c ****   u8x8_byte.c 
+   4:u8g2/csrc/u8x8_byte.c ****   
+   5:u8g2/csrc/u8x8_byte.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   6:u8g2/csrc/u8x8_byte.c **** 
+   7:u8g2/csrc/u8x8_byte.c ****   Copyright (c) 2016, olikraus@gmail.com
+   8:u8g2/csrc/u8x8_byte.c ****   All rights reserved.
+   9:u8g2/csrc/u8x8_byte.c **** 
+  10:u8g2/csrc/u8x8_byte.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  11:u8g2/csrc/u8x8_byte.c ****   are permitted provided that the following conditions are met:
+  12:u8g2/csrc/u8x8_byte.c **** 
+  13:u8g2/csrc/u8x8_byte.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  14:u8g2/csrc/u8x8_byte.c ****     of conditions and the following disclaimer.
+  15:u8g2/csrc/u8x8_byte.c ****     
+  16:u8g2/csrc/u8x8_byte.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  17:u8g2/csrc/u8x8_byte.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  18:u8g2/csrc/u8x8_byte.c ****     materials provided with the distribution.
+  19:u8g2/csrc/u8x8_byte.c **** 
+  20:u8g2/csrc/u8x8_byte.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  21:u8g2/csrc/u8x8_byte.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  22:u8g2/csrc/u8x8_byte.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  23:u8g2/csrc/u8x8_byte.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  24:u8g2/csrc/u8x8_byte.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  25:u8g2/csrc/u8x8_byte.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  26:u8g2/csrc/u8x8_byte.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  27:u8g2/csrc/u8x8_byte.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  28:u8g2/csrc/u8x8_byte.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  29:u8g2/csrc/u8x8_byte.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  30:u8g2/csrc/u8x8_byte.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:u8g2/csrc/u8x8_byte.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+  32:u8g2/csrc/u8x8_byte.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
+  33:u8g2/csrc/u8x8_byte.c ****   
+  34:u8g2/csrc/u8x8_byte.c ****   
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 2
+
+
+  35:u8g2/csrc/u8x8_byte.c **** */
+  36:u8g2/csrc/u8x8_byte.c **** 
+  37:u8g2/csrc/u8x8_byte.c **** #include "u8x8.h"
+  38:u8g2/csrc/u8x8_byte.c **** 
+  39:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_SetDC(u8x8_t *u8x8, uint8_t dc)
+  40:u8g2/csrc/u8x8_byte.c **** {
+  41:u8g2/csrc/u8x8_byte.c ****   return u8x8->byte_cb(u8x8, U8X8_MSG_BYTE_SET_DC, dc, NULL);
+  42:u8g2/csrc/u8x8_byte.c **** }
+  43:u8g2/csrc/u8x8_byte.c **** 
+  44:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_SendBytes(u8x8_t *u8x8, uint8_t cnt, uint8_t *data)
+  45:u8g2/csrc/u8x8_byte.c **** {
+  46:u8g2/csrc/u8x8_byte.c ****   return u8x8->byte_cb(u8x8, U8X8_MSG_BYTE_SEND, cnt, (void *)data);
+  47:u8g2/csrc/u8x8_byte.c **** }
+  48:u8g2/csrc/u8x8_byte.c **** 
+  49:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_SendByte(u8x8_t *u8x8, uint8_t byte)
+  50:u8g2/csrc/u8x8_byte.c **** {
+  51:u8g2/csrc/u8x8_byte.c ****   return u8x8_byte_SendBytes(u8x8, 1, &byte);
+  52:u8g2/csrc/u8x8_byte.c **** }
+  53:u8g2/csrc/u8x8_byte.c **** 
+  54:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_StartTransfer(u8x8_t *u8x8)
+  55:u8g2/csrc/u8x8_byte.c **** {
+  56:u8g2/csrc/u8x8_byte.c ****   return u8x8->byte_cb(u8x8, U8X8_MSG_BYTE_START_TRANSFER, 0, NULL);
+  57:u8g2/csrc/u8x8_byte.c **** }
+  58:u8g2/csrc/u8x8_byte.c **** 
+  59:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_EndTransfer(u8x8_t *u8x8)
+  60:u8g2/csrc/u8x8_byte.c **** {
+  61:u8g2/csrc/u8x8_byte.c ****   return u8x8->byte_cb(u8x8, U8X8_MSG_BYTE_END_TRANSFER, 0, NULL);
+  62:u8g2/csrc/u8x8_byte.c **** }
+  63:u8g2/csrc/u8x8_byte.c **** 
+  64:u8g2/csrc/u8x8_byte.c **** 
+  65:u8g2/csrc/u8x8_byte.c **** /*
+  66:u8g2/csrc/u8x8_byte.c ****   Uses:
+  67:u8g2/csrc/u8x8_byte.c ****     u8x8->display_info->sda_setup_time_ns
+  68:u8g2/csrc/u8x8_byte.c ****     u8x8->display_info->sck_pulse_width_ns
+  69:u8g2/csrc/u8x8_byte.c ****     u8x8->display_info->spi_mode
+  70:u8g2/csrc/u8x8_byte.c ****     u8x8->display_info->chip_disable_level
+  71:u8g2/csrc/u8x8_byte.c ****     u8x8->display_info->chip_enable_level
+  72:u8g2/csrc/u8x8_byte.c ****     u8x8->display_info->post_chip_enable_wait_ns
+  73:u8g2/csrc/u8x8_byte.c ****     u8x8->display_info->pre_chip_disable_wait_ns
+  74:u8g2/csrc/u8x8_byte.c ****   Calls to GPIO and DELAY:
+  75:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_DELAY_NANO
+  76:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_GPIO_DC
+  77:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_GPIO_CS
+  78:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_GPIO_CLOCK
+  79:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_GPIO_DATA
+  80:u8g2/csrc/u8x8_byte.c ****   Handles:
+  81:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_BYTE_INIT
+  82:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_BYTE_SEND
+  83:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_BYTE_SET_DC
+  84:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_BYTE_START_TRANSFER
+  85:u8g2/csrc/u8x8_byte.c ****     U8X8_MSG_BYTE_END_TRANSFER
+  86:u8g2/csrc/u8x8_byte.c **** */
+  87:u8g2/csrc/u8x8_byte.c **** 
+  88:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_4wire_sw_spi(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+  89:u8g2/csrc/u8x8_byte.c **** {
+  90:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+  91:u8g2/csrc/u8x8_byte.c ****   uint8_t *data;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 3
+
+
+  92:u8g2/csrc/u8x8_byte.c ****   uint8_t takeover_edge = u8x8_GetSPIClockPhase(u8x8);
+  93:u8g2/csrc/u8x8_byte.c ****   uint8_t not_takeover_edge = 1 - takeover_edge;
+  94:u8g2/csrc/u8x8_byte.c ****  
+  95:u8g2/csrc/u8x8_byte.c ****   switch(msg)
+  96:u8g2/csrc/u8x8_byte.c ****   {
+  97:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SEND:
+  98:u8g2/csrc/u8x8_byte.c ****       data = (uint8_t *)arg_ptr;
+  99:u8g2/csrc/u8x8_byte.c ****       while( arg_int > 0 )
+ 100:u8g2/csrc/u8x8_byte.c ****       {
+ 101:u8g2/csrc/u8x8_byte.c **** 	b = *data;
+ 102:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 103:u8g2/csrc/u8x8_byte.c **** 	arg_int--;
+ 104:u8g2/csrc/u8x8_byte.c **** 	for( i = 0; i < 8; i++ )
+ 105:u8g2/csrc/u8x8_byte.c **** 	{
+ 106:u8g2/csrc/u8x8_byte.c **** 	  if ( b & 128 )
+ 107:u8g2/csrc/u8x8_byte.c **** 	    u8x8_gpio_SetSPIData(u8x8, 1);
+ 108:u8g2/csrc/u8x8_byte.c **** 	  else
+ 109:u8g2/csrc/u8x8_byte.c **** 	    u8x8_gpio_SetSPIData(u8x8, 0);
+ 110:u8g2/csrc/u8x8_byte.c **** 	  b <<= 1;
+ 111:u8g2/csrc/u8x8_byte.c **** 	  
+ 112:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_SetSPIClock(u8x8, not_takeover_edge);
+ 113:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->sda_setup_time_ns);
+ 114:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_SetSPIClock(u8x8, takeover_edge);
+ 115:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->sck_pulse_width_ns);
+ 116:u8g2/csrc/u8x8_byte.c **** 	}    
+ 117:u8g2/csrc/u8x8_byte.c ****       }
+ 118:u8g2/csrc/u8x8_byte.c ****       break;
+ 119:u8g2/csrc/u8x8_byte.c ****       
+ 120:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_INIT:
+ 121:u8g2/csrc/u8x8_byte.c ****       /* disable chipselect */
+ 122:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 123:u8g2/csrc/u8x8_byte.c ****       /* no wait required here */
+ 124:u8g2/csrc/u8x8_byte.c ****       
+ 125:u8g2/csrc/u8x8_byte.c ****       /* for SPI: setup correct level of the clock signal */
+ 126:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetSPIClock(u8x8, u8x8_GetSPIClockPhase(u8x8));
+ 127:u8g2/csrc/u8x8_byte.c ****       break;
+ 128:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 129:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetDC(u8x8, arg_int);
+ 130:u8g2/csrc/u8x8_byte.c ****       break;
+ 131:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 132:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_enable_level);  
+ 133:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 134:u8g2/csrc/u8x8_byte.c ****       break;
+ 135:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 136:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->pre_chip_disable_wait_
+ 137:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 138:u8g2/csrc/u8x8_byte.c ****       break;
+ 139:u8g2/csrc/u8x8_byte.c ****     default:
+ 140:u8g2/csrc/u8x8_byte.c ****       return 0;
+ 141:u8g2/csrc/u8x8_byte.c ****   }
+ 142:u8g2/csrc/u8x8_byte.c ****   return 1;
+ 143:u8g2/csrc/u8x8_byte.c **** }
+ 144:u8g2/csrc/u8x8_byte.c **** 
+ 145:u8g2/csrc/u8x8_byte.c **** /*=========================================*/
+ 146:u8g2/csrc/u8x8_byte.c **** 
+ 147:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_8bit_6800mode(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 148:u8g2/csrc/u8x8_byte.c **** {
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 4
+
+
+ 149:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+ 150:u8g2/csrc/u8x8_byte.c ****   uint8_t *data;
+ 151:u8g2/csrc/u8x8_byte.c ****  
+ 152:u8g2/csrc/u8x8_byte.c ****   switch(msg)
+ 153:u8g2/csrc/u8x8_byte.c ****   {
+ 154:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SEND:
+ 155:u8g2/csrc/u8x8_byte.c ****       data = (uint8_t *)arg_ptr;
+ 156:u8g2/csrc/u8x8_byte.c ****       while( arg_int > 0 )
+ 157:u8g2/csrc/u8x8_byte.c ****       {
+ 158:u8g2/csrc/u8x8_byte.c **** 	b = *data;
+ 159:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 160:u8g2/csrc/u8x8_byte.c **** 	arg_int--;
+ 161:u8g2/csrc/u8x8_byte.c **** 	for( i = U8X8_MSG_GPIO_D0; i <= U8X8_MSG_GPIO_D7; i++ )
+ 162:u8g2/csrc/u8x8_byte.c **** 	{
+ 163:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_call(u8x8, i, b&1);
+ 164:u8g2/csrc/u8x8_byte.c **** 	  b >>= 1;
+ 165:u8g2/csrc/u8x8_byte.c **** 	}    
+ 166:u8g2/csrc/u8x8_byte.c **** 	
+ 167:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->data_setup_time_ns);
+ 168:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 1);
+ 169:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->write_pulse_width_ns);
+ 170:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 0);
+ 171:u8g2/csrc/u8x8_byte.c ****       }
+ 172:u8g2/csrc/u8x8_byte.c ****       break;
+ 173:u8g2/csrc/u8x8_byte.c ****       
+ 174:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_INIT:
+ 175:u8g2/csrc/u8x8_byte.c ****       /* disable chipselect */
+ 176:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);    
+ 177:u8g2/csrc/u8x8_byte.c ****       /* ensure that the enable signal is high */
+ 178:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 0);
+ 179:u8g2/csrc/u8x8_byte.c ****       break;
+ 180:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 181:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetDC(u8x8, arg_int);
+ 182:u8g2/csrc/u8x8_byte.c ****       break;
+ 183:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 184:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_enable_level);  
+ 185:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 186:u8g2/csrc/u8x8_byte.c ****       break;
+ 187:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 188:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->pre_chip_disable_wait_
+ 189:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 190:u8g2/csrc/u8x8_byte.c ****       break;
+ 191:u8g2/csrc/u8x8_byte.c ****     default:
+ 192:u8g2/csrc/u8x8_byte.c ****       return 0;
+ 193:u8g2/csrc/u8x8_byte.c ****   }
+ 194:u8g2/csrc/u8x8_byte.c ****   return 1;
+ 195:u8g2/csrc/u8x8_byte.c **** }
+ 196:u8g2/csrc/u8x8_byte.c **** 
+ 197:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_8bit_8080mode(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 198:u8g2/csrc/u8x8_byte.c **** {
+ 199:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+ 200:u8g2/csrc/u8x8_byte.c ****   uint8_t *data;
+ 201:u8g2/csrc/u8x8_byte.c ****  
+ 202:u8g2/csrc/u8x8_byte.c ****   switch(msg)
+ 203:u8g2/csrc/u8x8_byte.c ****   {
+ 204:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SEND:
+ 205:u8g2/csrc/u8x8_byte.c ****       data = (uint8_t *)arg_ptr;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 5
+
+
+ 206:u8g2/csrc/u8x8_byte.c ****       while( arg_int > 0 )
+ 207:u8g2/csrc/u8x8_byte.c ****       {
+ 208:u8g2/csrc/u8x8_byte.c **** 	b = *data;
+ 209:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 210:u8g2/csrc/u8x8_byte.c **** 	arg_int--;
+ 211:u8g2/csrc/u8x8_byte.c **** 	for( i = U8X8_MSG_GPIO_D0; i <= U8X8_MSG_GPIO_D7; i++ )
+ 212:u8g2/csrc/u8x8_byte.c **** 	{
+ 213:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_call(u8x8, i, b&1);
+ 214:u8g2/csrc/u8x8_byte.c **** 	  b >>= 1;
+ 215:u8g2/csrc/u8x8_byte.c **** 	}    
+ 216:u8g2/csrc/u8x8_byte.c **** 	
+ 217:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->data_setup_time_ns);
+ 218:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 0);
+ 219:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->write_pulse_width_ns);
+ 220:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 1);
+ 221:u8g2/csrc/u8x8_byte.c ****       }
+ 222:u8g2/csrc/u8x8_byte.c ****       break;
+ 223:u8g2/csrc/u8x8_byte.c ****       
+ 224:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_INIT:
+ 225:u8g2/csrc/u8x8_byte.c ****       /* disable chipselect */
+ 226:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);    
+ 227:u8g2/csrc/u8x8_byte.c ****       /* ensure that the enable signal is high */
+ 228:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 1);
+ 229:u8g2/csrc/u8x8_byte.c ****       break;
+ 230:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 231:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetDC(u8x8, arg_int);
+ 232:u8g2/csrc/u8x8_byte.c ****       break;
+ 233:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 234:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_enable_level);  
+ 235:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 236:u8g2/csrc/u8x8_byte.c ****       break;
+ 237:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 238:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->pre_chip_disable_wait_
+ 239:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 240:u8g2/csrc/u8x8_byte.c ****       break;
+ 241:u8g2/csrc/u8x8_byte.c ****     default:
+ 242:u8g2/csrc/u8x8_byte.c ****       return 0;
+ 243:u8g2/csrc/u8x8_byte.c ****   }
+ 244:u8g2/csrc/u8x8_byte.c ****   return 1;
+ 245:u8g2/csrc/u8x8_byte.c **** }
+ 246:u8g2/csrc/u8x8_byte.c **** 
+ 247:u8g2/csrc/u8x8_byte.c **** /*=========================================*/
+ 248:u8g2/csrc/u8x8_byte.c **** 
+ 249:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_3wire_sw_spi(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 250:u8g2/csrc/u8x8_byte.c **** {
+ 251:u8g2/csrc/u8x8_byte.c ****   uint8_t i;
+ 252:u8g2/csrc/u8x8_byte.c ****   uint8_t *data;
+ 253:u8g2/csrc/u8x8_byte.c ****   uint8_t takeover_edge = u8x8_GetSPIClockPhase(u8x8);
+ 254:u8g2/csrc/u8x8_byte.c ****   uint8_t not_takeover_edge = 1 - takeover_edge;
+ 255:u8g2/csrc/u8x8_byte.c ****   uint16_t b;
+ 256:u8g2/csrc/u8x8_byte.c ****   static uint8_t last_dc;
+ 257:u8g2/csrc/u8x8_byte.c ****  
+ 258:u8g2/csrc/u8x8_byte.c ****   switch(msg)
+ 259:u8g2/csrc/u8x8_byte.c ****   {
+ 260:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SEND:
+ 261:u8g2/csrc/u8x8_byte.c ****       data = (uint8_t *)arg_ptr;
+ 262:u8g2/csrc/u8x8_byte.c ****       while( arg_int > 0 )
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 6
+
+
+ 263:u8g2/csrc/u8x8_byte.c ****       {
+ 264:u8g2/csrc/u8x8_byte.c **** 	b = *data;
+ 265:u8g2/csrc/u8x8_byte.c **** 	if ( last_dc != 0 )
+ 266:u8g2/csrc/u8x8_byte.c **** 	  b |= 256;
+ 267:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 268:u8g2/csrc/u8x8_byte.c **** 	arg_int--;
+ 269:u8g2/csrc/u8x8_byte.c **** 	for( i = 0; i < 9; i++ )
+ 270:u8g2/csrc/u8x8_byte.c **** 	{
+ 271:u8g2/csrc/u8x8_byte.c **** 	  if ( b & 256 )
+ 272:u8g2/csrc/u8x8_byte.c **** 	    u8x8_gpio_SetSPIData(u8x8, 1);
+ 273:u8g2/csrc/u8x8_byte.c **** 	  else
+ 274:u8g2/csrc/u8x8_byte.c **** 	    u8x8_gpio_SetSPIData(u8x8, 0);
+ 275:u8g2/csrc/u8x8_byte.c **** 	  b <<= 1;
+ 276:u8g2/csrc/u8x8_byte.c **** 	  
+ 277:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_SetSPIClock(u8x8, not_takeover_edge);
+ 278:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->sda_setup_time_ns);
+ 279:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_SetSPIClock(u8x8, takeover_edge);
+ 280:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->sck_pulse_width_ns);
+ 281:u8g2/csrc/u8x8_byte.c **** 	}    
+ 282:u8g2/csrc/u8x8_byte.c ****       }
+ 283:u8g2/csrc/u8x8_byte.c ****       break;
+ 284:u8g2/csrc/u8x8_byte.c ****       
+ 285:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_INIT:
+ 286:u8g2/csrc/u8x8_byte.c ****       /* disable chipselect */
+ 287:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 288:u8g2/csrc/u8x8_byte.c ****       /* no wait required here */
+ 289:u8g2/csrc/u8x8_byte.c ****       
+ 290:u8g2/csrc/u8x8_byte.c ****       /* for SPI: setup correct level of the clock signal */
+ 291:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetSPIClock(u8x8, u8x8_GetSPIClockPhase(u8x8));
+ 292:u8g2/csrc/u8x8_byte.c ****       break;
+ 293:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 294:u8g2/csrc/u8x8_byte.c ****       last_dc = arg_int;
+ 295:u8g2/csrc/u8x8_byte.c ****       break;
+ 296:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 297:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_enable_level);  
+ 298:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 299:u8g2/csrc/u8x8_byte.c ****       break;
+ 300:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 301:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->pre_chip_disable_wait_
+ 302:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 303:u8g2/csrc/u8x8_byte.c ****       break;
+ 304:u8g2/csrc/u8x8_byte.c ****     default:
+ 305:u8g2/csrc/u8x8_byte.c ****       return 0;
+ 306:u8g2/csrc/u8x8_byte.c ****   }
+ 307:u8g2/csrc/u8x8_byte.c ****   return 1;
+ 308:u8g2/csrc/u8x8_byte.c **** }
+ 309:u8g2/csrc/u8x8_byte.c **** 
+ 310:u8g2/csrc/u8x8_byte.c **** /*=========================================*/
+ 311:u8g2/csrc/u8x8_byte.c **** 
+ 312:u8g2/csrc/u8x8_byte.c **** void u8x8_byte_set_ks0108_cs(u8x8_t *u8x8, uint8_t arg)
+ 313:u8g2/csrc/u8x8_byte.c **** {
+ 314:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_SetCS(u8x8, arg&1);
+ 315:u8g2/csrc/u8x8_byte.c ****   arg = arg >> 1;
+ 316:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_CS1, arg&1);
+ 317:u8g2/csrc/u8x8_byte.c ****   arg = arg >> 2;
+ 318:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_CS2, arg&1);
+ 319:u8g2/csrc/u8x8_byte.c **** }
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 7
+
+
+ 320:u8g2/csrc/u8x8_byte.c **** 
+ 321:u8g2/csrc/u8x8_byte.c **** /* 6800 mode */
+ 322:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_ks0108(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 323:u8g2/csrc/u8x8_byte.c **** {
+ 324:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+ 325:u8g2/csrc/u8x8_byte.c ****   uint8_t *data;
+ 326:u8g2/csrc/u8x8_byte.c ****  
+ 327:u8g2/csrc/u8x8_byte.c ****   switch(msg)
+ 328:u8g2/csrc/u8x8_byte.c ****   {
+ 329:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SEND:
+ 330:u8g2/csrc/u8x8_byte.c ****       data = (uint8_t *)arg_ptr;
+ 331:u8g2/csrc/u8x8_byte.c ****       while( arg_int > 0 )
+ 332:u8g2/csrc/u8x8_byte.c ****       {
+ 333:u8g2/csrc/u8x8_byte.c **** 	b = *data;
+ 334:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 335:u8g2/csrc/u8x8_byte.c **** 	arg_int--;
+ 336:u8g2/csrc/u8x8_byte.c **** 	for( i = U8X8_MSG_GPIO_D0; i <= U8X8_MSG_GPIO_D7; i++ )
+ 337:u8g2/csrc/u8x8_byte.c **** 	{
+ 338:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_call(u8x8, i, b&1);
+ 339:u8g2/csrc/u8x8_byte.c **** 	  b >>= 1;
+ 340:u8g2/csrc/u8x8_byte.c **** 	}    
+ 341:u8g2/csrc/u8x8_byte.c **** 	
+ 342:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->data_setup_time_ns);
+ 343:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 1);
+ 344:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->write_pulse_width_ns);
+ 345:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 0);
+ 346:u8g2/csrc/u8x8_byte.c ****       }
+ 347:u8g2/csrc/u8x8_byte.c ****       break;
+ 348:u8g2/csrc/u8x8_byte.c ****       
+ 349:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_INIT:
+ 350:u8g2/csrc/u8x8_byte.c ****       /* disable chipselect */
+ 351:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);    
+ 352:u8g2/csrc/u8x8_byte.c ****       /* ensure that the enable signal is low */
+ 353:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 0);
+ 354:u8g2/csrc/u8x8_byte.c ****       break;
+ 355:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 356:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetDC(u8x8, arg_int);
+ 357:u8g2/csrc/u8x8_byte.c ****       break;
+ 358:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 359:u8g2/csrc/u8x8_byte.c ****       /* expects 3 bits in arg_int for the chip select lines */ 
+ 360:u8g2/csrc/u8x8_byte.c ****       u8x8_byte_set_ks0108_cs(u8x8, arg_int);
+ 361:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 362:u8g2/csrc/u8x8_byte.c ****       break;
+ 363:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 364:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->pre_chip_disable_wait_
+ 365:u8g2/csrc/u8x8_byte.c ****       u8x8_byte_set_ks0108_cs(u8x8, arg_int);
+ 366:u8g2/csrc/u8x8_byte.c ****       break;
+ 367:u8g2/csrc/u8x8_byte.c ****     default:
+ 368:u8g2/csrc/u8x8_byte.c ****       return 0;
+ 369:u8g2/csrc/u8x8_byte.c ****   }
+ 370:u8g2/csrc/u8x8_byte.c ****   return 1;
+ 371:u8g2/csrc/u8x8_byte.c **** }
+ 372:u8g2/csrc/u8x8_byte.c **** 
+ 373:u8g2/csrc/u8x8_byte.c **** 
+ 374:u8g2/csrc/u8x8_byte.c **** /* sed1520 or sbn1661 
+ 375:u8g2/csrc/u8x8_byte.c ****   U8X8_MSG_GPIO_E --> E1
+ 376:u8g2/csrc/u8x8_byte.c ****   U8X8_MSG_GPIO_CS --> E2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 8
+
+
+ 377:u8g2/csrc/u8x8_byte.c **** */
+ 378:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_sed1520(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 379:u8g2/csrc/u8x8_byte.c **** {
+ 380:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+ 381:u8g2/csrc/u8x8_byte.c ****   uint8_t *data;
+ 382:u8g2/csrc/u8x8_byte.c ****   static uint8_t enable_pin;
+ 383:u8g2/csrc/u8x8_byte.c ****  
+ 384:u8g2/csrc/u8x8_byte.c ****   switch(msg)
+ 385:u8g2/csrc/u8x8_byte.c ****   {
+ 386:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SEND:
+ 387:u8g2/csrc/u8x8_byte.c ****       data = (uint8_t *)arg_ptr;
+ 388:u8g2/csrc/u8x8_byte.c ****       while( arg_int > 0 )
+ 389:u8g2/csrc/u8x8_byte.c ****       {
+ 390:u8g2/csrc/u8x8_byte.c **** 	b = *data;
+ 391:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 392:u8g2/csrc/u8x8_byte.c **** 	arg_int--;
+ 393:u8g2/csrc/u8x8_byte.c **** 	for( i = U8X8_MSG_GPIO_D0; i <= U8X8_MSG_GPIO_D7; i++ )
+ 394:u8g2/csrc/u8x8_byte.c **** 	{
+ 395:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_call(u8x8, i, b&1);
+ 396:u8g2/csrc/u8x8_byte.c **** 	  b >>= 1;
+ 397:u8g2/csrc/u8x8_byte.c **** 	}    
+ 398:u8g2/csrc/u8x8_byte.c **** 	
+ 399:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->data_setup_time_ns);
+ 400:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, enable_pin, 1);
+ 401:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->write_pulse_width_ns);
+ 402:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, enable_pin, 0);
+ 403:u8g2/csrc/u8x8_byte.c ****       }
+ 404:u8g2/csrc/u8x8_byte.c ****       break;
+ 405:u8g2/csrc/u8x8_byte.c ****       
+ 406:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_INIT:
+ 407:u8g2/csrc/u8x8_byte.c ****       /* disable chipselect */
+ 408:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);    
+ 409:u8g2/csrc/u8x8_byte.c ****       /* ensure that the enable signals are low */
+ 410:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 0);
+ 411:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_CS, 0);
+ 412:u8g2/csrc/u8x8_byte.c ****       enable_pin = U8X8_MSG_GPIO_E;
+ 413:u8g2/csrc/u8x8_byte.c ****       break;
+ 414:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 415:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetDC(u8x8, arg_int);
+ 416:u8g2/csrc/u8x8_byte.c ****       break;
+ 417:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 418:u8g2/csrc/u8x8_byte.c ****       /* cs lines are not supported for the SED1520/SBN1661 */
+ 419:u8g2/csrc/u8x8_byte.c ****       /* instead, this will select the E1 or E2 line */ 
+ 420:u8g2/csrc/u8x8_byte.c ****       enable_pin = U8X8_MSG_GPIO_E;
+ 421:u8g2/csrc/u8x8_byte.c ****       if ( arg_int != 0 )
+ 422:u8g2/csrc/u8x8_byte.c **** 	enable_pin = U8X8_MSG_GPIO_CS;
+ 423:u8g2/csrc/u8x8_byte.c ****       break;
+ 424:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 425:u8g2/csrc/u8x8_byte.c ****       break;
+ 426:u8g2/csrc/u8x8_byte.c ****     default:
+ 427:u8g2/csrc/u8x8_byte.c ****       return 0;
+ 428:u8g2/csrc/u8x8_byte.c ****   }
+ 429:u8g2/csrc/u8x8_byte.c ****   return 1;
+ 430:u8g2/csrc/u8x8_byte.c **** }
+ 431:u8g2/csrc/u8x8_byte.c **** 
+ 432:u8g2/csrc/u8x8_byte.c **** /*=========================================*/
+ 433:u8g2/csrc/u8x8_byte.c **** 
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 9
+
+
+ 434:u8g2/csrc/u8x8_byte.c **** 
+ 435:u8g2/csrc/u8x8_byte.c **** /*
+ 436:u8g2/csrc/u8x8_byte.c ****   software i2c,
+ 437:u8g2/csrc/u8x8_byte.c ****   ignores ACK response (which is anyway not provided by some displays)
+ 438:u8g2/csrc/u8x8_byte.c ****   also does not allow reading from the device
+ 439:u8g2/csrc/u8x8_byte.c **** */
+ 440:u8g2/csrc/u8x8_byte.c **** static void i2c_delay(u8x8_t *u8x8) U8X8_NOINLINE;
+ 441:u8g2/csrc/u8x8_byte.c **** static void i2c_delay(u8x8_t *u8x8)
+ 442:u8g2/csrc/u8x8_byte.c **** {
+  25              		.loc 1 442 0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              	.LVL0:
+  30 0000 08B5     		push	{r3, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 3, -8
+  34              		.cfi_offset 14, -4
+ 443:u8g2/csrc/u8x8_byte.c ****   //u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_10MICRO, u8x8->display_info->i2c_bus_clock_100kHz);
+ 444:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_I2C, u8x8->display_info->i2c_bus_clock_100kHz);
+  35              		.loc 1 444 0
+  36 0002 0368     		ldr	r3, [r0]
+  37 0004 5A7B     		ldrb	r2, [r3, #13]	@ zero_extendqisi2
+  38 0006 2D21     		movs	r1, #45
+  39 0008 FFF7FEFF 		bl	u8x8_gpio_call
+  40              	.LVL1:
+  41 000c 08BD     		pop	{r3, pc}
+  42              		.cfi_endproc
+  43              	.LFE12:
+  45              		.section	.text.i2c_init,"ax",%progbits
+  46              		.align	1
+  47              		.syntax unified
+  48              		.thumb
+  49              		.thumb_func
+  50              		.fpu softvfp
+  52              	i2c_init:
+  53              	.LFB13:
+ 445:u8g2/csrc/u8x8_byte.c **** }
+ 446:u8g2/csrc/u8x8_byte.c **** 
+ 447:u8g2/csrc/u8x8_byte.c **** static void i2c_init(u8x8_t *u8x8)
+ 448:u8g2/csrc/u8x8_byte.c **** {
+  54              		.loc 1 448 0
+  55              		.cfi_startproc
+  56              		@ args = 0, pretend = 0, frame = 0
+  57              		@ frame_needed = 0, uses_anonymous_args = 0
+  58              	.LVL2:
+  59 0000 10B5     		push	{r4, lr}
+  60              	.LCFI1:
+  61              		.cfi_def_cfa_offset 8
+  62              		.cfi_offset 4, -8
+  63              		.cfi_offset 14, -4
+  64 0002 0446     		mov	r4, r0
+ 449:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_SetI2CClock(u8x8, 1);
+  65              		.loc 1 449 0
+  66 0004 0122     		movs	r2, #1
+  67 0006 4C21     		movs	r1, #76
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 10
+
+
+  68 0008 FFF7FEFF 		bl	u8x8_gpio_call
+  69              	.LVL3:
+ 450:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_SetI2CData(u8x8, 1);
+  70              		.loc 1 450 0
+  71 000c 0122     		movs	r2, #1
+  72 000e 4D21     		movs	r1, #77
+  73 0010 2046     		mov	r0, r4
+  74 0012 FFF7FEFF 		bl	u8x8_gpio_call
+  75              	.LVL4:
+ 451:u8g2/csrc/u8x8_byte.c ****   
+ 452:u8g2/csrc/u8x8_byte.c ****   i2c_delay(u8x8);
+  76              		.loc 1 452 0
+  77 0016 2046     		mov	r0, r4
+  78 0018 FFF7FEFF 		bl	i2c_delay
+  79              	.LVL5:
+  80 001c 10BD     		pop	{r4, pc}
+  81              		.cfi_endproc
+  82              	.LFE13:
+  84              		.section	.text.i2c_read_scl_and_delay,"ax",%progbits
+  85              		.align	1
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu softvfp
+  91              	i2c_read_scl_and_delay:
+  92              	.LFB14:
+ 453:u8g2/csrc/u8x8_byte.c **** }
+ 454:u8g2/csrc/u8x8_byte.c **** 
+ 455:u8g2/csrc/u8x8_byte.c **** /* actually, the scl line is not observed, so this procedure does not return a value */
+ 456:u8g2/csrc/u8x8_byte.c **** 
+ 457:u8g2/csrc/u8x8_byte.c **** static void i2c_read_scl_and_delay(u8x8_t *u8x8)
+ 458:u8g2/csrc/u8x8_byte.c **** {
+  93              		.loc 1 458 0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97              	.LVL6:
+  98 0000 10B5     		push	{r4, lr}
+  99              	.LCFI2:
+ 100              		.cfi_def_cfa_offset 8
+ 101              		.cfi_offset 4, -8
+ 102              		.cfi_offset 14, -4
+ 103 0002 0446     		mov	r4, r0
+ 459:u8g2/csrc/u8x8_byte.c ****   /* set as input (line will be high) */
+ 460:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_SetI2CClock(u8x8, 1);
+ 104              		.loc 1 460 0
+ 105 0004 0122     		movs	r2, #1
+ 106 0006 4C21     		movs	r1, #76
+ 107 0008 FFF7FEFF 		bl	u8x8_gpio_call
+ 108              	.LVL7:
+ 461:u8g2/csrc/u8x8_byte.c **** 
+ 462:u8g2/csrc/u8x8_byte.c ****   i2c_delay(u8x8);
+ 109              		.loc 1 462 0
+ 110 000c 2046     		mov	r0, r4
+ 111 000e FFF7FEFF 		bl	i2c_delay
+ 112              	.LVL8:
+ 113 0012 10BD     		pop	{r4, pc}
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 11
+
+
+ 114              		.cfi_endproc
+ 115              	.LFE14:
+ 117              		.section	.text.i2c_read_sda,"ax",%progbits
+ 118              		.align	1
+ 119              		.syntax unified
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.fpu softvfp
+ 124              	i2c_read_sda:
+ 125              	.LFB16:
+ 463:u8g2/csrc/u8x8_byte.c **** }
+ 464:u8g2/csrc/u8x8_byte.c **** 
+ 465:u8g2/csrc/u8x8_byte.c **** static void i2c_clear_scl(u8x8_t *u8x8)
+ 466:u8g2/csrc/u8x8_byte.c **** {
+ 467:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_SetI2CClock(u8x8, 0);
+ 468:u8g2/csrc/u8x8_byte.c **** }
+ 469:u8g2/csrc/u8x8_byte.c **** 
+ 470:u8g2/csrc/u8x8_byte.c **** static void i2c_read_sda(u8x8_t *u8x8)
+ 471:u8g2/csrc/u8x8_byte.c **** {
+ 126              		.loc 1 471 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              	.LVL9:
+ 131 0000 08B5     		push	{r3, lr}
+ 132              	.LCFI3:
+ 133              		.cfi_def_cfa_offset 8
+ 134              		.cfi_offset 3, -8
+ 135              		.cfi_offset 14, -4
+ 472:u8g2/csrc/u8x8_byte.c ****   /* set as input (line will be high) */
+ 473:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_SetI2CData(u8x8, 1);
+ 136              		.loc 1 473 0
+ 137 0002 0122     		movs	r2, #1
+ 138 0004 4D21     		movs	r1, #77
+ 139 0006 FFF7FEFF 		bl	u8x8_gpio_call
+ 140              	.LVL10:
+ 141 000a 08BD     		pop	{r3, pc}
+ 142              		.cfi_endproc
+ 143              	.LFE16:
+ 145              		.section	.text.i2c_clear_sda,"ax",%progbits
+ 146              		.align	1
+ 147              		.syntax unified
+ 148              		.thumb
+ 149              		.thumb_func
+ 150              		.fpu softvfp
+ 152              	i2c_clear_sda:
+ 153              	.LFB17:
+ 474:u8g2/csrc/u8x8_byte.c **** }
+ 475:u8g2/csrc/u8x8_byte.c **** 
+ 476:u8g2/csrc/u8x8_byte.c **** static void i2c_clear_sda(u8x8_t *u8x8)
+ 477:u8g2/csrc/u8x8_byte.c **** {
+ 154              		.loc 1 477 0
+ 155              		.cfi_startproc
+ 156              		@ args = 0, pretend = 0, frame = 0
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+ 158              	.LVL11:
+ 159 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 12
+
+
+ 160              	.LCFI4:
+ 161              		.cfi_def_cfa_offset 8
+ 162              		.cfi_offset 3, -8
+ 163              		.cfi_offset 14, -4
+ 478:u8g2/csrc/u8x8_byte.c ****   /* set open collector and drive low */
+ 479:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_SetI2CData(u8x8, 0);
+ 164              		.loc 1 479 0
+ 165 0002 0022     		movs	r2, #0
+ 166 0004 4D21     		movs	r1, #77
+ 167 0006 FFF7FEFF 		bl	u8x8_gpio_call
+ 168              	.LVL12:
+ 169 000a 08BD     		pop	{r3, pc}
+ 170              		.cfi_endproc
+ 171              	.LFE17:
+ 173              		.section	.text.i2c_stop,"ax",%progbits
+ 174              		.align	1
+ 175              		.syntax unified
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.fpu softvfp
+ 180              	i2c_stop:
+ 181              	.LFB19:
+ 480:u8g2/csrc/u8x8_byte.c **** }
+ 481:u8g2/csrc/u8x8_byte.c **** 
+ 482:u8g2/csrc/u8x8_byte.c **** static void i2c_start(u8x8_t *u8x8)
+ 483:u8g2/csrc/u8x8_byte.c **** {
+ 484:u8g2/csrc/u8x8_byte.c ****   if ( u8x8->i2c_started != 0 )
+ 485:u8g2/csrc/u8x8_byte.c ****   {
+ 486:u8g2/csrc/u8x8_byte.c ****     /* if already started: do restart */
+ 487:u8g2/csrc/u8x8_byte.c ****     i2c_read_sda(u8x8);     /* SDA = 1 */
+ 488:u8g2/csrc/u8x8_byte.c ****     i2c_delay(u8x8);
+ 489:u8g2/csrc/u8x8_byte.c ****     i2c_read_scl_and_delay(u8x8);
+ 490:u8g2/csrc/u8x8_byte.c ****   }
+ 491:u8g2/csrc/u8x8_byte.c ****   i2c_read_sda(u8x8);
+ 492:u8g2/csrc/u8x8_byte.c ****   /* send the start condition, both lines go from 1 to 0 */
+ 493:u8g2/csrc/u8x8_byte.c ****   i2c_clear_sda(u8x8);
+ 494:u8g2/csrc/u8x8_byte.c ****   i2c_delay(u8x8);
+ 495:u8g2/csrc/u8x8_byte.c ****   i2c_clear_scl(u8x8);
+ 496:u8g2/csrc/u8x8_byte.c ****   u8x8->i2c_started = 1;
+ 497:u8g2/csrc/u8x8_byte.c **** }
+ 498:u8g2/csrc/u8x8_byte.c **** 
+ 499:u8g2/csrc/u8x8_byte.c **** 
+ 500:u8g2/csrc/u8x8_byte.c **** static void i2c_stop(u8x8_t *u8x8)
+ 501:u8g2/csrc/u8x8_byte.c **** {
+ 182              		.loc 1 501 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              	.LVL13:
+ 187 0000 10B5     		push	{r4, lr}
+ 188              	.LCFI5:
+ 189              		.cfi_def_cfa_offset 8
+ 190              		.cfi_offset 4, -8
+ 191              		.cfi_offset 14, -4
+ 192 0002 0446     		mov	r4, r0
+ 502:u8g2/csrc/u8x8_byte.c ****   /* set SDA to 0 */
+ 503:u8g2/csrc/u8x8_byte.c ****   i2c_clear_sda(u8x8);  
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 13
+
+
+ 193              		.loc 1 503 0
+ 194 0004 FFF7FEFF 		bl	i2c_clear_sda
+ 195              	.LVL14:
+ 504:u8g2/csrc/u8x8_byte.c ****   i2c_delay(u8x8);
+ 196              		.loc 1 504 0
+ 197 0008 2046     		mov	r0, r4
+ 198 000a FFF7FEFF 		bl	i2c_delay
+ 199              	.LVL15:
+ 505:u8g2/csrc/u8x8_byte.c ****  
+ 506:u8g2/csrc/u8x8_byte.c ****   /* now release all lines */
+ 507:u8g2/csrc/u8x8_byte.c ****   i2c_read_scl_and_delay(u8x8);
+ 200              		.loc 1 507 0
+ 201 000e 2046     		mov	r0, r4
+ 202 0010 FFF7FEFF 		bl	i2c_read_scl_and_delay
+ 203              	.LVL16:
+ 508:u8g2/csrc/u8x8_byte.c ****  
+ 509:u8g2/csrc/u8x8_byte.c ****   /* set SDA to 1 */
+ 510:u8g2/csrc/u8x8_byte.c ****   i2c_read_sda(u8x8);
+ 204              		.loc 1 510 0
+ 205 0014 2046     		mov	r0, r4
+ 206 0016 FFF7FEFF 		bl	i2c_read_sda
+ 207              	.LVL17:
+ 511:u8g2/csrc/u8x8_byte.c ****   i2c_delay(u8x8);
+ 208              		.loc 1 511 0
+ 209 001a 2046     		mov	r0, r4
+ 210 001c FFF7FEFF 		bl	i2c_delay
+ 211              	.LVL18:
+ 512:u8g2/csrc/u8x8_byte.c ****   u8x8->i2c_started = 0;
+ 212              		.loc 1 512 0
+ 213 0020 0023     		movs	r3, #0
+ 214 0022 84F82130 		strb	r3, [r4, #33]
+ 215 0026 10BD     		pop	{r4, pc}
+ 216              		.cfi_endproc
+ 217              	.LFE19:
+ 219              		.section	.text.i2c_clear_scl,"ax",%progbits
+ 220              		.align	1
+ 221              		.syntax unified
+ 222              		.thumb
+ 223              		.thumb_func
+ 224              		.fpu softvfp
+ 226              	i2c_clear_scl:
+ 227              	.LFB15:
+ 466:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_SetI2CClock(u8x8, 0);
+ 228              		.loc 1 466 0
+ 229              		.cfi_startproc
+ 230              		@ args = 0, pretend = 0, frame = 0
+ 231              		@ frame_needed = 0, uses_anonymous_args = 0
+ 232              	.LVL19:
+ 233 0000 08B5     		push	{r3, lr}
+ 234              	.LCFI6:
+ 235              		.cfi_def_cfa_offset 8
+ 236              		.cfi_offset 3, -8
+ 237              		.cfi_offset 14, -4
+ 467:u8g2/csrc/u8x8_byte.c **** }
+ 238              		.loc 1 467 0
+ 239 0002 0022     		movs	r2, #0
+ 240 0004 4C21     		movs	r1, #76
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 14
+
+
+ 241 0006 FFF7FEFF 		bl	u8x8_gpio_call
+ 242              	.LVL20:
+ 243 000a 08BD     		pop	{r3, pc}
+ 244              		.cfi_endproc
+ 245              	.LFE15:
+ 247              		.section	.text.i2c_start,"ax",%progbits
+ 248              		.align	1
+ 249              		.syntax unified
+ 250              		.thumb
+ 251              		.thumb_func
+ 252              		.fpu softvfp
+ 254              	i2c_start:
+ 255              	.LFB18:
+ 483:u8g2/csrc/u8x8_byte.c ****   if ( u8x8->i2c_started != 0 )
+ 256              		.loc 1 483 0
+ 257              		.cfi_startproc
+ 258              		@ args = 0, pretend = 0, frame = 0
+ 259              		@ frame_needed = 0, uses_anonymous_args = 0
+ 260              	.LVL21:
+ 261 0000 10B5     		push	{r4, lr}
+ 262              	.LCFI7:
+ 263              		.cfi_def_cfa_offset 8
+ 264              		.cfi_offset 4, -8
+ 265              		.cfi_offset 14, -4
+ 266 0002 0446     		mov	r4, r0
+ 484:u8g2/csrc/u8x8_byte.c ****   {
+ 267              		.loc 1 484 0
+ 268 0004 90F82130 		ldrb	r3, [r0, #33]	@ zero_extendqisi2
+ 269 0008 7BB9     		cbnz	r3, .L18
+ 270              	.LVL22:
+ 271              	.L16:
+ 491:u8g2/csrc/u8x8_byte.c ****   /* send the start condition, both lines go from 1 to 0 */
+ 272              		.loc 1 491 0
+ 273 000a 2046     		mov	r0, r4
+ 274 000c FFF7FEFF 		bl	i2c_read_sda
+ 275              	.LVL23:
+ 493:u8g2/csrc/u8x8_byte.c ****   i2c_delay(u8x8);
+ 276              		.loc 1 493 0
+ 277 0010 2046     		mov	r0, r4
+ 278 0012 FFF7FEFF 		bl	i2c_clear_sda
+ 279              	.LVL24:
+ 494:u8g2/csrc/u8x8_byte.c ****   i2c_clear_scl(u8x8);
+ 280              		.loc 1 494 0
+ 281 0016 2046     		mov	r0, r4
+ 282 0018 FFF7FEFF 		bl	i2c_delay
+ 283              	.LVL25:
+ 495:u8g2/csrc/u8x8_byte.c ****   u8x8->i2c_started = 1;
+ 284              		.loc 1 495 0
+ 285 001c 2046     		mov	r0, r4
+ 286 001e FFF7FEFF 		bl	i2c_clear_scl
+ 287              	.LVL26:
+ 496:u8g2/csrc/u8x8_byte.c **** }
+ 288              		.loc 1 496 0
+ 289 0022 0123     		movs	r3, #1
+ 290 0024 84F82130 		strb	r3, [r4, #33]
+ 291 0028 10BD     		pop	{r4, pc}
+ 292              	.LVL27:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 15
+
+
+ 293              	.L18:
+ 487:u8g2/csrc/u8x8_byte.c ****     i2c_delay(u8x8);
+ 294              		.loc 1 487 0
+ 295 002a FFF7FEFF 		bl	i2c_read_sda
+ 296              	.LVL28:
+ 488:u8g2/csrc/u8x8_byte.c ****     i2c_read_scl_and_delay(u8x8);
+ 297              		.loc 1 488 0
+ 298 002e 2046     		mov	r0, r4
+ 299 0030 FFF7FEFF 		bl	i2c_delay
+ 300              	.LVL29:
+ 489:u8g2/csrc/u8x8_byte.c ****   }
+ 301              		.loc 1 489 0
+ 302 0034 2046     		mov	r0, r4
+ 303 0036 FFF7FEFF 		bl	i2c_read_scl_and_delay
+ 304              	.LVL30:
+ 305 003a E6E7     		b	.L16
+ 306              		.cfi_endproc
+ 307              	.LFE18:
+ 309              		.section	.text.i2c_write_bit,"ax",%progbits
+ 310              		.align	1
+ 311              		.syntax unified
+ 312              		.thumb
+ 313              		.thumb_func
+ 314              		.fpu softvfp
+ 316              	i2c_write_bit:
+ 317              	.LFB20:
+ 513:u8g2/csrc/u8x8_byte.c **** }
+ 514:u8g2/csrc/u8x8_byte.c **** 
+ 515:u8g2/csrc/u8x8_byte.c **** static void i2c_write_bit(u8x8_t *u8x8, uint8_t val)
+ 516:u8g2/csrc/u8x8_byte.c **** {
+ 318              		.loc 1 516 0
+ 319              		.cfi_startproc
+ 320              		@ args = 0, pretend = 0, frame = 0
+ 321              		@ frame_needed = 0, uses_anonymous_args = 0
+ 322              	.LVL31:
+ 323 0000 10B5     		push	{r4, lr}
+ 324              	.LCFI8:
+ 325              		.cfi_def_cfa_offset 8
+ 326              		.cfi_offset 4, -8
+ 327              		.cfi_offset 14, -4
+ 328 0002 0446     		mov	r4, r0
+ 517:u8g2/csrc/u8x8_byte.c ****   if (val)
+ 329              		.loc 1 517 0
+ 330 0004 59B9     		cbnz	r1, .L23
+ 518:u8g2/csrc/u8x8_byte.c ****     i2c_read_sda(u8x8);
+ 519:u8g2/csrc/u8x8_byte.c ****   else
+ 520:u8g2/csrc/u8x8_byte.c ****     i2c_clear_sda(u8x8);
+ 331              		.loc 1 520 0
+ 332 0006 FFF7FEFF 		bl	i2c_clear_sda
+ 333              	.LVL32:
+ 334              	.L21:
+ 521:u8g2/csrc/u8x8_byte.c ****  
+ 522:u8g2/csrc/u8x8_byte.c ****   i2c_delay(u8x8);
+ 335              		.loc 1 522 0
+ 336 000a 2046     		mov	r0, r4
+ 337 000c FFF7FEFF 		bl	i2c_delay
+ 338              	.LVL33:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 16
+
+
+ 523:u8g2/csrc/u8x8_byte.c ****   i2c_read_scl_and_delay(u8x8);
+ 339              		.loc 1 523 0
+ 340 0010 2046     		mov	r0, r4
+ 341 0012 FFF7FEFF 		bl	i2c_read_scl_and_delay
+ 342              	.LVL34:
+ 524:u8g2/csrc/u8x8_byte.c ****   i2c_clear_scl(u8x8);
+ 343              		.loc 1 524 0
+ 344 0016 2046     		mov	r0, r4
+ 345 0018 FFF7FEFF 		bl	i2c_clear_scl
+ 346              	.LVL35:
+ 347 001c 10BD     		pop	{r4, pc}
+ 348              	.LVL36:
+ 349              	.L23:
+ 518:u8g2/csrc/u8x8_byte.c ****   else
+ 350              		.loc 1 518 0
+ 351 001e FFF7FEFF 		bl	i2c_read_sda
+ 352              	.LVL37:
+ 353 0022 F2E7     		b	.L21
+ 354              		.cfi_endproc
+ 355              	.LFE20:
+ 357              		.section	.text.i2c_read_bit,"ax",%progbits
+ 358              		.align	1
+ 359              		.syntax unified
+ 360              		.thumb
+ 361              		.thumb_func
+ 362              		.fpu softvfp
+ 364              	i2c_read_bit:
+ 365              	.LFB21:
+ 525:u8g2/csrc/u8x8_byte.c **** }
+ 526:u8g2/csrc/u8x8_byte.c **** 
+ 527:u8g2/csrc/u8x8_byte.c **** static void i2c_read_bit(u8x8_t *u8x8)
+ 528:u8g2/csrc/u8x8_byte.c **** {
+ 366              		.loc 1 528 0
+ 367              		.cfi_startproc
+ 368              		@ args = 0, pretend = 0, frame = 0
+ 369              		@ frame_needed = 0, uses_anonymous_args = 0
+ 370              	.LVL38:
+ 371 0000 10B5     		push	{r4, lr}
+ 372              	.LCFI9:
+ 373              		.cfi_def_cfa_offset 8
+ 374              		.cfi_offset 4, -8
+ 375              		.cfi_offset 14, -4
+ 376 0002 0446     		mov	r4, r0
+ 529:u8g2/csrc/u8x8_byte.c ****   //uint8_t val;
+ 530:u8g2/csrc/u8x8_byte.c ****   /* do not drive SDA */
+ 531:u8g2/csrc/u8x8_byte.c ****   i2c_read_sda(u8x8);
+ 377              		.loc 1 531 0
+ 378 0004 FFF7FEFF 		bl	i2c_read_sda
+ 379              	.LVL39:
+ 532:u8g2/csrc/u8x8_byte.c ****   i2c_delay(u8x8);
+ 380              		.loc 1 532 0
+ 381 0008 2046     		mov	r0, r4
+ 382 000a FFF7FEFF 		bl	i2c_delay
+ 383              	.LVL40:
+ 533:u8g2/csrc/u8x8_byte.c ****   i2c_read_scl_and_delay(u8x8);
+ 384              		.loc 1 533 0
+ 385 000e 2046     		mov	r0, r4
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 17
+
+
+ 386 0010 FFF7FEFF 		bl	i2c_read_scl_and_delay
+ 387              	.LVL41:
+ 534:u8g2/csrc/u8x8_byte.c ****   i2c_read_sda(u8x8);
+ 388              		.loc 1 534 0
+ 389 0014 2046     		mov	r0, r4
+ 390 0016 FFF7FEFF 		bl	i2c_read_sda
+ 391              	.LVL42:
+ 535:u8g2/csrc/u8x8_byte.c ****   i2c_delay(u8x8);
+ 392              		.loc 1 535 0
+ 393 001a 2046     		mov	r0, r4
+ 394 001c FFF7FEFF 		bl	i2c_delay
+ 395              	.LVL43:
+ 536:u8g2/csrc/u8x8_byte.c ****   i2c_clear_scl(u8x8);
+ 396              		.loc 1 536 0
+ 397 0020 2046     		mov	r0, r4
+ 398 0022 FFF7FEFF 		bl	i2c_clear_scl
+ 399              	.LVL44:
+ 400 0026 10BD     		pop	{r4, pc}
+ 401              		.cfi_endproc
+ 402              	.LFE21:
+ 404              		.section	.text.i2c_write_byte,"ax",%progbits
+ 405              		.align	1
+ 406              		.syntax unified
+ 407              		.thumb
+ 408              		.thumb_func
+ 409              		.fpu softvfp
+ 411              	i2c_write_byte:
+ 412              	.LFB22:
+ 537:u8g2/csrc/u8x8_byte.c ****   //return val;
+ 538:u8g2/csrc/u8x8_byte.c **** }
+ 539:u8g2/csrc/u8x8_byte.c **** 
+ 540:u8g2/csrc/u8x8_byte.c **** static void i2c_write_byte(u8x8_t *u8x8, uint8_t b)
+ 541:u8g2/csrc/u8x8_byte.c **** {
+ 413              		.loc 1 541 0
+ 414              		.cfi_startproc
+ 415              		@ args = 0, pretend = 0, frame = 0
+ 416              		@ frame_needed = 0, uses_anonymous_args = 0
+ 417              	.LVL45:
+ 418 0000 38B5     		push	{r3, r4, r5, lr}
+ 419              	.LCFI10:
+ 420              		.cfi_def_cfa_offset 16
+ 421              		.cfi_offset 3, -16
+ 422              		.cfi_offset 4, -12
+ 423              		.cfi_offset 5, -8
+ 424              		.cfi_offset 14, -4
+ 425 0002 0446     		mov	r4, r0
+ 426 0004 0D46     		mov	r5, r1
+ 542:u8g2/csrc/u8x8_byte.c ****   i2c_write_bit(u8x8, b & 128);
+ 427              		.loc 1 542 0
+ 428 0006 01F08001 		and	r1, r1, #128
+ 429              	.LVL46:
+ 430 000a FFF7FEFF 		bl	i2c_write_bit
+ 431              	.LVL47:
+ 543:u8g2/csrc/u8x8_byte.c ****   i2c_write_bit(u8x8, b & 64);
+ 432              		.loc 1 543 0
+ 433 000e 05F04001 		and	r1, r5, #64
+ 434 0012 2046     		mov	r0, r4
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 18
+
+
+ 435 0014 FFF7FEFF 		bl	i2c_write_bit
+ 436              	.LVL48:
+ 544:u8g2/csrc/u8x8_byte.c ****   i2c_write_bit(u8x8, b & 32);
+ 437              		.loc 1 544 0
+ 438 0018 05F02001 		and	r1, r5, #32
+ 439 001c 2046     		mov	r0, r4
+ 440 001e FFF7FEFF 		bl	i2c_write_bit
+ 441              	.LVL49:
+ 545:u8g2/csrc/u8x8_byte.c ****   i2c_write_bit(u8x8, b & 16);
+ 442              		.loc 1 545 0
+ 443 0022 05F01001 		and	r1, r5, #16
+ 444 0026 2046     		mov	r0, r4
+ 445 0028 FFF7FEFF 		bl	i2c_write_bit
+ 446              	.LVL50:
+ 546:u8g2/csrc/u8x8_byte.c ****   i2c_write_bit(u8x8, b & 8);
+ 447              		.loc 1 546 0
+ 448 002c 05F00801 		and	r1, r5, #8
+ 449 0030 2046     		mov	r0, r4
+ 450 0032 FFF7FEFF 		bl	i2c_write_bit
+ 451              	.LVL51:
+ 547:u8g2/csrc/u8x8_byte.c ****   i2c_write_bit(u8x8, b & 4);
+ 452              		.loc 1 547 0
+ 453 0036 05F00401 		and	r1, r5, #4
+ 454 003a 2046     		mov	r0, r4
+ 455 003c FFF7FEFF 		bl	i2c_write_bit
+ 456              	.LVL52:
+ 548:u8g2/csrc/u8x8_byte.c ****   i2c_write_bit(u8x8, b & 2);
+ 457              		.loc 1 548 0
+ 458 0040 05F00201 		and	r1, r5, #2
+ 459 0044 2046     		mov	r0, r4
+ 460 0046 FFF7FEFF 		bl	i2c_write_bit
+ 461              	.LVL53:
+ 549:u8g2/csrc/u8x8_byte.c ****   i2c_write_bit(u8x8, b & 1);
+ 462              		.loc 1 549 0
+ 463 004a 05F00101 		and	r1, r5, #1
+ 464 004e 2046     		mov	r0, r4
+ 465 0050 FFF7FEFF 		bl	i2c_write_bit
+ 466              	.LVL54:
+ 550:u8g2/csrc/u8x8_byte.c ****     
+ 551:u8g2/csrc/u8x8_byte.c ****   /* read ack from client */
+ 552:u8g2/csrc/u8x8_byte.c ****   /* 0: ack was given by client */
+ 553:u8g2/csrc/u8x8_byte.c ****   /* 1: nothing happend during ack cycle */  
+ 554:u8g2/csrc/u8x8_byte.c ****   i2c_read_bit(u8x8);
+ 467              		.loc 1 554 0
+ 468 0054 2046     		mov	r0, r4
+ 469 0056 FFF7FEFF 		bl	i2c_read_bit
+ 470              	.LVL55:
+ 471 005a 38BD     		pop	{r3, r4, r5, pc}
+ 472              		.cfi_endproc
+ 473              	.LFE22:
+ 475              		.section	.text.u8x8_byte_SetDC,"ax",%progbits
+ 476              		.align	1
+ 477              		.global	u8x8_byte_SetDC
+ 478              		.syntax unified
+ 479              		.thumb
+ 480              		.thumb_func
+ 481              		.fpu softvfp
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 19
+
+
+ 483              	u8x8_byte_SetDC:
+ 484              	.LFB0:
+  40:u8g2/csrc/u8x8_byte.c ****   return u8x8->byte_cb(u8x8, U8X8_MSG_BYTE_SET_DC, dc, NULL);
+ 485              		.loc 1 40 0
+ 486              		.cfi_startproc
+ 487              		@ args = 0, pretend = 0, frame = 0
+ 488              		@ frame_needed = 0, uses_anonymous_args = 0
+ 489              	.LVL56:
+ 490 0000 10B5     		push	{r4, lr}
+ 491              	.LCFI11:
+ 492              		.cfi_def_cfa_offset 8
+ 493              		.cfi_offset 4, -8
+ 494              		.cfi_offset 14, -4
+  41:u8g2/csrc/u8x8_byte.c **** }
+ 495              		.loc 1 41 0
+ 496 0002 0469     		ldr	r4, [r0, #16]
+ 497 0004 0023     		movs	r3, #0
+ 498 0006 0A46     		mov	r2, r1
+ 499 0008 2021     		movs	r1, #32
+ 500              	.LVL57:
+ 501 000a A047     		blx	r4
+ 502              	.LVL58:
+  42:u8g2/csrc/u8x8_byte.c **** 
+ 503              		.loc 1 42 0
+ 504 000c 10BD     		pop	{r4, pc}
+ 505              		.cfi_endproc
+ 506              	.LFE0:
+ 508              		.section	.text.u8x8_byte_SendBytes,"ax",%progbits
+ 509              		.align	1
+ 510              		.global	u8x8_byte_SendBytes
+ 511              		.syntax unified
+ 512              		.thumb
+ 513              		.thumb_func
+ 514              		.fpu softvfp
+ 516              	u8x8_byte_SendBytes:
+ 517              	.LFB1:
+  45:u8g2/csrc/u8x8_byte.c ****   return u8x8->byte_cb(u8x8, U8X8_MSG_BYTE_SEND, cnt, (void *)data);
+ 518              		.loc 1 45 0
+ 519              		.cfi_startproc
+ 520              		@ args = 0, pretend = 0, frame = 0
+ 521              		@ frame_needed = 0, uses_anonymous_args = 0
+ 522              	.LVL59:
+ 523 0000 10B5     		push	{r4, lr}
+ 524              	.LCFI12:
+ 525              		.cfi_def_cfa_offset 8
+ 526              		.cfi_offset 4, -8
+ 527              		.cfi_offset 14, -4
+  46:u8g2/csrc/u8x8_byte.c **** }
+ 528              		.loc 1 46 0
+ 529 0002 0469     		ldr	r4, [r0, #16]
+ 530 0004 1346     		mov	r3, r2
+ 531 0006 0A46     		mov	r2, r1
+ 532              	.LVL60:
+ 533 0008 1721     		movs	r1, #23
+ 534              	.LVL61:
+ 535 000a A047     		blx	r4
+ 536              	.LVL62:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 20
+
+
+  47:u8g2/csrc/u8x8_byte.c **** 
+ 537              		.loc 1 47 0
+ 538 000c 10BD     		pop	{r4, pc}
+ 539              		.cfi_endproc
+ 540              	.LFE1:
+ 542              		.section	.text.u8x8_byte_SendByte,"ax",%progbits
+ 543              		.align	1
+ 544              		.global	u8x8_byte_SendByte
+ 545              		.syntax unified
+ 546              		.thumb
+ 547              		.thumb_func
+ 548              		.fpu softvfp
+ 550              	u8x8_byte_SendByte:
+ 551              	.LFB2:
+  50:u8g2/csrc/u8x8_byte.c ****   return u8x8_byte_SendBytes(u8x8, 1, &byte);
+ 552              		.loc 1 50 0
+ 553              		.cfi_startproc
+ 554              		@ args = 0, pretend = 0, frame = 8
+ 555              		@ frame_needed = 0, uses_anonymous_args = 0
+ 556              	.LVL63:
+ 557 0000 00B5     		push	{lr}
+ 558              	.LCFI13:
+ 559              		.cfi_def_cfa_offset 4
+ 560              		.cfi_offset 14, -4
+ 561 0002 83B0     		sub	sp, sp, #12
+ 562              	.LCFI14:
+ 563              		.cfi_def_cfa_offset 16
+ 564 0004 02AA     		add	r2, sp, #8
+ 565 0006 02F8011D 		strb	r1, [r2, #-1]!
+  51:u8g2/csrc/u8x8_byte.c **** }
+ 566              		.loc 1 51 0
+ 567 000a 0121     		movs	r1, #1
+ 568              	.LVL64:
+ 569 000c FFF7FEFF 		bl	u8x8_byte_SendBytes
+ 570              	.LVL65:
+  52:u8g2/csrc/u8x8_byte.c **** 
+ 571              		.loc 1 52 0
+ 572 0010 03B0     		add	sp, sp, #12
+ 573              	.LCFI15:
+ 574              		.cfi_def_cfa_offset 4
+ 575              		@ sp needed
+ 576 0012 5DF804FB 		ldr	pc, [sp], #4
+ 577              		.cfi_endproc
+ 578              	.LFE2:
+ 580              		.section	.text.u8x8_byte_StartTransfer,"ax",%progbits
+ 581              		.align	1
+ 582              		.global	u8x8_byte_StartTransfer
+ 583              		.syntax unified
+ 584              		.thumb
+ 585              		.thumb_func
+ 586              		.fpu softvfp
+ 588              	u8x8_byte_StartTransfer:
+ 589              	.LFB3:
+  55:u8g2/csrc/u8x8_byte.c ****   return u8x8->byte_cb(u8x8, U8X8_MSG_BYTE_START_TRANSFER, 0, NULL);
+ 590              		.loc 1 55 0
+ 591              		.cfi_startproc
+ 592              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 21
+
+
+ 593              		@ frame_needed = 0, uses_anonymous_args = 0
+ 594              	.LVL66:
+ 595 0000 10B5     		push	{r4, lr}
+ 596              	.LCFI16:
+ 597              		.cfi_def_cfa_offset 8
+ 598              		.cfi_offset 4, -8
+ 599              		.cfi_offset 14, -4
+  56:u8g2/csrc/u8x8_byte.c **** }
+ 600              		.loc 1 56 0
+ 601 0002 0469     		ldr	r4, [r0, #16]
+ 602 0004 0023     		movs	r3, #0
+ 603 0006 1A46     		mov	r2, r3
+ 604 0008 1821     		movs	r1, #24
+ 605 000a A047     		blx	r4
+ 606              	.LVL67:
+  57:u8g2/csrc/u8x8_byte.c **** 
+ 607              		.loc 1 57 0
+ 608 000c 10BD     		pop	{r4, pc}
+ 609              		.cfi_endproc
+ 610              	.LFE3:
+ 612              		.section	.text.u8x8_byte_EndTransfer,"ax",%progbits
+ 613              		.align	1
+ 614              		.global	u8x8_byte_EndTransfer
+ 615              		.syntax unified
+ 616              		.thumb
+ 617              		.thumb_func
+ 618              		.fpu softvfp
+ 620              	u8x8_byte_EndTransfer:
+ 621              	.LFB4:
+  60:u8g2/csrc/u8x8_byte.c ****   return u8x8->byte_cb(u8x8, U8X8_MSG_BYTE_END_TRANSFER, 0, NULL);
+ 622              		.loc 1 60 0
+ 623              		.cfi_startproc
+ 624              		@ args = 0, pretend = 0, frame = 0
+ 625              		@ frame_needed = 0, uses_anonymous_args = 0
+ 626              	.LVL68:
+ 627 0000 10B5     		push	{r4, lr}
+ 628              	.LCFI17:
+ 629              		.cfi_def_cfa_offset 8
+ 630              		.cfi_offset 4, -8
+ 631              		.cfi_offset 14, -4
+  61:u8g2/csrc/u8x8_byte.c **** }
+ 632              		.loc 1 61 0
+ 633 0002 0469     		ldr	r4, [r0, #16]
+ 634 0004 0023     		movs	r3, #0
+ 635 0006 1A46     		mov	r2, r3
+ 636 0008 1921     		movs	r1, #25
+ 637 000a A047     		blx	r4
+ 638              	.LVL69:
+  62:u8g2/csrc/u8x8_byte.c **** 
+ 639              		.loc 1 62 0
+ 640 000c 10BD     		pop	{r4, pc}
+ 641              		.cfi_endproc
+ 642              	.LFE4:
+ 644              		.section	.text.u8x8_byte_4wire_sw_spi,"ax",%progbits
+ 645              		.align	1
+ 646              		.global	u8x8_byte_4wire_sw_spi
+ 647              		.syntax unified
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 22
+
+
+ 648              		.thumb
+ 649              		.thumb_func
+ 650              		.fpu softvfp
+ 652              	u8x8_byte_4wire_sw_spi:
+ 653              	.LFB5:
+  89:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+ 654              		.loc 1 89 0
+ 655              		.cfi_startproc
+ 656              		@ args = 0, pretend = 0, frame = 0
+ 657              		@ frame_needed = 0, uses_anonymous_args = 0
+ 658              	.LVL70:
+ 659 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 660              	.LCFI18:
+ 661              		.cfi_def_cfa_offset 32
+ 662              		.cfi_offset 4, -32
+ 663              		.cfi_offset 5, -28
+ 664              		.cfi_offset 6, -24
+ 665              		.cfi_offset 7, -20
+ 666              		.cfi_offset 8, -16
+ 667              		.cfi_offset 9, -12
+ 668              		.cfi_offset 10, -8
+ 669              		.cfi_offset 14, -4
+ 670 0004 0446     		mov	r4, r0
+ 671 0006 9146     		mov	r9, r2
+  92:u8g2/csrc/u8x8_byte.c ****   uint8_t not_takeover_edge = 1 - takeover_edge;
+ 672              		.loc 1 92 0
+ 673 0008 0268     		ldr	r2, [r0]
+ 674              	.LVL71:
+ 675 000a 177B     		ldrb	r7, [r2, #12]	@ zero_extendqisi2
+ 676              	.LVL72:
+  95:u8g2/csrc/u8x8_byte.c ****   {
+ 677              		.loc 1 95 0
+ 678 000c 1439     		subs	r1, r1, #20
+ 679              	.LVL73:
+ 680 000e 0C29     		cmp	r1, #12
+ 681 0010 7BD8     		bhi	.L51
+ 682 0012 DFE801F0 		tbb	[pc, r1]
+ 683              	.LVL74:
+ 684              	.L41:
+ 685 0016 44       		.byte	(.L40-.L41)/2
+ 686 0017 7A       		.byte	(.L51-.L41)/2
+ 687 0018 7A       		.byte	(.L51-.L41)/2
+ 688 0019 31       		.byte	(.L52-.L41)/2
+ 689 001a 5C       		.byte	(.L43-.L41)/2
+ 690 001b 6B       		.byte	(.L44-.L41)/2
+ 691 001c 7A       		.byte	(.L51-.L41)/2
+ 692 001d 7A       		.byte	(.L51-.L41)/2
+ 693 001e 7A       		.byte	(.L51-.L41)/2
+ 694 001f 7A       		.byte	(.L51-.L41)/2
+ 695 0020 7A       		.byte	(.L51-.L41)/2
+ 696 0021 7A       		.byte	(.L51-.L41)/2
+ 697 0022 54       		.byte	(.L45-.L41)/2
+ 698 0023 00       		.p2align 1
+ 699              	.L54:
+ 107:u8g2/csrc/u8x8_byte.c **** 	  else
+ 700              		.loc 1 107 0
+ 701 0024 0122     		movs	r2, #1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 23
+
+
+ 702 0026 4121     		movs	r1, #65
+ 703 0028 2046     		mov	r0, r4
+ 704 002a FFF7FEFF 		bl	u8x8_gpio_call
+ 705              	.LVL75:
+ 706              	.L48:
+ 110:u8g2/csrc/u8x8_byte.c **** 	  
+ 707              		.loc 1 110 0 discriminator 2
+ 708 002e 7600     		lsls	r6, r6, #1
+ 709              	.LVL76:
+ 710 0030 F6B2     		uxtb	r6, r6
+ 711              	.LVL77:
+ 112:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->sda_setup_time_ns);
+ 712              		.loc 1 112 0 discriminator 2
+ 713 0032 4246     		mov	r2, r8
+ 714 0034 4021     		movs	r1, #64
+ 715 0036 2046     		mov	r0, r4
+ 716 0038 FFF7FEFF 		bl	u8x8_gpio_call
+ 717              	.LVL78:
+ 113:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_SetSPIClock(u8x8, takeover_edge);
+ 718              		.loc 1 113 0 discriminator 2
+ 719 003c 2368     		ldr	r3, [r4]
+ 720 003e 9A79     		ldrb	r2, [r3, #6]	@ zero_extendqisi2
+ 721 0040 2C21     		movs	r1, #44
+ 722 0042 2046     		mov	r0, r4
+ 723 0044 FFF7FEFF 		bl	u8x8_gpio_call
+ 724              	.LVL79:
+ 114:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->sck_pulse_width_ns);
+ 725              		.loc 1 114 0 discriminator 2
+ 726 0048 3A46     		mov	r2, r7
+ 727 004a 4021     		movs	r1, #64
+ 728 004c 2046     		mov	r0, r4
+ 729 004e FFF7FEFF 		bl	u8x8_gpio_call
+ 730              	.LVL80:
+ 115:u8g2/csrc/u8x8_byte.c **** 	}    
+ 731              		.loc 1 115 0 discriminator 2
+ 732 0052 2368     		ldr	r3, [r4]
+ 733 0054 DA79     		ldrb	r2, [r3, #7]	@ zero_extendqisi2
+ 734 0056 2C21     		movs	r1, #44
+ 735 0058 2046     		mov	r0, r4
+ 736 005a FFF7FEFF 		bl	u8x8_gpio_call
+ 737              	.LVL81:
+ 104:u8g2/csrc/u8x8_byte.c **** 	{
+ 738              		.loc 1 104 0 discriminator 2
+ 739 005e 0135     		adds	r5, r5, #1
+ 740              	.LVL82:
+ 741 0060 EDB2     		uxtb	r5, r5
+ 742              	.LVL83:
+ 743              	.L46:
+ 104:u8g2/csrc/u8x8_byte.c **** 	{
+ 744              		.loc 1 104 0 is_stmt 0 discriminator 1
+ 745 0062 072D     		cmp	r5, #7
+ 746 0064 0DD8     		bhi	.L42
+ 106:u8g2/csrc/u8x8_byte.c **** 	    u8x8_gpio_SetSPIData(u8x8, 1);
+ 747              		.loc 1 106 0 is_stmt 1
+ 748 0066 16F0800F 		tst	r6, #128
+ 749 006a DBD1     		bne	.L54
+ 109:u8g2/csrc/u8x8_byte.c **** 	  b <<= 1;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 24
+
+
+ 750              		.loc 1 109 0
+ 751 006c 0022     		movs	r2, #0
+ 752 006e 4121     		movs	r1, #65
+ 753 0070 2046     		mov	r0, r4
+ 754 0072 FFF7FEFF 		bl	u8x8_gpio_call
+ 755              	.LVL84:
+ 756 0076 DAE7     		b	.L48
+ 757              	.LVL85:
+ 758              	.L52:
+ 759 0078 07F00107 		and	r7, r7, #1
+ 760              	.LVL86:
+ 761 007c 87F00108 		eor	r8, r7, #1
+  95:u8g2/csrc/u8x8_byte.c ****   {
+ 762              		.loc 1 95 0
+ 763 0080 9A46     		mov	r10, r3
+ 764              	.LVL87:
+ 765              	.L42:
+  99:u8g2/csrc/u8x8_byte.c ****       {
+ 766              		.loc 1 99 0
+ 767 0082 B9F1000F 		cmp	r9, #0
+ 768 0086 07D0     		beq	.L55
+ 101:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 769              		.loc 1 101 0
+ 770 0088 1AF8016B 		ldrb	r6, [r10], #1	@ zero_extendqisi2
+ 771              	.LVL88:
+ 103:u8g2/csrc/u8x8_byte.c **** 	for( i = 0; i < 8; i++ )
+ 772              		.loc 1 103 0
+ 773 008c 09F1FF39 		add	r9, r9, #-1
+ 774              	.LVL89:
+ 775 0090 5FFA89F9 		uxtb	r9, r9
+ 776              	.LVL90:
+ 104:u8g2/csrc/u8x8_byte.c **** 	{
+ 777              		.loc 1 104 0
+ 778 0094 0025     		movs	r5, #0
+ 779 0096 E4E7     		b	.L46
+ 780              	.LVL91:
+ 781              	.L55:
+ 142:u8g2/csrc/u8x8_byte.c **** }
+ 782              		.loc 1 142 0
+ 783 0098 0120     		movs	r0, #1
+ 784 009a BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 785              	.LVL92:
+ 786              	.L40:
+ 122:u8g2/csrc/u8x8_byte.c ****       /* no wait required here */
+ 787              		.loc 1 122 0
+ 788 009e 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 789 00a0 4921     		movs	r1, #73
+ 790 00a2 2046     		mov	r0, r4
+ 791 00a4 FFF7FEFF 		bl	u8x8_gpio_call
+ 792              	.LVL93:
+ 126:u8g2/csrc/u8x8_byte.c ****       break;
+ 793              		.loc 1 126 0
+ 794 00a8 2368     		ldr	r3, [r4]
+ 795 00aa 1A7B     		ldrb	r2, [r3, #12]	@ zero_extendqisi2
+ 796 00ac 02F00102 		and	r2, r2, #1
+ 797 00b0 4021     		movs	r1, #64
+ 798 00b2 2046     		mov	r0, r4
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 25
+
+
+ 799 00b4 FFF7FEFF 		bl	u8x8_gpio_call
+ 800              	.LVL94:
+ 142:u8g2/csrc/u8x8_byte.c **** }
+ 801              		.loc 1 142 0
+ 802 00b8 0120     		movs	r0, #1
+ 127:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 803              		.loc 1 127 0
+ 804 00ba BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 805              	.LVL95:
+ 806              	.L45:
+ 129:u8g2/csrc/u8x8_byte.c ****       break;
+ 807              		.loc 1 129 0
+ 808 00be 4A46     		mov	r2, r9
+ 809 00c0 4A21     		movs	r1, #74
+ 810 00c2 2046     		mov	r0, r4
+ 811 00c4 FFF7FEFF 		bl	u8x8_gpio_call
+ 812              	.LVL96:
+ 142:u8g2/csrc/u8x8_byte.c **** }
+ 813              		.loc 1 142 0
+ 814 00c8 0120     		movs	r0, #1
+ 130:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 815              		.loc 1 130 0
+ 816 00ca BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 817              	.LVL97:
+ 818              	.L43:
+ 132:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 819              		.loc 1 132 0
+ 820 00ce 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 821 00d0 4921     		movs	r1, #73
+ 822 00d2 2046     		mov	r0, r4
+ 823 00d4 FFF7FEFF 		bl	u8x8_gpio_call
+ 824              	.LVL98:
+ 133:u8g2/csrc/u8x8_byte.c ****       break;
+ 825              		.loc 1 133 0
+ 826 00d8 6569     		ldr	r5, [r4, #20]
+ 827 00da 2268     		ldr	r2, [r4]
+ 828 00dc 0023     		movs	r3, #0
+ 829 00de 9278     		ldrb	r2, [r2, #2]	@ zero_extendqisi2
+ 830 00e0 2C21     		movs	r1, #44
+ 831 00e2 2046     		mov	r0, r4
+ 832 00e4 A847     		blx	r5
+ 833              	.LVL99:
+ 142:u8g2/csrc/u8x8_byte.c **** }
+ 834              		.loc 1 142 0
+ 835 00e6 0120     		movs	r0, #1
+ 134:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 836              		.loc 1 134 0
+ 837 00e8 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 838              	.LVL100:
+ 839              	.L44:
+ 136:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 840              		.loc 1 136 0
+ 841 00ec 6569     		ldr	r5, [r4, #20]
+ 842 00ee 0023     		movs	r3, #0
+ 843              	.LVL101:
+ 844 00f0 D278     		ldrb	r2, [r2, #3]	@ zero_extendqisi2
+ 845 00f2 2C21     		movs	r1, #44
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 26
+
+
+ 846 00f4 2046     		mov	r0, r4
+ 847 00f6 A847     		blx	r5
+ 848              	.LVL102:
+ 137:u8g2/csrc/u8x8_byte.c ****       break;
+ 849              		.loc 1 137 0
+ 850 00f8 2368     		ldr	r3, [r4]
+ 851 00fa 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 852 00fc 4921     		movs	r1, #73
+ 853 00fe 2046     		mov	r0, r4
+ 854 0100 FFF7FEFF 		bl	u8x8_gpio_call
+ 855              	.LVL103:
+ 142:u8g2/csrc/u8x8_byte.c **** }
+ 856              		.loc 1 142 0
+ 857 0104 0120     		movs	r0, #1
+ 138:u8g2/csrc/u8x8_byte.c ****     default:
+ 858              		.loc 1 138 0
+ 859 0106 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 860              	.LVL104:
+ 861              	.L51:
+ 140:u8g2/csrc/u8x8_byte.c ****   }
+ 862              		.loc 1 140 0
+ 863 010a 0020     		movs	r0, #0
+ 143:u8g2/csrc/u8x8_byte.c **** 
+ 864              		.loc 1 143 0
+ 865 010c BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 866              		.cfi_endproc
+ 867              	.LFE5:
+ 869              		.section	.text.u8x8_byte_8bit_6800mode,"ax",%progbits
+ 870              		.align	1
+ 871              		.global	u8x8_byte_8bit_6800mode
+ 872              		.syntax unified
+ 873              		.thumb
+ 874              		.thumb_func
+ 875              		.fpu softvfp
+ 877              	u8x8_byte_8bit_6800mode:
+ 878              	.LFB6:
+ 148:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+ 879              		.loc 1 148 0
+ 880              		.cfi_startproc
+ 881              		@ args = 0, pretend = 0, frame = 0
+ 882              		@ frame_needed = 0, uses_anonymous_args = 0
+ 883              	.LVL105:
+ 884 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 885              	.LCFI19:
+ 886              		.cfi_def_cfa_offset 24
+ 887              		.cfi_offset 4, -24
+ 888              		.cfi_offset 5, -20
+ 889              		.cfi_offset 6, -16
+ 890              		.cfi_offset 7, -12
+ 891              		.cfi_offset 8, -8
+ 892              		.cfi_offset 14, -4
+ 893 0004 0646     		mov	r6, r0
+ 894 0006 1746     		mov	r7, r2
+ 152:u8g2/csrc/u8x8_byte.c ****   {
+ 895              		.loc 1 152 0
+ 896 0008 1439     		subs	r1, r1, #20
+ 897              	.LVL106:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 27
+
+
+ 898 000a 0C29     		cmp	r1, #12
+ 899 000c 67D8     		bhi	.L67
+ 900 000e DFE801F0 		tbb	[pc, r1]
+ 901              	.LVL107:
+ 902              	.L59:
+ 903 0012 34       		.byte	(.L58-.L59)/2
+ 904 0013 66       		.byte	(.L67-.L59)/2
+ 905 0014 66       		.byte	(.L67-.L59)/2
+ 906 0015 2F       		.byte	(.L68-.L59)/2
+ 907 0016 48       		.byte	(.L61-.L59)/2
+ 908 0017 57       		.byte	(.L62-.L59)/2
+ 909 0018 66       		.byte	(.L67-.L59)/2
+ 910 0019 66       		.byte	(.L67-.L59)/2
+ 911 001a 66       		.byte	(.L67-.L59)/2
+ 912 001b 66       		.byte	(.L67-.L59)/2
+ 913 001c 66       		.byte	(.L67-.L59)/2
+ 914 001d 66       		.byte	(.L67-.L59)/2
+ 915 001e 41       		.byte	(.L63-.L59)/2
+ 916 001f 00       		.p2align 1
+ 917              	.L65:
+ 163:u8g2/csrc/u8x8_byte.c **** 	  b >>= 1;
+ 918              		.loc 1 163 0 discriminator 3
+ 919 0020 05F00102 		and	r2, r5, #1
+ 920 0024 2146     		mov	r1, r4
+ 921 0026 3046     		mov	r0, r6
+ 922 0028 FFF7FEFF 		bl	u8x8_gpio_call
+ 923              	.LVL108:
+ 164:u8g2/csrc/u8x8_byte.c **** 	}    
+ 924              		.loc 1 164 0 discriminator 3
+ 925 002c 6D08     		lsrs	r5, r5, #1
+ 926              	.LVL109:
+ 161:u8g2/csrc/u8x8_byte.c **** 	{
+ 927              		.loc 1 161 0 discriminator 3
+ 928 002e 0134     		adds	r4, r4, #1
+ 929              	.LVL110:
+ 930 0030 E4B2     		uxtb	r4, r4
+ 931              	.LVL111:
+ 932              	.L64:
+ 161:u8g2/csrc/u8x8_byte.c **** 	{
+ 933              		.loc 1 161 0 is_stmt 0 discriminator 1
+ 934 0032 472C     		cmp	r4, #71
+ 935 0034 F4D9     		bls	.L65
+ 167:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 1);
+ 936              		.loc 1 167 0 is_stmt 1
+ 937 0036 3368     		ldr	r3, [r6]
+ 938 0038 9A7B     		ldrb	r2, [r3, #14]	@ zero_extendqisi2
+ 939 003a 2C21     		movs	r1, #44
+ 940 003c 3046     		mov	r0, r6
+ 941 003e FFF7FEFF 		bl	u8x8_gpio_call
+ 942              	.LVL112:
+ 168:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->write_pulse_width_ns);
+ 943              		.loc 1 168 0
+ 944 0042 0122     		movs	r2, #1
+ 945 0044 4821     		movs	r1, #72
+ 946 0046 3046     		mov	r0, r6
+ 947 0048 FFF7FEFF 		bl	u8x8_gpio_call
+ 948              	.LVL113:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 28
+
+
+ 169:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 0);
+ 949              		.loc 1 169 0
+ 950 004c 3368     		ldr	r3, [r6]
+ 951 004e DA7B     		ldrb	r2, [r3, #15]	@ zero_extendqisi2
+ 952 0050 2C21     		movs	r1, #44
+ 953 0052 3046     		mov	r0, r6
+ 954 0054 FFF7FEFF 		bl	u8x8_gpio_call
+ 955              	.LVL114:
+ 170:u8g2/csrc/u8x8_byte.c ****       }
+ 956              		.loc 1 170 0
+ 957 0058 0022     		movs	r2, #0
+ 958 005a 4821     		movs	r1, #72
+ 959 005c 3046     		mov	r0, r6
+ 960 005e FFF7FEFF 		bl	u8x8_gpio_call
+ 961              	.LVL115:
+ 962              	.L60:
+ 156:u8g2/csrc/u8x8_byte.c ****       {
+ 963              		.loc 1 156 0
+ 964 0062 3FB1     		cbz	r7, .L70
+ 158:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 965              		.loc 1 158 0
+ 966 0064 18F8015B 		ldrb	r5, [r8], #1	@ zero_extendqisi2
+ 967              	.LVL116:
+ 160:u8g2/csrc/u8x8_byte.c **** 	for( i = U8X8_MSG_GPIO_D0; i <= U8X8_MSG_GPIO_D7; i++ )
+ 968              		.loc 1 160 0
+ 969 0068 013F     		subs	r7, r7, #1
+ 970              	.LVL117:
+ 971 006a FFB2     		uxtb	r7, r7
+ 972              	.LVL118:
+ 161:u8g2/csrc/u8x8_byte.c **** 	{
+ 973              		.loc 1 161 0
+ 974 006c 4024     		movs	r4, #64
+ 975 006e E0E7     		b	.L64
+ 976              	.LVL119:
+ 977              	.L68:
+ 152:u8g2/csrc/u8x8_byte.c ****   {
+ 978              		.loc 1 152 0
+ 979 0070 9846     		mov	r8, r3
+ 980 0072 F6E7     		b	.L60
+ 981              	.LVL120:
+ 982              	.L70:
+ 194:u8g2/csrc/u8x8_byte.c **** }
+ 983              		.loc 1 194 0
+ 984 0074 0120     		movs	r0, #1
+ 985 0076 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 986              	.LVL121:
+ 987              	.L58:
+ 176:u8g2/csrc/u8x8_byte.c ****       /* ensure that the enable signal is high */
+ 988              		.loc 1 176 0
+ 989 007a 0368     		ldr	r3, [r0]
+ 990              	.LVL122:
+ 991 007c 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 992 007e 4921     		movs	r1, #73
+ 993 0080 FFF7FEFF 		bl	u8x8_gpio_call
+ 994              	.LVL123:
+ 178:u8g2/csrc/u8x8_byte.c ****       break;
+ 995              		.loc 1 178 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 29
+
+
+ 996 0084 0022     		movs	r2, #0
+ 997 0086 4821     		movs	r1, #72
+ 998 0088 3046     		mov	r0, r6
+ 999 008a FFF7FEFF 		bl	u8x8_gpio_call
+ 1000              	.LVL124:
+ 194:u8g2/csrc/u8x8_byte.c **** }
+ 1001              		.loc 1 194 0
+ 1002 008e 0120     		movs	r0, #1
+ 179:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 1003              		.loc 1 179 0
+ 1004 0090 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1005              	.LVL125:
+ 1006              	.L63:
+ 181:u8g2/csrc/u8x8_byte.c ****       break;
+ 1007              		.loc 1 181 0
+ 1008 0094 3A46     		mov	r2, r7
+ 1009 0096 4A21     		movs	r1, #74
+ 1010 0098 FFF7FEFF 		bl	u8x8_gpio_call
+ 1011              	.LVL126:
+ 194:u8g2/csrc/u8x8_byte.c **** }
+ 1012              		.loc 1 194 0
+ 1013 009c 0120     		movs	r0, #1
+ 182:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 1014              		.loc 1 182 0
+ 1015 009e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1016              	.LVL127:
+ 1017              	.L61:
+ 184:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 1018              		.loc 1 184 0
+ 1019 00a2 0368     		ldr	r3, [r0]
+ 1020              	.LVL128:
+ 1021 00a4 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 1022 00a6 4921     		movs	r1, #73
+ 1023 00a8 FFF7FEFF 		bl	u8x8_gpio_call
+ 1024              	.LVL129:
+ 185:u8g2/csrc/u8x8_byte.c ****       break;
+ 1025              		.loc 1 185 0
+ 1026 00ac 7469     		ldr	r4, [r6, #20]
+ 1027 00ae 3268     		ldr	r2, [r6]
+ 1028 00b0 0023     		movs	r3, #0
+ 1029 00b2 9278     		ldrb	r2, [r2, #2]	@ zero_extendqisi2
+ 1030 00b4 2C21     		movs	r1, #44
+ 1031 00b6 3046     		mov	r0, r6
+ 1032 00b8 A047     		blx	r4
+ 1033              	.LVL130:
+ 194:u8g2/csrc/u8x8_byte.c **** }
+ 1034              		.loc 1 194 0
+ 1035 00ba 0120     		movs	r0, #1
+ 186:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 1036              		.loc 1 186 0
+ 1037 00bc BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1038              	.LVL131:
+ 1039              	.L62:
+ 188:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 1040              		.loc 1 188 0
+ 1041 00c0 4469     		ldr	r4, [r0, #20]
+ 1042 00c2 0268     		ldr	r2, [r0]
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 30
+
+
+ 1043 00c4 0023     		movs	r3, #0
+ 1044              	.LVL132:
+ 1045 00c6 D278     		ldrb	r2, [r2, #3]	@ zero_extendqisi2
+ 1046 00c8 2C21     		movs	r1, #44
+ 1047 00ca A047     		blx	r4
+ 1048              	.LVL133:
+ 189:u8g2/csrc/u8x8_byte.c ****       break;
+ 1049              		.loc 1 189 0
+ 1050 00cc 3368     		ldr	r3, [r6]
+ 1051 00ce 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 1052 00d0 4921     		movs	r1, #73
+ 1053 00d2 3046     		mov	r0, r6
+ 1054 00d4 FFF7FEFF 		bl	u8x8_gpio_call
+ 1055              	.LVL134:
+ 194:u8g2/csrc/u8x8_byte.c **** }
+ 1056              		.loc 1 194 0
+ 1057 00d8 0120     		movs	r0, #1
+ 190:u8g2/csrc/u8x8_byte.c ****     default:
+ 1058              		.loc 1 190 0
+ 1059 00da BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1060              	.LVL135:
+ 1061              	.L67:
+ 192:u8g2/csrc/u8x8_byte.c ****   }
+ 1062              		.loc 1 192 0
+ 1063 00de 0020     		movs	r0, #0
+ 1064              	.LVL136:
+ 195:u8g2/csrc/u8x8_byte.c **** 
+ 1065              		.loc 1 195 0
+ 1066 00e0 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1067              		.cfi_endproc
+ 1068              	.LFE6:
+ 1070              		.section	.text.u8x8_byte_8bit_8080mode,"ax",%progbits
+ 1071              		.align	1
+ 1072              		.global	u8x8_byte_8bit_8080mode
+ 1073              		.syntax unified
+ 1074              		.thumb
+ 1075              		.thumb_func
+ 1076              		.fpu softvfp
+ 1078              	u8x8_byte_8bit_8080mode:
+ 1079              	.LFB7:
+ 198:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+ 1080              		.loc 1 198 0
+ 1081              		.cfi_startproc
+ 1082              		@ args = 0, pretend = 0, frame = 0
+ 1083              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1084              	.LVL137:
+ 1085 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1086              	.LCFI20:
+ 1087              		.cfi_def_cfa_offset 24
+ 1088              		.cfi_offset 4, -24
+ 1089              		.cfi_offset 5, -20
+ 1090              		.cfi_offset 6, -16
+ 1091              		.cfi_offset 7, -12
+ 1092              		.cfi_offset 8, -8
+ 1093              		.cfi_offset 14, -4
+ 1094 0004 0646     		mov	r6, r0
+ 1095 0006 1746     		mov	r7, r2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 31
+
+
+ 202:u8g2/csrc/u8x8_byte.c ****   {
+ 1096              		.loc 1 202 0
+ 1097 0008 1439     		subs	r1, r1, #20
+ 1098              	.LVL138:
+ 1099 000a 0C29     		cmp	r1, #12
+ 1100 000c 67D8     		bhi	.L82
+ 1101 000e DFE801F0 		tbb	[pc, r1]
+ 1102              	.LVL139:
+ 1103              	.L74:
+ 1104 0012 34       		.byte	(.L73-.L74)/2
+ 1105 0013 66       		.byte	(.L82-.L74)/2
+ 1106 0014 66       		.byte	(.L82-.L74)/2
+ 1107 0015 2F       		.byte	(.L83-.L74)/2
+ 1108 0016 48       		.byte	(.L76-.L74)/2
+ 1109 0017 57       		.byte	(.L77-.L74)/2
+ 1110 0018 66       		.byte	(.L82-.L74)/2
+ 1111 0019 66       		.byte	(.L82-.L74)/2
+ 1112 001a 66       		.byte	(.L82-.L74)/2
+ 1113 001b 66       		.byte	(.L82-.L74)/2
+ 1114 001c 66       		.byte	(.L82-.L74)/2
+ 1115 001d 66       		.byte	(.L82-.L74)/2
+ 1116 001e 41       		.byte	(.L78-.L74)/2
+ 1117 001f 00       		.p2align 1
+ 1118              	.L80:
+ 213:u8g2/csrc/u8x8_byte.c **** 	  b >>= 1;
+ 1119              		.loc 1 213 0 discriminator 3
+ 1120 0020 05F00102 		and	r2, r5, #1
+ 1121 0024 2146     		mov	r1, r4
+ 1122 0026 3046     		mov	r0, r6
+ 1123 0028 FFF7FEFF 		bl	u8x8_gpio_call
+ 1124              	.LVL140:
+ 214:u8g2/csrc/u8x8_byte.c **** 	}    
+ 1125              		.loc 1 214 0 discriminator 3
+ 1126 002c 6D08     		lsrs	r5, r5, #1
+ 1127              	.LVL141:
+ 211:u8g2/csrc/u8x8_byte.c **** 	{
+ 1128              		.loc 1 211 0 discriminator 3
+ 1129 002e 0134     		adds	r4, r4, #1
+ 1130              	.LVL142:
+ 1131 0030 E4B2     		uxtb	r4, r4
+ 1132              	.LVL143:
+ 1133              	.L79:
+ 211:u8g2/csrc/u8x8_byte.c **** 	{
+ 1134              		.loc 1 211 0 is_stmt 0 discriminator 1
+ 1135 0032 472C     		cmp	r4, #71
+ 1136 0034 F4D9     		bls	.L80
+ 217:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 0);
+ 1137              		.loc 1 217 0 is_stmt 1
+ 1138 0036 3368     		ldr	r3, [r6]
+ 1139 0038 9A7B     		ldrb	r2, [r3, #14]	@ zero_extendqisi2
+ 1140 003a 2C21     		movs	r1, #44
+ 1141 003c 3046     		mov	r0, r6
+ 1142 003e FFF7FEFF 		bl	u8x8_gpio_call
+ 1143              	.LVL144:
+ 218:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->write_pulse_width_ns);
+ 1144              		.loc 1 218 0
+ 1145 0042 0022     		movs	r2, #0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 32
+
+
+ 1146 0044 4821     		movs	r1, #72
+ 1147 0046 3046     		mov	r0, r6
+ 1148 0048 FFF7FEFF 		bl	u8x8_gpio_call
+ 1149              	.LVL145:
+ 219:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 1);
+ 1150              		.loc 1 219 0
+ 1151 004c 3368     		ldr	r3, [r6]
+ 1152 004e DA7B     		ldrb	r2, [r3, #15]	@ zero_extendqisi2
+ 1153 0050 2C21     		movs	r1, #44
+ 1154 0052 3046     		mov	r0, r6
+ 1155 0054 FFF7FEFF 		bl	u8x8_gpio_call
+ 1156              	.LVL146:
+ 220:u8g2/csrc/u8x8_byte.c ****       }
+ 1157              		.loc 1 220 0
+ 1158 0058 0122     		movs	r2, #1
+ 1159 005a 4821     		movs	r1, #72
+ 1160 005c 3046     		mov	r0, r6
+ 1161 005e FFF7FEFF 		bl	u8x8_gpio_call
+ 1162              	.LVL147:
+ 1163              	.L75:
+ 206:u8g2/csrc/u8x8_byte.c ****       {
+ 1164              		.loc 1 206 0
+ 1165 0062 3FB1     		cbz	r7, .L85
+ 208:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 1166              		.loc 1 208 0
+ 1167 0064 18F8015B 		ldrb	r5, [r8], #1	@ zero_extendqisi2
+ 1168              	.LVL148:
+ 210:u8g2/csrc/u8x8_byte.c **** 	for( i = U8X8_MSG_GPIO_D0; i <= U8X8_MSG_GPIO_D7; i++ )
+ 1169              		.loc 1 210 0
+ 1170 0068 013F     		subs	r7, r7, #1
+ 1171              	.LVL149:
+ 1172 006a FFB2     		uxtb	r7, r7
+ 1173              	.LVL150:
+ 211:u8g2/csrc/u8x8_byte.c **** 	{
+ 1174              		.loc 1 211 0
+ 1175 006c 4024     		movs	r4, #64
+ 1176 006e E0E7     		b	.L79
+ 1177              	.LVL151:
+ 1178              	.L83:
+ 202:u8g2/csrc/u8x8_byte.c ****   {
+ 1179              		.loc 1 202 0
+ 1180 0070 9846     		mov	r8, r3
+ 1181 0072 F6E7     		b	.L75
+ 1182              	.LVL152:
+ 1183              	.L85:
+ 244:u8g2/csrc/u8x8_byte.c **** }
+ 1184              		.loc 1 244 0
+ 1185 0074 0120     		movs	r0, #1
+ 1186 0076 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1187              	.LVL153:
+ 1188              	.L73:
+ 226:u8g2/csrc/u8x8_byte.c ****       /* ensure that the enable signal is high */
+ 1189              		.loc 1 226 0
+ 1190 007a 0368     		ldr	r3, [r0]
+ 1191              	.LVL154:
+ 1192 007c 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 1193 007e 4921     		movs	r1, #73
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 33
+
+
+ 1194 0080 FFF7FEFF 		bl	u8x8_gpio_call
+ 1195              	.LVL155:
+ 228:u8g2/csrc/u8x8_byte.c ****       break;
+ 1196              		.loc 1 228 0
+ 1197 0084 0122     		movs	r2, #1
+ 1198 0086 4821     		movs	r1, #72
+ 1199 0088 3046     		mov	r0, r6
+ 1200 008a FFF7FEFF 		bl	u8x8_gpio_call
+ 1201              	.LVL156:
+ 244:u8g2/csrc/u8x8_byte.c **** }
+ 1202              		.loc 1 244 0
+ 1203 008e 0120     		movs	r0, #1
+ 229:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 1204              		.loc 1 229 0
+ 1205 0090 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1206              	.LVL157:
+ 1207              	.L78:
+ 231:u8g2/csrc/u8x8_byte.c ****       break;
+ 1208              		.loc 1 231 0
+ 1209 0094 3A46     		mov	r2, r7
+ 1210 0096 4A21     		movs	r1, #74
+ 1211 0098 FFF7FEFF 		bl	u8x8_gpio_call
+ 1212              	.LVL158:
+ 244:u8g2/csrc/u8x8_byte.c **** }
+ 1213              		.loc 1 244 0
+ 1214 009c 0120     		movs	r0, #1
+ 232:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 1215              		.loc 1 232 0
+ 1216 009e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1217              	.LVL159:
+ 1218              	.L76:
+ 234:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 1219              		.loc 1 234 0
+ 1220 00a2 0368     		ldr	r3, [r0]
+ 1221              	.LVL160:
+ 1222 00a4 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 1223 00a6 4921     		movs	r1, #73
+ 1224 00a8 FFF7FEFF 		bl	u8x8_gpio_call
+ 1225              	.LVL161:
+ 235:u8g2/csrc/u8x8_byte.c ****       break;
+ 1226              		.loc 1 235 0
+ 1227 00ac 7469     		ldr	r4, [r6, #20]
+ 1228 00ae 3268     		ldr	r2, [r6]
+ 1229 00b0 0023     		movs	r3, #0
+ 1230 00b2 9278     		ldrb	r2, [r2, #2]	@ zero_extendqisi2
+ 1231 00b4 2C21     		movs	r1, #44
+ 1232 00b6 3046     		mov	r0, r6
+ 1233 00b8 A047     		blx	r4
+ 1234              	.LVL162:
+ 244:u8g2/csrc/u8x8_byte.c **** }
+ 1235              		.loc 1 244 0
+ 1236 00ba 0120     		movs	r0, #1
+ 236:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 1237              		.loc 1 236 0
+ 1238 00bc BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1239              	.LVL163:
+ 1240              	.L77:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 34
+
+
+ 238:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 1241              		.loc 1 238 0
+ 1242 00c0 4469     		ldr	r4, [r0, #20]
+ 1243 00c2 0268     		ldr	r2, [r0]
+ 1244 00c4 0023     		movs	r3, #0
+ 1245              	.LVL164:
+ 1246 00c6 D278     		ldrb	r2, [r2, #3]	@ zero_extendqisi2
+ 1247 00c8 2C21     		movs	r1, #44
+ 1248 00ca A047     		blx	r4
+ 1249              	.LVL165:
+ 239:u8g2/csrc/u8x8_byte.c ****       break;
+ 1250              		.loc 1 239 0
+ 1251 00cc 3368     		ldr	r3, [r6]
+ 1252 00ce 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 1253 00d0 4921     		movs	r1, #73
+ 1254 00d2 3046     		mov	r0, r6
+ 1255 00d4 FFF7FEFF 		bl	u8x8_gpio_call
+ 1256              	.LVL166:
+ 244:u8g2/csrc/u8x8_byte.c **** }
+ 1257              		.loc 1 244 0
+ 1258 00d8 0120     		movs	r0, #1
+ 240:u8g2/csrc/u8x8_byte.c ****     default:
+ 1259              		.loc 1 240 0
+ 1260 00da BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1261              	.LVL167:
+ 1262              	.L82:
+ 242:u8g2/csrc/u8x8_byte.c ****   }
+ 1263              		.loc 1 242 0
+ 1264 00de 0020     		movs	r0, #0
+ 1265              	.LVL168:
+ 245:u8g2/csrc/u8x8_byte.c **** 
+ 1266              		.loc 1 245 0
+ 1267 00e0 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1268              		.cfi_endproc
+ 1269              	.LFE7:
+ 1271              		.section	.text.u8x8_byte_3wire_sw_spi,"ax",%progbits
+ 1272              		.align	1
+ 1273              		.global	u8x8_byte_3wire_sw_spi
+ 1274              		.syntax unified
+ 1275              		.thumb
+ 1276              		.thumb_func
+ 1277              		.fpu softvfp
+ 1279              	u8x8_byte_3wire_sw_spi:
+ 1280              	.LFB8:
+ 250:u8g2/csrc/u8x8_byte.c ****   uint8_t i;
+ 1281              		.loc 1 250 0
+ 1282              		.cfi_startproc
+ 1283              		@ args = 0, pretend = 0, frame = 0
+ 1284              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1285              	.LVL169:
+ 1286 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 1287              	.LCFI21:
+ 1288              		.cfi_def_cfa_offset 32
+ 1289              		.cfi_offset 4, -32
+ 1290              		.cfi_offset 5, -28
+ 1291              		.cfi_offset 6, -24
+ 1292              		.cfi_offset 7, -20
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 35
+
+
+ 1293              		.cfi_offset 8, -16
+ 1294              		.cfi_offset 9, -12
+ 1295              		.cfi_offset 10, -8
+ 1296              		.cfi_offset 14, -4
+ 1297 0004 0446     		mov	r4, r0
+ 1298 0006 9146     		mov	r9, r2
+ 253:u8g2/csrc/u8x8_byte.c ****   uint8_t not_takeover_edge = 1 - takeover_edge;
+ 1299              		.loc 1 253 0
+ 1300 0008 0268     		ldr	r2, [r0]
+ 1301              	.LVL170:
+ 1302 000a 177B     		ldrb	r7, [r2, #12]	@ zero_extendqisi2
+ 1303              	.LVL171:
+ 258:u8g2/csrc/u8x8_byte.c ****   {
+ 1304              		.loc 1 258 0
+ 1305 000c 1439     		subs	r1, r1, #20
+ 1306              	.LVL172:
+ 1307 000e 0C29     		cmp	r1, #12
+ 1308 0010 00F28180 		bhi	.L100
+ 1309 0014 DFE801F0 		tbb	[pc, r1]
+ 1310              	.LVL173:
+ 1311              	.L89:
+ 1312 0018 4B       		.byte	(.L88-.L89)/2
+ 1313 0019 7F       		.byte	(.L100-.L89)/2
+ 1314 001a 7F       		.byte	(.L100-.L89)/2
+ 1315 001b 31       		.byte	(.L101-.L89)/2
+ 1316 001c 61       		.byte	(.L91-.L89)/2
+ 1317 001d 70       		.byte	(.L92-.L89)/2
+ 1318 001e 7F       		.byte	(.L100-.L89)/2
+ 1319 001f 7F       		.byte	(.L100-.L89)/2
+ 1320 0020 7F       		.byte	(.L100-.L89)/2
+ 1321 0021 7F       		.byte	(.L100-.L89)/2
+ 1322 0022 7F       		.byte	(.L100-.L89)/2
+ 1323 0023 7F       		.byte	(.L100-.L89)/2
+ 1324 0024 5B       		.byte	(.L93-.L89)/2
+ 1325 0025 00       		.p2align 1
+ 1326              	.L96:
+ 274:u8g2/csrc/u8x8_byte.c **** 	  b <<= 1;
+ 1327              		.loc 1 274 0
+ 1328 0026 0022     		movs	r2, #0
+ 1329 0028 4121     		movs	r1, #65
+ 1330 002a 2046     		mov	r0, r4
+ 1331 002c FFF7FEFF 		bl	u8x8_gpio_call
+ 1332              	.LVL174:
+ 1333              	.L97:
+ 275:u8g2/csrc/u8x8_byte.c **** 	  
+ 1334              		.loc 1 275 0 discriminator 2
+ 1335 0030 7600     		lsls	r6, r6, #1
+ 1336              	.LVL175:
+ 1337 0032 B6B2     		uxth	r6, r6
+ 1338              	.LVL176:
+ 277:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->sda_setup_time_ns);
+ 1339              		.loc 1 277 0 discriminator 2
+ 1340 0034 4246     		mov	r2, r8
+ 1341 0036 4021     		movs	r1, #64
+ 1342 0038 2046     		mov	r0, r4
+ 1343 003a FFF7FEFF 		bl	u8x8_gpio_call
+ 1344              	.LVL177:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 36
+
+
+ 278:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_SetSPIClock(u8x8, takeover_edge);
+ 1345              		.loc 1 278 0 discriminator 2
+ 1346 003e 2368     		ldr	r3, [r4]
+ 1347 0040 9A79     		ldrb	r2, [r3, #6]	@ zero_extendqisi2
+ 1348 0042 2C21     		movs	r1, #44
+ 1349 0044 2046     		mov	r0, r4
+ 1350 0046 FFF7FEFF 		bl	u8x8_gpio_call
+ 1351              	.LVL178:
+ 279:u8g2/csrc/u8x8_byte.c **** 	  u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->sck_pulse_width_ns);
+ 1352              		.loc 1 279 0 discriminator 2
+ 1353 004a 3A46     		mov	r2, r7
+ 1354 004c 4021     		movs	r1, #64
+ 1355 004e 2046     		mov	r0, r4
+ 1356 0050 FFF7FEFF 		bl	u8x8_gpio_call
+ 1357              	.LVL179:
+ 280:u8g2/csrc/u8x8_byte.c **** 	}    
+ 1358              		.loc 1 280 0 discriminator 2
+ 1359 0054 2368     		ldr	r3, [r4]
+ 1360 0056 DA79     		ldrb	r2, [r3, #7]	@ zero_extendqisi2
+ 1361 0058 2C21     		movs	r1, #44
+ 1362 005a 2046     		mov	r0, r4
+ 1363 005c FFF7FEFF 		bl	u8x8_gpio_call
+ 1364              	.LVL180:
+ 269:u8g2/csrc/u8x8_byte.c **** 	{
+ 1365              		.loc 1 269 0 discriminator 2
+ 1366 0060 0135     		adds	r5, r5, #1
+ 1367              	.LVL181:
+ 1368 0062 EDB2     		uxtb	r5, r5
+ 1369              	.LVL182:
+ 1370              	.L95:
+ 269:u8g2/csrc/u8x8_byte.c **** 	{
+ 1371              		.loc 1 269 0 is_stmt 0 discriminator 1
+ 1372 0064 082D     		cmp	r5, #8
+ 1373 0066 0DD8     		bhi	.L90
+ 271:u8g2/csrc/u8x8_byte.c **** 	    u8x8_gpio_SetSPIData(u8x8, 1);
+ 1374              		.loc 1 271 0 is_stmt 1
+ 1375 0068 16F4807F 		tst	r6, #256
+ 1376 006c DBD0     		beq	.L96
+ 272:u8g2/csrc/u8x8_byte.c **** 	  else
+ 1377              		.loc 1 272 0
+ 1378 006e 0122     		movs	r2, #1
+ 1379 0070 4121     		movs	r1, #65
+ 1380 0072 2046     		mov	r0, r4
+ 1381 0074 FFF7FEFF 		bl	u8x8_gpio_call
+ 1382              	.LVL183:
+ 1383 0078 DAE7     		b	.L97
+ 1384              	.LVL184:
+ 1385              	.L101:
+ 1386 007a 07F00107 		and	r7, r7, #1
+ 1387              	.LVL185:
+ 1388 007e 87F00108 		eor	r8, r7, #1
+ 258:u8g2/csrc/u8x8_byte.c ****   {
+ 1389              		.loc 1 258 0
+ 1390 0082 9A46     		mov	r10, r3
+ 1391              	.LVL186:
+ 1392              	.L90:
+ 262:u8g2/csrc/u8x8_byte.c ****       {
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 37
+
+
+ 1393              		.loc 1 262 0
+ 1394 0084 B9F1000F 		cmp	r9, #0
+ 1395 0088 0ED0     		beq	.L103
+ 264:u8g2/csrc/u8x8_byte.c **** 	if ( last_dc != 0 )
+ 1396              		.loc 1 264 0
+ 1397 008a 9AF80060 		ldrb	r6, [r10]	@ zero_extendqisi2
+ 1398              	.LVL187:
+ 265:u8g2/csrc/u8x8_byte.c **** 	  b |= 256;
+ 1399              		.loc 1 265 0
+ 1400 008e 234B     		ldr	r3, .L104
+ 1401 0090 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1402 0092 0BB1     		cbz	r3, .L94
+ 266:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 1403              		.loc 1 266 0
+ 1404 0094 46F48076 		orr	r6, r6, #256
+ 1405              	.LVL188:
+ 1406              	.L94:
+ 267:u8g2/csrc/u8x8_byte.c **** 	arg_int--;
+ 1407              		.loc 1 267 0
+ 1408 0098 0AF1010A 		add	r10, r10, #1
+ 1409              	.LVL189:
+ 268:u8g2/csrc/u8x8_byte.c **** 	for( i = 0; i < 9; i++ )
+ 1410              		.loc 1 268 0
+ 1411 009c 09F1FF39 		add	r9, r9, #-1
+ 1412              	.LVL190:
+ 1413 00a0 5FFA89F9 		uxtb	r9, r9
+ 1414              	.LVL191:
+ 269:u8g2/csrc/u8x8_byte.c **** 	{
+ 1415              		.loc 1 269 0
+ 1416 00a4 0025     		movs	r5, #0
+ 1417 00a6 DDE7     		b	.L95
+ 1418              	.LVL192:
+ 1419              	.L103:
+ 307:u8g2/csrc/u8x8_byte.c **** }
+ 1420              		.loc 1 307 0
+ 1421 00a8 0120     		movs	r0, #1
+ 1422 00aa BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 1423              	.LVL193:
+ 1424              	.L88:
+ 287:u8g2/csrc/u8x8_byte.c ****       /* no wait required here */
+ 1425              		.loc 1 287 0
+ 1426 00ae 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 1427 00b0 4921     		movs	r1, #73
+ 1428 00b2 2046     		mov	r0, r4
+ 1429 00b4 FFF7FEFF 		bl	u8x8_gpio_call
+ 1430              	.LVL194:
+ 291:u8g2/csrc/u8x8_byte.c ****       break;
+ 1431              		.loc 1 291 0
+ 1432 00b8 2368     		ldr	r3, [r4]
+ 1433 00ba 1A7B     		ldrb	r2, [r3, #12]	@ zero_extendqisi2
+ 1434 00bc 02F00102 		and	r2, r2, #1
+ 1435 00c0 4021     		movs	r1, #64
+ 1436 00c2 2046     		mov	r0, r4
+ 1437 00c4 FFF7FEFF 		bl	u8x8_gpio_call
+ 1438              	.LVL195:
+ 307:u8g2/csrc/u8x8_byte.c **** }
+ 1439              		.loc 1 307 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 38
+
+
+ 1440 00c8 0120     		movs	r0, #1
+ 292:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 1441              		.loc 1 292 0
+ 1442 00ca BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 1443              	.LVL196:
+ 1444              	.L93:
+ 294:u8g2/csrc/u8x8_byte.c ****       break;
+ 1445              		.loc 1 294 0
+ 1446 00ce 134B     		ldr	r3, .L104
+ 1447              	.LVL197:
+ 1448 00d0 83F80090 		strb	r9, [r3]
+ 307:u8g2/csrc/u8x8_byte.c **** }
+ 1449              		.loc 1 307 0
+ 1450 00d4 0120     		movs	r0, #1
+ 295:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 1451              		.loc 1 295 0
+ 1452 00d6 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 1453              	.LVL198:
+ 1454              	.L91:
+ 297:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 1455              		.loc 1 297 0
+ 1456 00da 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 1457 00dc 4921     		movs	r1, #73
+ 1458 00de 2046     		mov	r0, r4
+ 1459 00e0 FFF7FEFF 		bl	u8x8_gpio_call
+ 1460              	.LVL199:
+ 298:u8g2/csrc/u8x8_byte.c ****       break;
+ 1461              		.loc 1 298 0
+ 1462 00e4 6569     		ldr	r5, [r4, #20]
+ 1463 00e6 2268     		ldr	r2, [r4]
+ 1464 00e8 0023     		movs	r3, #0
+ 1465 00ea 9278     		ldrb	r2, [r2, #2]	@ zero_extendqisi2
+ 1466 00ec 2C21     		movs	r1, #44
+ 1467 00ee 2046     		mov	r0, r4
+ 1468 00f0 A847     		blx	r5
+ 1469              	.LVL200:
+ 307:u8g2/csrc/u8x8_byte.c **** }
+ 1470              		.loc 1 307 0
+ 1471 00f2 0120     		movs	r0, #1
+ 299:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 1472              		.loc 1 299 0
+ 1473 00f4 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 1474              	.LVL201:
+ 1475              	.L92:
+ 301:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_SetCS(u8x8, u8x8->display_info->chip_disable_level);
+ 1476              		.loc 1 301 0
+ 1477 00f8 6569     		ldr	r5, [r4, #20]
+ 1478 00fa 0023     		movs	r3, #0
+ 1479              	.LVL202:
+ 1480 00fc D278     		ldrb	r2, [r2, #3]	@ zero_extendqisi2
+ 1481 00fe 2C21     		movs	r1, #44
+ 1482 0100 2046     		mov	r0, r4
+ 1483 0102 A847     		blx	r5
+ 1484              	.LVL203:
+ 302:u8g2/csrc/u8x8_byte.c ****       break;
+ 1485              		.loc 1 302 0
+ 1486 0104 2368     		ldr	r3, [r4]
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 39
+
+
+ 1487 0106 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 1488 0108 4921     		movs	r1, #73
+ 1489 010a 2046     		mov	r0, r4
+ 1490 010c FFF7FEFF 		bl	u8x8_gpio_call
+ 1491              	.LVL204:
+ 307:u8g2/csrc/u8x8_byte.c **** }
+ 1492              		.loc 1 307 0
+ 1493 0110 0120     		movs	r0, #1
+ 303:u8g2/csrc/u8x8_byte.c ****     default:
+ 1494              		.loc 1 303 0
+ 1495 0112 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 1496              	.LVL205:
+ 1497              	.L100:
+ 305:u8g2/csrc/u8x8_byte.c ****   }
+ 1498              		.loc 1 305 0
+ 1499 0116 0020     		movs	r0, #0
+ 308:u8g2/csrc/u8x8_byte.c **** 
+ 1500              		.loc 1 308 0
+ 1501 0118 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 1502              	.LVL206:
+ 1503              	.L105:
+ 1504              		.align	2
+ 1505              	.L104:
+ 1506 011c 00000000 		.word	.LANCHOR0
+ 1507              		.cfi_endproc
+ 1508              	.LFE8:
+ 1510              		.section	.text.u8x8_byte_set_ks0108_cs,"ax",%progbits
+ 1511              		.align	1
+ 1512              		.global	u8x8_byte_set_ks0108_cs
+ 1513              		.syntax unified
+ 1514              		.thumb
+ 1515              		.thumb_func
+ 1516              		.fpu softvfp
+ 1518              	u8x8_byte_set_ks0108_cs:
+ 1519              	.LFB9:
+ 313:u8g2/csrc/u8x8_byte.c ****   u8x8_gpio_SetCS(u8x8, arg&1);
+ 1520              		.loc 1 313 0
+ 1521              		.cfi_startproc
+ 1522              		@ args = 0, pretend = 0, frame = 0
+ 1523              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1524              	.LVL207:
+ 1525 0000 38B5     		push	{r3, r4, r5, lr}
+ 1526              	.LCFI22:
+ 1527              		.cfi_def_cfa_offset 16
+ 1528              		.cfi_offset 3, -16
+ 1529              		.cfi_offset 4, -12
+ 1530              		.cfi_offset 5, -8
+ 1531              		.cfi_offset 14, -4
+ 1532 0002 0546     		mov	r5, r0
+ 1533 0004 0C46     		mov	r4, r1
+ 314:u8g2/csrc/u8x8_byte.c ****   arg = arg >> 1;
+ 1534              		.loc 1 314 0
+ 1535 0006 01F00102 		and	r2, r1, #1
+ 1536 000a 4921     		movs	r1, #73
+ 1537              	.LVL208:
+ 1538 000c FFF7FEFF 		bl	u8x8_gpio_call
+ 1539              	.LVL209:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 40
+
+
+ 316:u8g2/csrc/u8x8_byte.c ****   arg = arg >> 2;
+ 1540              		.loc 1 316 0
+ 1541 0010 C4F34002 		ubfx	r2, r4, #1, #1
+ 1542 0014 4E21     		movs	r1, #78
+ 1543 0016 2846     		mov	r0, r5
+ 1544 0018 FFF7FEFF 		bl	u8x8_gpio_call
+ 1545              	.LVL210:
+ 318:u8g2/csrc/u8x8_byte.c **** }
+ 1546              		.loc 1 318 0
+ 1547 001c C4F3C002 		ubfx	r2, r4, #3, #1
+ 1548 0020 4F21     		movs	r1, #79
+ 1549 0022 2846     		mov	r0, r5
+ 1550 0024 FFF7FEFF 		bl	u8x8_gpio_call
+ 1551              	.LVL211:
+ 1552 0028 38BD     		pop	{r3, r4, r5, pc}
+ 1553              		.cfi_endproc
+ 1554              	.LFE9:
+ 1556              		.section	.text.u8x8_byte_ks0108,"ax",%progbits
+ 1557              		.align	1
+ 1558              		.global	u8x8_byte_ks0108
+ 1559              		.syntax unified
+ 1560              		.thumb
+ 1561              		.thumb_func
+ 1562              		.fpu softvfp
+ 1564              	u8x8_byte_ks0108:
+ 1565              	.LFB10:
+ 323:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+ 1566              		.loc 1 323 0
+ 1567              		.cfi_startproc
+ 1568              		@ args = 0, pretend = 0, frame = 0
+ 1569              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1570              	.LVL212:
+ 1571 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1572              	.LCFI23:
+ 1573              		.cfi_def_cfa_offset 24
+ 1574              		.cfi_offset 4, -24
+ 1575              		.cfi_offset 5, -20
+ 1576              		.cfi_offset 6, -16
+ 1577              		.cfi_offset 7, -12
+ 1578              		.cfi_offset 8, -8
+ 1579              		.cfi_offset 14, -4
+ 1580 0004 0646     		mov	r6, r0
+ 1581 0006 1746     		mov	r7, r2
+ 327:u8g2/csrc/u8x8_byte.c ****   {
+ 1582              		.loc 1 327 0
+ 1583 0008 1439     		subs	r1, r1, #20
+ 1584              	.LVL213:
+ 1585 000a 0C29     		cmp	r1, #12
+ 1586 000c 63D8     		bhi	.L119
+ 1587 000e DFE801F0 		tbb	[pc, r1]
+ 1588              	.LVL214:
+ 1589              	.L111:
+ 1590 0012 34       		.byte	(.L110-.L111)/2
+ 1591 0013 62       		.byte	(.L119-.L111)/2
+ 1592 0014 62       		.byte	(.L119-.L111)/2
+ 1593 0015 2F       		.byte	(.L120-.L111)/2
+ 1594 0016 48       		.byte	(.L113-.L111)/2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 41
+
+
+ 1595 0017 55       		.byte	(.L114-.L111)/2
+ 1596 0018 62       		.byte	(.L119-.L111)/2
+ 1597 0019 62       		.byte	(.L119-.L111)/2
+ 1598 001a 62       		.byte	(.L119-.L111)/2
+ 1599 001b 62       		.byte	(.L119-.L111)/2
+ 1600 001c 62       		.byte	(.L119-.L111)/2
+ 1601 001d 62       		.byte	(.L119-.L111)/2
+ 1602 001e 41       		.byte	(.L115-.L111)/2
+ 1603 001f 00       		.p2align 1
+ 1604              	.L117:
+ 338:u8g2/csrc/u8x8_byte.c **** 	  b >>= 1;
+ 1605              		.loc 1 338 0 discriminator 3
+ 1606 0020 05F00102 		and	r2, r5, #1
+ 1607 0024 2146     		mov	r1, r4
+ 1608 0026 3046     		mov	r0, r6
+ 1609 0028 FFF7FEFF 		bl	u8x8_gpio_call
+ 1610              	.LVL215:
+ 339:u8g2/csrc/u8x8_byte.c **** 	}    
+ 1611              		.loc 1 339 0 discriminator 3
+ 1612 002c 6D08     		lsrs	r5, r5, #1
+ 1613              	.LVL216:
+ 336:u8g2/csrc/u8x8_byte.c **** 	{
+ 1614              		.loc 1 336 0 discriminator 3
+ 1615 002e 0134     		adds	r4, r4, #1
+ 1616              	.LVL217:
+ 1617 0030 E4B2     		uxtb	r4, r4
+ 1618              	.LVL218:
+ 1619              	.L116:
+ 336:u8g2/csrc/u8x8_byte.c **** 	{
+ 1620              		.loc 1 336 0 is_stmt 0 discriminator 1
+ 1621 0032 472C     		cmp	r4, #71
+ 1622 0034 F4D9     		bls	.L117
+ 342:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 1);
+ 1623              		.loc 1 342 0 is_stmt 1
+ 1624 0036 3368     		ldr	r3, [r6]
+ 1625 0038 9A7B     		ldrb	r2, [r3, #14]	@ zero_extendqisi2
+ 1626 003a 2C21     		movs	r1, #44
+ 1627 003c 3046     		mov	r0, r6
+ 1628 003e FFF7FEFF 		bl	u8x8_gpio_call
+ 1629              	.LVL219:
+ 343:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->write_pulse_width_ns);
+ 1630              		.loc 1 343 0
+ 1631 0042 0122     		movs	r2, #1
+ 1632 0044 4821     		movs	r1, #72
+ 1633 0046 3046     		mov	r0, r6
+ 1634 0048 FFF7FEFF 		bl	u8x8_gpio_call
+ 1635              	.LVL220:
+ 344:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_E, 0);
+ 1636              		.loc 1 344 0
+ 1637 004c 3368     		ldr	r3, [r6]
+ 1638 004e DA7B     		ldrb	r2, [r3, #15]	@ zero_extendqisi2
+ 1639 0050 2C21     		movs	r1, #44
+ 1640 0052 3046     		mov	r0, r6
+ 1641 0054 FFF7FEFF 		bl	u8x8_gpio_call
+ 1642              	.LVL221:
+ 345:u8g2/csrc/u8x8_byte.c ****       }
+ 1643              		.loc 1 345 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 42
+
+
+ 1644 0058 0022     		movs	r2, #0
+ 1645 005a 4821     		movs	r1, #72
+ 1646 005c 3046     		mov	r0, r6
+ 1647 005e FFF7FEFF 		bl	u8x8_gpio_call
+ 1648              	.LVL222:
+ 1649              	.L112:
+ 331:u8g2/csrc/u8x8_byte.c ****       {
+ 1650              		.loc 1 331 0
+ 1651 0062 3FB1     		cbz	r7, .L122
+ 333:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 1652              		.loc 1 333 0
+ 1653 0064 18F8015B 		ldrb	r5, [r8], #1	@ zero_extendqisi2
+ 1654              	.LVL223:
+ 335:u8g2/csrc/u8x8_byte.c **** 	for( i = U8X8_MSG_GPIO_D0; i <= U8X8_MSG_GPIO_D7; i++ )
+ 1655              		.loc 1 335 0
+ 1656 0068 013F     		subs	r7, r7, #1
+ 1657              	.LVL224:
+ 1658 006a FFB2     		uxtb	r7, r7
+ 1659              	.LVL225:
+ 336:u8g2/csrc/u8x8_byte.c **** 	{
+ 1660              		.loc 1 336 0
+ 1661 006c 4024     		movs	r4, #64
+ 1662 006e E0E7     		b	.L116
+ 1663              	.LVL226:
+ 1664              	.L120:
+ 327:u8g2/csrc/u8x8_byte.c ****   {
+ 1665              		.loc 1 327 0
+ 1666 0070 9846     		mov	r8, r3
+ 1667 0072 F6E7     		b	.L112
+ 1668              	.LVL227:
+ 1669              	.L122:
+ 370:u8g2/csrc/u8x8_byte.c **** }
+ 1670              		.loc 1 370 0
+ 1671 0074 0120     		movs	r0, #1
+ 1672 0076 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1673              	.LVL228:
+ 1674              	.L110:
+ 351:u8g2/csrc/u8x8_byte.c ****       /* ensure that the enable signal is low */
+ 1675              		.loc 1 351 0
+ 1676 007a 0368     		ldr	r3, [r0]
+ 1677              	.LVL229:
+ 1678 007c 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 1679 007e 4921     		movs	r1, #73
+ 1680 0080 FFF7FEFF 		bl	u8x8_gpio_call
+ 1681              	.LVL230:
+ 353:u8g2/csrc/u8x8_byte.c ****       break;
+ 1682              		.loc 1 353 0
+ 1683 0084 0022     		movs	r2, #0
+ 1684 0086 4821     		movs	r1, #72
+ 1685 0088 3046     		mov	r0, r6
+ 1686 008a FFF7FEFF 		bl	u8x8_gpio_call
+ 1687              	.LVL231:
+ 370:u8g2/csrc/u8x8_byte.c **** }
+ 1688              		.loc 1 370 0
+ 1689 008e 0120     		movs	r0, #1
+ 354:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 1690              		.loc 1 354 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 43
+
+
+ 1691 0090 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1692              	.LVL232:
+ 1693              	.L115:
+ 356:u8g2/csrc/u8x8_byte.c ****       break;
+ 1694              		.loc 1 356 0
+ 1695 0094 3A46     		mov	r2, r7
+ 1696 0096 4A21     		movs	r1, #74
+ 1697 0098 FFF7FEFF 		bl	u8x8_gpio_call
+ 1698              	.LVL233:
+ 370:u8g2/csrc/u8x8_byte.c **** }
+ 1699              		.loc 1 370 0
+ 1700 009c 0120     		movs	r0, #1
+ 357:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 1701              		.loc 1 357 0
+ 1702 009e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1703              	.LVL234:
+ 1704              	.L113:
+ 360:u8g2/csrc/u8x8_byte.c ****       u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->post_chip_enable_wait_
+ 1705              		.loc 1 360 0
+ 1706 00a2 3946     		mov	r1, r7
+ 1707 00a4 FFF7FEFF 		bl	u8x8_byte_set_ks0108_cs
+ 1708              	.LVL235:
+ 361:u8g2/csrc/u8x8_byte.c ****       break;
+ 1709              		.loc 1 361 0
+ 1710 00a8 7469     		ldr	r4, [r6, #20]
+ 1711 00aa 3268     		ldr	r2, [r6]
+ 1712 00ac 0023     		movs	r3, #0
+ 1713 00ae 9278     		ldrb	r2, [r2, #2]	@ zero_extendqisi2
+ 1714 00b0 2C21     		movs	r1, #44
+ 1715 00b2 3046     		mov	r0, r6
+ 1716 00b4 A047     		blx	r4
+ 1717              	.LVL236:
+ 370:u8g2/csrc/u8x8_byte.c **** }
+ 1718              		.loc 1 370 0
+ 1719 00b6 0120     		movs	r0, #1
+ 362:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 1720              		.loc 1 362 0
+ 1721 00b8 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1722              	.LVL237:
+ 1723              	.L114:
+ 364:u8g2/csrc/u8x8_byte.c ****       u8x8_byte_set_ks0108_cs(u8x8, arg_int);
+ 1724              		.loc 1 364 0
+ 1725 00bc 4469     		ldr	r4, [r0, #20]
+ 1726 00be 0268     		ldr	r2, [r0]
+ 1727 00c0 0023     		movs	r3, #0
+ 1728              	.LVL238:
+ 1729 00c2 D278     		ldrb	r2, [r2, #3]	@ zero_extendqisi2
+ 1730 00c4 2C21     		movs	r1, #44
+ 1731 00c6 A047     		blx	r4
+ 1732              	.LVL239:
+ 365:u8g2/csrc/u8x8_byte.c ****       break;
+ 1733              		.loc 1 365 0
+ 1734 00c8 3946     		mov	r1, r7
+ 1735 00ca 3046     		mov	r0, r6
+ 1736 00cc FFF7FEFF 		bl	u8x8_byte_set_ks0108_cs
+ 1737              	.LVL240:
+ 370:u8g2/csrc/u8x8_byte.c **** }
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 44
+
+
+ 1738              		.loc 1 370 0
+ 1739 00d0 0120     		movs	r0, #1
+ 366:u8g2/csrc/u8x8_byte.c ****     default:
+ 1740              		.loc 1 366 0
+ 1741 00d2 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1742              	.LVL241:
+ 1743              	.L119:
+ 368:u8g2/csrc/u8x8_byte.c ****   }
+ 1744              		.loc 1 368 0
+ 1745 00d6 0020     		movs	r0, #0
+ 1746              	.LVL242:
+ 371:u8g2/csrc/u8x8_byte.c **** 
+ 1747              		.loc 1 371 0
+ 1748 00d8 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1749              		.cfi_endproc
+ 1750              	.LFE10:
+ 1752              		.section	.text.u8x8_byte_sed1520,"ax",%progbits
+ 1753              		.align	1
+ 1754              		.global	u8x8_byte_sed1520
+ 1755              		.syntax unified
+ 1756              		.thumb
+ 1757              		.thumb_func
+ 1758              		.fpu softvfp
+ 1760              	u8x8_byte_sed1520:
+ 1761              	.LFB11:
+ 379:u8g2/csrc/u8x8_byte.c ****   uint8_t i, b;
+ 1762              		.loc 1 379 0
+ 1763              		.cfi_startproc
+ 1764              		@ args = 0, pretend = 0, frame = 0
+ 1765              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1766              	.LVL243:
+ 1767 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1768              	.LCFI24:
+ 1769              		.cfi_def_cfa_offset 24
+ 1770              		.cfi_offset 4, -24
+ 1771              		.cfi_offset 5, -20
+ 1772              		.cfi_offset 6, -16
+ 1773              		.cfi_offset 7, -12
+ 1774              		.cfi_offset 8, -8
+ 1775              		.cfi_offset 14, -4
+ 1776 0004 0646     		mov	r6, r0
+ 1777 0006 1746     		mov	r7, r2
+ 384:u8g2/csrc/u8x8_byte.c ****   {
+ 1778              		.loc 1 384 0
+ 1779 0008 1439     		subs	r1, r1, #20
+ 1780              	.LVL244:
+ 1781 000a 0C29     		cmp	r1, #12
+ 1782 000c 08D8     		bhi	.L124
+ 1783 000e DFE801F0 		tbb	[pc, r1]
+ 1784              	.LVL245:
+ 1785              	.L126:
+ 1786 0012 38       		.byte	(.L125-.L126)/2
+ 1787 0013 07       		.byte	(.L124-.L126)/2
+ 1788 0014 07       		.byte	(.L124-.L126)/2
+ 1789 0015 33       		.byte	(.L134-.L126)/2
+ 1790 0016 54       		.byte	(.L128-.L126)/2
+ 1791 0017 5D       		.byte	(.L135-.L126)/2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 45
+
+
+ 1792 0018 07       		.byte	(.L124-.L126)/2
+ 1793 0019 07       		.byte	(.L124-.L126)/2
+ 1794 001a 07       		.byte	(.L124-.L126)/2
+ 1795 001b 07       		.byte	(.L124-.L126)/2
+ 1796 001c 07       		.byte	(.L124-.L126)/2
+ 1797 001d 07       		.byte	(.L124-.L126)/2
+ 1798 001e 4D       		.byte	(.L130-.L126)/2
+ 1799 001f 00       		.p2align 1
+ 1800              	.L124:
+ 427:u8g2/csrc/u8x8_byte.c ****   }
+ 1801              		.loc 1 427 0
+ 1802 0020 0020     		movs	r0, #0
+ 1803              	.LVL246:
+ 1804 0022 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1805              	.LVL247:
+ 1806              	.L132:
+ 395:u8g2/csrc/u8x8_byte.c **** 	  b >>= 1;
+ 1807              		.loc 1 395 0 discriminator 3
+ 1808 0026 05F00102 		and	r2, r5, #1
+ 1809 002a 2146     		mov	r1, r4
+ 1810 002c 3046     		mov	r0, r6
+ 1811 002e FFF7FEFF 		bl	u8x8_gpio_call
+ 1812              	.LVL248:
+ 396:u8g2/csrc/u8x8_byte.c **** 	}    
+ 1813              		.loc 1 396 0 discriminator 3
+ 1814 0032 6D08     		lsrs	r5, r5, #1
+ 1815              	.LVL249:
+ 393:u8g2/csrc/u8x8_byte.c **** 	{
+ 1816              		.loc 1 393 0 discriminator 3
+ 1817 0034 0134     		adds	r4, r4, #1
+ 1818              	.LVL250:
+ 1819 0036 E4B2     		uxtb	r4, r4
+ 1820              	.LVL251:
+ 1821              	.L131:
+ 393:u8g2/csrc/u8x8_byte.c **** 	{
+ 1822              		.loc 1 393 0 is_stmt 0 discriminator 1
+ 1823 0038 472C     		cmp	r4, #71
+ 1824 003a F4D9     		bls	.L132
+ 399:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, enable_pin, 1);
+ 1825              		.loc 1 399 0 is_stmt 1
+ 1826 003c 3368     		ldr	r3, [r6]
+ 1827 003e 9A7B     		ldrb	r2, [r3, #14]	@ zero_extendqisi2
+ 1828 0040 2C21     		movs	r1, #44
+ 1829 0042 3046     		mov	r0, r6
+ 1830 0044 FFF7FEFF 		bl	u8x8_gpio_call
+ 1831              	.LVL252:
+ 400:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, u8x8->display_info->write_pulse_width_ns);
+ 1832              		.loc 1 400 0
+ 1833 0048 234C     		ldr	r4, .L139
+ 1834              	.LVL253:
+ 1835 004a 0122     		movs	r2, #1
+ 1836 004c 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 1837 004e 3046     		mov	r0, r6
+ 1838 0050 FFF7FEFF 		bl	u8x8_gpio_call
+ 1839              	.LVL254:
+ 401:u8g2/csrc/u8x8_byte.c **** 	u8x8_gpio_call(u8x8, enable_pin, 0);
+ 1840              		.loc 1 401 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 46
+
+
+ 1841 0054 3368     		ldr	r3, [r6]
+ 1842 0056 DA7B     		ldrb	r2, [r3, #15]	@ zero_extendqisi2
+ 1843 0058 2C21     		movs	r1, #44
+ 1844 005a 3046     		mov	r0, r6
+ 1845 005c FFF7FEFF 		bl	u8x8_gpio_call
+ 1846              	.LVL255:
+ 402:u8g2/csrc/u8x8_byte.c ****       }
+ 1847              		.loc 1 402 0
+ 1848 0060 0022     		movs	r2, #0
+ 1849 0062 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 1850 0064 3046     		mov	r0, r6
+ 1851 0066 FFF7FEFF 		bl	u8x8_gpio_call
+ 1852              	.LVL256:
+ 1853              	.L127:
+ 388:u8g2/csrc/u8x8_byte.c ****       {
+ 1854              		.loc 1 388 0
+ 1855 006a 3FB1     		cbz	r7, .L138
+ 390:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 1856              		.loc 1 390 0
+ 1857 006c 18F8015B 		ldrb	r5, [r8], #1	@ zero_extendqisi2
+ 1858              	.LVL257:
+ 392:u8g2/csrc/u8x8_byte.c **** 	for( i = U8X8_MSG_GPIO_D0; i <= U8X8_MSG_GPIO_D7; i++ )
+ 1859              		.loc 1 392 0
+ 1860 0070 013F     		subs	r7, r7, #1
+ 1861              	.LVL258:
+ 1862 0072 FFB2     		uxtb	r7, r7
+ 1863              	.LVL259:
+ 393:u8g2/csrc/u8x8_byte.c **** 	{
+ 1864              		.loc 1 393 0
+ 1865 0074 4024     		movs	r4, #64
+ 1866 0076 DFE7     		b	.L131
+ 1867              	.LVL260:
+ 1868              	.L134:
+ 384:u8g2/csrc/u8x8_byte.c ****   {
+ 1869              		.loc 1 384 0
+ 1870 0078 9846     		mov	r8, r3
+ 1871 007a F6E7     		b	.L127
+ 1872              	.LVL261:
+ 1873              	.L138:
+ 429:u8g2/csrc/u8x8_byte.c **** }
+ 1874              		.loc 1 429 0
+ 1875 007c 0120     		movs	r0, #1
+ 1876 007e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1877              	.LVL262:
+ 1878              	.L125:
+ 408:u8g2/csrc/u8x8_byte.c ****       /* ensure that the enable signals are low */
+ 1879              		.loc 1 408 0
+ 1880 0082 0368     		ldr	r3, [r0]
+ 1881              	.LVL263:
+ 1882 0084 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 1883 0086 4921     		movs	r1, #73
+ 1884 0088 FFF7FEFF 		bl	u8x8_gpio_call
+ 1885              	.LVL264:
+ 410:u8g2/csrc/u8x8_byte.c ****       u8x8_gpio_call(u8x8, U8X8_MSG_GPIO_CS, 0);
+ 1886              		.loc 1 410 0
+ 1887 008c 0022     		movs	r2, #0
+ 1888 008e 4821     		movs	r1, #72
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 47
+
+
+ 1889 0090 3046     		mov	r0, r6
+ 1890 0092 FFF7FEFF 		bl	u8x8_gpio_call
+ 1891              	.LVL265:
+ 411:u8g2/csrc/u8x8_byte.c ****       enable_pin = U8X8_MSG_GPIO_E;
+ 1892              		.loc 1 411 0
+ 1893 0096 0022     		movs	r2, #0
+ 1894 0098 4921     		movs	r1, #73
+ 1895 009a 3046     		mov	r0, r6
+ 1896 009c FFF7FEFF 		bl	u8x8_gpio_call
+ 1897              	.LVL266:
+ 412:u8g2/csrc/u8x8_byte.c ****       break;
+ 1898              		.loc 1 412 0
+ 1899 00a0 4822     		movs	r2, #72
+ 1900 00a2 0D4B     		ldr	r3, .L139
+ 1901 00a4 1A70     		strb	r2, [r3]
+ 429:u8g2/csrc/u8x8_byte.c **** }
+ 1902              		.loc 1 429 0
+ 1903 00a6 0120     		movs	r0, #1
+ 413:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 1904              		.loc 1 413 0
+ 1905 00a8 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1906              	.LVL267:
+ 1907              	.L130:
+ 415:u8g2/csrc/u8x8_byte.c ****       break;
+ 1908              		.loc 1 415 0
+ 1909 00ac 3A46     		mov	r2, r7
+ 1910 00ae 4A21     		movs	r1, #74
+ 1911 00b0 FFF7FEFF 		bl	u8x8_gpio_call
+ 1912              	.LVL268:
+ 429:u8g2/csrc/u8x8_byte.c **** }
+ 1913              		.loc 1 429 0
+ 1914 00b4 0120     		movs	r0, #1
+ 416:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 1915              		.loc 1 416 0
+ 1916 00b6 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1917              	.LVL269:
+ 1918              	.L128:
+ 420:u8g2/csrc/u8x8_byte.c ****       if ( arg_int != 0 )
+ 1919              		.loc 1 420 0
+ 1920 00ba 4822     		movs	r2, #72
+ 1921 00bc 064B     		ldr	r3, .L139
+ 1922              	.LVL270:
+ 1923 00be 1A70     		strb	r2, [r3]
+ 421:u8g2/csrc/u8x8_byte.c **** 	enable_pin = U8X8_MSG_GPIO_CS;
+ 1924              		.loc 1 421 0
+ 1925 00c0 3FB1     		cbz	r7, .L136
+ 422:u8g2/csrc/u8x8_byte.c ****       break;
+ 1926              		.loc 1 422 0
+ 1927 00c2 4922     		movs	r2, #73
+ 1928 00c4 1A70     		strb	r2, [r3]
+ 429:u8g2/csrc/u8x8_byte.c **** }
+ 1929              		.loc 1 429 0
+ 1930 00c6 0120     		movs	r0, #1
+ 1931              	.LVL271:
+ 1932 00c8 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1933              	.LVL272:
+ 1934              	.L135:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 48
+
+
+ 1935 00cc 0120     		movs	r0, #1
+ 1936              	.LVL273:
+ 1937 00ce BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1938              	.LVL274:
+ 1939              	.L136:
+ 1940 00d2 0120     		movs	r0, #1
+ 1941              	.LVL275:
+ 430:u8g2/csrc/u8x8_byte.c **** 
+ 1942              		.loc 1 430 0
+ 1943 00d4 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1944              	.LVL276:
+ 1945              	.L140:
+ 1946              		.align	2
+ 1947              	.L139:
+ 1948 00d8 00000000 		.word	.LANCHOR1
+ 1949              		.cfi_endproc
+ 1950              	.LFE11:
+ 1952              		.section	.text.u8x8_byte_sw_i2c,"ax",%progbits
+ 1953              		.align	1
+ 1954              		.global	u8x8_byte_sw_i2c
+ 1955              		.syntax unified
+ 1956              		.thumb
+ 1957              		.thumb_func
+ 1958              		.fpu softvfp
+ 1960              	u8x8_byte_sw_i2c:
+ 1961              	.LFB23:
+ 555:u8g2/csrc/u8x8_byte.c **** }
+ 556:u8g2/csrc/u8x8_byte.c **** 
+ 557:u8g2/csrc/u8x8_byte.c **** 
+ 558:u8g2/csrc/u8x8_byte.c **** 
+ 559:u8g2/csrc/u8x8_byte.c **** #ifdef OBSOLETE_HANDLED_BY_CAD_PROCEDURE
+ 560:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_ssd13xx_sw_i2c(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 561:u8g2/csrc/u8x8_byte.c **** {
+ 562:u8g2/csrc/u8x8_byte.c ****   uint8_t *data;
+ 563:u8g2/csrc/u8x8_byte.c ****   static uint8_t last_dc = 0;
+ 564:u8g2/csrc/u8x8_byte.c ****   static uint8_t is_send_dc = 0;	/* instruction, whether i2c-start including dc has to be sent */
+ 565:u8g2/csrc/u8x8_byte.c ****  
+ 566:u8g2/csrc/u8x8_byte.c ****   switch(msg)
+ 567:u8g2/csrc/u8x8_byte.c ****   {
+ 568:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SEND:
+ 569:u8g2/csrc/u8x8_byte.c ****       data = (uint8_t *)arg_ptr;
+ 570:u8g2/csrc/u8x8_byte.c ****     
+ 571:u8g2/csrc/u8x8_byte.c ****       if ( is_send_dc != 0 )
+ 572:u8g2/csrc/u8x8_byte.c ****       {
+ 573:u8g2/csrc/u8x8_byte.c **** 	
+ 574:u8g2/csrc/u8x8_byte.c **** 	i2c_start(u8x8);
+ 575:u8g2/csrc/u8x8_byte.c **** 	i2c_write_byte(u8x8, 0x078);		/* write slave adr and read/write bit */
+ 576:u8g2/csrc/u8x8_byte.c **** 	
+ 577:u8g2/csrc/u8x8_byte.c **** 	if ( last_dc == 0 )
+ 578:u8g2/csrc/u8x8_byte.c **** 	  i2c_write_byte(u8x8, 0);
+ 579:u8g2/csrc/u8x8_byte.c **** 	else
+ 580:u8g2/csrc/u8x8_byte.c **** 	  i2c_write_byte(u8x8, 0x040);
+ 581:u8g2/csrc/u8x8_byte.c **** 	is_send_dc = 0;
+ 582:u8g2/csrc/u8x8_byte.c ****       }
+ 583:u8g2/csrc/u8x8_byte.c ****     
+ 584:u8g2/csrc/u8x8_byte.c ****       while( arg_int > 0 )
+ 585:u8g2/csrc/u8x8_byte.c ****       {
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 49
+
+
+ 586:u8g2/csrc/u8x8_byte.c **** 	i2c_write_byte(u8x8, *data);
+ 587:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 588:u8g2/csrc/u8x8_byte.c **** 	arg_int--;
+ 589:u8g2/csrc/u8x8_byte.c ****       }
+ 590:u8g2/csrc/u8x8_byte.c ****       
+ 591:u8g2/csrc/u8x8_byte.c ****       break;
+ 592:u8g2/csrc/u8x8_byte.c ****       
+ 593:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_INIT:
+ 594:u8g2/csrc/u8x8_byte.c ****       i2c_init(u8x8);
+ 595:u8g2/csrc/u8x8_byte.c ****       break;
+ 596:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 597:u8g2/csrc/u8x8_byte.c ****       if ( last_dc != arg_int )
+ 598:u8g2/csrc/u8x8_byte.c ****       {
+ 599:u8g2/csrc/u8x8_byte.c **** 	last_dc = arg_int;
+ 600:u8g2/csrc/u8x8_byte.c **** 	is_send_dc = 1;
+ 601:u8g2/csrc/u8x8_byte.c ****       }
+ 602:u8g2/csrc/u8x8_byte.c ****       break;
+ 603:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 604:u8g2/csrc/u8x8_byte.c ****       last_dc = 0;
+ 605:u8g2/csrc/u8x8_byte.c ****       is_send_dc = 1;
+ 606:u8g2/csrc/u8x8_byte.c ****       break;
+ 607:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 608:u8g2/csrc/u8x8_byte.c ****       i2c_stop(u8x8);
+ 609:u8g2/csrc/u8x8_byte.c ****       break;
+ 610:u8g2/csrc/u8x8_byte.c ****     default:
+ 611:u8g2/csrc/u8x8_byte.c ****       return 0;
+ 612:u8g2/csrc/u8x8_byte.c ****   }
+ 613:u8g2/csrc/u8x8_byte.c ****   return 1;
+ 614:u8g2/csrc/u8x8_byte.c **** }
+ 615:u8g2/csrc/u8x8_byte.c **** #endif
+ 616:u8g2/csrc/u8x8_byte.c **** 
+ 617:u8g2/csrc/u8x8_byte.c **** uint8_t u8x8_byte_sw_i2c(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 618:u8g2/csrc/u8x8_byte.c **** {
+ 1962              		.loc 1 618 0
+ 1963              		.cfi_startproc
+ 1964              		@ args = 0, pretend = 0, frame = 0
+ 1965              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1966              	.LVL277:
+ 1967 0000 70B5     		push	{r4, r5, r6, lr}
+ 1968              	.LCFI25:
+ 1969              		.cfi_def_cfa_offset 16
+ 1970              		.cfi_offset 4, -16
+ 1971              		.cfi_offset 5, -12
+ 1972              		.cfi_offset 6, -8
+ 1973              		.cfi_offset 14, -4
+ 1974 0002 0646     		mov	r6, r0
+ 1975 0004 1446     		mov	r4, r2
+ 619:u8g2/csrc/u8x8_byte.c ****   uint8_t *data;
+ 620:u8g2/csrc/u8x8_byte.c ****  
+ 621:u8g2/csrc/u8x8_byte.c ****   switch(msg)
+ 1976              		.loc 1 621 0
+ 1977 0006 1439     		subs	r1, r1, #20
+ 1978              	.LVL278:
+ 1979 0008 0C29     		cmp	r1, #12
+ 1980 000a 08D8     		bhi	.L142
+ 1981 000c DFE801F0 		tbb	[pc, r1]
+ 1982              	.LVL279:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 50
+
+
+ 1983              	.L144:
+ 1984 0010 16       		.byte	(.L143-.L144)/2
+ 1985 0011 07       		.byte	(.L142-.L144)/2
+ 1986 0012 07       		.byte	(.L142-.L144)/2
+ 1987 0013 14       		.byte	(.L150-.L144)/2
+ 1988 0014 1A       		.byte	(.L146-.L144)/2
+ 1989 0015 23       		.byte	(.L147-.L144)/2
+ 1990 0016 07       		.byte	(.L142-.L144)/2
+ 1991 0017 07       		.byte	(.L142-.L144)/2
+ 1992 0018 07       		.byte	(.L142-.L144)/2
+ 1993 0019 07       		.byte	(.L142-.L144)/2
+ 1994 001a 07       		.byte	(.L142-.L144)/2
+ 1995 001b 07       		.byte	(.L142-.L144)/2
+ 1996 001c 27       		.byte	(.L151-.L144)/2
+ 1997 001d 00       		.p2align 1
+ 1998              	.L142:
+ 622:u8g2/csrc/u8x8_byte.c ****   {
+ 623:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SEND:
+ 624:u8g2/csrc/u8x8_byte.c ****       data = (uint8_t *)arg_ptr;
+ 625:u8g2/csrc/u8x8_byte.c ****       
+ 626:u8g2/csrc/u8x8_byte.c ****       while( arg_int > 0 )
+ 627:u8g2/csrc/u8x8_byte.c ****       {
+ 628:u8g2/csrc/u8x8_byte.c **** 	i2c_write_byte(u8x8, *data);
+ 629:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 630:u8g2/csrc/u8x8_byte.c **** 	arg_int--;
+ 631:u8g2/csrc/u8x8_byte.c ****       }
+ 632:u8g2/csrc/u8x8_byte.c ****       
+ 633:u8g2/csrc/u8x8_byte.c ****       break;
+ 634:u8g2/csrc/u8x8_byte.c ****       
+ 635:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_INIT:
+ 636:u8g2/csrc/u8x8_byte.c ****       i2c_init(u8x8);
+ 637:u8g2/csrc/u8x8_byte.c ****       break;
+ 638:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 639:u8g2/csrc/u8x8_byte.c ****       break;
+ 640:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_START_TRANSFER:
+ 641:u8g2/csrc/u8x8_byte.c ****       i2c_start(u8x8);
+ 642:u8g2/csrc/u8x8_byte.c ****       i2c_write_byte(u8x8, u8x8_GetI2CAddress(u8x8));
+ 643:u8g2/csrc/u8x8_byte.c ****       //i2c_write_byte(u8x8, 0x078);
+ 644:u8g2/csrc/u8x8_byte.c ****       break;
+ 645:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 646:u8g2/csrc/u8x8_byte.c ****       i2c_stop(u8x8);
+ 647:u8g2/csrc/u8x8_byte.c ****       break;
+ 648:u8g2/csrc/u8x8_byte.c ****     default:
+ 649:u8g2/csrc/u8x8_byte.c ****       return 0;
+ 1999              		.loc 1 649 0
+ 2000 001e 0020     		movs	r0, #0
+ 2001              	.LVL280:
+ 2002 0020 70BD     		pop	{r4, r5, r6, pc}
+ 2003              	.LVL281:
+ 2004              	.L149:
+ 628:u8g2/csrc/u8x8_byte.c **** 	data++;
+ 2005              		.loc 1 628 0
+ 2006 0022 15F8011B 		ldrb	r1, [r5], #1	@ zero_extendqisi2
+ 2007              	.LVL282:
+ 2008 0026 3046     		mov	r0, r6
+ 2009 0028 FFF7FEFF 		bl	i2c_write_byte
+ 2010              	.LVL283:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 51
+
+
+ 630:u8g2/csrc/u8x8_byte.c ****       }
+ 2011              		.loc 1 630 0
+ 2012 002c 013C     		subs	r4, r4, #1
+ 2013              	.LVL284:
+ 2014 002e E4B2     		uxtb	r4, r4
+ 2015              	.LVL285:
+ 2016              	.L145:
+ 626:u8g2/csrc/u8x8_byte.c ****       {
+ 2017              		.loc 1 626 0
+ 2018 0030 002C     		cmp	r4, #0
+ 2019 0032 F6D1     		bne	.L149
+ 650:u8g2/csrc/u8x8_byte.c ****   }
+ 651:u8g2/csrc/u8x8_byte.c ****   return 1;
+ 2020              		.loc 1 651 0
+ 2021 0034 0120     		movs	r0, #1
+ 2022 0036 70BD     		pop	{r4, r5, r6, pc}
+ 2023              	.LVL286:
+ 2024              	.L150:
+ 621:u8g2/csrc/u8x8_byte.c ****   {
+ 2025              		.loc 1 621 0
+ 2026 0038 1D46     		mov	r5, r3
+ 2027 003a F9E7     		b	.L145
+ 2028              	.L143:
+ 636:u8g2/csrc/u8x8_byte.c ****       break;
+ 2029              		.loc 1 636 0
+ 2030 003c FFF7FEFF 		bl	i2c_init
+ 2031              	.LVL287:
+ 2032              		.loc 1 651 0
+ 2033 0040 0120     		movs	r0, #1
+ 637:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_SET_DC:
+ 2034              		.loc 1 637 0
+ 2035 0042 70BD     		pop	{r4, r5, r6, pc}
+ 2036              	.LVL288:
+ 2037              	.L146:
+ 641:u8g2/csrc/u8x8_byte.c ****       i2c_write_byte(u8x8, u8x8_GetI2CAddress(u8x8));
+ 2038              		.loc 1 641 0
+ 2039 0044 FFF7FEFF 		bl	i2c_start
+ 2040              	.LVL289:
+ 642:u8g2/csrc/u8x8_byte.c ****       //i2c_write_byte(u8x8, 0x078);
+ 2041              		.loc 1 642 0
+ 2042 0048 96F82010 		ldrb	r1, [r6, #32]	@ zero_extendqisi2
+ 2043 004c 3046     		mov	r0, r6
+ 2044 004e FFF7FEFF 		bl	i2c_write_byte
+ 2045              	.LVL290:
+ 2046              		.loc 1 651 0
+ 2047 0052 0120     		movs	r0, #1
+ 644:u8g2/csrc/u8x8_byte.c ****     case U8X8_MSG_BYTE_END_TRANSFER:
+ 2048              		.loc 1 644 0
+ 2049 0054 70BD     		pop	{r4, r5, r6, pc}
+ 2050              	.LVL291:
+ 2051              	.L147:
+ 646:u8g2/csrc/u8x8_byte.c ****       break;
+ 2052              		.loc 1 646 0
+ 2053 0056 FFF7FEFF 		bl	i2c_stop
+ 2054              	.LVL292:
+ 2055              		.loc 1 651 0
+ 2056 005a 0120     		movs	r0, #1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 52
+
+
+ 647:u8g2/csrc/u8x8_byte.c ****     default:
+ 2057              		.loc 1 647 0
+ 2058 005c 70BD     		pop	{r4, r5, r6, pc}
+ 2059              	.LVL293:
+ 2060              	.L151:
+ 2061              		.loc 1 651 0
+ 2062 005e 0120     		movs	r0, #1
+ 2063              	.LVL294:
+ 652:u8g2/csrc/u8x8_byte.c **** }
+ 2064              		.loc 1 652 0
+ 2065 0060 70BD     		pop	{r4, r5, r6, pc}
+ 2066              		.cfi_endproc
+ 2067              	.LFE23:
+ 2069              		.section	.bss.enable_pin.5139,"aw",%nobits
+ 2070              		.set	.LANCHOR1,. + 0
+ 2073              	enable_pin.5139:
+ 2074 0000 00       		.space	1
+ 2075              		.section	.bss.last_dc.5090,"aw",%nobits
+ 2076              		.set	.LANCHOR0,. + 0
+ 2079              	last_dc.5090:
+ 2080 0000 00       		.space	1
+ 2081              		.text
+ 2082              	.Letext0:
+ 2083              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 2084              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 2085              		.file 4 "u8g2/csrc/u8x8.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 53
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8x8_byte.c
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:16     .text.i2c_delay:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:22     .text.i2c_delay:00000000 i2c_delay
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:46     .text.i2c_init:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:52     .text.i2c_init:00000000 i2c_init
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:85     .text.i2c_read_scl_and_delay:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:91     .text.i2c_read_scl_and_delay:00000000 i2c_read_scl_and_delay
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:118    .text.i2c_read_sda:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:124    .text.i2c_read_sda:00000000 i2c_read_sda
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:146    .text.i2c_clear_sda:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:152    .text.i2c_clear_sda:00000000 i2c_clear_sda
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:174    .text.i2c_stop:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:180    .text.i2c_stop:00000000 i2c_stop
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:220    .text.i2c_clear_scl:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:226    .text.i2c_clear_scl:00000000 i2c_clear_scl
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:248    .text.i2c_start:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:254    .text.i2c_start:00000000 i2c_start
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:310    .text.i2c_write_bit:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:316    .text.i2c_write_bit:00000000 i2c_write_bit
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:358    .text.i2c_read_bit:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:364    .text.i2c_read_bit:00000000 i2c_read_bit
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:405    .text.i2c_write_byte:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:411    .text.i2c_write_byte:00000000 i2c_write_byte
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:476    .text.u8x8_byte_SetDC:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:483    .text.u8x8_byte_SetDC:00000000 u8x8_byte_SetDC
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:509    .text.u8x8_byte_SendBytes:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:516    .text.u8x8_byte_SendBytes:00000000 u8x8_byte_SendBytes
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:543    .text.u8x8_byte_SendByte:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:550    .text.u8x8_byte_SendByte:00000000 u8x8_byte_SendByte
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:581    .text.u8x8_byte_StartTransfer:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:588    .text.u8x8_byte_StartTransfer:00000000 u8x8_byte_StartTransfer
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:613    .text.u8x8_byte_EndTransfer:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:620    .text.u8x8_byte_EndTransfer:00000000 u8x8_byte_EndTransfer
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:645    .text.u8x8_byte_4wire_sw_spi:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:652    .text.u8x8_byte_4wire_sw_spi:00000000 u8x8_byte_4wire_sw_spi
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:685    .text.u8x8_byte_4wire_sw_spi:00000016 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:870    .text.u8x8_byte_8bit_6800mode:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:877    .text.u8x8_byte_8bit_6800mode:00000000 u8x8_byte_8bit_6800mode
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:903    .text.u8x8_byte_8bit_6800mode:00000012 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1071   .text.u8x8_byte_8bit_8080mode:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1078   .text.u8x8_byte_8bit_8080mode:00000000 u8x8_byte_8bit_8080mode
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1104   .text.u8x8_byte_8bit_8080mode:00000012 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1272   .text.u8x8_byte_3wire_sw_spi:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1279   .text.u8x8_byte_3wire_sw_spi:00000000 u8x8_byte_3wire_sw_spi
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1312   .text.u8x8_byte_3wire_sw_spi:00000018 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1506   .text.u8x8_byte_3wire_sw_spi:0000011c $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1511   .text.u8x8_byte_set_ks0108_cs:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1518   .text.u8x8_byte_set_ks0108_cs:00000000 u8x8_byte_set_ks0108_cs
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1557   .text.u8x8_byte_ks0108:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1564   .text.u8x8_byte_ks0108:00000000 u8x8_byte_ks0108
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1590   .text.u8x8_byte_ks0108:00000012 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1753   .text.u8x8_byte_sed1520:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1760   .text.u8x8_byte_sed1520:00000000 u8x8_byte_sed1520
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1786   .text.u8x8_byte_sed1520:00000012 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1948   .text.u8x8_byte_sed1520:000000d8 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1953   .text.u8x8_byte_sw_i2c:00000000 $t
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s 			page 54
+
+
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1960   .text.u8x8_byte_sw_i2c:00000000 u8x8_byte_sw_i2c
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1984   .text.u8x8_byte_sw_i2c:00000010 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:2073   .bss.enable_pin.5139:00000000 enable_pin.5139
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:2074   .bss.enable_pin.5139:00000000 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:2079   .bss.last_dc.5090:00000000 last_dc.5090
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:2080   .bss.last_dc.5090:00000000 $d
+                     .debug_frame:00000010 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:698    .text.u8x8_byte_4wire_sw_spi:00000023 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:698    .text.u8x8_byte_4wire_sw_spi:00000024 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:916    .text.u8x8_byte_8bit_6800mode:0000001f $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:916    .text.u8x8_byte_8bit_6800mode:00000020 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1117   .text.u8x8_byte_8bit_8080mode:0000001f $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1117   .text.u8x8_byte_8bit_8080mode:00000020 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1325   .text.u8x8_byte_3wire_sw_spi:00000025 $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1325   .text.u8x8_byte_3wire_sw_spi:00000026 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1603   .text.u8x8_byte_ks0108:0000001f $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1603   .text.u8x8_byte_ks0108:00000020 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1799   .text.u8x8_byte_sed1520:0000001f $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1799   .text.u8x8_byte_sed1520:00000020 $t
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1997   .text.u8x8_byte_sw_i2c:0000001d $d
+C:\Users\nhantt\AppData\Local\Temp\ccj47ueS.s:1997   .text.u8x8_byte_sw_i2c:0000001e $t
+
+UNDEFINED SYMBOLS
+u8x8_gpio_call

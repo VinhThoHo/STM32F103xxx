@@ -1,0 +1,187 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8g2_d_memory.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8g2_m_16_8_1,"ax",%progbits
+  16              		.align	1
+  17              		.global	u8g2_m_16_8_1
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	u8g2_m_16_8_1:
+  24              	.LFB0:
+  25              		.file 1 "u8g2/csrc/u8g2_d_memory.c"
+   1:u8g2/csrc/u8g2_d_memory.c **** /* u8g2_d_memory.c */
+   2:u8g2/csrc/u8g2_d_memory.c **** /* generated code, codebuild, u8g2 project */
+   3:u8g2/csrc/u8g2_d_memory.c **** 
+   4:u8g2/csrc/u8g2_d_memory.c **** #include "u8g2.h"
+   5:u8g2/csrc/u8g2_d_memory.c **** 
+   6:u8g2/csrc/u8g2_d_memory.c **** uint8_t *u8g2_m_16_8_1(uint8_t *page_cnt)
+   7:u8g2/csrc/u8g2_d_memory.c **** {
+  26              		.loc 1 7 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31              	.LVL0:
+   8:u8g2/csrc/u8g2_d_memory.c ****   static uint8_t buf[128];
+   9:u8g2/csrc/u8g2_d_memory.c ****   *page_cnt = 1;
+  32              		.loc 1 9 0
+  33 0000 0123     		movs	r3, #1
+  34 0002 0370     		strb	r3, [r0]
+  10:u8g2/csrc/u8g2_d_memory.c ****   return buf;
+  11:u8g2/csrc/u8g2_d_memory.c **** }
+  35              		.loc 1 11 0
+  36 0004 0048     		ldr	r0, .L2
+  37              	.LVL1:
+  38 0006 7047     		bx	lr
+  39              	.L3:
+  40              		.align	2
+  41              	.L2:
+  42 0008 00000000 		.word	.LANCHOR0
+  43              		.cfi_endproc
+  44              	.LFE0:
+  46              		.section	.text.u8g2_m_16_8_2,"ax",%progbits
+  47              		.align	1
+  48              		.global	u8g2_m_16_8_2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s 			page 2
+
+
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu softvfp
+  54              	u8g2_m_16_8_2:
+  55              	.LFB1:
+  12:u8g2/csrc/u8g2_d_memory.c **** uint8_t *u8g2_m_16_8_2(uint8_t *page_cnt)
+  13:u8g2/csrc/u8g2_d_memory.c **** {
+  56              		.loc 1 13 0
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  61              	.LVL2:
+  14:u8g2/csrc/u8g2_d_memory.c ****   static uint8_t buf[256];
+  15:u8g2/csrc/u8g2_d_memory.c ****   *page_cnt = 2;
+  62              		.loc 1 15 0
+  63 0000 0223     		movs	r3, #2
+  64 0002 0370     		strb	r3, [r0]
+  16:u8g2/csrc/u8g2_d_memory.c ****   return buf;
+  17:u8g2/csrc/u8g2_d_memory.c **** }
+  65              		.loc 1 17 0
+  66 0004 0048     		ldr	r0, .L5
+  67              	.LVL3:
+  68 0006 7047     		bx	lr
+  69              	.L6:
+  70              		.align	2
+  71              	.L5:
+  72 0008 00000000 		.word	.LANCHOR1
+  73              		.cfi_endproc
+  74              	.LFE1:
+  76              		.section	.text.u8g2_m_16_8_f,"ax",%progbits
+  77              		.align	1
+  78              		.global	u8g2_m_16_8_f
+  79              		.syntax unified
+  80              		.thumb
+  81              		.thumb_func
+  82              		.fpu softvfp
+  84              	u8g2_m_16_8_f:
+  85              	.LFB2:
+  18:u8g2/csrc/u8g2_d_memory.c **** uint8_t *u8g2_m_16_8_f(uint8_t *page_cnt)
+  19:u8g2/csrc/u8g2_d_memory.c **** {
+  86              		.loc 1 19 0
+  87              		.cfi_startproc
+  88              		@ args = 0, pretend = 0, frame = 0
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              		@ link register save eliminated.
+  91              	.LVL4:
+  20:u8g2/csrc/u8g2_d_memory.c ****   static uint8_t buf[1024];
+  21:u8g2/csrc/u8g2_d_memory.c ****   *page_cnt = 8;
+  92              		.loc 1 21 0
+  93 0000 0823     		movs	r3, #8
+  94 0002 0370     		strb	r3, [r0]
+  22:u8g2/csrc/u8g2_d_memory.c ****   return buf;
+  23:u8g2/csrc/u8g2_d_memory.c **** }
+  95              		.loc 1 23 0
+  96 0004 0048     		ldr	r0, .L8
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s 			page 3
+
+
+  97              	.LVL5:
+  98 0006 7047     		bx	lr
+  99              	.L9:
+ 100              		.align	2
+ 101              	.L8:
+ 102 0008 00000000 		.word	.LANCHOR2
+ 103              		.cfi_endproc
+ 104              	.LFE2:
+ 106              		.section	.bss.buf.8408,"aw",%nobits
+ 107              		.align	2
+ 108              		.set	.LANCHOR0,. + 0
+ 111              	buf.8408:
+ 112 0000 00000000 		.space	128
+ 112      00000000 
+ 112      00000000 
+ 112      00000000 
+ 112      00000000 
+ 113              		.section	.bss.buf.8412,"aw",%nobits
+ 114              		.align	2
+ 115              		.set	.LANCHOR1,. + 0
+ 118              	buf.8412:
+ 119 0000 00000000 		.space	256
+ 119      00000000 
+ 119      00000000 
+ 119      00000000 
+ 119      00000000 
+ 120              		.section	.bss.buf.8416,"aw",%nobits
+ 121              		.align	2
+ 122              		.set	.LANCHOR2,. + 0
+ 125              	buf.8416:
+ 126 0000 00000000 		.space	1024
+ 126      00000000 
+ 126      00000000 
+ 126      00000000 
+ 126      00000000 
+ 127              		.text
+ 128              	.Letext0:
+ 129              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 130              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 131              		.file 4 "u8g2/csrc/u8x8.h"
+ 132              		.file 5 "u8g2/csrc/u8g2.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8g2_d_memory.c
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:16     .text.u8g2_m_16_8_1:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:23     .text.u8g2_m_16_8_1:00000000 u8g2_m_16_8_1
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:42     .text.u8g2_m_16_8_1:00000008 $d
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:47     .text.u8g2_m_16_8_2:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:54     .text.u8g2_m_16_8_2:00000000 u8g2_m_16_8_2
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:72     .text.u8g2_m_16_8_2:00000008 $d
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:77     .text.u8g2_m_16_8_f:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:84     .text.u8g2_m_16_8_f:00000000 u8g2_m_16_8_f
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:102    .text.u8g2_m_16_8_f:00000008 $d
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:107    .bss.buf.8408:00000000 $d
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:111    .bss.buf.8408:00000000 buf.8408
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:114    .bss.buf.8412:00000000 $d
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:118    .bss.buf.8412:00000000 buf.8412
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:121    .bss.buf.8416:00000000 $d
+C:\Users\nhantt\AppData\Local\Temp\ccVujbHa.s:125    .bss.buf.8416:00000000 buf.8416
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

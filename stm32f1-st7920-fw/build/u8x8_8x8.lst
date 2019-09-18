@@ -1,0 +1,1556 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8x8_8x8.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8x8_get_glyph_data,"ax",%progbits
+  16              		.align	1
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu softvfp
+  22              	u8x8_get_glyph_data:
+  23              	.LFB1:
+  24              		.file 1 "u8g2/csrc/u8x8_8x8.c"
+   1:u8g2/csrc/u8x8_8x8.c **** /*
+   2:u8g2/csrc/u8x8_8x8.c **** 
+   3:u8g2/csrc/u8x8_8x8.c ****   u8x8_8x8.c
+   4:u8g2/csrc/u8x8_8x8.c ****   
+   5:u8g2/csrc/u8x8_8x8.c ****   font procedures, directly interfaces display procedures
+   6:u8g2/csrc/u8x8_8x8.c ****   
+   7:u8g2/csrc/u8x8_8x8.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   8:u8g2/csrc/u8x8_8x8.c **** 
+   9:u8g2/csrc/u8x8_8x8.c ****   Copyright (c) 2016, olikraus@gmail.com
+  10:u8g2/csrc/u8x8_8x8.c ****   All rights reserved.
+  11:u8g2/csrc/u8x8_8x8.c **** 
+  12:u8g2/csrc/u8x8_8x8.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  13:u8g2/csrc/u8x8_8x8.c ****   are permitted provided that the following conditions are met:
+  14:u8g2/csrc/u8x8_8x8.c **** 
+  15:u8g2/csrc/u8x8_8x8.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  16:u8g2/csrc/u8x8_8x8.c ****     of conditions and the following disclaimer.
+  17:u8g2/csrc/u8x8_8x8.c ****     
+  18:u8g2/csrc/u8x8_8x8.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  19:u8g2/csrc/u8x8_8x8.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  20:u8g2/csrc/u8x8_8x8.c ****     materials provided with the distribution.
+  21:u8g2/csrc/u8x8_8x8.c **** 
+  22:u8g2/csrc/u8x8_8x8.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  23:u8g2/csrc/u8x8_8x8.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  24:u8g2/csrc/u8x8_8x8.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  25:u8g2/csrc/u8x8_8x8.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  26:u8g2/csrc/u8x8_8x8.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  27:u8g2/csrc/u8x8_8x8.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  28:u8g2/csrc/u8x8_8x8.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  29:u8g2/csrc/u8x8_8x8.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  30:u8g2/csrc/u8x8_8x8.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  31:u8g2/csrc/u8x8_8x8.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  32:u8g2/csrc/u8x8_8x8.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  33:u8g2/csrc/u8x8_8x8.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+  34:u8g2/csrc/u8x8_8x8.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 2
+
+
+  35:u8g2/csrc/u8x8_8x8.c **** 
+  36:u8g2/csrc/u8x8_8x8.c **** */
+  37:u8g2/csrc/u8x8_8x8.c **** 
+  38:u8g2/csrc/u8x8_8x8.c **** #include "u8x8.h"
+  39:u8g2/csrc/u8x8_8x8.c **** 
+  40:u8g2/csrc/u8x8_8x8.c **** #if defined(ESP8266)
+  41:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_pgm_read_esp(const uint8_t * addr) 
+  42:u8g2/csrc/u8x8_8x8.c **** {
+  43:u8g2/csrc/u8x8_8x8.c ****     uint32_t bytes;
+  44:u8g2/csrc/u8x8_8x8.c ****     bytes = *(uint32_t*)((uint32_t)addr & ~3);
+  45:u8g2/csrc/u8x8_8x8.c ****     return ((uint8_t*)&bytes)[(uint32_t)addr & 3];
+  46:u8g2/csrc/u8x8_8x8.c **** }
+  47:u8g2/csrc/u8x8_8x8.c **** #endif
+  48:u8g2/csrc/u8x8_8x8.c **** 
+  49:u8g2/csrc/u8x8_8x8.c **** 
+  50:u8g2/csrc/u8x8_8x8.c **** void u8x8_SetFont(u8x8_t *u8x8, const uint8_t *font_8x8)
+  51:u8g2/csrc/u8x8_8x8.c **** {
+  52:u8g2/csrc/u8x8_8x8.c ****   u8x8->font = font_8x8;
+  53:u8g2/csrc/u8x8_8x8.c **** }
+  54:u8g2/csrc/u8x8_8x8.c **** 
+  55:u8g2/csrc/u8x8_8x8.c **** /*
+  56:u8g2/csrc/u8x8_8x8.c ****  Args:
+  57:u8g2/csrc/u8x8_8x8.c ****    u8x8: ptr to u8x8 structure
+  58:u8g2/csrc/u8x8_8x8.c ****    encoding: glyph for which the data is requested (must be between 0 and 255)
+  59:u8g2/csrc/u8x8_8x8.c ****    buf: pointer to 8 bytes
+  60:u8g2/csrc/u8x8_8x8.c **** */
+  61:u8g2/csrc/u8x8_8x8.c **** static void u8x8_get_glyph_data(u8x8_t *u8x8, uint8_t encoding, uint8_t *buf) U8X8_NOINLINE;
+  62:u8g2/csrc/u8x8_8x8.c **** static void u8x8_get_glyph_data(u8x8_t *u8x8, uint8_t encoding, uint8_t *buf) 
+  63:u8g2/csrc/u8x8_8x8.c **** {
+  25              		.loc 1 63 0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              		@ link register save eliminated.
+  30              	.LVL0:
+  31 0000 10B4     		push	{r4}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 4
+  34              		.cfi_offset 4, -4
+  64:u8g2/csrc/u8x8_8x8.c ****   uint8_t first, last, i;
+  65:u8g2/csrc/u8x8_8x8.c ****   uint16_t offset;
+  66:u8g2/csrc/u8x8_8x8.c ****   first = u8x8_pgm_read(u8x8->font+0);
+  35              		.loc 1 66 0
+  36 0002 8469     		ldr	r4, [r0, #24]
+  37 0004 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+  38              	.LVL1:
+  67:u8g2/csrc/u8x8_8x8.c ****   last = u8x8_pgm_read(u8x8->font+1);
+  39              		.loc 1 67 0
+  40 0006 6478     		ldrb	r4, [r4, #1]	@ zero_extendqisi2
+  41              	.LVL2:
+  68:u8g2/csrc/u8x8_8x8.c ****   
+  69:u8g2/csrc/u8x8_8x8.c ****   /* get the glyph bitmap from the font */
+  70:u8g2/csrc/u8x8_8x8.c ****   if ( first <= encoding && encoding <= last )
+  42              		.loc 1 70 0
+  43 0008 8B42     		cmp	r3, r1
+  44 000a 1DD8     		bhi	.L10
+  45              		.loc 1 70 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 3
+
+
+  46 000c 8C42     		cmp	r4, r1
+  47 000e 1DD3     		bcc	.L11
+  48              	.LVL3:
+  71:u8g2/csrc/u8x8_8x8.c ****   {
+  72:u8g2/csrc/u8x8_8x8.c ****     offset = encoding;
+  73:u8g2/csrc/u8x8_8x8.c ****     offset -= first;
+  49              		.loc 1 73 0 is_stmt 1
+  50 0010 CB1A     		subs	r3, r1, r3
+  51              	.LVL4:
+  52 0012 9BB2     		uxth	r3, r3
+  53              	.LVL5:
+  74:u8g2/csrc/u8x8_8x8.c ****     offset *= 8;
+  54              		.loc 1 74 0
+  55 0014 DB00     		lsls	r3, r3, #3
+  56              	.LVL6:
+  57 0016 9BB2     		uxth	r3, r3
+  58              	.LVL7:
+  75:u8g2/csrc/u8x8_8x8.c ****     offset +=2;
+  59              		.loc 1 75 0
+  60 0018 0233     		adds	r3, r3, #2
+  61              	.LVL8:
+  62 001a 9BB2     		uxth	r3, r3
+  63              	.LVL9:
+  76:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+  64              		.loc 1 76 0
+  65 001c 0021     		movs	r1, #0
+  66              	.LVL10:
+  67 001e 06E0     		b	.L3
+  68              	.LVL11:
+  69              	.L4:
+  77:u8g2/csrc/u8x8_8x8.c ****     {
+  78:u8g2/csrc/u8x8_8x8.c ****       buf[i] = u8x8_pgm_read(u8x8->font+offset);
+  70              		.loc 1 78 0 discriminator 3
+  71 0020 8469     		ldr	r4, [r0, #24]
+  72 0022 E45C     		ldrb	r4, [r4, r3]	@ zero_extendqisi2
+  73 0024 5454     		strb	r4, [r2, r1]
+  79:u8g2/csrc/u8x8_8x8.c ****       offset++;
+  74              		.loc 1 79 0 discriminator 3
+  75 0026 0133     		adds	r3, r3, #1
+  76              	.LVL12:
+  77 0028 9BB2     		uxth	r3, r3
+  78              	.LVL13:
+  76:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+  79              		.loc 1 76 0 discriminator 3
+  80 002a 0131     		adds	r1, r1, #1
+  81              	.LVL14:
+  82 002c C9B2     		uxtb	r1, r1
+  83              	.LVL15:
+  84              	.L3:
+  76:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+  85              		.loc 1 76 0 is_stmt 0 discriminator 1
+  86 002e 0729     		cmp	r1, #7
+  87 0030 F6D9     		bls	.L4
+  88 0032 05E0     		b	.L5
+  89              	.LVL16:
+  90              	.L6:
+  80:u8g2/csrc/u8x8_8x8.c ****     }
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 4
+
+
+  81:u8g2/csrc/u8x8_8x8.c ****   }
+  82:u8g2/csrc/u8x8_8x8.c ****   else
+  83:u8g2/csrc/u8x8_8x8.c ****   {
+  84:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+  85:u8g2/csrc/u8x8_8x8.c ****     {
+  86:u8g2/csrc/u8x8_8x8.c ****       buf[i] = 0;
+  91              		.loc 1 86 0 is_stmt 1 discriminator 3
+  92 0034 0021     		movs	r1, #0
+  93 0036 D154     		strb	r1, [r2, r3]
+  84:u8g2/csrc/u8x8_8x8.c ****     {
+  94              		.loc 1 84 0 discriminator 3
+  95 0038 0133     		adds	r3, r3, #1
+  96              	.LVL17:
+  97 003a DBB2     		uxtb	r3, r3
+  98              	.LVL18:
+  99              	.L2:
+  84:u8g2/csrc/u8x8_8x8.c ****     {
+ 100              		.loc 1 84 0 is_stmt 0 discriminator 1
+ 101 003c 072B     		cmp	r3, #7
+ 102 003e F9D9     		bls	.L6
+ 103              	.LVL19:
+ 104              	.L5:
+  87:u8g2/csrc/u8x8_8x8.c ****     }
+  88:u8g2/csrc/u8x8_8x8.c ****   }
+  89:u8g2/csrc/u8x8_8x8.c ****   
+  90:u8g2/csrc/u8x8_8x8.c ****   /* invert the bitmap if required */
+  91:u8g2/csrc/u8x8_8x8.c ****   if ( u8x8->is_font_inverse_mode )
+ 105              		.loc 1 91 0 is_stmt 1
+ 106 0040 C37F     		ldrb	r3, [r0, #31]	@ zero_extendqisi2
+ 107 0042 63B1     		cbz	r3, .L1
+ 108 0044 0023     		movs	r3, #0
+ 109 0046 08E0     		b	.L7
+ 110              	.LVL20:
+ 111              	.L10:
+ 112 0048 0023     		movs	r3, #0
+ 113              	.LVL21:
+ 114 004a F7E7     		b	.L2
+ 115              	.LVL22:
+ 116              	.L11:
+ 117 004c 0023     		movs	r3, #0
+ 118              	.LVL23:
+ 119 004e F5E7     		b	.L2
+ 120              	.LVL24:
+ 121              	.L9:
+  92:u8g2/csrc/u8x8_8x8.c ****   {
+  93:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+  94:u8g2/csrc/u8x8_8x8.c ****     {
+  95:u8g2/csrc/u8x8_8x8.c ****       buf[i] ^= 255;
+ 122              		.loc 1 95 0 discriminator 3
+ 123 0050 D15C     		ldrb	r1, [r2, r3]	@ zero_extendqisi2
+ 124 0052 C943     		mvns	r1, r1
+ 125 0054 D154     		strb	r1, [r2, r3]
+  93:u8g2/csrc/u8x8_8x8.c ****     {
+ 126              		.loc 1 93 0 discriminator 3
+ 127 0056 0133     		adds	r3, r3, #1
+ 128              	.LVL25:
+ 129 0058 DBB2     		uxtb	r3, r3
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 5
+
+
+ 130              	.LVL26:
+ 131              	.L7:
+  93:u8g2/csrc/u8x8_8x8.c ****     {
+ 132              		.loc 1 93 0 is_stmt 0 discriminator 1
+ 133 005a 072B     		cmp	r3, #7
+ 134 005c F8D9     		bls	.L9
+ 135              	.LVL27:
+ 136              	.L1:
+  96:u8g2/csrc/u8x8_8x8.c ****     }
+  97:u8g2/csrc/u8x8_8x8.c ****   }
+  98:u8g2/csrc/u8x8_8x8.c ****   
+  99:u8g2/csrc/u8x8_8x8.c **** }
+ 137              		.loc 1 99 0 is_stmt 1
+ 138 005e 10BC     		pop	{r4}
+ 139              	.LCFI1:
+ 140              		.cfi_restore 4
+ 141              		.cfi_def_cfa_offset 0
+ 142 0060 7047     		bx	lr
+ 143              		.cfi_endproc
+ 144              	.LFE1:
+ 146              		.section	.text.u8x8_upscale_buf,"ax",%progbits
+ 147              		.align	1
+ 148              		.syntax unified
+ 149              		.thumb
+ 150              		.thumb_func
+ 151              		.fpu softvfp
+ 153              	u8x8_upscale_buf:
+ 154              	.LFB4:
+ 100:u8g2/csrc/u8x8_8x8.c **** 
+ 101:u8g2/csrc/u8x8_8x8.c **** void u8x8_DrawGlyph(u8x8_t *u8x8, uint8_t x, uint8_t y, uint8_t encoding)
+ 102:u8g2/csrc/u8x8_8x8.c **** {
+ 103:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf[8];
+ 104:u8g2/csrc/u8x8_8x8.c ****   u8x8_get_glyph_data(u8x8, encoding, buf);
+ 105:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 106:u8g2/csrc/u8x8_8x8.c **** }
+ 107:u8g2/csrc/u8x8_8x8.c **** 
+ 108:u8g2/csrc/u8x8_8x8.c **** 
+ 109:u8g2/csrc/u8x8_8x8.c **** /*
+ 110:u8g2/csrc/u8x8_8x8.c ****   Source: http://graphics.stanford.edu/~seander/bithacks.html
+ 111:u8g2/csrc/u8x8_8x8.c **** 	Section: Interleave bits by Binary Magic Numbers 
+ 112:u8g2/csrc/u8x8_8x8.c ****    Original codes is here:
+ 113:u8g2/csrc/u8x8_8x8.c **** 		static const unsigned int B[] = {0x55555555, 0x33333333, 0x0F0F0F0F, 0x00FF00FF};
+ 114:u8g2/csrc/u8x8_8x8.c **** 		static const unsigned int S[] = {1, 2, 4, 8};
+ 115:u8g2/csrc/u8x8_8x8.c **** 
+ 116:u8g2/csrc/u8x8_8x8.c **** 		unsigned int x; // Interleave lower 16 bits of x and y, so the bits of x
+ 117:u8g2/csrc/u8x8_8x8.c **** 		unsigned int y; // are in the even positions and bits from y in the odd;
+ 118:u8g2/csrc/u8x8_8x8.c **** 		unsigned int z; // z gets the resulting 32-bit Morton Number.  
+ 119:u8g2/csrc/u8x8_8x8.c **** 				// x and y must initially be less than 65536.
+ 120:u8g2/csrc/u8x8_8x8.c **** 
+ 121:u8g2/csrc/u8x8_8x8.c **** 		x = (x | (x << S[3])) & B[3];
+ 122:u8g2/csrc/u8x8_8x8.c **** 		x = (x | (x << S[2])) & B[2];
+ 123:u8g2/csrc/u8x8_8x8.c **** 		x = (x | (x << S[1])) & B[1];
+ 124:u8g2/csrc/u8x8_8x8.c **** 		x = (x | (x << S[0])) & B[0];
+ 125:u8g2/csrc/u8x8_8x8.c **** 
+ 126:u8g2/csrc/u8x8_8x8.c **** 		y = (y | (y << S[3])) & B[3];
+ 127:u8g2/csrc/u8x8_8x8.c **** 		y = (y | (y << S[2])) & B[2];
+ 128:u8g2/csrc/u8x8_8x8.c **** 		y = (y | (y << S[1])) & B[1];
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 6
+
+
+ 129:u8g2/csrc/u8x8_8x8.c **** 		y = (y | (y << S[0])) & B[0];
+ 130:u8g2/csrc/u8x8_8x8.c **** 
+ 131:u8g2/csrc/u8x8_8x8.c **** 		z = x | (y << 1);
+ 132:u8g2/csrc/u8x8_8x8.c **** */
+ 133:u8g2/csrc/u8x8_8x8.c **** uint16_t u8x8_upscale_byte(uint8_t x) 
+ 134:u8g2/csrc/u8x8_8x8.c **** {
+ 135:u8g2/csrc/u8x8_8x8.c **** 	uint16_t y = x;
+ 136:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 4);		// x = (x | (x << S[2])) & B[2];
+ 137:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x0f0f;
+ 138:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 2);		// x = (x | (x << S[1])) & B[1];
+ 139:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x3333;
+ 140:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 1);		// x = (x | (x << S[0])) & B[0];
+ 141:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x5555;
+ 142:u8g2/csrc/u8x8_8x8.c ****   
+ 143:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 1);		// z = x | (y << 1);
+ 144:u8g2/csrc/u8x8_8x8.c **** 	return y;
+ 145:u8g2/csrc/u8x8_8x8.c **** }
+ 146:u8g2/csrc/u8x8_8x8.c **** 
+ 147:u8g2/csrc/u8x8_8x8.c **** static void u8x8_upscale_buf(uint8_t *src, uint8_t *dest) U8X8_NOINLINE;
+ 148:u8g2/csrc/u8x8_8x8.c **** static void u8x8_upscale_buf(uint8_t *src, uint8_t *dest)
+ 149:u8g2/csrc/u8x8_8x8.c **** {
+ 155              		.loc 1 149 0
+ 156              		.cfi_startproc
+ 157              		@ args = 0, pretend = 0, frame = 0
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 159              		@ link register save eliminated.
+ 160              	.LVL28:
+ 161 0000 30B4     		push	{r4, r5}
+ 162              	.LCFI2:
+ 163              		.cfi_def_cfa_offset 8
+ 164              		.cfi_offset 4, -8
+ 165              		.cfi_offset 5, -4
+ 166              	.LVL29:
+ 150:u8g2/csrc/u8x8_8x8.c ****   uint8_t i = 4;  
+ 167              		.loc 1 150 0
+ 168 0002 0423     		movs	r3, #4
+ 169              	.LVL30:
+ 170              	.L15:
+ 151:u8g2/csrc/u8x8_8x8.c ****   do 
+ 152:u8g2/csrc/u8x8_8x8.c ****   {
+ 153:u8g2/csrc/u8x8_8x8.c ****     *dest++ = *src;
+ 171              		.loc 1 153 0 discriminator 1
+ 172 0004 0446     		mov	r4, r0
+ 173 0006 14F8015B 		ldrb	r5, [r4], #1	@ zero_extendqisi2
+ 174 000a 0A46     		mov	r2, r1
+ 175 000c 02F8025B 		strb	r5, [r2], #2
+ 176              	.LVL31:
+ 154:u8g2/csrc/u8x8_8x8.c ****     *dest++ = *src++;
+ 177              		.loc 1 154 0 discriminator 1
+ 178 0010 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 179 0012 4870     		strb	r0, [r1, #1]
+ 155:u8g2/csrc/u8x8_8x8.c ****     i--;
+ 180              		.loc 1 155 0 discriminator 1
+ 181 0014 013B     		subs	r3, r3, #1
+ 182              	.LVL32:
+ 154:u8g2/csrc/u8x8_8x8.c ****     *dest++ = *src++;
+ 183              		.loc 1 154 0 discriminator 1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 7
+
+
+ 184 0016 2046     		mov	r0, r4
+ 185 0018 1146     		mov	r1, r2
+ 156:u8g2/csrc/u8x8_8x8.c ****   } while( i > 0 );
+ 186              		.loc 1 156 0 discriminator 1
+ 187 001a 13F0FF03 		ands	r3, r3, #255
+ 188              	.LVL33:
+ 189 001e F1D1     		bne	.L15
+ 157:u8g2/csrc/u8x8_8x8.c **** }
+ 190              		.loc 1 157 0
+ 191 0020 30BC     		pop	{r4, r5}
+ 192              	.LCFI3:
+ 193              		.cfi_restore 5
+ 194              		.cfi_restore 4
+ 195              		.cfi_def_cfa_offset 0
+ 196              	.LVL34:
+ 197 0022 7047     		bx	lr
+ 198              		.cfi_endproc
+ 199              	.LFE4:
+ 201              		.section	.text.u8x8_ascii_next,"ax",%progbits
+ 202              		.align	1
+ 203              		.global	u8x8_ascii_next
+ 204              		.syntax unified
+ 205              		.thumb
+ 206              		.thumb_func
+ 207              		.fpu softvfp
+ 209              	u8x8_ascii_next:
+ 210              	.LFB7:
+ 158:u8g2/csrc/u8x8_8x8.c **** 
+ 159:u8g2/csrc/u8x8_8x8.c **** void u8x8_Draw2x2Glyph(u8x8_t *u8x8, uint8_t x, uint8_t y, uint8_t encoding)
+ 160:u8g2/csrc/u8x8_8x8.c **** {
+ 161:u8g2/csrc/u8x8_8x8.c ****   uint8_t i;
+ 162:u8g2/csrc/u8x8_8x8.c ****   uint16_t t;
+ 163:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf[8];
+ 164:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf1[8];
+ 165:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf2[8];
+ 166:u8g2/csrc/u8x8_8x8.c ****   u8x8_get_glyph_data(u8x8, encoding, buf);
+ 167:u8g2/csrc/u8x8_8x8.c ****   for( i = 0; i < 8; i ++ )
+ 168:u8g2/csrc/u8x8_8x8.c ****   {
+ 169:u8g2/csrc/u8x8_8x8.c ****       t = u8x8_upscale_byte(buf[i]);
+ 170:u8g2/csrc/u8x8_8x8.c ****       buf1[i] = t >> 8;
+ 171:u8g2/csrc/u8x8_8x8.c ****       buf2[i] = t & 255;
+ 172:u8g2/csrc/u8x8_8x8.c ****   }
+ 173:u8g2/csrc/u8x8_8x8.c ****   u8x8_upscale_buf(buf2, buf);
+ 174:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 175:u8g2/csrc/u8x8_8x8.c ****   
+ 176:u8g2/csrc/u8x8_8x8.c ****   u8x8_upscale_buf(buf2+4, buf);
+ 177:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x+1, y, 1, buf);
+ 178:u8g2/csrc/u8x8_8x8.c ****   
+ 179:u8g2/csrc/u8x8_8x8.c ****   u8x8_upscale_buf(buf1, buf);
+ 180:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y+1, 1, buf);
+ 181:u8g2/csrc/u8x8_8x8.c ****   
+ 182:u8g2/csrc/u8x8_8x8.c ****   u8x8_upscale_buf(buf1+4, buf);
+ 183:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x+1, y+1, 1, buf);  
+ 184:u8g2/csrc/u8x8_8x8.c **** }
+ 185:u8g2/csrc/u8x8_8x8.c **** 
+ 186:u8g2/csrc/u8x8_8x8.c **** 
+ 187:u8g2/csrc/u8x8_8x8.c **** /*
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 8
+
+
+ 188:u8g2/csrc/u8x8_8x8.c **** source: https://en.wikipedia.org/wiki/UTF-8
+ 189:u8g2/csrc/u8x8_8x8.c **** Bits	from 		to			bytes	Byte 1 		Byte 2 		Byte 3 		Byte 4 		Byte 5 		Byte 6
+ 190:u8g2/csrc/u8x8_8x8.c ****   7 	U+0000 		U+007F 		1 		0xxxxxxx
+ 191:u8g2/csrc/u8x8_8x8.c **** 11 	U+0080 		U+07FF 		2 		110xxxxx 	10xxxxxx
+ 192:u8g2/csrc/u8x8_8x8.c **** 16 	U+0800 		U+FFFF 		3 		1110xxxx 	10xxxxxx 	10xxxxxx
+ 193:u8g2/csrc/u8x8_8x8.c **** 21 	U+10000 	U+1FFFFF 	4 		11110xxx 	10xxxxxx 	10xxxxxx 	10xxxxxx
+ 194:u8g2/csrc/u8x8_8x8.c **** 26 	U+200000 	U+3FFFFFF 	5 		111110xx 	10xxxxxx 	10xxxxxx 	10xxxxxx 	10xxxxxx
+ 195:u8g2/csrc/u8x8_8x8.c **** 31 	U+4000000 	U+7FFFFFFF 	6 		1111110x 	10xxxxxx 	10xxxxxx 	10xxxxxx 	10xxxxxx 	10xxxxxx  
+ 196:u8g2/csrc/u8x8_8x8.c **** 
+ 197:u8g2/csrc/u8x8_8x8.c **** 
+ 198:u8g2/csrc/u8x8_8x8.c **** */
+ 199:u8g2/csrc/u8x8_8x8.c **** 
+ 200:u8g2/csrc/u8x8_8x8.c **** /* reset the internal state machine */
+ 201:u8g2/csrc/u8x8_8x8.c **** void u8x8_utf8_init(u8x8_t *u8x8)
+ 202:u8g2/csrc/u8x8_8x8.c **** {
+ 203:u8g2/csrc/u8x8_8x8.c ****   u8x8->utf8_state = 0;	/* also reset during u8x8_SetupDefaults() */
+ 204:u8g2/csrc/u8x8_8x8.c **** }
+ 205:u8g2/csrc/u8x8_8x8.c **** 
+ 206:u8g2/csrc/u8x8_8x8.c **** uint16_t u8x8_ascii_next(U8X8_UNUSED u8x8_t *u8x8, uint8_t b)
+ 207:u8g2/csrc/u8x8_8x8.c **** {
+ 211              		.loc 1 207 0
+ 212              		.cfi_startproc
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 0, uses_anonymous_args = 0
+ 215              		@ link register save eliminated.
+ 216              	.LVL35:
+ 208:u8g2/csrc/u8x8_8x8.c ****   if ( b == 0 || b == '\n' ) /* '\n' terminates the string to support the string list procedures */
+ 217              		.loc 1 208 0
+ 218 0000 11B9     		cbnz	r1, .L21
+ 209:u8g2/csrc/u8x8_8x8.c ****     return 0x0ffff;	/* end of string detected*/
+ 219              		.loc 1 209 0
+ 220 0002 4FF6FF70 		movw	r0, #65535
+ 221              	.LVL36:
+ 222 0006 7047     		bx	lr
+ 223              	.LVL37:
+ 224              	.L21:
+ 208:u8g2/csrc/u8x8_8x8.c ****   if ( b == 0 || b == '\n' ) /* '\n' terminates the string to support the string list procedures */
+ 225              		.loc 1 208 0 discriminator 1
+ 226 0008 0A29     		cmp	r1, #10
+ 227 000a 01D0     		beq	.L20
+ 210:u8g2/csrc/u8x8_8x8.c ****   return b;
+ 228              		.loc 1 210 0
+ 229 000c 88B2     		uxth	r0, r1
+ 230              	.LVL38:
+ 231 000e 7047     		bx	lr
+ 232              	.LVL39:
+ 233              	.L20:
+ 209:u8g2/csrc/u8x8_8x8.c ****     return 0x0ffff;	/* end of string detected*/
+ 234              		.loc 1 209 0
+ 235 0010 4FF6FF70 		movw	r0, #65535
+ 236              	.LVL40:
+ 211:u8g2/csrc/u8x8_8x8.c **** }
+ 237              		.loc 1 211 0
+ 238 0014 7047     		bx	lr
+ 239              		.cfi_endproc
+ 240              	.LFE7:
+ 242              		.section	.text.u8x8_utf8_next,"ax",%progbits
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 9
+
+
+ 243              		.align	1
+ 244              		.global	u8x8_utf8_next
+ 245              		.syntax unified
+ 246              		.thumb
+ 247              		.thumb_func
+ 248              		.fpu softvfp
+ 250              	u8x8_utf8_next:
+ 251              	.LFB8:
+ 212:u8g2/csrc/u8x8_8x8.c **** 
+ 213:u8g2/csrc/u8x8_8x8.c **** /*
+ 214:u8g2/csrc/u8x8_8x8.c ****   pass a byte from an utf8 encoded string to the utf8 decoder state machine
+ 215:u8g2/csrc/u8x8_8x8.c ****   returns 
+ 216:u8g2/csrc/u8x8_8x8.c ****     0x0fffe: no glyph, just continue
+ 217:u8g2/csrc/u8x8_8x8.c ****     0x0ffff: end of string
+ 218:u8g2/csrc/u8x8_8x8.c ****     anything else: The decoded encoding
+ 219:u8g2/csrc/u8x8_8x8.c **** */
+ 220:u8g2/csrc/u8x8_8x8.c **** uint16_t u8x8_utf8_next(u8x8_t *u8x8, uint8_t b)
+ 221:u8g2/csrc/u8x8_8x8.c **** {
+ 252              		.loc 1 221 0
+ 253              		.cfi_startproc
+ 254              		@ args = 0, pretend = 0, frame = 0
+ 255              		@ frame_needed = 0, uses_anonymous_args = 0
+ 256              		@ link register save eliminated.
+ 257              	.LVL41:
+ 222:u8g2/csrc/u8x8_8x8.c ****   if ( b == 0 || b == '\n' )	/* '\n' terminates the string to support the string list procedures */
+ 258              		.loc 1 222 0
+ 259 0000 0A46     		mov	r2, r1
+ 260 0002 19B9     		cbnz	r1, .L33
+ 223:u8g2/csrc/u8x8_8x8.c ****     return 0x0ffff;	/* end of string detected, pending UTF8 is discarded */
+ 261              		.loc 1 223 0
+ 262 0004 4FF6FF72 		movw	r2, #65535
+ 263              	.LVL42:
+ 264              	.L23:
+ 224:u8g2/csrc/u8x8_8x8.c ****   if ( u8x8->utf8_state == 0 )
+ 225:u8g2/csrc/u8x8_8x8.c ****   {
+ 226:u8g2/csrc/u8x8_8x8.c ****     if ( b >= 0xfc )	/* 6 byte sequence */
+ 227:u8g2/csrc/u8x8_8x8.c ****     {
+ 228:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 5;
+ 229:u8g2/csrc/u8x8_8x8.c ****       b &= 1;
+ 230:u8g2/csrc/u8x8_8x8.c ****     }
+ 231:u8g2/csrc/u8x8_8x8.c ****     else if ( b >= 0xf8 )
+ 232:u8g2/csrc/u8x8_8x8.c ****     {
+ 233:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 4;
+ 234:u8g2/csrc/u8x8_8x8.c ****       b &= 3;
+ 235:u8g2/csrc/u8x8_8x8.c ****     }
+ 236:u8g2/csrc/u8x8_8x8.c ****     else if ( b >= 0xf0 )
+ 237:u8g2/csrc/u8x8_8x8.c ****     {
+ 238:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 3;
+ 239:u8g2/csrc/u8x8_8x8.c ****       b &= 7;      
+ 240:u8g2/csrc/u8x8_8x8.c ****     }
+ 241:u8g2/csrc/u8x8_8x8.c ****     else if ( b >= 0xe0 )
+ 242:u8g2/csrc/u8x8_8x8.c ****     {
+ 243:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 2;
+ 244:u8g2/csrc/u8x8_8x8.c ****       b &= 15;
+ 245:u8g2/csrc/u8x8_8x8.c ****     }
+ 246:u8g2/csrc/u8x8_8x8.c ****     else if ( b >= 0xc0 )
+ 247:u8g2/csrc/u8x8_8x8.c ****     {
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 10
+
+
+ 248:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 1;
+ 249:u8g2/csrc/u8x8_8x8.c ****       b &= 0x01f;
+ 250:u8g2/csrc/u8x8_8x8.c ****     }
+ 251:u8g2/csrc/u8x8_8x8.c ****     else
+ 252:u8g2/csrc/u8x8_8x8.c ****     {
+ 253:u8g2/csrc/u8x8_8x8.c ****       /* do nothing, just use the value as encoding */
+ 254:u8g2/csrc/u8x8_8x8.c ****       return b;
+ 255:u8g2/csrc/u8x8_8x8.c ****     }
+ 256:u8g2/csrc/u8x8_8x8.c ****     u8x8->encoding = b;
+ 257:u8g2/csrc/u8x8_8x8.c ****     return 0x0fffe;
+ 258:u8g2/csrc/u8x8_8x8.c ****   }
+ 259:u8g2/csrc/u8x8_8x8.c ****   else
+ 260:u8g2/csrc/u8x8_8x8.c ****   {
+ 261:u8g2/csrc/u8x8_8x8.c ****     u8x8->utf8_state--;
+ 262:u8g2/csrc/u8x8_8x8.c ****     /* The case b < 0x080 (an illegal UTF8 encoding) is not checked here. */
+ 263:u8g2/csrc/u8x8_8x8.c ****     u8x8->encoding<<=6;
+ 264:u8g2/csrc/u8x8_8x8.c ****     b &= 0x03f;
+ 265:u8g2/csrc/u8x8_8x8.c ****     u8x8->encoding |= b;
+ 266:u8g2/csrc/u8x8_8x8.c ****     if ( u8x8->utf8_state != 0 )
+ 267:u8g2/csrc/u8x8_8x8.c ****       return 0x0fffe;	/* nothing to do yet */
+ 268:u8g2/csrc/u8x8_8x8.c ****   }
+ 269:u8g2/csrc/u8x8_8x8.c ****   return u8x8->encoding;
+ 270:u8g2/csrc/u8x8_8x8.c **** }
+ 265              		.loc 1 270 0
+ 266 0008 1046     		mov	r0, r2
+ 267              	.LVL43:
+ 268 000a 7047     		bx	lr
+ 269              	.LVL44:
+ 270              	.L33:
+ 222:u8g2/csrc/u8x8_8x8.c ****     return 0x0ffff;	/* end of string detected, pending UTF8 is discarded */
+ 271              		.loc 1 222 0 discriminator 1
+ 272 000c 0A29     		cmp	r1, #10
+ 273 000e 3FD0     		beq	.L32
+ 224:u8g2/csrc/u8x8_8x8.c ****   if ( u8x8->utf8_state == 0 )
+ 274              		.loc 1 224 0
+ 275 0010 90F82330 		ldrb	r3, [r0, #35]	@ zero_extendqisi2
+ 276 0014 63BB     		cbnz	r3, .L24
+ 226:u8g2/csrc/u8x8_8x8.c ****     {
+ 277              		.loc 1 226 0
+ 278 0016 FB29     		cmp	r1, #251
+ 279 0018 08D9     		bls	.L25
+ 228:u8g2/csrc/u8x8_8x8.c ****       b &= 1;
+ 280              		.loc 1 228 0
+ 281 001a 0523     		movs	r3, #5
+ 282 001c 80F82330 		strb	r3, [r0, #35]
+ 229:u8g2/csrc/u8x8_8x8.c ****     }
+ 283              		.loc 1 229 0
+ 284 0020 01F00103 		and	r3, r1, #1
+ 285              	.LVL45:
+ 286              	.L26:
+ 256:u8g2/csrc/u8x8_8x8.c ****     return 0x0fffe;
+ 287              		.loc 1 256 0
+ 288 0024 8383     		strh	r3, [r0, #28]	@ movhi
+ 257:u8g2/csrc/u8x8_8x8.c ****   }
+ 289              		.loc 1 257 0
+ 290 0026 4FF6FE72 		movw	r2, #65534
+ 291 002a EDE7     		b	.L23
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 11
+
+
+ 292              	.LVL46:
+ 293              	.L25:
+ 231:u8g2/csrc/u8x8_8x8.c ****     {
+ 294              		.loc 1 231 0
+ 295 002c F729     		cmp	r1, #247
+ 296 002e 05D9     		bls	.L27
+ 233:u8g2/csrc/u8x8_8x8.c ****       b &= 3;
+ 297              		.loc 1 233 0
+ 298 0030 0423     		movs	r3, #4
+ 299 0032 80F82330 		strb	r3, [r0, #35]
+ 234:u8g2/csrc/u8x8_8x8.c ****     }
+ 300              		.loc 1 234 0
+ 301 0036 01F00303 		and	r3, r1, #3
+ 302              	.LVL47:
+ 303 003a F3E7     		b	.L26
+ 304              	.LVL48:
+ 305              	.L27:
+ 236:u8g2/csrc/u8x8_8x8.c ****     {
+ 306              		.loc 1 236 0
+ 307 003c EF29     		cmp	r1, #239
+ 308 003e 05D9     		bls	.L28
+ 238:u8g2/csrc/u8x8_8x8.c ****       b &= 7;      
+ 309              		.loc 1 238 0
+ 310 0040 0323     		movs	r3, #3
+ 311 0042 80F82330 		strb	r3, [r0, #35]
+ 239:u8g2/csrc/u8x8_8x8.c ****     }
+ 312              		.loc 1 239 0
+ 313 0046 01F00703 		and	r3, r1, #7
+ 314              	.LVL49:
+ 315 004a EBE7     		b	.L26
+ 316              	.LVL50:
+ 317              	.L28:
+ 241:u8g2/csrc/u8x8_8x8.c ****     {
+ 318              		.loc 1 241 0
+ 319 004c DF29     		cmp	r1, #223
+ 320 004e 05D9     		bls	.L29
+ 243:u8g2/csrc/u8x8_8x8.c ****       b &= 15;
+ 321              		.loc 1 243 0
+ 322 0050 0223     		movs	r3, #2
+ 323 0052 80F82330 		strb	r3, [r0, #35]
+ 244:u8g2/csrc/u8x8_8x8.c ****     }
+ 324              		.loc 1 244 0
+ 325 0056 01F00F03 		and	r3, r1, #15
+ 326              	.LVL51:
+ 327 005a E3E7     		b	.L26
+ 328              	.LVL52:
+ 329              	.L29:
+ 246:u8g2/csrc/u8x8_8x8.c ****     {
+ 330              		.loc 1 246 0
+ 331 005c BF29     		cmp	r1, #191
+ 332 005e 05D9     		bls	.L30
+ 248:u8g2/csrc/u8x8_8x8.c ****       b &= 0x01f;
+ 333              		.loc 1 248 0
+ 334 0060 0123     		movs	r3, #1
+ 335 0062 80F82330 		strb	r3, [r0, #35]
+ 249:u8g2/csrc/u8x8_8x8.c ****     }
+ 336              		.loc 1 249 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 12
+
+
+ 337 0066 01F01F03 		and	r3, r1, #31
+ 338              	.LVL53:
+ 339 006a DBE7     		b	.L26
+ 340              	.LVL54:
+ 341              	.L30:
+ 254:u8g2/csrc/u8x8_8x8.c ****     }
+ 342              		.loc 1 254 0
+ 343 006c 8AB2     		uxth	r2, r1
+ 344 006e CBE7     		b	.L23
+ 345              	.L24:
+ 261:u8g2/csrc/u8x8_8x8.c ****     /* The case b < 0x080 (an illegal UTF8 encoding) is not checked here. */
+ 346              		.loc 1 261 0
+ 347 0070 013B     		subs	r3, r3, #1
+ 348 0072 D9B2     		uxtb	r1, r3
+ 349              	.LVL55:
+ 350 0074 80F82310 		strb	r1, [r0, #35]
+ 263:u8g2/csrc/u8x8_8x8.c ****     b &= 0x03f;
+ 351              		.loc 1 263 0
+ 352 0078 838B     		ldrh	r3, [r0, #28]
+ 353 007a 9B01     		lsls	r3, r3, #6
+ 354 007c 9BB2     		uxth	r3, r3
+ 264:u8g2/csrc/u8x8_8x8.c ****     u8x8->encoding |= b;
+ 355              		.loc 1 264 0
+ 356 007e 02F03F02 		and	r2, r2, #63
+ 357              	.LVL56:
+ 265:u8g2/csrc/u8x8_8x8.c ****     if ( u8x8->utf8_state != 0 )
+ 358              		.loc 1 265 0
+ 359 0082 1A43     		orrs	r2, r2, r3
+ 360              	.LVL57:
+ 361 0084 8283     		strh	r2, [r0, #28]	@ movhi
+ 266:u8g2/csrc/u8x8_8x8.c ****       return 0x0fffe;	/* nothing to do yet */
+ 362              		.loc 1 266 0
+ 363 0086 0029     		cmp	r1, #0
+ 364 0088 BED0     		beq	.L23
+ 267:u8g2/csrc/u8x8_8x8.c ****   }
+ 365              		.loc 1 267 0
+ 366 008a 4FF6FE72 		movw	r2, #65534
+ 367 008e BBE7     		b	.L23
+ 368              	.LVL58:
+ 369              	.L32:
+ 223:u8g2/csrc/u8x8_8x8.c ****   if ( u8x8->utf8_state == 0 )
+ 370              		.loc 1 223 0
+ 371 0090 4FF6FF72 		movw	r2, #65535
+ 372 0094 B8E7     		b	.L23
+ 373              		.cfi_endproc
+ 374              	.LFE8:
+ 376              		.section	.text.u8x8_SetFont,"ax",%progbits
+ 377              		.align	1
+ 378              		.global	u8x8_SetFont
+ 379              		.syntax unified
+ 380              		.thumb
+ 381              		.thumb_func
+ 382              		.fpu softvfp
+ 384              	u8x8_SetFont:
+ 385              	.LFB0:
+  51:u8g2/csrc/u8x8_8x8.c ****   u8x8->font = font_8x8;
+ 386              		.loc 1 51 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 13
+
+
+ 387              		.cfi_startproc
+ 388              		@ args = 0, pretend = 0, frame = 0
+ 389              		@ frame_needed = 0, uses_anonymous_args = 0
+ 390              		@ link register save eliminated.
+ 391              	.LVL59:
+  52:u8g2/csrc/u8x8_8x8.c **** }
+ 392              		.loc 1 52 0
+ 393 0000 8161     		str	r1, [r0, #24]
+ 394 0002 7047     		bx	lr
+ 395              		.cfi_endproc
+ 396              	.LFE0:
+ 398              		.section	.text.u8x8_DrawGlyph,"ax",%progbits
+ 399              		.align	1
+ 400              		.global	u8x8_DrawGlyph
+ 401              		.syntax unified
+ 402              		.thumb
+ 403              		.thumb_func
+ 404              		.fpu softvfp
+ 406              	u8x8_DrawGlyph:
+ 407              	.LFB2:
+ 102:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf[8];
+ 408              		.loc 1 102 0
+ 409              		.cfi_startproc
+ 410              		@ args = 0, pretend = 0, frame = 8
+ 411              		@ frame_needed = 0, uses_anonymous_args = 0
+ 412              	.LVL60:
+ 413 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 414              	.LCFI4:
+ 415              		.cfi_def_cfa_offset 20
+ 416              		.cfi_offset 4, -20
+ 417              		.cfi_offset 5, -16
+ 418              		.cfi_offset 6, -12
+ 419              		.cfi_offset 7, -8
+ 420              		.cfi_offset 14, -4
+ 421 0002 85B0     		sub	sp, sp, #20
+ 422              	.LCFI5:
+ 423              		.cfi_def_cfa_offset 40
+ 424 0004 0546     		mov	r5, r0
+ 425 0006 0E46     		mov	r6, r1
+ 426 0008 1746     		mov	r7, r2
+ 104:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 427              		.loc 1 104 0
+ 428 000a 02AC     		add	r4, sp, #8
+ 429 000c 2246     		mov	r2, r4
+ 430              	.LVL61:
+ 431 000e 1946     		mov	r1, r3
+ 432              	.LVL62:
+ 433 0010 FFF7FEFF 		bl	u8x8_get_glyph_data
+ 434              	.LVL63:
+ 105:u8g2/csrc/u8x8_8x8.c **** }
+ 435              		.loc 1 105 0
+ 436 0014 0094     		str	r4, [sp]
+ 437 0016 0123     		movs	r3, #1
+ 438 0018 3A46     		mov	r2, r7
+ 439 001a 3146     		mov	r1, r6
+ 440 001c 2846     		mov	r0, r5
+ 441 001e FFF7FEFF 		bl	u8x8_DrawTile
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 14
+
+
+ 442              	.LVL64:
+ 106:u8g2/csrc/u8x8_8x8.c **** 
+ 443              		.loc 1 106 0
+ 444 0022 05B0     		add	sp, sp, #20
+ 445              	.LCFI6:
+ 446              		.cfi_def_cfa_offset 20
+ 447              		@ sp needed
+ 448 0024 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 449              		.cfi_endproc
+ 450              	.LFE2:
+ 452              		.section	.text.u8x8_upscale_byte,"ax",%progbits
+ 453              		.align	1
+ 454              		.global	u8x8_upscale_byte
+ 455              		.syntax unified
+ 456              		.thumb
+ 457              		.thumb_func
+ 458              		.fpu softvfp
+ 460              	u8x8_upscale_byte:
+ 461              	.LFB3:
+ 134:u8g2/csrc/u8x8_8x8.c **** 	uint16_t y = x;
+ 462              		.loc 1 134 0
+ 463              		.cfi_startproc
+ 464              		@ args = 0, pretend = 0, frame = 0
+ 465              		@ frame_needed = 0, uses_anonymous_args = 0
+ 466              		@ link register save eliminated.
+ 467              	.LVL65:
+ 136:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x0f0f;
+ 468              		.loc 1 136 0
+ 469 0000 40EA0010 		orr	r0, r0, r0, lsl #4
+ 470              	.LVL66:
+ 137:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 2);		// x = (x | (x << S[1])) & B[1];
+ 471              		.loc 1 137 0
+ 472 0004 20F0F000 		bic	r0, r0, #240
+ 473              	.LVL67:
+ 474 0008 0005     		lsls	r0, r0, #20
+ 475 000a 000D     		lsrs	r0, r0, #20
+ 476              	.LVL68:
+ 138:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x3333;
+ 477              		.loc 1 138 0
+ 478 000c 40EA8000 		orr	r0, r0, r0, lsl #2
+ 479              	.LVL69:
+ 139:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 1);		// x = (x | (x << S[0])) & B[0];
+ 480              		.loc 1 139 0
+ 481 0010 20F44C60 		bic	r0, r0, #3264
+ 482              	.LVL70:
+ 483 0014 20F00C00 		bic	r0, r0, #12
+ 484 0018 8004     		lsls	r0, r0, #18
+ 485 001a 800C     		lsrs	r0, r0, #18
+ 486              	.LVL71:
+ 140:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x5555;
+ 487              		.loc 1 140 0
+ 488 001c 40EA4000 		orr	r0, r0, r0, lsl #1
+ 489              	.LVL72:
+ 141:u8g2/csrc/u8x8_8x8.c ****   
+ 490              		.loc 1 141 0
+ 491 0020 20F42A50 		bic	r0, r0, #10880
+ 492              	.LVL73:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 15
+
+
+ 493 0024 20F02A00 		bic	r0, r0, #42
+ 494 0028 4004     		lsls	r0, r0, #17
+ 495 002a 400C     		lsrs	r0, r0, #17
+ 496              	.LVL74:
+ 145:u8g2/csrc/u8x8_8x8.c **** 
+ 497              		.loc 1 145 0
+ 498 002c 40EA4000 		orr	r0, r0, r0, lsl #1
+ 499              	.LVL75:
+ 500 0030 7047     		bx	lr
+ 501              		.cfi_endproc
+ 502              	.LFE3:
+ 504              		.section	.text.u8x8_Draw2x2Glyph,"ax",%progbits
+ 505              		.align	1
+ 506              		.global	u8x8_Draw2x2Glyph
+ 507              		.syntax unified
+ 508              		.thumb
+ 509              		.thumb_func
+ 510              		.fpu softvfp
+ 512              	u8x8_Draw2x2Glyph:
+ 513              	.LFB5:
+ 160:u8g2/csrc/u8x8_8x8.c ****   uint8_t i;
+ 514              		.loc 1 160 0
+ 515              		.cfi_startproc
+ 516              		@ args = 0, pretend = 0, frame = 24
+ 517              		@ frame_needed = 0, uses_anonymous_args = 0
+ 518              	.LVL76:
+ 519 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 520              	.LCFI7:
+ 521              		.cfi_def_cfa_offset 24
+ 522              		.cfi_offset 4, -24
+ 523              		.cfi_offset 5, -20
+ 524              		.cfi_offset 6, -16
+ 525              		.cfi_offset 7, -12
+ 526              		.cfi_offset 8, -8
+ 527              		.cfi_offset 14, -4
+ 528 0004 88B0     		sub	sp, sp, #32
+ 529              	.LCFI8:
+ 530              		.cfi_def_cfa_offset 56
+ 531 0006 0746     		mov	r7, r0
+ 532 0008 8846     		mov	r8, r1
+ 533 000a 1646     		mov	r6, r2
+ 166:u8g2/csrc/u8x8_8x8.c ****   for( i = 0; i < 8; i ++ )
+ 534              		.loc 1 166 0
+ 535 000c 06AA     		add	r2, sp, #24
+ 536              	.LVL77:
+ 537 000e 1946     		mov	r1, r3
+ 538              	.LVL78:
+ 539 0010 FFF7FEFF 		bl	u8x8_get_glyph_data
+ 540              	.LVL79:
+ 167:u8g2/csrc/u8x8_8x8.c ****   {
+ 541              		.loc 1 167 0
+ 542 0014 0024     		movs	r4, #0
+ 543 0016 0CE0     		b	.L39
+ 544              	.LVL80:
+ 545              	.L40:
+ 169:u8g2/csrc/u8x8_8x8.c ****       buf1[i] = t >> 8;
+ 546              		.loc 1 169 0 discriminator 3
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 16
+
+
+ 547 0018 08AB     		add	r3, sp, #32
+ 548 001a 1D19     		adds	r5, r3, r4
+ 549 001c 15F8080C 		ldrb	r0, [r5, #-8]	@ zero_extendqisi2
+ 550 0020 FFF7FEFF 		bl	u8x8_upscale_byte
+ 551              	.LVL81:
+ 170:u8g2/csrc/u8x8_8x8.c ****       buf2[i] = t & 255;
+ 552              		.loc 1 170 0 discriminator 3
+ 553 0024 030A     		lsrs	r3, r0, #8
+ 554 0026 05F8103C 		strb	r3, [r5, #-16]
+ 171:u8g2/csrc/u8x8_8x8.c ****   }
+ 555              		.loc 1 171 0 discriminator 3
+ 556 002a 05F8180C 		strb	r0, [r5, #-24]
+ 167:u8g2/csrc/u8x8_8x8.c ****   {
+ 557              		.loc 1 167 0 discriminator 3
+ 558 002e 0134     		adds	r4, r4, #1
+ 559              	.LVL82:
+ 560 0030 E4B2     		uxtb	r4, r4
+ 561              	.LVL83:
+ 562              	.L39:
+ 167:u8g2/csrc/u8x8_8x8.c ****   {
+ 563              		.loc 1 167 0 is_stmt 0 discriminator 1
+ 564 0032 072C     		cmp	r4, #7
+ 565 0034 F0D9     		bls	.L40
+ 173:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 566              		.loc 1 173 0 is_stmt 1
+ 567 0036 06AC     		add	r4, sp, #24
+ 568              	.LVL84:
+ 569 0038 2146     		mov	r1, r4
+ 570 003a 02A8     		add	r0, sp, #8
+ 571 003c FFF7FEFF 		bl	u8x8_upscale_buf
+ 572              	.LVL85:
+ 174:u8g2/csrc/u8x8_8x8.c ****   
+ 573              		.loc 1 174 0
+ 574 0040 0094     		str	r4, [sp]
+ 575 0042 0123     		movs	r3, #1
+ 576 0044 3246     		mov	r2, r6
+ 577 0046 4146     		mov	r1, r8
+ 578 0048 3846     		mov	r0, r7
+ 579 004a FFF7FEFF 		bl	u8x8_DrawTile
+ 580              	.LVL86:
+ 176:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x+1, y, 1, buf);
+ 581              		.loc 1 176 0
+ 582 004e 2146     		mov	r1, r4
+ 583 0050 03A8     		add	r0, sp, #12
+ 584 0052 FFF7FEFF 		bl	u8x8_upscale_buf
+ 585              	.LVL87:
+ 177:u8g2/csrc/u8x8_8x8.c ****   
+ 586              		.loc 1 177 0
+ 587 0056 08F10105 		add	r5, r8, #1
+ 588 005a EDB2     		uxtb	r5, r5
+ 589 005c 0094     		str	r4, [sp]
+ 590 005e 0123     		movs	r3, #1
+ 591 0060 3246     		mov	r2, r6
+ 592 0062 2946     		mov	r1, r5
+ 593 0064 3846     		mov	r0, r7
+ 594 0066 FFF7FEFF 		bl	u8x8_DrawTile
+ 595              	.LVL88:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 17
+
+
+ 179:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y+1, 1, buf);
+ 596              		.loc 1 179 0
+ 597 006a 2146     		mov	r1, r4
+ 598 006c 04A8     		add	r0, sp, #16
+ 599 006e FFF7FEFF 		bl	u8x8_upscale_buf
+ 600              	.LVL89:
+ 180:u8g2/csrc/u8x8_8x8.c ****   
+ 601              		.loc 1 180 0
+ 602 0072 0136     		adds	r6, r6, #1
+ 603 0074 F6B2     		uxtb	r6, r6
+ 604 0076 0094     		str	r4, [sp]
+ 605 0078 0123     		movs	r3, #1
+ 606 007a 3246     		mov	r2, r6
+ 607 007c 4146     		mov	r1, r8
+ 608 007e 3846     		mov	r0, r7
+ 609 0080 FFF7FEFF 		bl	u8x8_DrawTile
+ 610              	.LVL90:
+ 182:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x+1, y+1, 1, buf);  
+ 611              		.loc 1 182 0
+ 612 0084 2146     		mov	r1, r4
+ 613 0086 05A8     		add	r0, sp, #20
+ 614 0088 FFF7FEFF 		bl	u8x8_upscale_buf
+ 615              	.LVL91:
+ 183:u8g2/csrc/u8x8_8x8.c **** }
+ 616              		.loc 1 183 0
+ 617 008c 0094     		str	r4, [sp]
+ 618 008e 0123     		movs	r3, #1
+ 619 0090 3246     		mov	r2, r6
+ 620 0092 2946     		mov	r1, r5
+ 621 0094 3846     		mov	r0, r7
+ 622 0096 FFF7FEFF 		bl	u8x8_DrawTile
+ 623              	.LVL92:
+ 184:u8g2/csrc/u8x8_8x8.c **** 
+ 624              		.loc 1 184 0
+ 625 009a 08B0     		add	sp, sp, #32
+ 626              	.LCFI9:
+ 627              		.cfi_def_cfa_offset 24
+ 628              		@ sp needed
+ 629 009c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 630              		.cfi_endproc
+ 631              	.LFE5:
+ 633              		.section	.text.u8x8_utf8_init,"ax",%progbits
+ 634              		.align	1
+ 635              		.global	u8x8_utf8_init
+ 636              		.syntax unified
+ 637              		.thumb
+ 638              		.thumb_func
+ 639              		.fpu softvfp
+ 641              	u8x8_utf8_init:
+ 642              	.LFB6:
+ 202:u8g2/csrc/u8x8_8x8.c ****   u8x8->utf8_state = 0;	/* also reset during u8x8_SetupDefaults() */
+ 643              		.loc 1 202 0
+ 644              		.cfi_startproc
+ 645              		@ args = 0, pretend = 0, frame = 0
+ 646              		@ frame_needed = 0, uses_anonymous_args = 0
+ 647              		@ link register save eliminated.
+ 648              	.LVL93:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 18
+
+
+ 203:u8g2/csrc/u8x8_8x8.c **** }
+ 649              		.loc 1 203 0
+ 650 0000 0023     		movs	r3, #0
+ 651 0002 80F82330 		strb	r3, [r0, #35]
+ 652 0006 7047     		bx	lr
+ 653              		.cfi_endproc
+ 654              	.LFE6:
+ 656              		.section	.text.u8x8_draw_string,"ax",%progbits
+ 657              		.align	1
+ 658              		.syntax unified
+ 659              		.thumb
+ 660              		.thumb_func
+ 661              		.fpu softvfp
+ 663              	u8x8_draw_string:
+ 664              	.LFB9:
+ 271:u8g2/csrc/u8x8_8x8.c **** 
+ 272:u8g2/csrc/u8x8_8x8.c **** 
+ 273:u8g2/csrc/u8x8_8x8.c **** 
+ 274:u8g2/csrc/u8x8_8x8.c **** static uint8_t u8x8_draw_string(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s) U8X8_NOINLINE;
+ 275:u8g2/csrc/u8x8_8x8.c **** static uint8_t u8x8_draw_string(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 276:u8g2/csrc/u8x8_8x8.c **** {
+ 665              		.loc 1 276 0
+ 666              		.cfi_startproc
+ 667              		@ args = 0, pretend = 0, frame = 0
+ 668              		@ frame_needed = 0, uses_anonymous_args = 0
+ 669              	.LVL94:
+ 670 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 671              	.LCFI10:
+ 672              		.cfi_def_cfa_offset 24
+ 673              		.cfi_offset 4, -24
+ 674              		.cfi_offset 5, -20
+ 675              		.cfi_offset 6, -16
+ 676              		.cfi_offset 7, -12
+ 677              		.cfi_offset 8, -8
+ 678              		.cfi_offset 14, -4
+ 679 0004 0546     		mov	r5, r0
+ 680 0006 0E46     		mov	r6, r1
+ 681 0008 9046     		mov	r8, r2
+ 682 000a 1C46     		mov	r4, r3
+ 683              	.LVL95:
+ 277:u8g2/csrc/u8x8_8x8.c ****   uint16_t e;
+ 278:u8g2/csrc/u8x8_8x8.c ****   uint8_t cnt = 0;
+ 279:u8g2/csrc/u8x8_8x8.c ****   u8x8_utf8_init(u8x8);
+ 684              		.loc 1 279 0
+ 685 000c FFF7FEFF 		bl	u8x8_utf8_init
+ 686              	.LVL96:
+ 278:u8g2/csrc/u8x8_8x8.c ****   u8x8_utf8_init(u8x8);
+ 687              		.loc 1 278 0
+ 688 0010 0027     		movs	r7, #0
+ 689              	.LVL97:
+ 690              	.L44:
+ 280:u8g2/csrc/u8x8_8x8.c ****   for(;;)
+ 281:u8g2/csrc/u8x8_8x8.c ****   {
+ 282:u8g2/csrc/u8x8_8x8.c ****     e = u8x8->next_cb(u8x8, (uint8_t)*s);
+ 691              		.loc 1 282 0
+ 692 0012 6B68     		ldr	r3, [r5, #4]
+ 693 0014 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 19
+
+
+ 694 0016 2846     		mov	r0, r5
+ 695 0018 9847     		blx	r3
+ 696              	.LVL98:
+ 283:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 697              		.loc 1 283 0
+ 698 001a 4FF6FF73 		movw	r3, #65535
+ 699 001e 9842     		cmp	r0, r3
+ 700 0020 0FD0     		beq	.L45
+ 284:u8g2/csrc/u8x8_8x8.c ****       break;
+ 285:u8g2/csrc/u8x8_8x8.c ****     s++;
+ 701              		.loc 1 285 0
+ 702 0022 0134     		adds	r4, r4, #1
+ 703              	.LVL99:
+ 286:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 704              		.loc 1 286 0
+ 705 0024 4FF6FE73 		movw	r3, #65534
+ 706 0028 9842     		cmp	r0, r3
+ 707 002a F2D0     		beq	.L44
+ 287:u8g2/csrc/u8x8_8x8.c ****     {
+ 288:u8g2/csrc/u8x8_8x8.c ****       u8x8_DrawGlyph(u8x8, x, y, e);
+ 708              		.loc 1 288 0
+ 709 002c C3B2     		uxtb	r3, r0
+ 710 002e 4246     		mov	r2, r8
+ 711 0030 3146     		mov	r1, r6
+ 712 0032 2846     		mov	r0, r5
+ 713              	.LVL100:
+ 714 0034 FFF7FEFF 		bl	u8x8_DrawGlyph
+ 715              	.LVL101:
+ 289:u8g2/csrc/u8x8_8x8.c ****       x++;
+ 716              		.loc 1 289 0
+ 717 0038 0136     		adds	r6, r6, #1
+ 718              	.LVL102:
+ 719 003a F6B2     		uxtb	r6, r6
+ 720              	.LVL103:
+ 290:u8g2/csrc/u8x8_8x8.c ****       cnt++;
+ 721              		.loc 1 290 0
+ 722 003c 0137     		adds	r7, r7, #1
+ 723              	.LVL104:
+ 724 003e FFB2     		uxtb	r7, r7
+ 725              	.LVL105:
+ 726 0040 E7E7     		b	.L44
+ 727              	.LVL106:
+ 728              	.L45:
+ 291:u8g2/csrc/u8x8_8x8.c ****     }
+ 292:u8g2/csrc/u8x8_8x8.c ****   }
+ 293:u8g2/csrc/u8x8_8x8.c ****   return cnt;
+ 294:u8g2/csrc/u8x8_8x8.c **** }
+ 729              		.loc 1 294 0
+ 730 0042 3846     		mov	r0, r7
+ 731              	.LVL107:
+ 732 0044 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 733              		.cfi_endproc
+ 734              	.LFE9:
+ 736              		.section	.text.u8x8_draw_2x2_string,"ax",%progbits
+ 737              		.align	1
+ 738              		.syntax unified
+ 739              		.thumb
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 20
+
+
+ 740              		.thumb_func
+ 741              		.fpu softvfp
+ 743              	u8x8_draw_2x2_string:
+ 744              	.LFB12:
+ 295:u8g2/csrc/u8x8_8x8.c **** 
+ 296:u8g2/csrc/u8x8_8x8.c **** 
+ 297:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_DrawString(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 298:u8g2/csrc/u8x8_8x8.c **** {
+ 299:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_ascii_next;
+ 300:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 301:u8g2/csrc/u8x8_8x8.c **** }
+ 302:u8g2/csrc/u8x8_8x8.c **** 
+ 303:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_DrawUTF8(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 304:u8g2/csrc/u8x8_8x8.c **** {
+ 305:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_utf8_next;
+ 306:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 307:u8g2/csrc/u8x8_8x8.c **** }
+ 308:u8g2/csrc/u8x8_8x8.c **** 
+ 309:u8g2/csrc/u8x8_8x8.c **** 
+ 310:u8g2/csrc/u8x8_8x8.c **** 
+ 311:u8g2/csrc/u8x8_8x8.c **** static uint8_t u8x8_draw_2x2_string(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s) U8X8_NOINLIN
+ 312:u8g2/csrc/u8x8_8x8.c **** static uint8_t u8x8_draw_2x2_string(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 313:u8g2/csrc/u8x8_8x8.c **** {
+ 745              		.loc 1 313 0
+ 746              		.cfi_startproc
+ 747              		@ args = 0, pretend = 0, frame = 0
+ 748              		@ frame_needed = 0, uses_anonymous_args = 0
+ 749              	.LVL108:
+ 750 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 751              	.LCFI11:
+ 752              		.cfi_def_cfa_offset 24
+ 753              		.cfi_offset 4, -24
+ 754              		.cfi_offset 5, -20
+ 755              		.cfi_offset 6, -16
+ 756              		.cfi_offset 7, -12
+ 757              		.cfi_offset 8, -8
+ 758              		.cfi_offset 14, -4
+ 759 0004 0546     		mov	r5, r0
+ 760 0006 0E46     		mov	r6, r1
+ 761 0008 9046     		mov	r8, r2
+ 762 000a 1C46     		mov	r4, r3
+ 763              	.LVL109:
+ 314:u8g2/csrc/u8x8_8x8.c ****   uint16_t e;
+ 315:u8g2/csrc/u8x8_8x8.c ****   uint8_t cnt = 0;
+ 316:u8g2/csrc/u8x8_8x8.c ****   u8x8_utf8_init(u8x8);
+ 764              		.loc 1 316 0
+ 765 000c FFF7FEFF 		bl	u8x8_utf8_init
+ 766              	.LVL110:
+ 315:u8g2/csrc/u8x8_8x8.c ****   u8x8_utf8_init(u8x8);
+ 767              		.loc 1 315 0
+ 768 0010 0027     		movs	r7, #0
+ 769              	.LVL111:
+ 770              	.L49:
+ 317:u8g2/csrc/u8x8_8x8.c ****   for(;;)
+ 318:u8g2/csrc/u8x8_8x8.c ****   {
+ 319:u8g2/csrc/u8x8_8x8.c ****     e = u8x8->next_cb(u8x8, (uint8_t)*s);
+ 771              		.loc 1 319 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 21
+
+
+ 772 0012 6B68     		ldr	r3, [r5, #4]
+ 773 0014 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 774 0016 2846     		mov	r0, r5
+ 775 0018 9847     		blx	r3
+ 776              	.LVL112:
+ 320:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 777              		.loc 1 320 0
+ 778 001a 4FF6FF73 		movw	r3, #65535
+ 779 001e 9842     		cmp	r0, r3
+ 780 0020 0FD0     		beq	.L50
+ 321:u8g2/csrc/u8x8_8x8.c ****       break;
+ 322:u8g2/csrc/u8x8_8x8.c ****     s++;
+ 781              		.loc 1 322 0
+ 782 0022 0134     		adds	r4, r4, #1
+ 783              	.LVL113:
+ 323:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 784              		.loc 1 323 0
+ 785 0024 4FF6FE73 		movw	r3, #65534
+ 786 0028 9842     		cmp	r0, r3
+ 787 002a F2D0     		beq	.L49
+ 324:u8g2/csrc/u8x8_8x8.c ****     {
+ 325:u8g2/csrc/u8x8_8x8.c ****       u8x8_Draw2x2Glyph(u8x8, x, y, e);
+ 788              		.loc 1 325 0
+ 789 002c C3B2     		uxtb	r3, r0
+ 790 002e 4246     		mov	r2, r8
+ 791 0030 3146     		mov	r1, r6
+ 792 0032 2846     		mov	r0, r5
+ 793              	.LVL114:
+ 794 0034 FFF7FEFF 		bl	u8x8_Draw2x2Glyph
+ 795              	.LVL115:
+ 326:u8g2/csrc/u8x8_8x8.c ****       x+=2;
+ 796              		.loc 1 326 0
+ 797 0038 0236     		adds	r6, r6, #2
+ 798              	.LVL116:
+ 799 003a F6B2     		uxtb	r6, r6
+ 800              	.LVL117:
+ 327:u8g2/csrc/u8x8_8x8.c ****       cnt++;
+ 801              		.loc 1 327 0
+ 802 003c 0137     		adds	r7, r7, #1
+ 803              	.LVL118:
+ 804 003e FFB2     		uxtb	r7, r7
+ 805              	.LVL119:
+ 806 0040 E7E7     		b	.L49
+ 807              	.LVL120:
+ 808              	.L50:
+ 328:u8g2/csrc/u8x8_8x8.c ****     }
+ 329:u8g2/csrc/u8x8_8x8.c ****   }
+ 330:u8g2/csrc/u8x8_8x8.c ****   return cnt;
+ 331:u8g2/csrc/u8x8_8x8.c **** }
+ 809              		.loc 1 331 0
+ 810 0042 3846     		mov	r0, r7
+ 811              	.LVL121:
+ 812 0044 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 813              		.cfi_endproc
+ 814              	.LFE12:
+ 816              		.section	.text.u8x8_DrawString,"ax",%progbits
+ 817              		.align	1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 22
+
+
+ 818              		.global	u8x8_DrawString
+ 819              		.syntax unified
+ 820              		.thumb
+ 821              		.thumb_func
+ 822              		.fpu softvfp
+ 824              	u8x8_DrawString:
+ 825              	.LFB10:
+ 298:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_ascii_next;
+ 826              		.loc 1 298 0
+ 827              		.cfi_startproc
+ 828              		@ args = 0, pretend = 0, frame = 0
+ 829              		@ frame_needed = 0, uses_anonymous_args = 0
+ 830              	.LVL122:
+ 831 0000 10B5     		push	{r4, lr}
+ 832              	.LCFI12:
+ 833              		.cfi_def_cfa_offset 8
+ 834              		.cfi_offset 4, -8
+ 835              		.cfi_offset 14, -4
+ 299:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 836              		.loc 1 299 0
+ 837 0002 024C     		ldr	r4, .L55
+ 838 0004 4460     		str	r4, [r0, #4]
+ 300:u8g2/csrc/u8x8_8x8.c **** }
+ 839              		.loc 1 300 0
+ 840 0006 FFF7FEFF 		bl	u8x8_draw_string
+ 841              	.LVL123:
+ 301:u8g2/csrc/u8x8_8x8.c **** 
+ 842              		.loc 1 301 0
+ 843 000a 10BD     		pop	{r4, pc}
+ 844              	.L56:
+ 845              		.align	2
+ 846              	.L55:
+ 847 000c 00000000 		.word	u8x8_ascii_next
+ 848              		.cfi_endproc
+ 849              	.LFE10:
+ 851              		.section	.text.u8x8_DrawUTF8,"ax",%progbits
+ 852              		.align	1
+ 853              		.global	u8x8_DrawUTF8
+ 854              		.syntax unified
+ 855              		.thumb
+ 856              		.thumb_func
+ 857              		.fpu softvfp
+ 859              	u8x8_DrawUTF8:
+ 860              	.LFB11:
+ 304:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_utf8_next;
+ 861              		.loc 1 304 0
+ 862              		.cfi_startproc
+ 863              		@ args = 0, pretend = 0, frame = 0
+ 864              		@ frame_needed = 0, uses_anonymous_args = 0
+ 865              	.LVL124:
+ 866 0000 10B5     		push	{r4, lr}
+ 867              	.LCFI13:
+ 868              		.cfi_def_cfa_offset 8
+ 869              		.cfi_offset 4, -8
+ 870              		.cfi_offset 14, -4
+ 305:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 871              		.loc 1 305 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 23
+
+
+ 872 0002 024C     		ldr	r4, .L59
+ 873 0004 4460     		str	r4, [r0, #4]
+ 306:u8g2/csrc/u8x8_8x8.c **** }
+ 874              		.loc 1 306 0
+ 875 0006 FFF7FEFF 		bl	u8x8_draw_string
+ 876              	.LVL125:
+ 307:u8g2/csrc/u8x8_8x8.c **** 
+ 877              		.loc 1 307 0
+ 878 000a 10BD     		pop	{r4, pc}
+ 879              	.L60:
+ 880              		.align	2
+ 881              	.L59:
+ 882 000c 00000000 		.word	u8x8_utf8_next
+ 883              		.cfi_endproc
+ 884              	.LFE11:
+ 886              		.section	.text.u8x8_Draw2x2String,"ax",%progbits
+ 887              		.align	1
+ 888              		.global	u8x8_Draw2x2String
+ 889              		.syntax unified
+ 890              		.thumb
+ 891              		.thumb_func
+ 892              		.fpu softvfp
+ 894              	u8x8_Draw2x2String:
+ 895              	.LFB13:
+ 332:u8g2/csrc/u8x8_8x8.c **** 
+ 333:u8g2/csrc/u8x8_8x8.c **** 
+ 334:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_Draw2x2String(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 335:u8g2/csrc/u8x8_8x8.c **** {
+ 896              		.loc 1 335 0
+ 897              		.cfi_startproc
+ 898              		@ args = 0, pretend = 0, frame = 0
+ 899              		@ frame_needed = 0, uses_anonymous_args = 0
+ 900              	.LVL126:
+ 901 0000 10B5     		push	{r4, lr}
+ 902              	.LCFI14:
+ 903              		.cfi_def_cfa_offset 8
+ 904              		.cfi_offset 4, -8
+ 905              		.cfi_offset 14, -4
+ 336:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_ascii_next;
+ 906              		.loc 1 336 0
+ 907 0002 024C     		ldr	r4, .L63
+ 908 0004 4460     		str	r4, [r0, #4]
+ 337:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_2x2_string(u8x8, x, y, s);
+ 909              		.loc 1 337 0
+ 910 0006 FFF7FEFF 		bl	u8x8_draw_2x2_string
+ 911              	.LVL127:
+ 338:u8g2/csrc/u8x8_8x8.c **** }
+ 912              		.loc 1 338 0
+ 913 000a 10BD     		pop	{r4, pc}
+ 914              	.L64:
+ 915              		.align	2
+ 916              	.L63:
+ 917 000c 00000000 		.word	u8x8_ascii_next
+ 918              		.cfi_endproc
+ 919              	.LFE13:
+ 921              		.section	.text.u8x8_Draw2x2UTF8,"ax",%progbits
+ 922              		.align	1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 24
+
+
+ 923              		.global	u8x8_Draw2x2UTF8
+ 924              		.syntax unified
+ 925              		.thumb
+ 926              		.thumb_func
+ 927              		.fpu softvfp
+ 929              	u8x8_Draw2x2UTF8:
+ 930              	.LFB14:
+ 339:u8g2/csrc/u8x8_8x8.c **** 
+ 340:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_Draw2x2UTF8(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 341:u8g2/csrc/u8x8_8x8.c **** {
+ 931              		.loc 1 341 0
+ 932              		.cfi_startproc
+ 933              		@ args = 0, pretend = 0, frame = 0
+ 934              		@ frame_needed = 0, uses_anonymous_args = 0
+ 935              	.LVL128:
+ 936 0000 10B5     		push	{r4, lr}
+ 937              	.LCFI15:
+ 938              		.cfi_def_cfa_offset 8
+ 939              		.cfi_offset 4, -8
+ 940              		.cfi_offset 14, -4
+ 342:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_utf8_next;
+ 941              		.loc 1 342 0
+ 942 0002 024C     		ldr	r4, .L67
+ 943 0004 4460     		str	r4, [r0, #4]
+ 343:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_2x2_string(u8x8, x, y, s);
+ 944              		.loc 1 343 0
+ 945 0006 FFF7FEFF 		bl	u8x8_draw_2x2_string
+ 946              	.LVL129:
+ 344:u8g2/csrc/u8x8_8x8.c **** }
+ 947              		.loc 1 344 0
+ 948 000a 10BD     		pop	{r4, pc}
+ 949              	.L68:
+ 950              		.align	2
+ 951              	.L67:
+ 952 000c 00000000 		.word	u8x8_utf8_next
+ 953              		.cfi_endproc
+ 954              	.LFE14:
+ 956              		.section	.text.u8x8_GetUTF8Len,"ax",%progbits
+ 957              		.align	1
+ 958              		.global	u8x8_GetUTF8Len
+ 959              		.syntax unified
+ 960              		.thumb
+ 961              		.thumb_func
+ 962              		.fpu softvfp
+ 964              	u8x8_GetUTF8Len:
+ 965              	.LFB15:
+ 345:u8g2/csrc/u8x8_8x8.c **** 
+ 346:u8g2/csrc/u8x8_8x8.c **** 
+ 347:u8g2/csrc/u8x8_8x8.c **** 
+ 348:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_GetUTF8Len(u8x8_t *u8x8, const char *s)
+ 349:u8g2/csrc/u8x8_8x8.c **** {
+ 966              		.loc 1 349 0
+ 967              		.cfi_startproc
+ 968              		@ args = 0, pretend = 0, frame = 0
+ 969              		@ frame_needed = 0, uses_anonymous_args = 0
+ 970              	.LVL130:
+ 971 0000 70B5     		push	{r4, r5, r6, lr}
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 25
+
+
+ 972              	.LCFI16:
+ 973              		.cfi_def_cfa_offset 16
+ 974              		.cfi_offset 4, -16
+ 975              		.cfi_offset 5, -12
+ 976              		.cfi_offset 6, -8
+ 977              		.cfi_offset 14, -4
+ 978 0002 0646     		mov	r6, r0
+ 979 0004 0C46     		mov	r4, r1
+ 980              	.LVL131:
+ 350:u8g2/csrc/u8x8_8x8.c ****   uint16_t e;
+ 351:u8g2/csrc/u8x8_8x8.c ****   uint8_t cnt = 0;
+ 352:u8g2/csrc/u8x8_8x8.c ****   u8x8_utf8_init(u8x8);
+ 981              		.loc 1 352 0
+ 982 0006 FFF7FEFF 		bl	u8x8_utf8_init
+ 983              	.LVL132:
+ 351:u8g2/csrc/u8x8_8x8.c ****   u8x8_utf8_init(u8x8);
+ 984              		.loc 1 351 0
+ 985 000a 0025     		movs	r5, #0
+ 986              	.LVL133:
+ 987              	.L70:
+ 353:u8g2/csrc/u8x8_8x8.c ****   for(;;)
+ 354:u8g2/csrc/u8x8_8x8.c ****   {
+ 355:u8g2/csrc/u8x8_8x8.c ****     e = u8x8_utf8_next(u8x8, *s);
+ 988              		.loc 1 355 0
+ 989 000c 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 990 000e 3046     		mov	r0, r6
+ 991 0010 FFF7FEFF 		bl	u8x8_utf8_next
+ 992              	.LVL134:
+ 356:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 993              		.loc 1 356 0
+ 994 0014 4FF6FF73 		movw	r3, #65535
+ 995 0018 9842     		cmp	r0, r3
+ 996 001a 07D0     		beq	.L71
+ 357:u8g2/csrc/u8x8_8x8.c ****       break;
+ 358:u8g2/csrc/u8x8_8x8.c ****     s++;
+ 997              		.loc 1 358 0
+ 998 001c 0134     		adds	r4, r4, #1
+ 999              	.LVL135:
+ 359:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 1000              		.loc 1 359 0
+ 1001 001e 4FF6FE73 		movw	r3, #65534
+ 1002 0022 9842     		cmp	r0, r3
+ 1003 0024 F2D0     		beq	.L70
+ 360:u8g2/csrc/u8x8_8x8.c ****       cnt++;
+ 1004              		.loc 1 360 0
+ 1005 0026 0135     		adds	r5, r5, #1
+ 1006              	.LVL136:
+ 1007 0028 EDB2     		uxtb	r5, r5
+ 1008              	.LVL137:
+ 1009 002a EFE7     		b	.L70
+ 1010              	.L71:
+ 361:u8g2/csrc/u8x8_8x8.c ****   }
+ 362:u8g2/csrc/u8x8_8x8.c ****   return cnt;
+ 363:u8g2/csrc/u8x8_8x8.c **** }
+ 1011              		.loc 1 363 0
+ 1012 002c 2846     		mov	r0, r5
+ 1013              	.LVL138:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 26
+
+
+ 1014 002e 70BD     		pop	{r4, r5, r6, pc}
+ 1015              		.cfi_endproc
+ 1016              	.LFE15:
+ 1018              		.text
+ 1019              	.Letext0:
+ 1020              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 1021              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 1022              		.file 4 "u8g2/csrc/u8x8.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\cctT989D.s 			page 27
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8x8_8x8.c
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:16     .text.u8x8_get_glyph_data:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:22     .text.u8x8_get_glyph_data:00000000 u8x8_get_glyph_data
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:147    .text.u8x8_upscale_buf:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:153    .text.u8x8_upscale_buf:00000000 u8x8_upscale_buf
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:202    .text.u8x8_ascii_next:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:209    .text.u8x8_ascii_next:00000000 u8x8_ascii_next
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:243    .text.u8x8_utf8_next:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:250    .text.u8x8_utf8_next:00000000 u8x8_utf8_next
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:377    .text.u8x8_SetFont:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:384    .text.u8x8_SetFont:00000000 u8x8_SetFont
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:399    .text.u8x8_DrawGlyph:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:406    .text.u8x8_DrawGlyph:00000000 u8x8_DrawGlyph
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:453    .text.u8x8_upscale_byte:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:460    .text.u8x8_upscale_byte:00000000 u8x8_upscale_byte
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:505    .text.u8x8_Draw2x2Glyph:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:512    .text.u8x8_Draw2x2Glyph:00000000 u8x8_Draw2x2Glyph
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:634    .text.u8x8_utf8_init:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:641    .text.u8x8_utf8_init:00000000 u8x8_utf8_init
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:657    .text.u8x8_draw_string:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:663    .text.u8x8_draw_string:00000000 u8x8_draw_string
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:737    .text.u8x8_draw_2x2_string:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:743    .text.u8x8_draw_2x2_string:00000000 u8x8_draw_2x2_string
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:817    .text.u8x8_DrawString:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:824    .text.u8x8_DrawString:00000000 u8x8_DrawString
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:847    .text.u8x8_DrawString:0000000c $d
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:852    .text.u8x8_DrawUTF8:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:859    .text.u8x8_DrawUTF8:00000000 u8x8_DrawUTF8
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:882    .text.u8x8_DrawUTF8:0000000c $d
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:887    .text.u8x8_Draw2x2String:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:894    .text.u8x8_Draw2x2String:00000000 u8x8_Draw2x2String
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:917    .text.u8x8_Draw2x2String:0000000c $d
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:922    .text.u8x8_Draw2x2UTF8:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:929    .text.u8x8_Draw2x2UTF8:00000000 u8x8_Draw2x2UTF8
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:952    .text.u8x8_Draw2x2UTF8:0000000c $d
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:957    .text.u8x8_GetUTF8Len:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\cctT989D.s:964    .text.u8x8_GetUTF8Len:00000000 u8x8_GetUTF8Len
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+u8x8_DrawTile

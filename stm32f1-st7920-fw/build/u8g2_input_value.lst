@@ -1,0 +1,500 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8g2_input_value.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8g2_UserInterfaceInputValue,"ax",%progbits
+  16              		.align	1
+  17              		.global	u8g2_UserInterfaceInputValue
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	u8g2_UserInterfaceInputValue:
+  24              	.LFB0:
+  25              		.file 1 "u8g2/csrc/u8g2_input_value.c"
+   1:u8g2/csrc/u8g2_input_value.c **** /*
+   2:u8g2/csrc/u8g2_input_value.c **** 
+   3:u8g2/csrc/u8g2_input_value.c ****   u8g2_input_value.c
+   4:u8g2/csrc/u8g2_input_value.c ****   
+   5:u8g2/csrc/u8g2_input_value.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   6:u8g2/csrc/u8g2_input_value.c **** 
+   7:u8g2/csrc/u8g2_input_value.c ****   Copyright (c) 2016, olikraus@gmail.com
+   8:u8g2/csrc/u8g2_input_value.c ****   All rights reserved.
+   9:u8g2/csrc/u8g2_input_value.c **** 
+  10:u8g2/csrc/u8g2_input_value.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  11:u8g2/csrc/u8g2_input_value.c ****   are permitted provided that the following conditions are met:
+  12:u8g2/csrc/u8g2_input_value.c **** 
+  13:u8g2/csrc/u8g2_input_value.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  14:u8g2/csrc/u8g2_input_value.c ****     of conditions and the following disclaimer.
+  15:u8g2/csrc/u8g2_input_value.c ****     
+  16:u8g2/csrc/u8g2_input_value.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  17:u8g2/csrc/u8g2_input_value.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  18:u8g2/csrc/u8g2_input_value.c ****     materials provided with the distribution.
+  19:u8g2/csrc/u8g2_input_value.c **** 
+  20:u8g2/csrc/u8g2_input_value.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  21:u8g2/csrc/u8g2_input_value.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  22:u8g2/csrc/u8g2_input_value.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  23:u8g2/csrc/u8g2_input_value.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  24:u8g2/csrc/u8g2_input_value.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  25:u8g2/csrc/u8g2_input_value.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  26:u8g2/csrc/u8g2_input_value.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  27:u8g2/csrc/u8g2_input_value.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  28:u8g2/csrc/u8g2_input_value.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  29:u8g2/csrc/u8g2_input_value.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  30:u8g2/csrc/u8g2_input_value.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:u8g2/csrc/u8g2_input_value.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+  32:u8g2/csrc/u8g2_input_value.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
+  33:u8g2/csrc/u8g2_input_value.c ****   
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s 			page 2
+
+
+  34:u8g2/csrc/u8g2_input_value.c **** */
+  35:u8g2/csrc/u8g2_input_value.c **** 
+  36:u8g2/csrc/u8g2_input_value.c **** #include "u8g2.h"
+  37:u8g2/csrc/u8g2_input_value.c **** 
+  38:u8g2/csrc/u8g2_input_value.c **** /*
+  39:u8g2/csrc/u8g2_input_value.c ****   return:
+  40:u8g2/csrc/u8g2_input_value.c ****     0: value is not changed (HOME/Break Button pressed)
+  41:u8g2/csrc/u8g2_input_value.c ****     1: value has been updated
+  42:u8g2/csrc/u8g2_input_value.c **** */
+  43:u8g2/csrc/u8g2_input_value.c **** 
+  44:u8g2/csrc/u8g2_input_value.c **** uint8_t u8g2_UserInterfaceInputValue(u8g2_t *u8g2, const char *title, const char *pre, uint8_t *val
+  45:u8g2/csrc/u8g2_input_value.c **** {
+  26              		.loc 1 45 0
+  27              		.cfi_startproc
+  28              		@ args = 16, pretend = 0, frame = 24
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              	.LVL0:
+  31 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 36
+  34              		.cfi_offset 4, -36
+  35              		.cfi_offset 5, -32
+  36              		.cfi_offset 6, -28
+  37              		.cfi_offset 7, -24
+  38              		.cfi_offset 8, -20
+  39              		.cfi_offset 9, -16
+  40              		.cfi_offset 10, -12
+  41              		.cfi_offset 11, -8
+  42              		.cfi_offset 14, -4
+  43 0004 89B0     		sub	sp, sp, #36
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 72
+  46 0006 0446     		mov	r4, r0
+  47 0008 8B46     		mov	fp, r1
+  48 000a 0392     		str	r2, [sp, #12]
+  49 000c 0793     		str	r3, [sp, #28]
+  50 000e 9DF84820 		ldrb	r2, [sp, #72]	@ zero_extendqisi2
+  51              	.LVL1:
+  52 0012 0692     		str	r2, [sp, #24]
+  53 0014 9DF84C20 		ldrb	r2, [sp, #76]	@ zero_extendqisi2
+  54 0018 0592     		str	r2, [sp, #20]
+  55 001a 9DF85020 		ldrb	r2, [sp, #80]	@ zero_extendqisi2
+  56 001e 0492     		str	r2, [sp, #16]
+  46:u8g2/csrc/u8g2_input_value.c ****   uint8_t line_height;
+  47:u8g2/csrc/u8g2_input_value.c ****   uint8_t height;
+  48:u8g2/csrc/u8g2_input_value.c ****   u8g2_uint_t pixel_height;
+  49:u8g2/csrc/u8g2_input_value.c ****   u8g2_uint_t  y, yy;
+  50:u8g2/csrc/u8g2_input_value.c ****   u8g2_uint_t  pixel_width;
+  51:u8g2/csrc/u8g2_input_value.c ****   u8g2_uint_t  x, xx;
+  52:u8g2/csrc/u8g2_input_value.c ****   
+  53:u8g2/csrc/u8g2_input_value.c ****   uint8_t local_value = *value;
+  57              		.loc 1 53 0
+  58 0020 93F80090 		ldrb	r9, [r3]	@ zero_extendqisi2
+  59              	.LVL2:
+  54:u8g2/csrc/u8g2_input_value.c ****   //uint8_t r; /* not used ??? */
+  55:u8g2/csrc/u8g2_input_value.c ****   uint8_t event;
+  56:u8g2/csrc/u8g2_input_value.c **** 
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s 			page 3
+
+
+  57:u8g2/csrc/u8g2_input_value.c ****   /* only horizontal strings are supported, so force this here */
+  58:u8g2/csrc/u8g2_input_value.c ****   u8g2_SetFontDirection(u8g2, 0);
+  60              		.loc 1 58 0
+  61 0024 0021     		movs	r1, #0
+  62              	.LVL3:
+  63 0026 FFF7FEFF 		bl	u8g2_SetFontDirection
+  64              	.LVL4:
+  59:u8g2/csrc/u8g2_input_value.c **** 
+  60:u8g2/csrc/u8g2_input_value.c ****   /* force baseline position */
+  61:u8g2/csrc/u8g2_input_value.c ****   u8g2_SetFontPosBaseline(u8g2);
+  65              		.loc 1 61 0
+  66 002a 2046     		mov	r0, r4
+  67 002c FFF7FEFF 		bl	u8g2_SetFontPosBaseline
+  68              	.LVL5:
+  62:u8g2/csrc/u8g2_input_value.c ****   
+  63:u8g2/csrc/u8g2_input_value.c ****   /* calculate line height */
+  64:u8g2/csrc/u8g2_input_value.c ****   line_height = u8g2_GetAscent(u8g2);
+  69              		.loc 1 64 0
+  70 0030 94F879A0 		ldrb	r10, [r4, #121]	@ zero_extendqisi2
+  71              	.LVL6:
+  65:u8g2/csrc/u8g2_input_value.c ****   line_height -= u8g2_GetDescent(u8g2);
+  72              		.loc 1 65 0
+  73 0034 94F87A30 		ldrb	r3, [r4, #122]	@ zero_extendqisi2
+  74 0038 AAEB030A 		sub	r10, r10, r3
+  75              	.LVL7:
+  76 003c 5FFA8AFA 		uxtb	r10, r10
+  77              	.LVL8:
+  66:u8g2/csrc/u8g2_input_value.c ****   
+  67:u8g2/csrc/u8g2_input_value.c ****   
+  68:u8g2/csrc/u8g2_input_value.c ****   /* calculate overall height of the input value box */
+  69:u8g2/csrc/u8g2_input_value.c ****   height = 1;	/* value input line */
+  70:u8g2/csrc/u8g2_input_value.c ****   height += u8x8_GetStringLineCnt(title);
+  78              		.loc 1 70 0
+  79 0040 5846     		mov	r0, fp
+  80 0042 FFF7FEFF 		bl	u8x8_GetStringLineCnt
+  81              	.LVL9:
+  82 0046 431C     		adds	r3, r0, #1
+  83 0048 DBB2     		uxtb	r3, r3
+  84              	.LVL10:
+  71:u8g2/csrc/u8g2_input_value.c **** 
+  72:u8g2/csrc/u8g2_input_value.c ****   /* calculate the height in pixel */
+  73:u8g2/csrc/u8g2_input_value.c ****   pixel_height = height;
+  74:u8g2/csrc/u8g2_input_value.c ****   pixel_height *= line_height;
+  85              		.loc 1 74 0
+  86 004a 03FB0AF3 		mul	r3, r3, r10
+  87              	.LVL11:
+  88 004e DBB2     		uxtb	r3, r3
+  89              	.LVL12:
+  75:u8g2/csrc/u8g2_input_value.c **** 
+  76:u8g2/csrc/u8g2_input_value.c **** 
+  77:u8g2/csrc/u8g2_input_value.c ****   /* calculate offset from top */
+  78:u8g2/csrc/u8g2_input_value.c ****   y = 0;
+  79:u8g2/csrc/u8g2_input_value.c ****   if ( pixel_height < u8g2_GetDisplayHeight(u8g2)  )
+  90              		.loc 1 79 0
+  91 0050 94F84020 		ldrb	r2, [r4, #64]	@ zero_extendqisi2
+  92 0054 9342     		cmp	r3, r2
+  93 0056 62D2     		bcs	.L13
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s 			page 4
+
+
+  94              	.LVL13:
+  80:u8g2/csrc/u8g2_input_value.c ****   {
+  81:u8g2/csrc/u8g2_input_value.c ****     y = u8g2_GetDisplayHeight(u8g2);
+  82:u8g2/csrc/u8g2_input_value.c ****     y -= pixel_height;
+  95              		.loc 1 82 0
+  96 0058 D31A     		subs	r3, r2, r3
+  97              	.LVL14:
+  83:u8g2/csrc/u8g2_input_value.c ****     y /= 2;
+  98              		.loc 1 83 0
+  99 005a C3F34608 		ubfx	r8, r3, #1, #7
+ 100              	.LVL15:
+ 101              	.L2:
+  84:u8g2/csrc/u8g2_input_value.c ****   }
+  85:u8g2/csrc/u8g2_input_value.c ****   
+  86:u8g2/csrc/u8g2_input_value.c ****   /* calculate offset from left for the label */
+  87:u8g2/csrc/u8g2_input_value.c ****   x = 0;
+  88:u8g2/csrc/u8g2_input_value.c ****   pixel_width = u8g2_GetUTF8Width(u8g2, pre);
+ 102              		.loc 1 88 0
+ 103 005e 0399     		ldr	r1, [sp, #12]
+ 104 0060 2046     		mov	r0, r4
+ 105              	.LVL16:
+ 106 0062 FFF7FEFF 		bl	u8g2_GetUTF8Width
+ 107              	.LVL17:
+ 108 0066 0546     		mov	r5, r0
+ 109              	.LVL18:
+  89:u8g2/csrc/u8g2_input_value.c ****   pixel_width += u8g2_GetUTF8Width(u8g2, "0") * digits;
+ 110              		.loc 1 89 0
+ 111 0068 3A49     		ldr	r1, .L20
+ 112 006a 2046     		mov	r0, r4
+ 113 006c FFF7FEFF 		bl	u8g2_GetUTF8Width
+ 114              	.LVL19:
+ 115 0070 049B     		ldr	r3, [sp, #16]
+ 116 0072 00FB0355 		mla	r5, r0, r3, r5
+ 117              	.LVL20:
+ 118 0076 EDB2     		uxtb	r5, r5
+ 119              	.LVL21:
+  90:u8g2/csrc/u8g2_input_value.c ****   pixel_width += u8g2_GetUTF8Width(u8g2, post);
+ 120              		.loc 1 90 0
+ 121 0078 1599     		ldr	r1, [sp, #84]
+ 122 007a 2046     		mov	r0, r4
+ 123 007c FFF7FEFF 		bl	u8g2_GetUTF8Width
+ 124              	.LVL22:
+ 125 0080 2844     		add	r0, r0, r5
+ 126 0082 C0B2     		uxtb	r0, r0
+ 127              	.LVL23:
+  91:u8g2/csrc/u8g2_input_value.c ****   if ( pixel_width < u8g2_GetDisplayWidth(u8g2) )
+ 128              		.loc 1 91 0
+ 129 0084 94F83F30 		ldrb	r3, [r4, #63]	@ zero_extendqisi2
+ 130 0088 9842     		cmp	r0, r3
+ 131 008a 4BD2     		bcs	.L14
+ 132              	.LVL24:
+  92:u8g2/csrc/u8g2_input_value.c ****   {
+  93:u8g2/csrc/u8g2_input_value.c ****     x = u8g2_GetDisplayWidth(u8g2);
+  94:u8g2/csrc/u8g2_input_value.c ****     x -= pixel_width;
+ 133              		.loc 1 94 0
+ 134 008c 1B1A     		subs	r3, r3, r0
+ 135              	.LVL25:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s 			page 5
+
+
+  95:u8g2/csrc/u8g2_input_value.c ****     x /= 2;
+ 136              		.loc 1 95 0
+ 137 008e C3F34607 		ubfx	r7, r3, #1, #7
+ 138              	.LVL26:
+ 139              	.L4:
+  96:u8g2/csrc/u8g2_input_value.c ****   }
+  97:u8g2/csrc/u8g2_input_value.c ****   
+  98:u8g2/csrc/u8g2_input_value.c ****   /* event loop */
+  99:u8g2/csrc/u8g2_input_value.c ****   for(;;)
+ 100:u8g2/csrc/u8g2_input_value.c ****   {
+ 101:u8g2/csrc/u8g2_input_value.c ****     u8g2_FirstPage(u8g2);
+ 140              		.loc 1 101 0
+ 141 0092 2046     		mov	r0, r4
+ 142 0094 FFF7FEFF 		bl	u8g2_FirstPage
+ 143              	.LVL27:
+ 144              	.L5:
+ 102:u8g2/csrc/u8g2_input_value.c ****     do
+ 103:u8g2/csrc/u8g2_input_value.c ****     {
+ 104:u8g2/csrc/u8g2_input_value.c ****       /* render */
+ 105:u8g2/csrc/u8g2_input_value.c ****       yy = y;
+ 106:u8g2/csrc/u8g2_input_value.c ****       yy += u8g2_DrawUTF8Lines(u8g2, 0, yy, u8g2_GetDisplayWidth(u8g2), line_height, title);
+ 145              		.loc 1 106 0 discriminator 1
+ 146 0098 94F83F30 		ldrb	r3, [r4, #63]	@ zero_extendqisi2
+ 147 009c CDF804B0 		str	fp, [sp, #4]
+ 148 00a0 CDF800A0 		str	r10, [sp]
+ 149 00a4 4246     		mov	r2, r8
+ 150 00a6 0021     		movs	r1, #0
+ 151 00a8 2046     		mov	r0, r4
+ 152 00aa FFF7FEFF 		bl	u8g2_DrawUTF8Lines
+ 153              	.LVL28:
+ 154 00ae 4044     		add	r0, r0, r8
+ 155 00b0 C6B2     		uxtb	r6, r0
+ 156              	.LVL29:
+ 107:u8g2/csrc/u8g2_input_value.c ****       xx = x;
+ 108:u8g2/csrc/u8g2_input_value.c ****       xx += u8g2_DrawUTF8(u8g2, xx, yy, pre);
+ 157              		.loc 1 108 0 discriminator 1
+ 158 00b2 039B     		ldr	r3, [sp, #12]
+ 159 00b4 3246     		mov	r2, r6
+ 160 00b6 3946     		mov	r1, r7
+ 161 00b8 2046     		mov	r0, r4
+ 162 00ba FFF7FEFF 		bl	u8g2_DrawUTF8
+ 163              	.LVL30:
+ 164 00be 3844     		add	r0, r0, r7
+ 165 00c0 C5B2     		uxtb	r5, r0
+ 166              	.LVL31:
+ 109:u8g2/csrc/u8g2_input_value.c ****       xx += u8g2_DrawUTF8(u8g2, xx, yy, u8x8_u8toa(local_value, digits));
+ 167              		.loc 1 109 0 discriminator 1
+ 168 00c2 0499     		ldr	r1, [sp, #16]
+ 169 00c4 4846     		mov	r0, r9
+ 170 00c6 FFF7FEFF 		bl	u8x8_u8toa
+ 171              	.LVL32:
+ 172 00ca 0346     		mov	r3, r0
+ 173 00cc 3246     		mov	r2, r6
+ 174 00ce 2946     		mov	r1, r5
+ 175 00d0 2046     		mov	r0, r4
+ 176 00d2 FFF7FEFF 		bl	u8g2_DrawUTF8
+ 177              	.LVL33:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s 			page 6
+
+
+ 178 00d6 2844     		add	r0, r0, r5
+ 179              	.LVL34:
+ 110:u8g2/csrc/u8g2_input_value.c ****       u8g2_DrawUTF8(u8g2, xx, yy, post);
+ 180              		.loc 1 110 0 discriminator 1
+ 181 00d8 159B     		ldr	r3, [sp, #84]
+ 182 00da 3246     		mov	r2, r6
+ 183 00dc C1B2     		uxtb	r1, r0
+ 184 00de 2046     		mov	r0, r4
+ 185              	.LVL35:
+ 186 00e0 FFF7FEFF 		bl	u8g2_DrawUTF8
+ 187              	.LVL36:
+ 111:u8g2/csrc/u8g2_input_value.c ****     } while( u8g2_NextPage(u8g2) );
+ 188              		.loc 1 111 0 discriminator 1
+ 189 00e4 2046     		mov	r0, r4
+ 190 00e6 FFF7FEFF 		bl	u8g2_NextPage
+ 191              	.LVL37:
+ 192 00ea 0546     		mov	r5, r0
+ 193 00ec 0028     		cmp	r0, #0
+ 194 00ee D3D1     		bne	.L5
+ 195              	.L12:
+ 112:u8g2/csrc/u8g2_input_value.c ****     
+ 113:u8g2/csrc/u8g2_input_value.c **** #ifdef U8G2_REF_MAN_PIC
+ 114:u8g2/csrc/u8g2_input_value.c ****       return 0;
+ 115:u8g2/csrc/u8g2_input_value.c **** #endif
+ 116:u8g2/csrc/u8g2_input_value.c ****     
+ 117:u8g2/csrc/u8g2_input_value.c ****     for(;;)
+ 118:u8g2/csrc/u8g2_input_value.c ****     {
+ 119:u8g2/csrc/u8g2_input_value.c ****       event = u8x8_GetMenuEvent(u8g2_GetU8x8(u8g2));
+ 196              		.loc 1 119 0
+ 197 00f0 2046     		mov	r0, r4
+ 198 00f2 FFF7FEFF 		bl	u8x8_GetMenuEvent
+ 199              	.LVL38:
+ 120:u8g2/csrc/u8g2_input_value.c ****       if ( event == U8X8_MSG_GPIO_MENU_SELECT )
+ 200              		.loc 1 120 0
+ 201 00f6 5028     		cmp	r0, #80
+ 202 00f8 1CD0     		beq	.L19
+ 121:u8g2/csrc/u8g2_input_value.c ****       {
+ 122:u8g2/csrc/u8g2_input_value.c **** 	*value = local_value;
+ 123:u8g2/csrc/u8g2_input_value.c **** 	return 1;
+ 124:u8g2/csrc/u8g2_input_value.c ****       }
+ 125:u8g2/csrc/u8g2_input_value.c ****       else if ( event == U8X8_MSG_GPIO_MENU_HOME )
+ 203              		.loc 1 125 0
+ 204 00fa 5328     		cmp	r0, #83
+ 205 00fc 1ED0     		beq	.L7
+ 126:u8g2/csrc/u8g2_input_value.c ****       {
+ 127:u8g2/csrc/u8g2_input_value.c **** 	return 0;
+ 128:u8g2/csrc/u8g2_input_value.c ****       }
+ 129:u8g2/csrc/u8g2_input_value.c ****       else if ( event == U8X8_MSG_GPIO_MENU_NEXT || event == U8X8_MSG_GPIO_MENU_UP )
+ 206              		.loc 1 129 0
+ 207 00fe 5128     		cmp	r0, #81
+ 208 0100 20D0     		beq	.L8
+ 209              		.loc 1 129 0 is_stmt 0 discriminator 1
+ 210 0102 5428     		cmp	r0, #84
+ 211 0104 1ED0     		beq	.L8
+ 130:u8g2/csrc/u8g2_input_value.c ****       {
+ 131:u8g2/csrc/u8g2_input_value.c **** 	if ( local_value >= hi )
+ 132:u8g2/csrc/u8g2_input_value.c **** 	  local_value = lo;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s 			page 7
+
+
+ 133:u8g2/csrc/u8g2_input_value.c **** 	else
+ 134:u8g2/csrc/u8g2_input_value.c **** 	  local_value++;
+ 135:u8g2/csrc/u8g2_input_value.c **** 	break;
+ 136:u8g2/csrc/u8g2_input_value.c ****       }
+ 137:u8g2/csrc/u8g2_input_value.c ****       else if ( event == U8X8_MSG_GPIO_MENU_PREV || event == U8X8_MSG_GPIO_MENU_DOWN )
+ 212              		.loc 1 137 0 is_stmt 1
+ 213 0106 5228     		cmp	r0, #82
+ 214 0108 01D0     		beq	.L11
+ 215              		.loc 1 137 0 is_stmt 0 discriminator 1
+ 216 010a 5528     		cmp	r0, #85
+ 217 010c F0D1     		bne	.L12
+ 218              	.L11:
+ 138:u8g2/csrc/u8g2_input_value.c ****       {
+ 139:u8g2/csrc/u8g2_input_value.c **** 	if ( local_value <= lo )
+ 219              		.loc 1 139 0 is_stmt 1
+ 220 010e 069B     		ldr	r3, [sp, #24]
+ 221 0110 9945     		cmp	r9, r3
+ 222 0112 0CD9     		bls	.L16
+ 140:u8g2/csrc/u8g2_input_value.c **** 	  local_value = hi;
+ 141:u8g2/csrc/u8g2_input_value.c **** 	else
+ 142:u8g2/csrc/u8g2_input_value.c **** 	  local_value--;
+ 223              		.loc 1 142 0
+ 224 0114 09F1FF39 		add	r9, r9, #-1
+ 225              	.LVL39:
+ 226 0118 5FFA89F9 		uxtb	r9, r9
+ 227              	.LVL40:
+ 228 011c B9E7     		b	.L4
+ 229              	.LVL41:
+ 230              	.L13:
+  78:u8g2/csrc/u8g2_input_value.c ****   if ( pixel_height < u8g2_GetDisplayHeight(u8g2)  )
+ 231              		.loc 1 78 0
+ 232 011e 4FF00008 		mov	r8, #0
+ 233 0122 9CE7     		b	.L2
+ 234              	.LVL42:
+ 235              	.L14:
+  87:u8g2/csrc/u8g2_input_value.c ****   pixel_width = u8g2_GetUTF8Width(u8g2, pre);
+ 236              		.loc 1 87 0
+ 237 0124 0027     		movs	r7, #0
+ 238 0126 B4E7     		b	.L4
+ 239              	.LVL43:
+ 240              	.L15:
+ 132:u8g2/csrc/u8g2_input_value.c **** 	else
+ 241              		.loc 1 132 0
+ 242 0128 DDF81890 		ldr	r9, [sp, #24]
+ 243              	.LVL44:
+ 244 012c B1E7     		b	.L4
+ 245              	.LVL45:
+ 246              	.L16:
+ 140:u8g2/csrc/u8g2_input_value.c **** 	else
+ 247              		.loc 1 140 0
+ 248 012e DDF81490 		ldr	r9, [sp, #20]
+ 249              	.LVL46:
+ 250 0132 AEE7     		b	.L4
+ 251              	.LVL47:
+ 252              	.L19:
+ 122:u8g2/csrc/u8g2_input_value.c **** 	return 1;
+ 253              		.loc 1 122 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s 			page 8
+
+
+ 254 0134 079B     		ldr	r3, [sp, #28]
+ 255 0136 83F80090 		strb	r9, [r3]
+ 123:u8g2/csrc/u8g2_input_value.c ****       }
+ 256              		.loc 1 123 0
+ 257 013a 0125     		movs	r5, #1
+ 258              	.L7:
+ 143:u8g2/csrc/u8g2_input_value.c **** 	break;
+ 144:u8g2/csrc/u8g2_input_value.c ****       }        
+ 145:u8g2/csrc/u8g2_input_value.c ****     }
+ 146:u8g2/csrc/u8g2_input_value.c ****   }
+ 147:u8g2/csrc/u8g2_input_value.c ****   
+ 148:u8g2/csrc/u8g2_input_value.c ****   /* never reached */
+ 149:u8g2/csrc/u8g2_input_value.c ****   //return r;  
+ 150:u8g2/csrc/u8g2_input_value.c **** }
+ 259              		.loc 1 150 0
+ 260 013c 2846     		mov	r0, r5
+ 261              	.LVL48:
+ 262 013e 09B0     		add	sp, sp, #36
+ 263              	.LCFI2:
+ 264              		.cfi_remember_state
+ 265              		.cfi_def_cfa_offset 36
+ 266              		@ sp needed
+ 267 0140 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 268              	.LVL49:
+ 269              	.L8:
+ 270              	.LCFI3:
+ 271              		.cfi_restore_state
+ 131:u8g2/csrc/u8g2_input_value.c **** 	  local_value = lo;
+ 272              		.loc 1 131 0
+ 273 0144 059B     		ldr	r3, [sp, #20]
+ 274 0146 9945     		cmp	r9, r3
+ 275 0148 EED2     		bcs	.L15
+ 134:u8g2/csrc/u8g2_input_value.c **** 	break;
+ 276              		.loc 1 134 0
+ 277 014a 09F10109 		add	r9, r9, #1
+ 278              	.LVL50:
+ 279 014e 5FFA89F9 		uxtb	r9, r9
+ 280              	.LVL51:
+ 281 0152 9EE7     		b	.L4
+ 282              	.L21:
+ 283              		.align	2
+ 284              	.L20:
+ 285 0154 00000000 		.word	.LC0
+ 286              		.cfi_endproc
+ 287              	.LFE0:
+ 289              		.section	.rodata.u8g2_UserInterfaceInputValue.str1.4,"aMS",%progbits,1
+ 290              		.align	2
+ 291              	.LC0:
+ 292 0000 3000     		.ascii	"0\000"
+ 293              		.text
+ 294              	.Letext0:
+ 295              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 296              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 297              		.file 4 "u8g2/csrc/u8x8.h"
+ 298              		.file 5 "u8g2/csrc/u8g2.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8g2_input_value.c
+C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s:16     .text.u8g2_UserInterfaceInputValue:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s:23     .text.u8g2_UserInterfaceInputValue:00000000 u8g2_UserInterfaceInputValue
+C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s:285    .text.u8g2_UserInterfaceInputValue:00000154 $d
+C:\Users\nhantt\AppData\Local\Temp\ccNc0xAJ.s:290    .rodata.u8g2_UserInterfaceInputValue.str1.4:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+u8g2_SetFontDirection
+u8g2_SetFontPosBaseline
+u8x8_GetStringLineCnt
+u8g2_GetUTF8Width
+u8g2_FirstPage
+u8g2_DrawUTF8Lines
+u8g2_DrawUTF8
+u8x8_u8toa
+u8g2_NextPage
+u8x8_GetMenuEvent

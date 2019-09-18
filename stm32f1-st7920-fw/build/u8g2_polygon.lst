@@ -1,0 +1,1468 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8g2_polygon.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.pge_Next,"ax",%progbits
+  16              		.align	1
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu softvfp
+  22              	pge_Next:
+  23              	.LFB0:
+  24              		.file 1 "u8g2/csrc/u8g2_polygon.c"
+   1:u8g2/csrc/u8g2_polygon.c **** /*
+   2:u8g2/csrc/u8g2_polygon.c **** 
+   3:u8g2/csrc/u8g2_polygon.c ****   u8g22_polygon.c
+   4:u8g2/csrc/u8g2_polygon.c **** 
+   5:u8g2/csrc/u8g2_polygon.c **** */	
+   6:u8g2/csrc/u8g2_polygon.c **** 
+   7:u8g2/csrc/u8g2_polygon.c **** 
+   8:u8g2/csrc/u8g2_polygon.c **** #include "u8g2.h"
+   9:u8g2/csrc/u8g2_polygon.c **** 
+  10:u8g2/csrc/u8g2_polygon.c **** 
+  11:u8g2/csrc/u8g2_polygon.c **** 
+  12:u8g2/csrc/u8g2_polygon.c **** 
+  13:u8g2/csrc/u8g2_polygon.c **** /*===========================================*/
+  14:u8g2/csrc/u8g2_polygon.c **** /* local definitions */
+  15:u8g2/csrc/u8g2_polygon.c **** 
+  16:u8g2/csrc/u8g2_polygon.c **** typedef int16_t pg_word_t;
+  17:u8g2/csrc/u8g2_polygon.c **** 
+  18:u8g2/csrc/u8g2_polygon.c **** 
+  19:u8g2/csrc/u8g2_polygon.c **** struct pg_point_struct
+  20:u8g2/csrc/u8g2_polygon.c **** {
+  21:u8g2/csrc/u8g2_polygon.c ****   pg_word_t x;
+  22:u8g2/csrc/u8g2_polygon.c ****   pg_word_t y;
+  23:u8g2/csrc/u8g2_polygon.c **** };
+  24:u8g2/csrc/u8g2_polygon.c **** 
+  25:u8g2/csrc/u8g2_polygon.c **** typedef struct _pg_struct pg_struct;	/* forward declaration */
+  26:u8g2/csrc/u8g2_polygon.c **** 
+  27:u8g2/csrc/u8g2_polygon.c **** struct pg_edge_struct
+  28:u8g2/csrc/u8g2_polygon.c **** {
+  29:u8g2/csrc/u8g2_polygon.c ****   pg_word_t x_direction;	/* 1, if x2 is greater than x1, -1 otherwise */
+  30:u8g2/csrc/u8g2_polygon.c ****   pg_word_t height;
+  31:u8g2/csrc/u8g2_polygon.c ****   pg_word_t current_x_offset;
+  32:u8g2/csrc/u8g2_polygon.c ****   pg_word_t error_offset;
+  33:u8g2/csrc/u8g2_polygon.c ****   
+  34:u8g2/csrc/u8g2_polygon.c ****   /* --- line loop --- */
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 2
+
+
+  35:u8g2/csrc/u8g2_polygon.c ****   pg_word_t current_y;
+  36:u8g2/csrc/u8g2_polygon.c ****   pg_word_t max_y;
+  37:u8g2/csrc/u8g2_polygon.c ****   pg_word_t current_x;
+  38:u8g2/csrc/u8g2_polygon.c ****   pg_word_t error;
+  39:u8g2/csrc/u8g2_polygon.c **** 
+  40:u8g2/csrc/u8g2_polygon.c ****   /* --- outer loop --- */
+  41:u8g2/csrc/u8g2_polygon.c ****   uint8_t (*next_idx_fn)(pg_struct *pg, uint8_t i);
+  42:u8g2/csrc/u8g2_polygon.c ****   uint8_t curr_idx;
+  43:u8g2/csrc/u8g2_polygon.c **** };
+  44:u8g2/csrc/u8g2_polygon.c **** 
+  45:u8g2/csrc/u8g2_polygon.c **** /* maximum number of points in the polygon */
+  46:u8g2/csrc/u8g2_polygon.c **** /* can be redefined, but highest possible value is 254 */
+  47:u8g2/csrc/u8g2_polygon.c **** #define PG_MAX_POINTS 6
+  48:u8g2/csrc/u8g2_polygon.c **** 
+  49:u8g2/csrc/u8g2_polygon.c **** /* index numbers for the pge structures below */
+  50:u8g2/csrc/u8g2_polygon.c **** #define PG_LEFT 0
+  51:u8g2/csrc/u8g2_polygon.c **** #define PG_RIGHT 1
+  52:u8g2/csrc/u8g2_polygon.c **** 
+  53:u8g2/csrc/u8g2_polygon.c **** 
+  54:u8g2/csrc/u8g2_polygon.c **** struct _pg_struct
+  55:u8g2/csrc/u8g2_polygon.c **** {
+  56:u8g2/csrc/u8g2_polygon.c ****   struct pg_point_struct list[PG_MAX_POINTS];
+  57:u8g2/csrc/u8g2_polygon.c ****   uint8_t cnt;
+  58:u8g2/csrc/u8g2_polygon.c ****   uint8_t is_min_y_not_flat;
+  59:u8g2/csrc/u8g2_polygon.c ****   pg_word_t total_scan_line_cnt;
+  60:u8g2/csrc/u8g2_polygon.c ****   struct pg_edge_struct pge[2];	/* left and right line draw structures */
+  61:u8g2/csrc/u8g2_polygon.c **** };
+  62:u8g2/csrc/u8g2_polygon.c **** 
+  63:u8g2/csrc/u8g2_polygon.c **** 
+  64:u8g2/csrc/u8g2_polygon.c **** /*===========================================*/
+  65:u8g2/csrc/u8g2_polygon.c **** /* procedures, which should not be inlined (save as much flash ROM as possible */
+  66:u8g2/csrc/u8g2_polygon.c **** 
+  67:u8g2/csrc/u8g2_polygon.c **** #define PG_NOINLINE U8G2_NOINLINE
+  68:u8g2/csrc/u8g2_polygon.c **** 
+  69:u8g2/csrc/u8g2_polygon.c **** static uint8_t pge_Next(struct pg_edge_struct *pge) PG_NOINLINE;
+  70:u8g2/csrc/u8g2_polygon.c **** static uint8_t pg_inc(pg_struct *pg, uint8_t i) PG_NOINLINE;
+  71:u8g2/csrc/u8g2_polygon.c **** static uint8_t pg_dec(pg_struct *pg, uint8_t i) PG_NOINLINE;
+  72:u8g2/csrc/u8g2_polygon.c **** static void pg_expand_min_y(pg_struct *pg, pg_word_t min_y, uint8_t pge_idx) PG_NOINLINE;
+  73:u8g2/csrc/u8g2_polygon.c **** static void pg_line_init(pg_struct * const pg, uint8_t pge_index) PG_NOINLINE;
+  74:u8g2/csrc/u8g2_polygon.c **** 
+  75:u8g2/csrc/u8g2_polygon.c **** /*===========================================*/
+  76:u8g2/csrc/u8g2_polygon.c **** /* line draw algorithm */
+  77:u8g2/csrc/u8g2_polygon.c **** 
+  78:u8g2/csrc/u8g2_polygon.c **** static uint8_t pge_Next(struct pg_edge_struct *pge)
+  79:u8g2/csrc/u8g2_polygon.c **** {
+  25              		.loc 1 79 0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              		@ link register save eliminated.
+  30              	.LVL0:
+  80:u8g2/csrc/u8g2_polygon.c ****   if ( pge->current_y >= pge->max_y )
+  31              		.loc 1 80 0
+  32 0000 B0F90810 		ldrsh	r1, [r0, #8]
+  33 0004 B0F90A30 		ldrsh	r3, [r0, #10]
+  34 0008 9942     		cmp	r1, r3
+  35 000a 18DA     		bge	.L4
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 3
+
+
+  79:u8g2/csrc/u8g2_polygon.c ****   if ( pge->current_y >= pge->max_y )
+  36              		.loc 1 79 0
+  37 000c 10B4     		push	{r4}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 4
+  40              		.cfi_offset 4, -4
+  81:u8g2/csrc/u8g2_polygon.c ****     return 0;
+  82:u8g2/csrc/u8g2_polygon.c ****   
+  83:u8g2/csrc/u8g2_polygon.c ****   pge->current_x += pge->current_x_offset;
+  41              		.loc 1 83 0
+  42 000e 8288     		ldrh	r2, [r0, #4]
+  43 0010 8389     		ldrh	r3, [r0, #12]
+  44 0012 1A44     		add	r2, r2, r3
+  45 0014 92B2     		uxth	r2, r2
+  46 0016 8281     		strh	r2, [r0, #12]	@ movhi
+  84:u8g2/csrc/u8g2_polygon.c ****   pge->error += pge->error_offset;
+  47              		.loc 1 84 0
+  48 0018 C388     		ldrh	r3, [r0, #6]
+  49 001a C489     		ldrh	r4, [r0, #14]
+  50 001c 2344     		add	r3, r3, r4
+  51 001e 9BB2     		uxth	r3, r3
+  52 0020 1CB2     		sxth	r4, r3
+  53 0022 C481     		strh	r4, [r0, #14]	@ movhi
+  85:u8g2/csrc/u8g2_polygon.c ****   if ( pge->error > 0 )
+  54              		.loc 1 85 0
+  55 0024 002C     		cmp	r4, #0
+  56 0026 05DD     		ble	.L3
+  86:u8g2/csrc/u8g2_polygon.c ****   {
+  87:u8g2/csrc/u8g2_polygon.c ****     pge->current_x += pge->x_direction;
+  57              		.loc 1 87 0
+  58 0028 0488     		ldrh	r4, [r0]
+  59 002a 2244     		add	r2, r2, r4
+  60 002c 8281     		strh	r2, [r0, #12]	@ movhi
+  88:u8g2/csrc/u8g2_polygon.c ****     pge->error -= pge->height;
+  61              		.loc 1 88 0
+  62 002e 4288     		ldrh	r2, [r0, #2]
+  63 0030 9B1A     		subs	r3, r3, r2
+  64 0032 C381     		strh	r3, [r0, #14]	@ movhi
+  65              	.L3:
+  89:u8g2/csrc/u8g2_polygon.c ****   }  
+  90:u8g2/csrc/u8g2_polygon.c ****   
+  91:u8g2/csrc/u8g2_polygon.c ****   pge->current_y++;
+  66              		.loc 1 91 0
+  67 0034 0131     		adds	r1, r1, #1
+  68 0036 0181     		strh	r1, [r0, #8]	@ movhi
+  92:u8g2/csrc/u8g2_polygon.c ****   return 1;
+  69              		.loc 1 92 0
+  70 0038 0120     		movs	r0, #1
+  71              	.LVL1:
+  93:u8g2/csrc/u8g2_polygon.c **** }
+  72              		.loc 1 93 0
+  73 003a 10BC     		pop	{r4}
+  74              	.LCFI1:
+  75              		.cfi_restore 4
+  76              		.cfi_def_cfa_offset 0
+  77 003c 7047     		bx	lr
+  78              	.LVL2:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 4
+
+
+  79              	.L4:
+  81:u8g2/csrc/u8g2_polygon.c ****   
+  80              		.loc 1 81 0
+  81 003e 0020     		movs	r0, #0
+  82              	.LVL3:
+  83 0040 7047     		bx	lr
+  84              		.cfi_endproc
+  85              	.LFE0:
+  87              		.section	.text.pge_Init,"ax",%progbits
+  88              		.align	1
+  89              		.syntax unified
+  90              		.thumb
+  91              		.thumb_func
+  92              		.fpu softvfp
+  94              	pge_Init:
+  95              	.LFB1:
+  94:u8g2/csrc/u8g2_polygon.c **** 
+  95:u8g2/csrc/u8g2_polygon.c **** /* assumes y2 > y1 */
+  96:u8g2/csrc/u8g2_polygon.c **** static void pge_Init(struct pg_edge_struct *pge, pg_word_t x1, pg_word_t y1, pg_word_t x2, pg_word_
+  97:u8g2/csrc/u8g2_polygon.c **** {
+  96              		.loc 1 97 0
+  97              		.cfi_startproc
+  98              		@ args = 4, pretend = 0, frame = 0
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100              		@ link register save eliminated.
+ 101              	.LVL4:
+ 102 0000 70B4     		push	{r4, r5, r6}
+ 103              	.LCFI2:
+ 104              		.cfi_def_cfa_offset 12
+ 105              		.cfi_offset 4, -12
+ 106              		.cfi_offset 5, -8
+ 107              		.cfi_offset 6, -4
+ 108 0002 BDF90C60 		ldrsh	r6, [sp, #12]
+  98:u8g2/csrc/u8g2_polygon.c ****   pg_word_t dx = x2 - x1;
+ 109              		.loc 1 98 0
+ 110 0006 5B1A     		subs	r3, r3, r1
+ 111              	.LVL5:
+ 112 0008 9BB2     		uxth	r3, r3
+ 113 000a 1CB2     		sxth	r4, r3
+ 114              	.LVL6:
+  99:u8g2/csrc/u8g2_polygon.c ****   pg_word_t width;
+ 100:u8g2/csrc/u8g2_polygon.c **** 
+ 101:u8g2/csrc/u8g2_polygon.c ****   pge->height = y2 - y1;
+ 115              		.loc 1 101 0
+ 116 000c B51A     		subs	r5, r6, r2
+ 117 000e ADB2     		uxth	r5, r5
+ 118 0010 4580     		strh	r5, [r0, #2]	@ movhi
+ 102:u8g2/csrc/u8g2_polygon.c ****   pge->max_y = y2;
+ 119              		.loc 1 102 0
+ 120 0012 4681     		strh	r6, [r0, #10]	@ movhi
+ 103:u8g2/csrc/u8g2_polygon.c ****   pge->current_y = y1;
+ 121              		.loc 1 103 0
+ 122 0014 0281     		strh	r2, [r0, #8]	@ movhi
+ 104:u8g2/csrc/u8g2_polygon.c ****   pge->current_x = x1;
+ 123              		.loc 1 104 0
+ 124 0016 8181     		strh	r1, [r0, #12]	@ movhi
+ 105:u8g2/csrc/u8g2_polygon.c **** 
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 5
+
+
+ 106:u8g2/csrc/u8g2_polygon.c ****   if ( dx >= 0 )
+ 125              		.loc 1 106 0
+ 126 0018 002C     		cmp	r4, #0
+ 127 001a 10DB     		blt	.L10
+ 107:u8g2/csrc/u8g2_polygon.c ****   {
+ 108:u8g2/csrc/u8g2_polygon.c ****     pge->x_direction = 1;
+ 128              		.loc 1 108 0
+ 129 001c 0123     		movs	r3, #1
+ 130 001e 0380     		strh	r3, [r0]	@ movhi
+ 131              	.LVL7:
+ 109:u8g2/csrc/u8g2_polygon.c ****     width = dx;
+ 110:u8g2/csrc/u8g2_polygon.c ****     pge->error = 0;
+ 132              		.loc 1 110 0
+ 133 0020 0023     		movs	r3, #0
+ 134 0022 C381     		strh	r3, [r0, #14]	@ movhi
+ 109:u8g2/csrc/u8g2_polygon.c ****     width = dx;
+ 135              		.loc 1 109 0
+ 136 0024 2346     		mov	r3, r4
+ 137              	.LVL8:
+ 138              	.L11:
+ 111:u8g2/csrc/u8g2_polygon.c ****   }
+ 112:u8g2/csrc/u8g2_polygon.c ****   else
+ 113:u8g2/csrc/u8g2_polygon.c ****   {
+ 114:u8g2/csrc/u8g2_polygon.c ****     pge->x_direction = -1;
+ 115:u8g2/csrc/u8g2_polygon.c ****     width = -dx;
+ 116:u8g2/csrc/u8g2_polygon.c ****     pge->error = 1 - pge->height;
+ 117:u8g2/csrc/u8g2_polygon.c ****   }
+ 118:u8g2/csrc/u8g2_polygon.c ****   
+ 119:u8g2/csrc/u8g2_polygon.c ****   pge->current_x_offset = dx / pge->height;
+ 139              		.loc 1 119 0
+ 140 0026 B0F90210 		ldrsh	r1, [r0, #2]
+ 141              	.LVL9:
+ 142 002a 94FBF1F4 		sdiv	r4, r4, r1
+ 143              	.LVL10:
+ 144 002e 8480     		strh	r4, [r0, #4]	@ movhi
+ 120:u8g2/csrc/u8g2_polygon.c ****   pge->error_offset = width % pge->height;
+ 145              		.loc 1 120 0
+ 146 0030 93FBF1F2 		sdiv	r2, r3, r1
+ 147 0034 01FB1233 		mls	r3, r1, r2, r3
+ 148              	.LVL11:
+ 149 0038 C380     		strh	r3, [r0, #6]	@ movhi
+ 121:u8g2/csrc/u8g2_polygon.c **** }
+ 150              		.loc 1 121 0
+ 151 003a 70BC     		pop	{r4, r5, r6}
+ 152              	.LCFI3:
+ 153              		.cfi_remember_state
+ 154              		.cfi_restore 6
+ 155              		.cfi_restore 5
+ 156              		.cfi_restore 4
+ 157              		.cfi_def_cfa_offset 0
+ 158              	.LVL12:
+ 159 003c 7047     		bx	lr
+ 160              	.LVL13:
+ 161              	.L10:
+ 162              	.LCFI4:
+ 163              		.cfi_restore_state
+ 114:u8g2/csrc/u8g2_polygon.c ****     width = -dx;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 6
+
+
+ 164              		.loc 1 114 0
+ 165 003e 4FF6FF72 		movw	r2, #65535
+ 166              	.LVL14:
+ 167 0042 0280     		strh	r2, [r0]	@ movhi
+ 115:u8g2/csrc/u8g2_polygon.c ****     pge->error = 1 - pge->height;
+ 168              		.loc 1 115 0
+ 169 0044 5B42     		negs	r3, r3
+ 170 0046 1BB2     		sxth	r3, r3
+ 171              	.LVL15:
+ 116:u8g2/csrc/u8g2_polygon.c ****   }
+ 172              		.loc 1 116 0
+ 173 0048 C5F10105 		rsb	r5, r5, #1
+ 174 004c C581     		strh	r5, [r0, #14]	@ movhi
+ 175 004e EAE7     		b	.L11
+ 176              		.cfi_endproc
+ 177              	.LFE1:
+ 179              		.section	.text.pg_inc,"ax",%progbits
+ 180              		.align	1
+ 181              		.syntax unified
+ 182              		.thumb
+ 183              		.thumb_func
+ 184              		.fpu softvfp
+ 186              	pg_inc:
+ 187              	.LFB2:
+ 122:u8g2/csrc/u8g2_polygon.c **** 
+ 123:u8g2/csrc/u8g2_polygon.c **** /*===========================================*/
+ 124:u8g2/csrc/u8g2_polygon.c **** /* convex polygon algorithm */
+ 125:u8g2/csrc/u8g2_polygon.c **** 
+ 126:u8g2/csrc/u8g2_polygon.c **** static uint8_t pg_inc(pg_struct *pg, uint8_t i)
+ 127:u8g2/csrc/u8g2_polygon.c **** {
+ 188              		.loc 1 127 0
+ 189              		.cfi_startproc
+ 190              		@ args = 0, pretend = 0, frame = 0
+ 191              		@ frame_needed = 0, uses_anonymous_args = 0
+ 192              		@ link register save eliminated.
+ 193              	.LVL16:
+ 128:u8g2/csrc/u8g2_polygon.c ****     i++;
+ 194              		.loc 1 128 0
+ 195 0000 0131     		adds	r1, r1, #1
+ 196              	.LVL17:
+ 197 0002 C9B2     		uxtb	r1, r1
+ 198              	.LVL18:
+ 129:u8g2/csrc/u8g2_polygon.c ****     if ( i >= pg->cnt )
+ 199              		.loc 1 129 0
+ 200 0004 037E     		ldrb	r3, [r0, #24]	@ zero_extendqisi2
+ 201 0006 9942     		cmp	r1, r3
+ 202 0008 00D3     		bcc	.L14
+ 130:u8g2/csrc/u8g2_polygon.c ****       i = 0;
+ 203              		.loc 1 130 0
+ 204 000a 0021     		movs	r1, #0
+ 205              	.LVL19:
+ 206              	.L14:
+ 131:u8g2/csrc/u8g2_polygon.c ****     return i;
+ 132:u8g2/csrc/u8g2_polygon.c **** }
+ 207              		.loc 1 132 0
+ 208 000c 0846     		mov	r0, r1
+ 209              	.LVL20:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 7
+
+
+ 210 000e 7047     		bx	lr
+ 211              		.cfi_endproc
+ 212              	.LFE2:
+ 214              		.section	.text.pg_dec,"ax",%progbits
+ 215              		.align	1
+ 216              		.syntax unified
+ 217              		.thumb
+ 218              		.thumb_func
+ 219              		.fpu softvfp
+ 221              	pg_dec:
+ 222              	.LFB3:
+ 133:u8g2/csrc/u8g2_polygon.c **** 
+ 134:u8g2/csrc/u8g2_polygon.c **** static uint8_t pg_dec(pg_struct *pg, uint8_t i)
+ 135:u8g2/csrc/u8g2_polygon.c **** {
+ 223              		.loc 1 135 0
+ 224              		.cfi_startproc
+ 225              		@ args = 0, pretend = 0, frame = 0
+ 226              		@ frame_needed = 0, uses_anonymous_args = 0
+ 227              		@ link register save eliminated.
+ 228              	.LVL21:
+ 136:u8g2/csrc/u8g2_polygon.c ****     i--;
+ 229              		.loc 1 136 0
+ 230 0000 0139     		subs	r1, r1, #1
+ 231              	.LVL22:
+ 232 0002 C9B2     		uxtb	r1, r1
+ 233              	.LVL23:
+ 137:u8g2/csrc/u8g2_polygon.c ****     if ( i >= pg->cnt )
+ 234              		.loc 1 137 0
+ 235 0004 037E     		ldrb	r3, [r0, #24]	@ zero_extendqisi2
+ 236 0006 9942     		cmp	r1, r3
+ 237 0008 01D3     		bcc	.L17
+ 138:u8g2/csrc/u8g2_polygon.c ****       i = pg->cnt-1;
+ 238              		.loc 1 138 0
+ 239 000a 591E     		subs	r1, r3, #1
+ 240              	.LVL24:
+ 241 000c C9B2     		uxtb	r1, r1
+ 242              	.LVL25:
+ 243              	.L17:
+ 139:u8g2/csrc/u8g2_polygon.c ****     return i;
+ 140:u8g2/csrc/u8g2_polygon.c **** }
+ 244              		.loc 1 140 0
+ 245 000e 0846     		mov	r0, r1
+ 246              	.LVL26:
+ 247 0010 7047     		bx	lr
+ 248              		.cfi_endproc
+ 249              	.LFE3:
+ 251              		.section	.text.pg_expand_min_y,"ax",%progbits
+ 252              		.align	1
+ 253              		.syntax unified
+ 254              		.thumb
+ 255              		.thumb_func
+ 256              		.fpu softvfp
+ 258              	pg_expand_min_y:
+ 259              	.LFB4:
+ 141:u8g2/csrc/u8g2_polygon.c **** 
+ 142:u8g2/csrc/u8g2_polygon.c **** static void pg_expand_min_y(pg_struct *pg, pg_word_t min_y, uint8_t pge_idx)
+ 143:u8g2/csrc/u8g2_polygon.c **** {
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 8
+
+
+ 260              		.loc 1 143 0
+ 261              		.cfi_startproc
+ 262              		@ args = 0, pretend = 0, frame = 0
+ 263              		@ frame_needed = 0, uses_anonymous_args = 0
+ 264              	.LVL27:
+ 265 0000 70B5     		push	{r4, r5, r6, lr}
+ 266              	.LCFI5:
+ 267              		.cfi_def_cfa_offset 16
+ 268              		.cfi_offset 4, -16
+ 269              		.cfi_offset 5, -12
+ 270              		.cfi_offset 6, -8
+ 271              		.cfi_offset 14, -4
+ 272 0002 0446     		mov	r4, r0
+ 273 0004 0E46     		mov	r6, r1
+ 274 0006 1546     		mov	r5, r2
+ 144:u8g2/csrc/u8g2_polygon.c ****   uint8_t i = pg->pge[pge_idx].curr_idx;
+ 275              		.loc 1 144 0
+ 276 0008 02EB4202 		add	r2, r2, r2, lsl #1
+ 277              	.LVL28:
+ 278 000c D300     		lsls	r3, r2, #3
+ 279 000e 0344     		add	r3, r3, r0
+ 280 0010 93F83010 		ldrb	r1, [r3, #48]	@ zero_extendqisi2
+ 281              	.LVL29:
+ 282              	.L20:
+ 145:u8g2/csrc/u8g2_polygon.c ****   for(;;)
+ 146:u8g2/csrc/u8g2_polygon.c ****   {
+ 147:u8g2/csrc/u8g2_polygon.c ****     i = pg->pge[pge_idx].next_idx_fn(pg, i);
+ 283              		.loc 1 147 0
+ 284 0014 05EB4502 		add	r2, r5, r5, lsl #1
+ 285 0018 D300     		lsls	r3, r2, #3
+ 286 001a 2344     		add	r3, r3, r4
+ 287 001c DB6A     		ldr	r3, [r3, #44]
+ 288 001e 2046     		mov	r0, r4
+ 289 0020 9847     		blx	r3
+ 290              	.LVL30:
+ 291 0022 0146     		mov	r1, r0
+ 292              	.LVL31:
+ 148:u8g2/csrc/u8g2_polygon.c ****     if ( pg->list[i].y != min_y )
+ 293              		.loc 1 148 0
+ 294 0024 04EB8003 		add	r3, r4, r0, lsl #2
+ 295 0028 B3F90230 		ldrsh	r3, [r3, #2]
+ 296 002c B342     		cmp	r3, r6
+ 297 002e 06D1     		bne	.L18
+ 149:u8g2/csrc/u8g2_polygon.c ****       break;	
+ 150:u8g2/csrc/u8g2_polygon.c ****     pg->pge[pge_idx].curr_idx = i;
+ 298              		.loc 1 150 0
+ 299 0030 05EB4502 		add	r2, r5, r5, lsl #1
+ 300 0034 D300     		lsls	r3, r2, #3
+ 301 0036 2344     		add	r3, r3, r4
+ 302 0038 83F83000 		strb	r0, [r3, #48]
+ 147:u8g2/csrc/u8g2_polygon.c ****     if ( pg->list[i].y != min_y )
+ 303              		.loc 1 147 0
+ 304 003c EAE7     		b	.L20
+ 305              	.L18:
+ 306 003e 70BD     		pop	{r4, r5, r6, pc}
+ 307              		.cfi_endproc
+ 308              	.LFE4:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 9
+
+
+ 310              		.section	.text.pg_prepare,"ax",%progbits
+ 311              		.align	1
+ 312              		.syntax unified
+ 313              		.thumb
+ 314              		.thumb_func
+ 315              		.fpu softvfp
+ 317              	pg_prepare:
+ 318              	.LFB5:
+ 151:u8g2/csrc/u8g2_polygon.c ****   }
+ 152:u8g2/csrc/u8g2_polygon.c **** }
+ 153:u8g2/csrc/u8g2_polygon.c **** 
+ 154:u8g2/csrc/u8g2_polygon.c **** static uint8_t pg_prepare(pg_struct *pg)
+ 155:u8g2/csrc/u8g2_polygon.c **** {
+ 319              		.loc 1 155 0
+ 320              		.cfi_startproc
+ 321              		@ args = 0, pretend = 0, frame = 0
+ 322              		@ frame_needed = 0, uses_anonymous_args = 0
+ 323              	.LVL32:
+ 324 0000 38B5     		push	{r3, r4, r5, lr}
+ 325              	.LCFI6:
+ 326              		.cfi_def_cfa_offset 16
+ 327              		.cfi_offset 3, -16
+ 328              		.cfi_offset 4, -12
+ 329              		.cfi_offset 5, -8
+ 330              		.cfi_offset 14, -4
+ 156:u8g2/csrc/u8g2_polygon.c ****   pg_word_t max_y;
+ 157:u8g2/csrc/u8g2_polygon.c ****   pg_word_t min_y;
+ 158:u8g2/csrc/u8g2_polygon.c ****   uint8_t i;
+ 159:u8g2/csrc/u8g2_polygon.c **** 
+ 160:u8g2/csrc/u8g2_polygon.c ****   /* setup the next index procedures */
+ 161:u8g2/csrc/u8g2_polygon.c ****   pg->pge[PG_RIGHT].next_idx_fn = pg_inc;
+ 331              		.loc 1 161 0
+ 332 0002 284B     		ldr	r3, .L35
+ 333 0004 4364     		str	r3, [r0, #68]
+ 162:u8g2/csrc/u8g2_polygon.c ****   pg->pge[PG_LEFT].next_idx_fn = pg_dec;
+ 334              		.loc 1 162 0
+ 335 0006 284B     		ldr	r3, .L35+4
+ 336 0008 C362     		str	r3, [r0, #44]
+ 163:u8g2/csrc/u8g2_polygon.c ****   
+ 164:u8g2/csrc/u8g2_polygon.c ****   /* search for highest and lowest point */
+ 165:u8g2/csrc/u8g2_polygon.c ****   max_y = pg->list[0].y;
+ 337              		.loc 1 165 0
+ 338 000a B0F90240 		ldrsh	r4, [r0, #2]
+ 339              	.LVL33:
+ 166:u8g2/csrc/u8g2_polygon.c ****   min_y = pg->list[0].y;
+ 167:u8g2/csrc/u8g2_polygon.c ****   pg->pge[PG_LEFT].curr_idx = 0;
+ 340              		.loc 1 167 0
+ 341 000e 0023     		movs	r3, #0
+ 342 0010 80F83030 		strb	r3, [r0, #48]
+ 343              	.LVL34:
+ 166:u8g2/csrc/u8g2_polygon.c ****   min_y = pg->list[0].y;
+ 344              		.loc 1 166 0
+ 345 0014 2546     		mov	r5, r4
+ 168:u8g2/csrc/u8g2_polygon.c ****   for( i = 1; i < pg->cnt; i++ )
+ 346              		.loc 1 168 0
+ 347 0016 0123     		movs	r3, #1
+ 348 0018 01E0     		b	.L23
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 10
+
+
+ 349              	.LVL35:
+ 350              	.L25:
+ 351              		.loc 1 168 0 is_stmt 0 discriminator 2
+ 352 001a 0133     		adds	r3, r3, #1
+ 353              	.LVL36:
+ 354 001c DBB2     		uxtb	r3, r3
+ 355              	.LVL37:
+ 356              	.L23:
+ 357              		.loc 1 168 0 discriminator 1
+ 358 001e 027E     		ldrb	r2, [r0, #24]	@ zero_extendqisi2
+ 359 0020 9342     		cmp	r3, r2
+ 360 0022 10D2     		bcs	.L32
+ 169:u8g2/csrc/u8g2_polygon.c ****   {
+ 170:u8g2/csrc/u8g2_polygon.c ****     if ( max_y < pg->list[i].y )
+ 361              		.loc 1 170 0 is_stmt 1
+ 362 0024 1946     		mov	r1, r3
+ 363 0026 00EB8302 		add	r2, r0, r3, lsl #2
+ 364 002a B2F90220 		ldrsh	r2, [r2, #2]
+ 365 002e 9442     		cmp	r4, r2
+ 366 0030 00DA     		bge	.L24
+ 171:u8g2/csrc/u8g2_polygon.c ****     {
+ 172:u8g2/csrc/u8g2_polygon.c ****       max_y = pg->list[i].y;
+ 367              		.loc 1 172 0
+ 368 0032 1446     		mov	r4, r2
+ 369              	.LVL38:
+ 370              	.L24:
+ 173:u8g2/csrc/u8g2_polygon.c ****     }
+ 174:u8g2/csrc/u8g2_polygon.c ****     if ( min_y > pg->list[i].y )
+ 371              		.loc 1 174 0
+ 372 0034 9542     		cmp	r5, r2
+ 373 0036 F0DD     		ble	.L25
+ 175:u8g2/csrc/u8g2_polygon.c ****     {
+ 176:u8g2/csrc/u8g2_polygon.c ****       pg->pge[PG_LEFT].curr_idx = i;
+ 374              		.loc 1 176 0
+ 375 0038 80F83030 		strb	r3, [r0, #48]
+ 177:u8g2/csrc/u8g2_polygon.c ****       min_y = pg->list[i].y;
+ 376              		.loc 1 177 0
+ 377 003c 00EB8101 		add	r1, r0, r1, lsl #2
+ 378 0040 B1F90250 		ldrsh	r5, [r1, #2]
+ 379              	.LVL39:
+ 380 0044 E9E7     		b	.L25
+ 381              	.L32:
+ 178:u8g2/csrc/u8g2_polygon.c ****     }
+ 179:u8g2/csrc/u8g2_polygon.c ****   }
+ 180:u8g2/csrc/u8g2_polygon.c **** 
+ 181:u8g2/csrc/u8g2_polygon.c ****   /* calculate total number of scan lines */
+ 182:u8g2/csrc/u8g2_polygon.c ****   pg->total_scan_line_cnt = max_y;
+ 183:u8g2/csrc/u8g2_polygon.c ****   pg->total_scan_line_cnt -= min_y;
+ 382              		.loc 1 183 0
+ 383 0046 641B     		subs	r4, r4, r5
+ 384              	.LVL40:
+ 385 0048 24B2     		sxth	r4, r4
+ 386 004a 4483     		strh	r4, [r0, #26]	@ movhi
+ 184:u8g2/csrc/u8g2_polygon.c ****   
+ 185:u8g2/csrc/u8g2_polygon.c ****   /* exit if polygon height is zero */
+ 186:u8g2/csrc/u8g2_polygon.c ****   if ( pg->total_scan_line_cnt == 0 )
+ 387              		.loc 1 186 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 11
+
+
+ 388 004c 0CB9     		cbnz	r4, .L33
+ 187:u8g2/csrc/u8g2_polygon.c ****     return 0;
+ 389              		.loc 1 187 0
+ 390 004e 0020     		movs	r0, #0
+ 391              	.LVL41:
+ 392 0050 38BD     		pop	{r3, r4, r5, pc}
+ 393              	.LVL42:
+ 394              	.L33:
+ 395 0052 0446     		mov	r4, r0
+ 188:u8g2/csrc/u8g2_polygon.c ****   
+ 189:u8g2/csrc/u8g2_polygon.c ****   /* if the minimum y side is flat, try to find the lowest and highest x points */
+ 190:u8g2/csrc/u8g2_polygon.c ****   pg->pge[PG_RIGHT].curr_idx = pg->pge[PG_LEFT].curr_idx;  
+ 396              		.loc 1 190 0
+ 397 0054 90F83030 		ldrb	r3, [r0, #48]	@ zero_extendqisi2
+ 398              	.LVL43:
+ 399 0058 80F84830 		strb	r3, [r0, #72]
+ 191:u8g2/csrc/u8g2_polygon.c ****   pg_expand_min_y(pg, min_y, PG_RIGHT);
+ 400              		.loc 1 191 0
+ 401 005c 0122     		movs	r2, #1
+ 402 005e 2946     		mov	r1, r5
+ 403 0060 FFF7FEFF 		bl	pg_expand_min_y
+ 404              	.LVL44:
+ 192:u8g2/csrc/u8g2_polygon.c ****   pg_expand_min_y(pg, min_y, PG_LEFT);
+ 405              		.loc 1 192 0
+ 406 0064 0022     		movs	r2, #0
+ 407 0066 2946     		mov	r1, r5
+ 408 0068 2046     		mov	r0, r4
+ 409 006a FFF7FEFF 		bl	pg_expand_min_y
+ 410              	.LVL45:
+ 193:u8g2/csrc/u8g2_polygon.c ****   
+ 194:u8g2/csrc/u8g2_polygon.c ****   /* check if the min side is really flat (depends on the x values) */
+ 195:u8g2/csrc/u8g2_polygon.c ****   pg->is_min_y_not_flat = 1;
+ 411              		.loc 1 195 0
+ 412 006e 0123     		movs	r3, #1
+ 413 0070 6376     		strb	r3, [r4, #25]
+ 196:u8g2/csrc/u8g2_polygon.c ****   if ( pg->list[pg->pge[PG_LEFT].curr_idx].x != pg->list[pg->pge[PG_RIGHT].curr_idx].x )
+ 414              		.loc 1 196 0
+ 415 0072 94F83030 		ldrb	r3, [r4, #48]	@ zero_extendqisi2
+ 416 0076 34F92320 		ldrsh	r2, [r4, r3, lsl #2]
+ 417 007a 94F84830 		ldrb	r3, [r4, #72]	@ zero_extendqisi2
+ 418 007e 34F92330 		ldrsh	r3, [r4, r3, lsl #2]
+ 419 0082 9A42     		cmp	r2, r3
+ 420 0084 03D0     		beq	.L28
+ 197:u8g2/csrc/u8g2_polygon.c ****   {
+ 198:u8g2/csrc/u8g2_polygon.c ****     pg->is_min_y_not_flat = 0;
+ 421              		.loc 1 198 0
+ 422 0086 0023     		movs	r3, #0
+ 423 0088 6376     		strb	r3, [r4, #25]
+ 199:u8g2/csrc/u8g2_polygon.c ****   }
+ 200:u8g2/csrc/u8g2_polygon.c ****   else
+ 201:u8g2/csrc/u8g2_polygon.c ****   {
+ 202:u8g2/csrc/u8g2_polygon.c ****     pg->total_scan_line_cnt--;
+ 203:u8g2/csrc/u8g2_polygon.c ****     if ( pg->total_scan_line_cnt == 0 )
+ 204:u8g2/csrc/u8g2_polygon.c ****       return 0;
+ 205:u8g2/csrc/u8g2_polygon.c ****   }
+ 206:u8g2/csrc/u8g2_polygon.c **** 
+ 207:u8g2/csrc/u8g2_polygon.c ****   return 1;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 12
+
+
+ 424              		.loc 1 207 0
+ 425 008a 0120     		movs	r0, #1
+ 426 008c 38BD     		pop	{r3, r4, r5, pc}
+ 427              	.LVL46:
+ 428              	.L28:
+ 202:u8g2/csrc/u8g2_polygon.c ****     if ( pg->total_scan_line_cnt == 0 )
+ 429              		.loc 1 202 0
+ 430 008e B4F91A30 		ldrsh	r3, [r4, #26]
+ 431 0092 013B     		subs	r3, r3, #1
+ 432 0094 1BB2     		sxth	r3, r3
+ 433 0096 6383     		strh	r3, [r4, #26]	@ movhi
+ 203:u8g2/csrc/u8g2_polygon.c ****       return 0;
+ 434              		.loc 1 203 0
+ 435 0098 0BB1     		cbz	r3, .L34
+ 436              		.loc 1 207 0
+ 437 009a 0120     		movs	r0, #1
+ 208:u8g2/csrc/u8g2_polygon.c **** }
+ 438              		.loc 1 208 0
+ 439 009c 38BD     		pop	{r3, r4, r5, pc}
+ 440              	.LVL47:
+ 441              	.L34:
+ 204:u8g2/csrc/u8g2_polygon.c ****   }
+ 442              		.loc 1 204 0
+ 443 009e 0020     		movs	r0, #0
+ 444 00a0 38BD     		pop	{r3, r4, r5, pc}
+ 445              	.LVL48:
+ 446              	.L36:
+ 447 00a2 00BF     		.align	2
+ 448              	.L35:
+ 449 00a4 00000000 		.word	pg_inc
+ 450 00a8 00000000 		.word	pg_dec
+ 451              		.cfi_endproc
+ 452              	.LFE5:
+ 454              		.section	.text.pg_line_init,"ax",%progbits
+ 455              		.align	1
+ 456              		.syntax unified
+ 457              		.thumb
+ 458              		.thumb_func
+ 459              		.fpu softvfp
+ 461              	pg_line_init:
+ 462              	.LFB7:
+ 209:u8g2/csrc/u8g2_polygon.c **** 
+ 210:u8g2/csrc/u8g2_polygon.c **** static void pg_hline(pg_struct *pg, u8g2_t *u8g2)
+ 211:u8g2/csrc/u8g2_polygon.c **** {
+ 212:u8g2/csrc/u8g2_polygon.c ****   pg_word_t x1, x2, y;
+ 213:u8g2/csrc/u8g2_polygon.c ****   x1 = pg->pge[PG_LEFT].current_x;
+ 214:u8g2/csrc/u8g2_polygon.c ****   x2 = pg->pge[PG_RIGHT].current_x;
+ 215:u8g2/csrc/u8g2_polygon.c ****   y = pg->pge[PG_RIGHT].current_y;
+ 216:u8g2/csrc/u8g2_polygon.c ****   
+ 217:u8g2/csrc/u8g2_polygon.c ****   if ( y < 0 )
+ 218:u8g2/csrc/u8g2_polygon.c ****     return;
+ 219:u8g2/csrc/u8g2_polygon.c ****   if ( y >= u8g2_GetDisplayHeight(u8g2) )  // does not work for 256x64 display???
+ 220:u8g2/csrc/u8g2_polygon.c ****     return;
+ 221:u8g2/csrc/u8g2_polygon.c ****   if ( x1 < x2 )
+ 222:u8g2/csrc/u8g2_polygon.c ****   {
+ 223:u8g2/csrc/u8g2_polygon.c ****     if ( x2 < 0 )
+ 224:u8g2/csrc/u8g2_polygon.c ****       return;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 13
+
+
+ 225:u8g2/csrc/u8g2_polygon.c ****     if ( x1 >= u8g2_GetDisplayWidth(u8g2) )
+ 226:u8g2/csrc/u8g2_polygon.c ****       return;
+ 227:u8g2/csrc/u8g2_polygon.c ****     if ( x1 < 0 )
+ 228:u8g2/csrc/u8g2_polygon.c ****       x1 = 0;
+ 229:u8g2/csrc/u8g2_polygon.c ****     if ( x2 >= u8g2_GetDisplayWidth(u8g2) )
+ 230:u8g2/csrc/u8g2_polygon.c ****       x2 = u8g2_GetDisplayWidth(u8g2);
+ 231:u8g2/csrc/u8g2_polygon.c ****     u8g2_DrawHLine(u8g2, x1, y, x2 - x1);
+ 232:u8g2/csrc/u8g2_polygon.c ****   }
+ 233:u8g2/csrc/u8g2_polygon.c ****   else
+ 234:u8g2/csrc/u8g2_polygon.c ****   {
+ 235:u8g2/csrc/u8g2_polygon.c ****     if ( x1 < 0 )
+ 236:u8g2/csrc/u8g2_polygon.c ****       return;
+ 237:u8g2/csrc/u8g2_polygon.c ****     if ( x2 >= u8g2_GetDisplayWidth(u8g2) )
+ 238:u8g2/csrc/u8g2_polygon.c ****       return;
+ 239:u8g2/csrc/u8g2_polygon.c ****     if ( x2 < 0 )
+ 240:u8g2/csrc/u8g2_polygon.c ****       x1 = 0;
+ 241:u8g2/csrc/u8g2_polygon.c ****     if ( x1 >= u8g2_GetDisplayWidth(u8g2) )
+ 242:u8g2/csrc/u8g2_polygon.c ****       x1 = u8g2_GetDisplayWidth(u8g2);
+ 243:u8g2/csrc/u8g2_polygon.c ****     u8g2_DrawHLine(u8g2, x2, y, x1 - x2);
+ 244:u8g2/csrc/u8g2_polygon.c ****   }
+ 245:u8g2/csrc/u8g2_polygon.c **** }
+ 246:u8g2/csrc/u8g2_polygon.c **** 
+ 247:u8g2/csrc/u8g2_polygon.c **** static void pg_line_init(pg_struct * const pg, uint8_t pge_index)
+ 248:u8g2/csrc/u8g2_polygon.c **** {
+ 463              		.loc 1 248 0
+ 464              		.cfi_startproc
+ 465              		@ args = 0, pretend = 0, frame = 0
+ 466              		@ frame_needed = 0, uses_anonymous_args = 0
+ 467              	.LVL49:
+ 468 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 469              	.LCFI7:
+ 470              		.cfi_def_cfa_offset 20
+ 471              		.cfi_offset 4, -20
+ 472              		.cfi_offset 5, -16
+ 473              		.cfi_offset 6, -12
+ 474              		.cfi_offset 7, -8
+ 475              		.cfi_offset 14, -4
+ 476 0002 83B0     		sub	sp, sp, #12
+ 477              	.LCFI8:
+ 478              		.cfi_def_cfa_offset 32
+ 479 0004 0546     		mov	r5, r0
+ 249:u8g2/csrc/u8g2_polygon.c ****   struct pg_edge_struct  *pge = pg->pge+pge_index;
+ 480              		.loc 1 249 0
+ 481 0006 00F11C04 		add	r4, r0, #28
+ 482 000a 01EB4101 		add	r1, r1, r1, lsl #1
+ 483              	.LVL50:
+ 484 000e CB00     		lsls	r3, r1, #3
+ 485 0010 1C44     		add	r4, r4, r3
+ 486              	.LVL51:
+ 250:u8g2/csrc/u8g2_polygon.c ****   uint8_t idx;  
+ 251:u8g2/csrc/u8g2_polygon.c ****   pg_word_t x1;
+ 252:u8g2/csrc/u8g2_polygon.c ****   pg_word_t y1;
+ 253:u8g2/csrc/u8g2_polygon.c ****   pg_word_t x2;
+ 254:u8g2/csrc/u8g2_polygon.c ****   pg_word_t y2;
+ 255:u8g2/csrc/u8g2_polygon.c **** 
+ 256:u8g2/csrc/u8g2_polygon.c ****   idx = pge->curr_idx;  
+ 487              		.loc 1 256 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 14
+
+
+ 488 0012 217D     		ldrb	r1, [r4, #20]	@ zero_extendqisi2
+ 489              	.LVL52:
+ 257:u8g2/csrc/u8g2_polygon.c ****   y1 = pg->list[idx].y;
+ 490              		.loc 1 257 0
+ 491 0014 00EB8103 		add	r3, r0, r1, lsl #2
+ 492 0018 B3F90270 		ldrsh	r7, [r3, #2]
+ 493              	.LVL53:
+ 258:u8g2/csrc/u8g2_polygon.c ****   x1 = pg->list[idx].x;
+ 494              		.loc 1 258 0
+ 495 001c 30F92160 		ldrsh	r6, [r0, r1, lsl #2]
+ 496              	.LVL54:
+ 259:u8g2/csrc/u8g2_polygon.c ****   idx = pge->next_idx_fn(pg, idx);
+ 497              		.loc 1 259 0
+ 498 0020 2369     		ldr	r3, [r4, #16]
+ 499 0022 9847     		blx	r3
+ 500              	.LVL55:
+ 260:u8g2/csrc/u8g2_polygon.c ****   y2 = pg->list[idx].y;
+ 501              		.loc 1 260 0
+ 502 0024 05EB8003 		add	r3, r5, r0, lsl #2
+ 503 0028 B3F90220 		ldrsh	r2, [r3, #2]
+ 504              	.LVL56:
+ 261:u8g2/csrc/u8g2_polygon.c ****   x2 = pg->list[idx].x; 
+ 505              		.loc 1 261 0
+ 506 002c 35F92030 		ldrsh	r3, [r5, r0, lsl #2]
+ 507              	.LVL57:
+ 262:u8g2/csrc/u8g2_polygon.c ****   pge->curr_idx = idx;
+ 508              		.loc 1 262 0
+ 509 0030 2075     		strb	r0, [r4, #20]
+ 263:u8g2/csrc/u8g2_polygon.c ****   
+ 264:u8g2/csrc/u8g2_polygon.c ****   pge_Init(pge, x1, y1, x2, y2);
+ 510              		.loc 1 264 0
+ 511 0032 0092     		str	r2, [sp]
+ 512 0034 3A46     		mov	r2, r7
+ 513              	.LVL58:
+ 514 0036 3146     		mov	r1, r6
+ 515 0038 2046     		mov	r0, r4
+ 516              	.LVL59:
+ 517 003a FFF7FEFF 		bl	pge_Init
+ 518              	.LVL60:
+ 265:u8g2/csrc/u8g2_polygon.c **** }
+ 519              		.loc 1 265 0
+ 520 003e 03B0     		add	sp, sp, #12
+ 521              	.LCFI9:
+ 522              		.cfi_def_cfa_offset 20
+ 523              		@ sp needed
+ 524 0040 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 525              		.cfi_endproc
+ 526              	.LFE7:
+ 528              		.section	.text.pg_hline,"ax",%progbits
+ 529              		.align	1
+ 530              		.syntax unified
+ 531              		.thumb
+ 532              		.thumb_func
+ 533              		.fpu softvfp
+ 535              	pg_hline:
+ 536              	.LFB6:
+ 211:u8g2/csrc/u8g2_polygon.c ****   pg_word_t x1, x2, y;
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 15
+
+
+ 537              		.loc 1 211 0
+ 538              		.cfi_startproc
+ 539              		@ args = 0, pretend = 0, frame = 0
+ 540              		@ frame_needed = 0, uses_anonymous_args = 0
+ 541              	.LVL61:
+ 542 0000 10B5     		push	{r4, lr}
+ 543              	.LCFI10:
+ 544              		.cfi_def_cfa_offset 8
+ 545              		.cfi_offset 4, -8
+ 546              		.cfi_offset 14, -4
+ 213:u8g2/csrc/u8g2_polygon.c ****   x2 = pg->pge[PG_RIGHT].current_x;
+ 547              		.loc 1 213 0
+ 548 0002 B0F92830 		ldrsh	r3, [r0, #40]
+ 549              	.LVL62:
+ 214:u8g2/csrc/u8g2_polygon.c ****   y = pg->pge[PG_RIGHT].current_y;
+ 550              		.loc 1 214 0
+ 551 0006 B0F94040 		ldrsh	r4, [r0, #64]
+ 552              	.LVL63:
+ 215:u8g2/csrc/u8g2_polygon.c ****   
+ 553              		.loc 1 215 0
+ 554 000a B0F93C20 		ldrsh	r2, [r0, #60]
+ 555              	.LVL64:
+ 217:u8g2/csrc/u8g2_polygon.c ****     return;
+ 556              		.loc 1 217 0
+ 557 000e 002A     		cmp	r2, #0
+ 558 0010 2BDB     		blt	.L39
+ 219:u8g2/csrc/u8g2_polygon.c ****     return;
+ 559              		.loc 1 219 0
+ 560 0012 91F84000 		ldrb	r0, [r1, #64]	@ zero_extendqisi2
+ 561              	.LVL65:
+ 562 0016 8242     		cmp	r2, r0
+ 563 0018 27DA     		bge	.L39
+ 564 001a 0846     		mov	r0, r1
+ 221:u8g2/csrc/u8g2_polygon.c ****   {
+ 565              		.loc 1 221 0
+ 566 001c A342     		cmp	r3, r4
+ 567 001e 13DA     		bge	.L41
+ 223:u8g2/csrc/u8g2_polygon.c ****       return;
+ 568              		.loc 1 223 0
+ 569 0020 002C     		cmp	r4, #0
+ 570 0022 22DB     		blt	.L39
+ 225:u8g2/csrc/u8g2_polygon.c ****       return;
+ 571              		.loc 1 225 0
+ 572 0024 91F83F10 		ldrb	r1, [r1, #63]	@ zero_extendqisi2
+ 573              	.LVL66:
+ 574 0028 8B42     		cmp	r3, r1
+ 575 002a 1EDA     		bge	.L39
+ 227:u8g2/csrc/u8g2_polygon.c ****       x1 = 0;
+ 576              		.loc 1 227 0
+ 577 002c 002B     		cmp	r3, #0
+ 578 002e 09DB     		blt	.L49
+ 579              	.LVL67:
+ 580              	.L42:
+ 229:u8g2/csrc/u8g2_polygon.c ****       x2 = u8g2_GetDisplayWidth(u8g2);
+ 581              		.loc 1 229 0
+ 582 0030 A142     		cmp	r1, r4
+ 583 0032 00DC     		bgt	.L43
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 16
+
+
+ 230:u8g2/csrc/u8g2_polygon.c ****     u8g2_DrawHLine(u8g2, x1, y, x2 - x1);
+ 584              		.loc 1 230 0
+ 585 0034 0CB2     		sxth	r4, r1
+ 586              	.LVL68:
+ 587              	.L43:
+ 231:u8g2/csrc/u8g2_polygon.c ****   }
+ 588              		.loc 1 231 0
+ 589 0036 D9B2     		uxtb	r1, r3
+ 590 0038 631A     		subs	r3, r4, r1
+ 591              	.LVL69:
+ 592 003a DBB2     		uxtb	r3, r3
+ 593 003c D2B2     		uxtb	r2, r2
+ 594              	.LVL70:
+ 595 003e FFF7FEFF 		bl	u8g2_DrawHLine
+ 596              	.LVL71:
+ 597 0042 10BD     		pop	{r4, pc}
+ 598              	.LVL72:
+ 599              	.L49:
+ 228:u8g2/csrc/u8g2_polygon.c ****     if ( x2 >= u8g2_GetDisplayWidth(u8g2) )
+ 600              		.loc 1 228 0
+ 601 0044 0023     		movs	r3, #0
+ 602              	.LVL73:
+ 603 0046 F3E7     		b	.L42
+ 604              	.LVL74:
+ 605              	.L41:
+ 235:u8g2/csrc/u8g2_polygon.c ****       return;
+ 606              		.loc 1 235 0
+ 607 0048 002B     		cmp	r3, #0
+ 608 004a 0EDB     		blt	.L39
+ 237:u8g2/csrc/u8g2_polygon.c ****       return;
+ 609              		.loc 1 237 0
+ 610 004c 91F83F10 		ldrb	r1, [r1, #63]	@ zero_extendqisi2
+ 611 0050 8C42     		cmp	r4, r1
+ 612 0052 0ADA     		bge	.L39
+ 239:u8g2/csrc/u8g2_polygon.c ****       x1 = 0;
+ 613              		.loc 1 239 0
+ 614 0054 002C     		cmp	r4, #0
+ 615 0056 09DB     		blt	.L50
+ 616              	.LVL75:
+ 617              	.L44:
+ 241:u8g2/csrc/u8g2_polygon.c ****       x1 = u8g2_GetDisplayWidth(u8g2);
+ 618              		.loc 1 241 0
+ 619 0058 9942     		cmp	r1, r3
+ 620 005a 00DC     		bgt	.L45
+ 242:u8g2/csrc/u8g2_polygon.c ****     u8g2_DrawHLine(u8g2, x2, y, x1 - x2);
+ 621              		.loc 1 242 0
+ 622 005c 0BB2     		sxth	r3, r1
+ 623              	.LVL76:
+ 624              	.L45:
+ 243:u8g2/csrc/u8g2_polygon.c ****   }
+ 625              		.loc 1 243 0
+ 626 005e E1B2     		uxtb	r1, r4
+ 627 0060 5B1A     		subs	r3, r3, r1
+ 628              	.LVL77:
+ 629 0062 DBB2     		uxtb	r3, r3
+ 630 0064 D2B2     		uxtb	r2, r2
+ 631              	.LVL78:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 17
+
+
+ 632 0066 FFF7FEFF 		bl	u8g2_DrawHLine
+ 633              	.LVL79:
+ 634              	.L39:
+ 635 006a 10BD     		pop	{r4, pc}
+ 636              	.LVL80:
+ 637              	.L50:
+ 240:u8g2/csrc/u8g2_polygon.c ****     if ( x1 >= u8g2_GetDisplayWidth(u8g2) )
+ 638              		.loc 1 240 0
+ 639 006c 0023     		movs	r3, #0
+ 640              	.LVL81:
+ 641 006e F3E7     		b	.L44
+ 642              		.cfi_endproc
+ 643              	.LFE6:
+ 645              		.section	.text.pg_exec,"ax",%progbits
+ 646              		.align	1
+ 647              		.syntax unified
+ 648              		.thumb
+ 649              		.thumb_func
+ 650              		.fpu softvfp
+ 652              	pg_exec:
+ 653              	.LFB8:
+ 266:u8g2/csrc/u8g2_polygon.c **** 
+ 267:u8g2/csrc/u8g2_polygon.c **** static void pg_exec(pg_struct *pg, u8g2_t *u8g2)
+ 268:u8g2/csrc/u8g2_polygon.c **** {
+ 654              		.loc 1 268 0
+ 655              		.cfi_startproc
+ 656              		@ args = 0, pretend = 0, frame = 0
+ 657              		@ frame_needed = 0, uses_anonymous_args = 0
+ 658              	.LVL82:
+ 659 0000 70B5     		push	{r4, r5, r6, lr}
+ 660              	.LCFI11:
+ 661              		.cfi_def_cfa_offset 16
+ 662              		.cfi_offset 4, -16
+ 663              		.cfi_offset 5, -12
+ 664              		.cfi_offset 6, -8
+ 665              		.cfi_offset 14, -4
+ 666 0002 0446     		mov	r4, r0
+ 667 0004 0E46     		mov	r6, r1
+ 269:u8g2/csrc/u8g2_polygon.c ****   pg_word_t i = pg->total_scan_line_cnt;
+ 668              		.loc 1 269 0
+ 669 0006 B0F91A50 		ldrsh	r5, [r0, #26]
+ 670              	.LVL83:
+ 270:u8g2/csrc/u8g2_polygon.c **** 
+ 271:u8g2/csrc/u8g2_polygon.c ****   /* first line is skipped if the min y line is not flat */
+ 272:u8g2/csrc/u8g2_polygon.c ****   pg_line_init(pg, PG_LEFT);		
+ 671              		.loc 1 272 0
+ 672 000a 0021     		movs	r1, #0
+ 673              	.LVL84:
+ 674 000c FFF7FEFF 		bl	pg_line_init
+ 675              	.LVL85:
+ 273:u8g2/csrc/u8g2_polygon.c ****   pg_line_init(pg, PG_RIGHT);
+ 676              		.loc 1 273 0
+ 677 0010 0121     		movs	r1, #1
+ 678 0012 2046     		mov	r0, r4
+ 679 0014 FFF7FEFF 		bl	pg_line_init
+ 680              	.LVL86:
+ 274:u8g2/csrc/u8g2_polygon.c ****   
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 18
+
+
+ 275:u8g2/csrc/u8g2_polygon.c ****   if ( pg->is_min_y_not_flat != 0 )
+ 681              		.loc 1 275 0
+ 682 0018 637E     		ldrb	r3, [r4, #25]	@ zero_extendqisi2
+ 683 001a 0BB3     		cbz	r3, .L57
+ 276:u8g2/csrc/u8g2_polygon.c ****   {
+ 277:u8g2/csrc/u8g2_polygon.c ****     pge_Next(&(pg->pge[PG_LEFT])); 
+ 684              		.loc 1 277 0
+ 685 001c 04F11C00 		add	r0, r4, #28
+ 686 0020 FFF7FEFF 		bl	pge_Next
+ 687              	.LVL87:
+ 278:u8g2/csrc/u8g2_polygon.c ****     pge_Next(&(pg->pge[PG_RIGHT]));
+ 688              		.loc 1 278 0
+ 689 0024 04F13400 		add	r0, r4, #52
+ 690 0028 FFF7FEFF 		bl	pge_Next
+ 691              	.LVL88:
+ 692 002c 18E0     		b	.L57
+ 693              	.L54:
+ 279:u8g2/csrc/u8g2_polygon.c ****   }
+ 280:u8g2/csrc/u8g2_polygon.c **** 
+ 281:u8g2/csrc/u8g2_polygon.c ****   do
+ 282:u8g2/csrc/u8g2_polygon.c ****   {
+ 283:u8g2/csrc/u8g2_polygon.c ****     pg_hline(pg, u8g2);
+ 284:u8g2/csrc/u8g2_polygon.c ****     while ( pge_Next(&(pg->pge[PG_LEFT])) == 0 )
+ 285:u8g2/csrc/u8g2_polygon.c ****     {
+ 286:u8g2/csrc/u8g2_polygon.c ****       pg_line_init(pg, PG_LEFT);
+ 694              		.loc 1 286 0
+ 695 002e 0021     		movs	r1, #0
+ 696 0030 2046     		mov	r0, r4
+ 697 0032 FFF7FEFF 		bl	pg_line_init
+ 698              	.LVL89:
+ 699              	.L53:
+ 284:u8g2/csrc/u8g2_polygon.c ****     {
+ 700              		.loc 1 284 0
+ 701 0036 04F11C00 		add	r0, r4, #28
+ 702 003a FFF7FEFF 		bl	pge_Next
+ 703              	.LVL90:
+ 704 003e 0028     		cmp	r0, #0
+ 705 0040 F5D0     		beq	.L54
+ 706 0042 03E0     		b	.L55
+ 707              	.L56:
+ 287:u8g2/csrc/u8g2_polygon.c ****     }
+ 288:u8g2/csrc/u8g2_polygon.c ****     while ( pge_Next(&(pg->pge[PG_RIGHT])) == 0 )
+ 289:u8g2/csrc/u8g2_polygon.c ****     {
+ 290:u8g2/csrc/u8g2_polygon.c ****       pg_line_init(pg, PG_RIGHT);
+ 708              		.loc 1 290 0
+ 709 0044 0121     		movs	r1, #1
+ 710 0046 2046     		mov	r0, r4
+ 711 0048 FFF7FEFF 		bl	pg_line_init
+ 712              	.LVL91:
+ 713              	.L55:
+ 288:u8g2/csrc/u8g2_polygon.c ****     {
+ 714              		.loc 1 288 0
+ 715 004c 04F13400 		add	r0, r4, #52
+ 716 0050 FFF7FEFF 		bl	pge_Next
+ 717              	.LVL92:
+ 718 0054 0028     		cmp	r0, #0
+ 719 0056 F5D0     		beq	.L56
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 19
+
+
+ 291:u8g2/csrc/u8g2_polygon.c ****     }
+ 292:u8g2/csrc/u8g2_polygon.c ****     i--;
+ 720              		.loc 1 292 0
+ 721 0058 013D     		subs	r5, r5, #1
+ 722              	.LVL93:
+ 723 005a 2DB2     		sxth	r5, r5
+ 724              	.LVL94:
+ 293:u8g2/csrc/u8g2_polygon.c ****   } while( i > 0 );
+ 725              		.loc 1 293 0
+ 726 005c 002D     		cmp	r5, #0
+ 727 005e 04DD     		ble	.L59
+ 728              	.L57:
+ 283:u8g2/csrc/u8g2_polygon.c ****     while ( pge_Next(&(pg->pge[PG_LEFT])) == 0 )
+ 729              		.loc 1 283 0
+ 730 0060 3146     		mov	r1, r6
+ 731 0062 2046     		mov	r0, r4
+ 732 0064 FFF7FEFF 		bl	pg_hline
+ 733              	.LVL95:
+ 284:u8g2/csrc/u8g2_polygon.c ****     {
+ 734              		.loc 1 284 0
+ 735 0068 E5E7     		b	.L53
+ 736              	.L59:
+ 294:u8g2/csrc/u8g2_polygon.c **** }
+ 737              		.loc 1 294 0
+ 738 006a 70BD     		pop	{r4, r5, r6, pc}
+ 739              		.cfi_endproc
+ 740              	.LFE8:
+ 742              		.section	.text.pg_ClearPolygonXY,"ax",%progbits
+ 743              		.align	1
+ 744              		.global	pg_ClearPolygonXY
+ 745              		.syntax unified
+ 746              		.thumb
+ 747              		.thumb_func
+ 748              		.fpu softvfp
+ 750              	pg_ClearPolygonXY:
+ 751              	.LFB9:
+ 295:u8g2/csrc/u8g2_polygon.c **** 
+ 296:u8g2/csrc/u8g2_polygon.c **** /*===========================================*/
+ 297:u8g2/csrc/u8g2_polygon.c **** /* API procedures */
+ 298:u8g2/csrc/u8g2_polygon.c **** 
+ 299:u8g2/csrc/u8g2_polygon.c **** void pg_ClearPolygonXY(pg_struct *pg)
+ 300:u8g2/csrc/u8g2_polygon.c **** {
+ 752              		.loc 1 300 0
+ 753              		.cfi_startproc
+ 754              		@ args = 0, pretend = 0, frame = 0
+ 755              		@ frame_needed = 0, uses_anonymous_args = 0
+ 756              		@ link register save eliminated.
+ 757              	.LVL96:
+ 301:u8g2/csrc/u8g2_polygon.c ****   pg->cnt = 0;
+ 758              		.loc 1 301 0
+ 759 0000 0023     		movs	r3, #0
+ 760 0002 0376     		strb	r3, [r0, #24]
+ 761 0004 7047     		bx	lr
+ 762              		.cfi_endproc
+ 763              	.LFE9:
+ 765              		.section	.text.pg_AddPolygonXY,"ax",%progbits
+ 766              		.align	1
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 20
+
+
+ 767              		.global	pg_AddPolygonXY
+ 768              		.syntax unified
+ 769              		.thumb
+ 770              		.thumb_func
+ 771              		.fpu softvfp
+ 773              	pg_AddPolygonXY:
+ 774              	.LFB10:
+ 302:u8g2/csrc/u8g2_polygon.c **** }
+ 303:u8g2/csrc/u8g2_polygon.c **** 
+ 304:u8g2/csrc/u8g2_polygon.c **** void pg_AddPolygonXY(pg_struct *pg, int16_t x, int16_t y)
+ 305:u8g2/csrc/u8g2_polygon.c **** {
+ 775              		.loc 1 305 0
+ 776              		.cfi_startproc
+ 777              		@ args = 0, pretend = 0, frame = 0
+ 778              		@ frame_needed = 0, uses_anonymous_args = 0
+ 779              		@ link register save eliminated.
+ 780              	.LVL97:
+ 306:u8g2/csrc/u8g2_polygon.c ****   if ( pg->cnt < PG_MAX_POINTS )
+ 781              		.loc 1 306 0
+ 782 0000 037E     		ldrb	r3, [r0, #24]	@ zero_extendqisi2
+ 783 0002 052B     		cmp	r3, #5
+ 784 0004 06D8     		bhi	.L61
+ 307:u8g2/csrc/u8g2_polygon.c ****   {
+ 308:u8g2/csrc/u8g2_polygon.c ****     pg->list[pg->cnt].x = x;
+ 785              		.loc 1 308 0
+ 786 0006 20F82310 		strh	r1, [r0, r3, lsl #2]	@ movhi
+ 309:u8g2/csrc/u8g2_polygon.c ****     pg->list[pg->cnt].y = y;
+ 787              		.loc 1 309 0
+ 788 000a 00EB8301 		add	r1, r0, r3, lsl #2
+ 789              	.LVL98:
+ 790 000e 4A80     		strh	r2, [r1, #2]	@ movhi
+ 791              	.LVL99:
+ 310:u8g2/csrc/u8g2_polygon.c ****     pg->cnt++;
+ 792              		.loc 1 310 0
+ 793 0010 0133     		adds	r3, r3, #1
+ 794 0012 0376     		strb	r3, [r0, #24]
+ 795              	.L61:
+ 796 0014 7047     		bx	lr
+ 797              		.cfi_endproc
+ 798              	.LFE10:
+ 800              		.section	.text.pg_DrawPolygon,"ax",%progbits
+ 801              		.align	1
+ 802              		.global	pg_DrawPolygon
+ 803              		.syntax unified
+ 804              		.thumb
+ 805              		.thumb_func
+ 806              		.fpu softvfp
+ 808              	pg_DrawPolygon:
+ 809              	.LFB11:
+ 311:u8g2/csrc/u8g2_polygon.c ****   }
+ 312:u8g2/csrc/u8g2_polygon.c **** }
+ 313:u8g2/csrc/u8g2_polygon.c **** 
+ 314:u8g2/csrc/u8g2_polygon.c **** void pg_DrawPolygon(pg_struct *pg, u8g2_t *u8g2)
+ 315:u8g2/csrc/u8g2_polygon.c **** {
+ 810              		.loc 1 315 0
+ 811              		.cfi_startproc
+ 812              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 21
+
+
+ 813              		@ frame_needed = 0, uses_anonymous_args = 0
+ 814              	.LVL100:
+ 815 0000 38B5     		push	{r3, r4, r5, lr}
+ 816              	.LCFI12:
+ 817              		.cfi_def_cfa_offset 16
+ 818              		.cfi_offset 3, -16
+ 819              		.cfi_offset 4, -12
+ 820              		.cfi_offset 5, -8
+ 821              		.cfi_offset 14, -4
+ 822 0002 0446     		mov	r4, r0
+ 823 0004 0D46     		mov	r5, r1
+ 316:u8g2/csrc/u8g2_polygon.c ****   if ( pg_prepare(pg) == 0 )
+ 824              		.loc 1 316 0
+ 825 0006 FFF7FEFF 		bl	pg_prepare
+ 826              	.LVL101:
+ 827 000a 00B9     		cbnz	r0, .L66
+ 828              	.L63:
+ 829 000c 38BD     		pop	{r3, r4, r5, pc}
+ 830              	.LVL102:
+ 831              	.L66:
+ 317:u8g2/csrc/u8g2_polygon.c ****     return;
+ 318:u8g2/csrc/u8g2_polygon.c ****   pg_exec(pg, u8g2);
+ 832              		.loc 1 318 0
+ 833 000e 2946     		mov	r1, r5
+ 834 0010 2046     		mov	r0, r4
+ 835 0012 FFF7FEFF 		bl	pg_exec
+ 836              	.LVL103:
+ 837 0016 F9E7     		b	.L63
+ 838              		.cfi_endproc
+ 839              	.LFE11:
+ 841              		.section	.text.u8g2_ClearPolygonXY,"ax",%progbits
+ 842              		.align	1
+ 843              		.global	u8g2_ClearPolygonXY
+ 844              		.syntax unified
+ 845              		.thumb
+ 846              		.thumb_func
+ 847              		.fpu softvfp
+ 849              	u8g2_ClearPolygonXY:
+ 850              	.LFB12:
+ 319:u8g2/csrc/u8g2_polygon.c **** }
+ 320:u8g2/csrc/u8g2_polygon.c **** 
+ 321:u8g2/csrc/u8g2_polygon.c **** pg_struct u8g2_pg;
+ 322:u8g2/csrc/u8g2_polygon.c **** 
+ 323:u8g2/csrc/u8g2_polygon.c **** void u8g2_ClearPolygonXY(void)
+ 324:u8g2/csrc/u8g2_polygon.c **** {
+ 851              		.loc 1 324 0
+ 852              		.cfi_startproc
+ 853              		@ args = 0, pretend = 0, frame = 0
+ 854              		@ frame_needed = 0, uses_anonymous_args = 0
+ 855 0000 08B5     		push	{r3, lr}
+ 856              	.LCFI13:
+ 857              		.cfi_def_cfa_offset 8
+ 858              		.cfi_offset 3, -8
+ 859              		.cfi_offset 14, -4
+ 325:u8g2/csrc/u8g2_polygon.c ****   pg_ClearPolygonXY(&u8g2_pg);
+ 860              		.loc 1 325 0
+ 861 0002 0248     		ldr	r0, .L69
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 22
+
+
+ 862 0004 FFF7FEFF 		bl	pg_ClearPolygonXY
+ 863              	.LVL104:
+ 864 0008 08BD     		pop	{r3, pc}
+ 865              	.L70:
+ 866 000a 00BF     		.align	2
+ 867              	.L69:
+ 868 000c 00000000 		.word	u8g2_pg
+ 869              		.cfi_endproc
+ 870              	.LFE12:
+ 872              		.section	.text.u8g2_AddPolygonXY,"ax",%progbits
+ 873              		.align	1
+ 874              		.global	u8g2_AddPolygonXY
+ 875              		.syntax unified
+ 876              		.thumb
+ 877              		.thumb_func
+ 878              		.fpu softvfp
+ 880              	u8g2_AddPolygonXY:
+ 881              	.LFB13:
+ 326:u8g2/csrc/u8g2_polygon.c **** }
+ 327:u8g2/csrc/u8g2_polygon.c **** 
+ 328:u8g2/csrc/u8g2_polygon.c **** void u8g2_AddPolygonXY(U8X8_UNUSED u8g2_t *u8g2, int16_t x, int16_t y)
+ 329:u8g2/csrc/u8g2_polygon.c **** {
+ 882              		.loc 1 329 0
+ 883              		.cfi_startproc
+ 884              		@ args = 0, pretend = 0, frame = 0
+ 885              		@ frame_needed = 0, uses_anonymous_args = 0
+ 886              	.LVL105:
+ 887 0000 08B5     		push	{r3, lr}
+ 888              	.LCFI14:
+ 889              		.cfi_def_cfa_offset 8
+ 890              		.cfi_offset 3, -8
+ 891              		.cfi_offset 14, -4
+ 330:u8g2/csrc/u8g2_polygon.c ****   pg_AddPolygonXY(&u8g2_pg, x, y);
+ 892              		.loc 1 330 0
+ 893 0002 0248     		ldr	r0, .L73
+ 894              	.LVL106:
+ 895 0004 FFF7FEFF 		bl	pg_AddPolygonXY
+ 896              	.LVL107:
+ 897 0008 08BD     		pop	{r3, pc}
+ 898              	.L74:
+ 899 000a 00BF     		.align	2
+ 900              	.L73:
+ 901 000c 00000000 		.word	u8g2_pg
+ 902              		.cfi_endproc
+ 903              	.LFE13:
+ 905              		.section	.text.u8g2_DrawPolygon,"ax",%progbits
+ 906              		.align	1
+ 907              		.global	u8g2_DrawPolygon
+ 908              		.syntax unified
+ 909              		.thumb
+ 910              		.thumb_func
+ 911              		.fpu softvfp
+ 913              	u8g2_DrawPolygon:
+ 914              	.LFB14:
+ 331:u8g2/csrc/u8g2_polygon.c **** }
+ 332:u8g2/csrc/u8g2_polygon.c **** 
+ 333:u8g2/csrc/u8g2_polygon.c **** void u8g2_DrawPolygon(u8g2_t *u8g2)
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 23
+
+
+ 334:u8g2/csrc/u8g2_polygon.c **** {
+ 915              		.loc 1 334 0
+ 916              		.cfi_startproc
+ 917              		@ args = 0, pretend = 0, frame = 0
+ 918              		@ frame_needed = 0, uses_anonymous_args = 0
+ 919              	.LVL108:
+ 920 0000 08B5     		push	{r3, lr}
+ 921              	.LCFI15:
+ 922              		.cfi_def_cfa_offset 8
+ 923              		.cfi_offset 3, -8
+ 924              		.cfi_offset 14, -4
+ 335:u8g2/csrc/u8g2_polygon.c ****   pg_DrawPolygon(&u8g2_pg, u8g2);
+ 925              		.loc 1 335 0
+ 926 0002 0146     		mov	r1, r0
+ 927 0004 0148     		ldr	r0, .L77
+ 928              	.LVL109:
+ 929 0006 FFF7FEFF 		bl	pg_DrawPolygon
+ 930              	.LVL110:
+ 931 000a 08BD     		pop	{r3, pc}
+ 932              	.L78:
+ 933              		.align	2
+ 934              	.L77:
+ 935 000c 00000000 		.word	u8g2_pg
+ 936              		.cfi_endproc
+ 937              	.LFE14:
+ 939              		.section	.text.u8g2_DrawTriangle,"ax",%progbits
+ 940              		.align	1
+ 941              		.global	u8g2_DrawTriangle
+ 942              		.syntax unified
+ 943              		.thumb
+ 944              		.thumb_func
+ 945              		.fpu softvfp
+ 947              	u8g2_DrawTriangle:
+ 948              	.LFB15:
+ 336:u8g2/csrc/u8g2_polygon.c **** }
+ 337:u8g2/csrc/u8g2_polygon.c **** 
+ 338:u8g2/csrc/u8g2_polygon.c **** void u8g2_DrawTriangle(u8g2_t *u8g2, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, in
+ 339:u8g2/csrc/u8g2_polygon.c **** {
+ 949              		.loc 1 339 0
+ 950              		.cfi_startproc
+ 951              		@ args = 12, pretend = 0, frame = 0
+ 952              		@ frame_needed = 0, uses_anonymous_args = 0
+ 953              	.LVL111:
+ 954 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 955              	.LCFI16:
+ 956              		.cfi_def_cfa_offset 24
+ 957              		.cfi_offset 3, -24
+ 958              		.cfi_offset 4, -20
+ 959              		.cfi_offset 5, -16
+ 960              		.cfi_offset 6, -12
+ 961              		.cfi_offset 7, -8
+ 962              		.cfi_offset 14, -4
+ 963 0002 0446     		mov	r4, r0
+ 964 0004 0E46     		mov	r6, r1
+ 965 0006 1746     		mov	r7, r2
+ 966 0008 1D46     		mov	r5, r3
+ 340:u8g2/csrc/u8g2_polygon.c ****   u8g2_ClearPolygonXY();
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 24
+
+
+ 967              		.loc 1 340 0
+ 968 000a FFF7FEFF 		bl	u8g2_ClearPolygonXY
+ 969              	.LVL112:
+ 341:u8g2/csrc/u8g2_polygon.c ****   u8g2_AddPolygonXY(u8g2, x0, y0);
+ 970              		.loc 1 341 0
+ 971 000e 3A46     		mov	r2, r7
+ 972 0010 3146     		mov	r1, r6
+ 973 0012 2046     		mov	r0, r4
+ 974 0014 FFF7FEFF 		bl	u8g2_AddPolygonXY
+ 975              	.LVL113:
+ 342:u8g2/csrc/u8g2_polygon.c ****   u8g2_AddPolygonXY(u8g2, x1, y1);
+ 976              		.loc 1 342 0
+ 977 0018 BDF91820 		ldrsh	r2, [sp, #24]
+ 978 001c 2946     		mov	r1, r5
+ 979 001e 2046     		mov	r0, r4
+ 980 0020 FFF7FEFF 		bl	u8g2_AddPolygonXY
+ 981              	.LVL114:
+ 343:u8g2/csrc/u8g2_polygon.c ****   u8g2_AddPolygonXY(u8g2, x2, y2);
+ 982              		.loc 1 343 0
+ 983 0024 BDF92020 		ldrsh	r2, [sp, #32]
+ 984 0028 BDF91C10 		ldrsh	r1, [sp, #28]
+ 985 002c 2046     		mov	r0, r4
+ 986 002e FFF7FEFF 		bl	u8g2_AddPolygonXY
+ 987              	.LVL115:
+ 344:u8g2/csrc/u8g2_polygon.c ****   u8g2_DrawPolygon(u8g2);
+ 988              		.loc 1 344 0
+ 989 0032 2046     		mov	r0, r4
+ 990 0034 FFF7FEFF 		bl	u8g2_DrawPolygon
+ 991              	.LVL116:
+ 992 0038 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 993              		.cfi_endproc
+ 994              	.LFE15:
+ 996              		.comm	u8g2_pg,76,4
+ 997              		.text
+ 998              	.Letext0:
+ 999              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 1000              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 1001              		.file 4 "u8g2/csrc/u8x8.h"
+ 1002              		.file 5 "u8g2/csrc/u8g2.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s 			page 25
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8g2_polygon.c
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:16     .text.pge_Next:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:22     .text.pge_Next:00000000 pge_Next
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:88     .text.pge_Init:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:94     .text.pge_Init:00000000 pge_Init
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:180    .text.pg_inc:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:186    .text.pg_inc:00000000 pg_inc
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:215    .text.pg_dec:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:221    .text.pg_dec:00000000 pg_dec
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:252    .text.pg_expand_min_y:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:258    .text.pg_expand_min_y:00000000 pg_expand_min_y
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:311    .text.pg_prepare:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:317    .text.pg_prepare:00000000 pg_prepare
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:449    .text.pg_prepare:000000a4 $d
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:455    .text.pg_line_init:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:461    .text.pg_line_init:00000000 pg_line_init
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:529    .text.pg_hline:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:535    .text.pg_hline:00000000 pg_hline
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:646    .text.pg_exec:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:652    .text.pg_exec:00000000 pg_exec
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:743    .text.pg_ClearPolygonXY:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:750    .text.pg_ClearPolygonXY:00000000 pg_ClearPolygonXY
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:766    .text.pg_AddPolygonXY:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:773    .text.pg_AddPolygonXY:00000000 pg_AddPolygonXY
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:801    .text.pg_DrawPolygon:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:808    .text.pg_DrawPolygon:00000000 pg_DrawPolygon
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:842    .text.u8g2_ClearPolygonXY:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:849    .text.u8g2_ClearPolygonXY:00000000 u8g2_ClearPolygonXY
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:868    .text.u8g2_ClearPolygonXY:0000000c $d
+                            *COM*:0000004c u8g2_pg
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:873    .text.u8g2_AddPolygonXY:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:880    .text.u8g2_AddPolygonXY:00000000 u8g2_AddPolygonXY
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:901    .text.u8g2_AddPolygonXY:0000000c $d
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:906    .text.u8g2_DrawPolygon:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:913    .text.u8g2_DrawPolygon:00000000 u8g2_DrawPolygon
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:935    .text.u8g2_DrawPolygon:0000000c $d
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:940    .text.u8g2_DrawTriangle:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccwD9JgZ.s:947    .text.u8g2_DrawTriangle:00000000 u8g2_DrawTriangle
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+u8g2_DrawHLine

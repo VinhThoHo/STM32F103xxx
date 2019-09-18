@@ -1,0 +1,659 @@
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8x8_string.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8x8_GetStringLineCnt,"ax",%progbits
+  16              		.align	1
+  17              		.global	u8x8_GetStringLineCnt
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	u8x8_GetStringLineCnt:
+  24              	.LFB0:
+  25              		.file 1 "u8g2/csrc/u8x8_string.c"
+   1:u8g2/csrc/u8x8_string.c **** /*
+   2:u8g2/csrc/u8x8_string.c **** 
+   3:u8g2/csrc/u8x8_string.c ****   u8x8_string.c
+   4:u8g2/csrc/u8x8_string.c ****   
+   5:u8g2/csrc/u8x8_string.c ****   string line procedures
+   6:u8g2/csrc/u8x8_string.c ****   
+   7:u8g2/csrc/u8x8_string.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   8:u8g2/csrc/u8x8_string.c **** 
+   9:u8g2/csrc/u8x8_string.c ****   Copyright (c) 2016, olikraus@gmail.com
+  10:u8g2/csrc/u8x8_string.c ****   All rights reserved.
+  11:u8g2/csrc/u8x8_string.c **** 
+  12:u8g2/csrc/u8x8_string.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  13:u8g2/csrc/u8x8_string.c ****   are permitted provided that the following conditions are met:
+  14:u8g2/csrc/u8x8_string.c **** 
+  15:u8g2/csrc/u8x8_string.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  16:u8g2/csrc/u8x8_string.c ****     of conditions and the following disclaimer.
+  17:u8g2/csrc/u8x8_string.c ****     
+  18:u8g2/csrc/u8x8_string.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  19:u8g2/csrc/u8x8_string.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  20:u8g2/csrc/u8x8_string.c ****     materials provided with the distribution.
+  21:u8g2/csrc/u8x8_string.c **** 
+  22:u8g2/csrc/u8x8_string.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  23:u8g2/csrc/u8x8_string.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  24:u8g2/csrc/u8x8_string.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  25:u8g2/csrc/u8x8_string.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  26:u8g2/csrc/u8x8_string.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  27:u8g2/csrc/u8x8_string.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  28:u8g2/csrc/u8x8_string.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  29:u8g2/csrc/u8x8_string.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  30:u8g2/csrc/u8x8_string.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  31:u8g2/csrc/u8x8_string.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  32:u8g2/csrc/u8x8_string.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  33:u8g2/csrc/u8x8_string.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 2
+
+
+  34:u8g2/csrc/u8x8_string.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    
+  35:u8g2/csrc/u8x8_string.c **** 
+  36:u8g2/csrc/u8x8_string.c **** */
+  37:u8g2/csrc/u8x8_string.c **** 
+  38:u8g2/csrc/u8x8_string.c **** #include "u8x8.h"
+  39:u8g2/csrc/u8x8_string.c **** 
+  40:u8g2/csrc/u8x8_string.c **** uint8_t u8x8_GetStringLineCnt(const char *str)
+  41:u8g2/csrc/u8x8_string.c **** {
+  26              		.loc 1 41 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31              	.LVL0:
+  42:u8g2/csrc/u8x8_string.c ****   char e;
+  43:u8g2/csrc/u8x8_string.c ****   uint8_t line_cnt = 1;
+  44:u8g2/csrc/u8x8_string.c ****   if ( str == NULL )
+  32              		.loc 1 44 0
+  33 0000 0346     		mov	r3, r0
+  34 0002 40B1     		cbz	r0, .L5
+  35 0004 0120     		movs	r0, #1
+  36              	.LVL1:
+  37              	.L3:
+  45:u8g2/csrc/u8x8_string.c ****     return 0;
+  46:u8g2/csrc/u8x8_string.c ****   for(;;)
+  47:u8g2/csrc/u8x8_string.c ****   {
+  48:u8g2/csrc/u8x8_string.c ****     e = *str;
+  38              		.loc 1 48 0
+  39 0006 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+  40              	.LVL2:
+  49:u8g2/csrc/u8x8_string.c ****     if ( e == '\0' )
+  41              		.loc 1 49 0
+  42 0008 32B1     		cbz	r2, .L2
+  50:u8g2/csrc/u8x8_string.c ****       break;
+  51:u8g2/csrc/u8x8_string.c ****     str++;
+  43              		.loc 1 51 0
+  44 000a 0133     		adds	r3, r3, #1
+  45              	.LVL3:
+  52:u8g2/csrc/u8x8_string.c ****     if ( e == '\n' )
+  46              		.loc 1 52 0
+  47 000c 0A2A     		cmp	r2, #10
+  48 000e FAD1     		bne	.L3
+  53:u8g2/csrc/u8x8_string.c ****       line_cnt++;
+  49              		.loc 1 53 0
+  50 0010 0130     		adds	r0, r0, #1
+  51              	.LVL4:
+  52 0012 C0B2     		uxtb	r0, r0
+  53              	.LVL5:
+  54 0014 F7E7     		b	.L3
+  55              	.LVL6:
+  56              	.L5:
+  45:u8g2/csrc/u8x8_string.c ****   for(;;)
+  57              		.loc 1 45 0
+  58 0016 0020     		movs	r0, #0
+  59              	.LVL7:
+  60              	.L2:
+  54:u8g2/csrc/u8x8_string.c ****   }
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 3
+
+
+  55:u8g2/csrc/u8x8_string.c ****   return line_cnt;
+  56:u8g2/csrc/u8x8_string.c **** }
+  61              		.loc 1 56 0
+  62 0018 7047     		bx	lr
+  63              		.cfi_endproc
+  64              	.LFE0:
+  66              		.section	.text.u8x8_GetStringLineStart,"ax",%progbits
+  67              		.align	1
+  68              		.global	u8x8_GetStringLineStart
+  69              		.syntax unified
+  70              		.thumb
+  71              		.thumb_func
+  72              		.fpu softvfp
+  74              	u8x8_GetStringLineStart:
+  75              	.LFB1:
+  57:u8g2/csrc/u8x8_string.c **** 
+  58:u8g2/csrc/u8x8_string.c **** 
+  59:u8g2/csrc/u8x8_string.c **** /*
+  60:u8g2/csrc/u8x8_string.c ****     Assumes strings, separated by '\n' in "str".
+  61:u8g2/csrc/u8x8_string.c ****     Returns the string at index "line_idx". First strng has line_idx = 0
+  62:u8g2/csrc/u8x8_string.c ****     Example:
+  63:u8g2/csrc/u8x8_string.c ****       Returns "xyz" for line_idx = 1 with str = "abc\nxyz"
+  64:u8g2/csrc/u8x8_string.c ****     Support both UTF8 and normal strings.
+  65:u8g2/csrc/u8x8_string.c **** */
+  66:u8g2/csrc/u8x8_string.c **** const char *u8x8_GetStringLineStart(uint8_t line_idx, const char *str )
+  67:u8g2/csrc/u8x8_string.c **** {
+  76              		.loc 1 67 0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              		@ link register save eliminated.
+  81              	.LVL8:
+  68:u8g2/csrc/u8x8_string.c ****   char e;
+  69:u8g2/csrc/u8x8_string.c ****   uint8_t line_cnt = 1;
+  70:u8g2/csrc/u8x8_string.c ****   
+  71:u8g2/csrc/u8x8_string.c ****   if ( line_idx == 0 )
+  82              		.loc 1 71 0
+  83 0000 60B1     		cbz	r0, .L10
+  67:u8g2/csrc/u8x8_string.c ****   char e;
+  84              		.loc 1 67 0
+  85 0002 10B4     		push	{r4}
+  86              	.LCFI0:
+  87              		.cfi_def_cfa_offset 4
+  88              		.cfi_offset 4, -4
+  89 0004 0446     		mov	r4, r0
+  90 0006 0122     		movs	r2, #1
+  91              	.LVL9:
+  92              	.L8:
+  72:u8g2/csrc/u8x8_string.c ****     return str;
+  73:u8g2/csrc/u8x8_string.c **** 
+  74:u8g2/csrc/u8x8_string.c ****   for(;;)
+  75:u8g2/csrc/u8x8_string.c ****   {
+  76:u8g2/csrc/u8x8_string.c ****     e = *str;
+  93              		.loc 1 76 0
+  94 0008 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+  95              	.LVL10:
+  77:u8g2/csrc/u8x8_string.c ****     if ( e == '\0' )
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 4
+
+
+  96              		.loc 1 77 0
+  97 000a 4BB1     		cbz	r3, .L11
+  78:u8g2/csrc/u8x8_string.c ****       break;
+  79:u8g2/csrc/u8x8_string.c ****     str++;
+  98              		.loc 1 79 0
+  99 000c 0131     		adds	r1, r1, #1
+ 100              	.LVL11:
+  80:u8g2/csrc/u8x8_string.c ****     if ( e == '\n' )
+ 101              		.loc 1 80 0
+ 102 000e 0A2B     		cmp	r3, #10
+ 103 0010 FAD1     		bne	.L8
+  81:u8g2/csrc/u8x8_string.c ****     {
+  82:u8g2/csrc/u8x8_string.c ****       if ( line_cnt == line_idx )
+ 104              		.loc 1 82 0
+ 105 0012 A242     		cmp	r2, r4
+ 106 0014 07D0     		beq	.L12
+  83:u8g2/csrc/u8x8_string.c **** 	return str;
+  84:u8g2/csrc/u8x8_string.c ****       line_cnt++;
+ 107              		.loc 1 84 0
+ 108 0016 0132     		adds	r2, r2, #1
+ 109              	.LVL12:
+ 110 0018 D2B2     		uxtb	r2, r2
+ 111              	.LVL13:
+ 112 001a F5E7     		b	.L8
+ 113              	.LVL14:
+ 114              	.L10:
+ 115              	.LCFI1:
+ 116              		.cfi_def_cfa_offset 0
+ 117              		.cfi_restore 4
+  72:u8g2/csrc/u8x8_string.c **** 
+ 118              		.loc 1 72 0
+ 119 001c 0846     		mov	r0, r1
+ 120              	.LVL15:
+ 121 001e 7047     		bx	lr
+ 122              	.LVL16:
+ 123              	.L11:
+ 124              	.LCFI2:
+ 125              		.cfi_def_cfa_offset 4
+ 126              		.cfi_offset 4, -4
+  85:u8g2/csrc/u8x8_string.c ****     }
+  86:u8g2/csrc/u8x8_string.c ****   }
+  87:u8g2/csrc/u8x8_string.c ****   return NULL;	/* line not found */
+ 127              		.loc 1 87 0
+ 128 0020 0020     		movs	r0, #0
+ 129              	.LVL17:
+ 130              	.L6:
+  88:u8g2/csrc/u8x8_string.c **** }
+ 131              		.loc 1 88 0
+ 132 0022 10BC     		pop	{r4}
+ 133              	.LCFI3:
+ 134              		.cfi_remember_state
+ 135              		.cfi_restore 4
+ 136              		.cfi_def_cfa_offset 0
+ 137 0024 7047     		bx	lr
+ 138              	.LVL18:
+ 139              	.L12:
+ 140              	.LCFI4:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 5
+
+
+ 141              		.cfi_restore_state
+  83:u8g2/csrc/u8x8_string.c ****       line_cnt++;
+ 142              		.loc 1 83 0
+ 143 0026 0846     		mov	r0, r1
+ 144              	.LVL19:
+ 145 0028 FBE7     		b	.L6
+ 146              		.cfi_endproc
+ 147              	.LFE1:
+ 149              		.section	.text.u8x8_CopyStringLine,"ax",%progbits
+ 150              		.align	1
+ 151              		.global	u8x8_CopyStringLine
+ 152              		.syntax unified
+ 153              		.thumb
+ 154              		.thumb_func
+ 155              		.fpu softvfp
+ 157              	u8x8_CopyStringLine:
+ 158              	.LFB2:
+  89:u8g2/csrc/u8x8_string.c **** 
+  90:u8g2/csrc/u8x8_string.c **** /* copy until first '\n' or '\0' in str */
+  91:u8g2/csrc/u8x8_string.c **** /* Important: There is no string overflow check, ensure */
+  92:u8g2/csrc/u8x8_string.c **** /* that the destination buffer is large enough */
+  93:u8g2/csrc/u8x8_string.c **** void u8x8_CopyStringLine(char *dest, uint8_t line_idx, const char *str)
+  94:u8g2/csrc/u8x8_string.c **** {
+ 159              		.loc 1 94 0
+ 160              		.cfi_startproc
+ 161              		@ args = 0, pretend = 0, frame = 0
+ 162              		@ frame_needed = 0, uses_anonymous_args = 0
+ 163              	.LVL20:
+  95:u8g2/csrc/u8x8_string.c ****   if ( dest == NULL )
+ 164              		.loc 1 95 0
+ 165 0000 98B1     		cbz	r0, .L22
+  94:u8g2/csrc/u8x8_string.c ****   if ( dest == NULL )
+ 166              		.loc 1 94 0
+ 167 0002 10B5     		push	{r4, lr}
+ 168              	.LCFI5:
+ 169              		.cfi_def_cfa_offset 8
+ 170              		.cfi_offset 4, -8
+ 171              		.cfi_offset 14, -4
+ 172 0004 0B46     		mov	r3, r1
+ 173 0006 0446     		mov	r4, r0
+  96:u8g2/csrc/u8x8_string.c ****     return;
+  97:u8g2/csrc/u8x8_string.c ****   str = u8x8_GetStringLineStart( line_idx, str );
+ 174              		.loc 1 97 0
+ 175 0008 1146     		mov	r1, r2
+ 176              	.LVL21:
+ 177 000a 1846     		mov	r0, r3
+ 178              	.LVL22:
+ 179 000c FFF7FEFF 		bl	u8x8_GetStringLineStart
+ 180              	.LVL23:
+  98:u8g2/csrc/u8x8_string.c ****   if ( str != NULL )
+ 181              		.loc 1 98 0
+ 182 0010 0246     		mov	r2, r0
+ 183 0012 38B1     		cbz	r0, .L19
+ 184              	.LVL24:
+ 185              	.L20:
+  99:u8g2/csrc/u8x8_string.c ****   {
+ 100:u8g2/csrc/u8x8_string.c ****     for(;;)
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 6
+
+
+ 101:u8g2/csrc/u8x8_string.c ****     {
+ 102:u8g2/csrc/u8x8_string.c ****       if ( *str == '\n' || *str == '\0' )
+ 186              		.loc 1 102 0
+ 187 0014 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 188 0016 0A2B     		cmp	r3, #10
+ 189 0018 04D0     		beq	.L19
+ 190              		.loc 1 102 0 is_stmt 0 discriminator 1
+ 191 001a 1BB1     		cbz	r3, .L19
+ 103:u8g2/csrc/u8x8_string.c **** 	break;
+ 104:u8g2/csrc/u8x8_string.c ****       *dest = *str;
+ 192              		.loc 1 104 0 is_stmt 1
+ 193 001c 04F8013B 		strb	r3, [r4], #1
+ 194              	.LVL25:
+ 105:u8g2/csrc/u8x8_string.c ****       dest++;
+ 106:u8g2/csrc/u8x8_string.c ****       str++;
+ 195              		.loc 1 106 0
+ 196 0020 0132     		adds	r2, r2, #1
+ 197              	.LVL26:
+ 102:u8g2/csrc/u8x8_string.c **** 	break;
+ 198              		.loc 1 102 0
+ 199 0022 F7E7     		b	.L20
+ 200              	.L19:
+ 107:u8g2/csrc/u8x8_string.c ****     }
+ 108:u8g2/csrc/u8x8_string.c ****   }
+ 109:u8g2/csrc/u8x8_string.c ****   *dest = '\0';
+ 201              		.loc 1 109 0
+ 202 0024 0023     		movs	r3, #0
+ 203 0026 2370     		strb	r3, [r4]
+ 204 0028 10BD     		pop	{r4, pc}
+ 205              	.LVL27:
+ 206              	.L22:
+ 207              	.LCFI6:
+ 208              		.cfi_def_cfa_offset 0
+ 209              		.cfi_restore 4
+ 210              		.cfi_restore 14
+ 211 002a 7047     		bx	lr
+ 212              		.cfi_endproc
+ 213              	.LFE2:
+ 215              		.section	.text.u8x8_DrawUTF8Line,"ax",%progbits
+ 216              		.align	1
+ 217              		.global	u8x8_DrawUTF8Line
+ 218              		.syntax unified
+ 219              		.thumb
+ 220              		.thumb_func
+ 221              		.fpu softvfp
+ 223              	u8x8_DrawUTF8Line:
+ 224              	.LFB3:
+ 110:u8g2/csrc/u8x8_string.c **** }
+ 111:u8g2/csrc/u8x8_string.c **** 
+ 112:u8g2/csrc/u8x8_string.c **** /*
+ 113:u8g2/csrc/u8x8_string.c ****   Draw a string
+ 114:u8g2/csrc/u8x8_string.c ****   Extend the string to size "w"
+ 115:u8g2/csrc/u8x8_string.c ****   Center the string within "w"
+ 116:u8g2/csrc/u8x8_string.c ****   return the size of the string
+ 117:u8g2/csrc/u8x8_string.c **** 
+ 118:u8g2/csrc/u8x8_string.c **** */
+ 119:u8g2/csrc/u8x8_string.c **** uint8_t u8x8_DrawUTF8Line(u8x8_t *u8x8, uint8_t x, uint8_t y, uint8_t w, const char *s)
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 7
+
+
+ 120:u8g2/csrc/u8x8_string.c **** {
+ 225              		.loc 1 120 0
+ 226              		.cfi_startproc
+ 227              		@ args = 4, pretend = 0, frame = 0
+ 228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 229              	.LVL28:
+ 230 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 231              	.LCFI7:
+ 232              		.cfi_def_cfa_offset 32
+ 233              		.cfi_offset 3, -32
+ 234              		.cfi_offset 4, -28
+ 235              		.cfi_offset 5, -24
+ 236              		.cfi_offset 6, -20
+ 237              		.cfi_offset 7, -16
+ 238              		.cfi_offset 8, -12
+ 239              		.cfi_offset 9, -8
+ 240              		.cfi_offset 14, -4
+ 241 0004 0546     		mov	r5, r0
+ 242 0006 0F46     		mov	r7, r1
+ 243 0008 1646     		mov	r6, r2
+ 244 000a 9846     		mov	r8, r3
+ 245              	.LVL29:
+ 121:u8g2/csrc/u8x8_string.c ****   uint8_t d, lw;
+ 122:u8g2/csrc/u8x8_string.c ****   uint8_t cx, dx;
+ 123:u8g2/csrc/u8x8_string.c ****     
+ 124:u8g2/csrc/u8x8_string.c ****   d = 0;
+ 125:u8g2/csrc/u8x8_string.c ****   
+ 126:u8g2/csrc/u8x8_string.c ****   lw = u8x8_GetUTF8Len(u8x8, s);
+ 246              		.loc 1 126 0
+ 247 000c 0899     		ldr	r1, [sp, #32]
+ 248              	.LVL30:
+ 249 000e FFF7FEFF 		bl	u8x8_GetUTF8Len
+ 250              	.LVL31:
+ 127:u8g2/csrc/u8x8_string.c ****   if ( lw < w )
+ 251              		.loc 1 127 0
+ 252 0012 4045     		cmp	r0, r8
+ 253 0014 08D2     		bcs	.L31
+ 254              	.LVL32:
+ 128:u8g2/csrc/u8x8_string.c ****   {
+ 129:u8g2/csrc/u8x8_string.c ****     d = w;
+ 130:u8g2/csrc/u8x8_string.c ****     d -=lw;
+ 255              		.loc 1 130 0
+ 256 0016 A8EB0009 		sub	r9, r8, r0
+ 257              	.LVL33:
+ 131:u8g2/csrc/u8x8_string.c ****     d /= 2;
+ 258              		.loc 1 131 0
+ 259 001a C9F34609 		ubfx	r9, r9, #1, #7
+ 260              	.LVL34:
+ 261              	.L26:
+ 132:u8g2/csrc/u8x8_string.c ****   }
+ 133:u8g2/csrc/u8x8_string.c ****     
+ 134:u8g2/csrc/u8x8_string.c ****   cx = x;
+ 135:u8g2/csrc/u8x8_string.c ****   dx = cx + d;
+ 262              		.loc 1 135 0
+ 263 001e B944     		add	r9, r9, r7
+ 264              	.LVL35:
+ 265 0020 5FFA89F9 		uxtb	r9, r9
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 8
+
+
+ 266              	.LVL36:
+ 134:u8g2/csrc/u8x8_string.c ****   dx = cx + d;
+ 267              		.loc 1 134 0
+ 268 0024 3C46     		mov	r4, r7
+ 136:u8g2/csrc/u8x8_string.c ****   while( cx < dx )
+ 269              		.loc 1 136 0
+ 270 0026 0AE0     		b	.L27
+ 271              	.LVL37:
+ 272              	.L31:
+ 124:u8g2/csrc/u8x8_string.c ****   
+ 273              		.loc 1 124 0
+ 274 0028 4FF00009 		mov	r9, #0
+ 275 002c F7E7     		b	.L26
+ 276              	.LVL38:
+ 277              	.L28:
+ 137:u8g2/csrc/u8x8_string.c ****   {
+ 138:u8g2/csrc/u8x8_string.c ****     u8x8_DrawUTF8(u8x8, cx, y, " ");
+ 278              		.loc 1 138 0
+ 279 002e 124B     		ldr	r3, .L33
+ 280 0030 3246     		mov	r2, r6
+ 281 0032 2146     		mov	r1, r4
+ 282 0034 2846     		mov	r0, r5
+ 283 0036 FFF7FEFF 		bl	u8x8_DrawUTF8
+ 284              	.LVL39:
+ 139:u8g2/csrc/u8x8_string.c ****     cx++;
+ 285              		.loc 1 139 0
+ 286 003a 0134     		adds	r4, r4, #1
+ 287              	.LVL40:
+ 288 003c E4B2     		uxtb	r4, r4
+ 289              	.LVL41:
+ 290              	.L27:
+ 136:u8g2/csrc/u8x8_string.c ****   {
+ 291              		.loc 1 136 0
+ 292 003e 4C45     		cmp	r4, r9
+ 293 0040 F5D3     		bcc	.L28
+ 140:u8g2/csrc/u8x8_string.c ****   }
+ 141:u8g2/csrc/u8x8_string.c ****   cx += u8x8_DrawUTF8(u8x8, cx, y, s);
+ 294              		.loc 1 141 0
+ 295 0042 089B     		ldr	r3, [sp, #32]
+ 296 0044 3246     		mov	r2, r6
+ 297 0046 2146     		mov	r1, r4
+ 298 0048 2846     		mov	r0, r5
+ 299 004a FFF7FEFF 		bl	u8x8_DrawUTF8
+ 300              	.LVL42:
+ 301 004e 0444     		add	r4, r4, r0
+ 302              	.LVL43:
+ 303 0050 E4B2     		uxtb	r4, r4
+ 304              	.LVL44:
+ 142:u8g2/csrc/u8x8_string.c ****   dx = x + w;
+ 305              		.loc 1 142 0
+ 306 0052 B844     		add	r8, r8, r7
+ 307 0054 5FFA88F8 		uxtb	r8, r8
+ 308              	.LVL45:
+ 143:u8g2/csrc/u8x8_string.c ****   while( cx < dx )
+ 309              		.loc 1 143 0
+ 310 0058 07E0     		b	.L29
+ 311              	.L30:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 9
+
+
+ 144:u8g2/csrc/u8x8_string.c ****   {
+ 145:u8g2/csrc/u8x8_string.c ****     u8x8_DrawUTF8(u8x8, cx, y, " ");
+ 312              		.loc 1 145 0
+ 313 005a 074B     		ldr	r3, .L33
+ 314 005c 3246     		mov	r2, r6
+ 315 005e 2146     		mov	r1, r4
+ 316 0060 2846     		mov	r0, r5
+ 317 0062 FFF7FEFF 		bl	u8x8_DrawUTF8
+ 318              	.LVL46:
+ 146:u8g2/csrc/u8x8_string.c ****     cx++;
+ 319              		.loc 1 146 0
+ 320 0066 0134     		adds	r4, r4, #1
+ 321              	.LVL47:
+ 322 0068 E4B2     		uxtb	r4, r4
+ 323              	.LVL48:
+ 324              	.L29:
+ 143:u8g2/csrc/u8x8_string.c ****   while( cx < dx )
+ 325              		.loc 1 143 0
+ 326 006a 4445     		cmp	r4, r8
+ 327 006c F5D3     		bcc	.L30
+ 147:u8g2/csrc/u8x8_string.c ****   }
+ 148:u8g2/csrc/u8x8_string.c ****   cx -= x;
+ 328              		.loc 1 148 0
+ 329 006e E01B     		subs	r0, r4, r7
+ 330              	.LVL49:
+ 149:u8g2/csrc/u8x8_string.c ****   return cx;
+ 150:u8g2/csrc/u8x8_string.c **** }
+ 331              		.loc 1 150 0
+ 332 0070 C0B2     		uxtb	r0, r0
+ 333 0072 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 334              	.LVL50:
+ 335              	.L34:
+ 336 0076 00BF     		.align	2
+ 337              	.L33:
+ 338 0078 00000000 		.word	.LC0
+ 339              		.cfi_endproc
+ 340              	.LFE3:
+ 342              		.section	.text.u8x8_DrawUTF8Lines,"ax",%progbits
+ 343              		.align	1
+ 344              		.global	u8x8_DrawUTF8Lines
+ 345              		.syntax unified
+ 346              		.thumb
+ 347              		.thumb_func
+ 348              		.fpu softvfp
+ 350              	u8x8_DrawUTF8Lines:
+ 351              	.LFB4:
+ 151:u8g2/csrc/u8x8_string.c **** 
+ 152:u8g2/csrc/u8x8_string.c **** /*
+ 153:u8g2/csrc/u8x8_string.c ****   draw several lines at position x,y.
+ 154:u8g2/csrc/u8x8_string.c ****   lines are stored in s and must be separated with '\n'.
+ 155:u8g2/csrc/u8x8_string.c ****   lines can be centered with respect to "w" 
+ 156:u8g2/csrc/u8x8_string.c ****   if s == NULL nothing is drawn and 0 is returned
+ 157:u8g2/csrc/u8x8_string.c ****   returns the number of lines in s
+ 158:u8g2/csrc/u8x8_string.c **** */
+ 159:u8g2/csrc/u8x8_string.c **** uint8_t u8x8_DrawUTF8Lines(u8x8_t *u8x8, uint8_t x, uint8_t y, uint8_t w, const char *s)
+ 160:u8g2/csrc/u8x8_string.c **** {
+ 352              		.loc 1 160 0
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 10
+
+
+ 353              		.cfi_startproc
+ 354              		@ args = 4, pretend = 0, frame = 0
+ 355              		@ frame_needed = 0, uses_anonymous_args = 0
+ 356              	.LVL51:
+ 357 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 358              	.LCFI8:
+ 359              		.cfi_def_cfa_offset 32
+ 360              		.cfi_offset 4, -32
+ 361              		.cfi_offset 5, -28
+ 362              		.cfi_offset 6, -24
+ 363              		.cfi_offset 7, -20
+ 364              		.cfi_offset 8, -16
+ 365              		.cfi_offset 9, -12
+ 366              		.cfi_offset 10, -8
+ 367              		.cfi_offset 14, -4
+ 368 0004 82B0     		sub	sp, sp, #8
+ 369              	.LCFI9:
+ 370              		.cfi_def_cfa_offset 40
+ 371 0006 8246     		mov	r10, r0
+ 372 0008 8946     		mov	r9, r1
+ 373 000a 1546     		mov	r5, r2
+ 374 000c 9846     		mov	r8, r3
+ 375 000e 0A9E     		ldr	r6, [sp, #40]
+ 161:u8g2/csrc/u8x8_string.c ****   uint8_t i;
+ 162:u8g2/csrc/u8x8_string.c ****   uint8_t cnt;
+ 163:u8g2/csrc/u8x8_string.c ****   cnt = u8x8_GetStringLineCnt(s);
+ 376              		.loc 1 163 0
+ 377 0010 3046     		mov	r0, r6
+ 378              	.LVL52:
+ 379 0012 FFF7FEFF 		bl	u8x8_GetStringLineCnt
+ 380              	.LVL53:
+ 381 0016 0746     		mov	r7, r0
+ 382              	.LVL54:
+ 164:u8g2/csrc/u8x8_string.c ****   for( i = 0; i < cnt; i++ )
+ 383              		.loc 1 164 0
+ 384 0018 0024     		movs	r4, #0
+ 385 001a 0EE0     		b	.L36
+ 386              	.LVL55:
+ 387              	.L37:
+ 165:u8g2/csrc/u8x8_string.c ****   {
+ 166:u8g2/csrc/u8x8_string.c ****     u8x8_DrawUTF8Line(u8x8, x, y, w, u8x8_GetStringLineStart(i, s));
+ 388              		.loc 1 166 0 discriminator 3
+ 389 001c 3146     		mov	r1, r6
+ 390 001e 2046     		mov	r0, r4
+ 391 0020 FFF7FEFF 		bl	u8x8_GetStringLineStart
+ 392              	.LVL56:
+ 393 0024 0090     		str	r0, [sp]
+ 394 0026 4346     		mov	r3, r8
+ 395 0028 2A46     		mov	r2, r5
+ 396 002a 4946     		mov	r1, r9
+ 397 002c 5046     		mov	r0, r10
+ 398 002e FFF7FEFF 		bl	u8x8_DrawUTF8Line
+ 399              	.LVL57:
+ 167:u8g2/csrc/u8x8_string.c ****     y++;
+ 400              		.loc 1 167 0 discriminator 3
+ 401 0032 0135     		adds	r5, r5, #1
+ 402              	.LVL58:
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 11
+
+
+ 403 0034 EDB2     		uxtb	r5, r5
+ 404              	.LVL59:
+ 164:u8g2/csrc/u8x8_string.c ****   for( i = 0; i < cnt; i++ )
+ 405              		.loc 1 164 0 discriminator 3
+ 406 0036 0134     		adds	r4, r4, #1
+ 407              	.LVL60:
+ 408 0038 E4B2     		uxtb	r4, r4
+ 409              	.LVL61:
+ 410              	.L36:
+ 164:u8g2/csrc/u8x8_string.c ****   for( i = 0; i < cnt; i++ )
+ 411              		.loc 1 164 0 is_stmt 0 discriminator 1
+ 412 003a BC42     		cmp	r4, r7
+ 413 003c EED3     		bcc	.L37
+ 168:u8g2/csrc/u8x8_string.c ****   }
+ 169:u8g2/csrc/u8x8_string.c ****   return cnt;
+ 170:u8g2/csrc/u8x8_string.c **** }
+ 414              		.loc 1 170 0 is_stmt 1
+ 415 003e 3846     		mov	r0, r7
+ 416 0040 02B0     		add	sp, sp, #8
+ 417              	.LCFI10:
+ 418              		.cfi_def_cfa_offset 32
+ 419              		@ sp needed
+ 420 0042 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 421              		.cfi_endproc
+ 422              	.LFE4:
+ 424              		.section	.rodata.u8x8_DrawUTF8Line.str1.4,"aMS",%progbits,1
+ 425              		.align	2
+ 426              	.LC0:
+ 427 0000 2000     		.ascii	" \000"
+ 428              		.text
+ 429              	.Letext0:
+ 430              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\mach
+ 431              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\6.2 2016q4\\arm-none-eabi\\include\\sys\
+ 432              		.file 4 "u8g2/csrc/u8x8.h"
+ARM GAS  C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8x8_string.c
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:16     .text.u8x8_GetStringLineCnt:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:23     .text.u8x8_GetStringLineCnt:00000000 u8x8_GetStringLineCnt
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:67     .text.u8x8_GetStringLineStart:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:74     .text.u8x8_GetStringLineStart:00000000 u8x8_GetStringLineStart
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:150    .text.u8x8_CopyStringLine:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:157    .text.u8x8_CopyStringLine:00000000 u8x8_CopyStringLine
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:216    .text.u8x8_DrawUTF8Line:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:223    .text.u8x8_DrawUTF8Line:00000000 u8x8_DrawUTF8Line
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:338    .text.u8x8_DrawUTF8Line:00000078 $d
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:343    .text.u8x8_DrawUTF8Lines:00000000 $t
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:350    .text.u8x8_DrawUTF8Lines:00000000 u8x8_DrawUTF8Lines
+C:\Users\nhantt\AppData\Local\Temp\ccMllvPe.s:425    .rodata.u8x8_DrawUTF8Line.str1.4:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+u8x8_GetUTF8Len
+u8x8_DrawUTF8
