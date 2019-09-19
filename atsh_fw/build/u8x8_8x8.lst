@@ -1,0 +1,1821 @@
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8x8_8x8.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8x8_get_glyph_data,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	u8x8_get_glyph_data:
+  24              	.LVL0:
+  25              	.LFB1:
+  26              		.file 1 "u8g2/csrc/u8x8_8x8.c"
+   1:u8g2/csrc/u8x8_8x8.c **** /*
+   2:u8g2/csrc/u8x8_8x8.c **** 
+   3:u8g2/csrc/u8x8_8x8.c ****   u8x8_8x8.c
+   4:u8g2/csrc/u8x8_8x8.c ****   
+   5:u8g2/csrc/u8x8_8x8.c ****   font procedures, directly interfaces display procedures
+   6:u8g2/csrc/u8x8_8x8.c ****   
+   7:u8g2/csrc/u8x8_8x8.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   8:u8g2/csrc/u8x8_8x8.c **** 
+   9:u8g2/csrc/u8x8_8x8.c ****   Copyright (c) 2016, olikraus@gmail.com
+  10:u8g2/csrc/u8x8_8x8.c ****   All rights reserved.
+  11:u8g2/csrc/u8x8_8x8.c **** 
+  12:u8g2/csrc/u8x8_8x8.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  13:u8g2/csrc/u8x8_8x8.c ****   are permitted provided that the following conditions are met:
+  14:u8g2/csrc/u8x8_8x8.c **** 
+  15:u8g2/csrc/u8x8_8x8.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  16:u8g2/csrc/u8x8_8x8.c ****     of conditions and the following disclaimer.
+  17:u8g2/csrc/u8x8_8x8.c ****     
+  18:u8g2/csrc/u8x8_8x8.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  19:u8g2/csrc/u8x8_8x8.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  20:u8g2/csrc/u8x8_8x8.c ****     materials provided with the distribution.
+  21:u8g2/csrc/u8x8_8x8.c **** 
+  22:u8g2/csrc/u8x8_8x8.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  23:u8g2/csrc/u8x8_8x8.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  24:u8g2/csrc/u8x8_8x8.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  25:u8g2/csrc/u8x8_8x8.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  26:u8g2/csrc/u8x8_8x8.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  27:u8g2/csrc/u8x8_8x8.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  28:u8g2/csrc/u8x8_8x8.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  29:u8g2/csrc/u8x8_8x8.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  30:u8g2/csrc/u8x8_8x8.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  31:u8g2/csrc/u8x8_8x8.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  32:u8g2/csrc/u8x8_8x8.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 2
+
+
+  33:u8g2/csrc/u8x8_8x8.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+  34:u8g2/csrc/u8x8_8x8.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    
+  35:u8g2/csrc/u8x8_8x8.c **** 
+  36:u8g2/csrc/u8x8_8x8.c **** */
+  37:u8g2/csrc/u8x8_8x8.c **** 
+  38:u8g2/csrc/u8x8_8x8.c **** #include "u8x8.h"
+  39:u8g2/csrc/u8x8_8x8.c **** 
+  40:u8g2/csrc/u8x8_8x8.c **** #if defined(ESP8266)
+  41:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_pgm_read_esp(const uint8_t * addr) 
+  42:u8g2/csrc/u8x8_8x8.c **** {
+  43:u8g2/csrc/u8x8_8x8.c ****     uint32_t bytes;
+  44:u8g2/csrc/u8x8_8x8.c ****     bytes = *(uint32_t*)((uint32_t)addr & ~3);
+  45:u8g2/csrc/u8x8_8x8.c ****     return ((uint8_t*)&bytes)[(uint32_t)addr & 3];
+  46:u8g2/csrc/u8x8_8x8.c **** }
+  47:u8g2/csrc/u8x8_8x8.c **** #endif
+  48:u8g2/csrc/u8x8_8x8.c **** 
+  49:u8g2/csrc/u8x8_8x8.c **** 
+  50:u8g2/csrc/u8x8_8x8.c **** void u8x8_SetFont(u8x8_t *u8x8, const uint8_t *font_8x8)
+  51:u8g2/csrc/u8x8_8x8.c **** {
+  52:u8g2/csrc/u8x8_8x8.c ****   u8x8->font = font_8x8;
+  53:u8g2/csrc/u8x8_8x8.c **** }
+  54:u8g2/csrc/u8x8_8x8.c **** 
+  55:u8g2/csrc/u8x8_8x8.c **** /*
+  56:u8g2/csrc/u8x8_8x8.c ****  Args:
+  57:u8g2/csrc/u8x8_8x8.c ****    u8x8: ptr to u8x8 structure
+  58:u8g2/csrc/u8x8_8x8.c ****    encoding: glyph for which the data is requested (must be between 0 and 255)
+  59:u8g2/csrc/u8x8_8x8.c ****    buf: pointer to 8 bytes
+  60:u8g2/csrc/u8x8_8x8.c **** */
+  61:u8g2/csrc/u8x8_8x8.c **** static void u8x8_get_glyph_data(u8x8_t *u8x8, uint8_t encoding, uint8_t *buf) U8X8_NOINLINE;
+  62:u8g2/csrc/u8x8_8x8.c **** static void u8x8_get_glyph_data(u8x8_t *u8x8, uint8_t encoding, uint8_t *buf) 
+  63:u8g2/csrc/u8x8_8x8.c **** {
+  27              		.loc 1 63 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              		.loc 1 63 1 is_stmt 0 view .LVU1
+  33 0000 10B4     		push	{r4}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 4, -4
+  64:u8g2/csrc/u8x8_8x8.c ****   uint8_t first, last, i;
+  37              		.loc 1 64 3 is_stmt 1 view .LVU2
+  65:u8g2/csrc/u8x8_8x8.c ****   uint16_t offset;
+  38              		.loc 1 65 3 view .LVU3
+  66:u8g2/csrc/u8x8_8x8.c ****   first = u8x8_pgm_read(u8x8->font+0);
+  39              		.loc 1 66 3 view .LVU4
+  40              		.loc 1 66 11 is_stmt 0 view .LVU5
+  41 0002 8469     		ldr	r4, [r0, #24]
+  42              		.loc 1 66 9 view .LVU6
+  43 0004 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+  44              	.LVL1:
+  67:u8g2/csrc/u8x8_8x8.c ****   last = u8x8_pgm_read(u8x8->font+1);
+  45              		.loc 1 67 3 is_stmt 1 view .LVU7
+  46              		.loc 1 67 8 is_stmt 0 view .LVU8
+  47 0006 6478     		ldrb	r4, [r4, #1]	@ zero_extendqisi2
+  48              	.LVL2:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 3
+
+
+  68:u8g2/csrc/u8x8_8x8.c ****   
+  69:u8g2/csrc/u8x8_8x8.c ****   /* get the glyph bitmap from the font */
+  70:u8g2/csrc/u8x8_8x8.c ****   if ( first <= encoding && encoding <= last )
+  49              		.loc 1 70 3 is_stmt 1 view .LVU9
+  50              		.loc 1 70 6 is_stmt 0 view .LVU10
+  51 0008 8B42     		cmp	r3, r1
+  52 000a 1DD8     		bhi	.L11
+  53              		.loc 1 70 26 discriminator 1 view .LVU11
+  54 000c 8C42     		cmp	r4, r1
+  55 000e 1DD3     		bcc	.L12
+  71:u8g2/csrc/u8x8_8x8.c ****   {
+  72:u8g2/csrc/u8x8_8x8.c ****     offset = encoding;
+  56              		.loc 1 72 5 is_stmt 1 view .LVU12
+  57              	.LVL3:
+  73:u8g2/csrc/u8x8_8x8.c ****     offset -= first;
+  58              		.loc 1 73 5 view .LVU13
+  59              		.loc 1 73 12 is_stmt 0 view .LVU14
+  60 0010 CB1A     		subs	r3, r1, r3
+  61              	.LVL4:
+  62              		.loc 1 73 12 view .LVU15
+  63 0012 9BB2     		uxth	r3, r3
+  64              	.LVL5:
+  74:u8g2/csrc/u8x8_8x8.c ****     offset *= 8;
+  65              		.loc 1 74 5 is_stmt 1 view .LVU16
+  66              		.loc 1 74 12 is_stmt 0 view .LVU17
+  67 0014 DB00     		lsls	r3, r3, #3
+  68              	.LVL6:
+  69              		.loc 1 74 12 view .LVU18
+  70 0016 9BB2     		uxth	r3, r3
+  71              	.LVL7:
+  75:u8g2/csrc/u8x8_8x8.c ****     offset +=2;
+  72              		.loc 1 75 5 is_stmt 1 view .LVU19
+  73              		.loc 1 75 12 is_stmt 0 view .LVU20
+  74 0018 0233     		adds	r3, r3, #2
+  75              	.LVL8:
+  76              		.loc 1 75 12 view .LVU21
+  77 001a 9BB2     		uxth	r3, r3
+  78              	.LVL9:
+  76:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+  79              		.loc 1 76 5 is_stmt 1 view .LVU22
+  80              		.loc 1 76 12 is_stmt 0 view .LVU23
+  81 001c 0021     		movs	r1, #0
+  82              	.LVL10:
+  83              		.loc 1 76 5 view .LVU24
+  84 001e 06E0     		b	.L3
+  85              	.LVL11:
+  86              	.L4:
+  77:u8g2/csrc/u8x8_8x8.c ****     {
+  78:u8g2/csrc/u8x8_8x8.c ****       buf[i] = u8x8_pgm_read(u8x8->font+offset);
+  87              		.loc 1 78 7 is_stmt 1 discriminator 3 view .LVU25
+  88              		.loc 1 78 16 is_stmt 0 discriminator 3 view .LVU26
+  89 0020 8469     		ldr	r4, [r0, #24]
+  90 0022 E45C     		ldrb	r4, [r4, r3]	@ zero_extendqisi2
+  91              		.loc 1 78 14 discriminator 3 view .LVU27
+  92 0024 5454     		strb	r4, [r2, r1]
+  79:u8g2/csrc/u8x8_8x8.c ****       offset++;
+  93              		.loc 1 79 7 is_stmt 1 discriminator 3 view .LVU28
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 4
+
+
+  94              		.loc 1 79 13 is_stmt 0 discriminator 3 view .LVU29
+  95 0026 0133     		adds	r3, r3, #1
+  96              	.LVL12:
+  97              		.loc 1 79 13 discriminator 3 view .LVU30
+  98 0028 9BB2     		uxth	r3, r3
+  99              	.LVL13:
+  76:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+ 100              		.loc 1 76 25 discriminator 3 view .LVU31
+ 101 002a 0131     		adds	r1, r1, #1
+ 102              	.LVL14:
+  76:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+ 103              		.loc 1 76 25 discriminator 3 view .LVU32
+ 104 002c C9B2     		uxtb	r1, r1
+ 105              	.LVL15:
+ 106              	.L3:
+  76:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+ 107              		.loc 1 76 5 discriminator 1 view .LVU33
+ 108 002e 0729     		cmp	r1, #7
+ 109 0030 F6D9     		bls	.L4
+  76:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+ 110              		.loc 1 76 5 discriminator 1 view .LVU34
+ 111 0032 05E0     		b	.L5
+ 112              	.LVL16:
+ 113              	.L7:
+  80:u8g2/csrc/u8x8_8x8.c ****     }
+  81:u8g2/csrc/u8x8_8x8.c ****   }
+  82:u8g2/csrc/u8x8_8x8.c ****   else
+  83:u8g2/csrc/u8x8_8x8.c ****   {
+  84:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+  85:u8g2/csrc/u8x8_8x8.c ****     {
+  86:u8g2/csrc/u8x8_8x8.c ****       buf[i] = 0;
+ 114              		.loc 1 86 7 is_stmt 1 discriminator 3 view .LVU35
+ 115              		.loc 1 86 14 is_stmt 0 discriminator 3 view .LVU36
+ 116 0034 0021     		movs	r1, #0
+ 117 0036 D154     		strb	r1, [r2, r3]
+  84:u8g2/csrc/u8x8_8x8.c ****     {
+ 118              		.loc 1 84 25 discriminator 3 view .LVU37
+ 119 0038 0133     		adds	r3, r3, #1
+ 120              	.LVL17:
+  84:u8g2/csrc/u8x8_8x8.c ****     {
+ 121              		.loc 1 84 25 discriminator 3 view .LVU38
+ 122 003a DBB2     		uxtb	r3, r3
+ 123              	.LVL18:
+ 124              	.L6:
+  84:u8g2/csrc/u8x8_8x8.c ****     {
+ 125              		.loc 1 84 5 discriminator 1 view .LVU39
+ 126 003c 072B     		cmp	r3, #7
+ 127 003e F9D9     		bls	.L7
+ 128              	.LVL19:
+ 129              	.L5:
+  87:u8g2/csrc/u8x8_8x8.c ****     }
+  88:u8g2/csrc/u8x8_8x8.c ****   }
+  89:u8g2/csrc/u8x8_8x8.c ****   
+  90:u8g2/csrc/u8x8_8x8.c ****   /* invert the bitmap if required */
+  91:u8g2/csrc/u8x8_8x8.c ****   if ( u8x8->is_font_inverse_mode )
+ 130              		.loc 1 91 3 is_stmt 1 view .LVU40
+ 131              		.loc 1 91 12 is_stmt 0 view .LVU41
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 5
+
+
+ 132 0040 C37F     		ldrb	r3, [r0, #31]	@ zero_extendqisi2
+ 133              		.loc 1 91 6 view .LVU42
+ 134 0042 63B1     		cbz	r3, .L1
+  92:u8g2/csrc/u8x8_8x8.c ****   {
+  93:u8g2/csrc/u8x8_8x8.c ****     for( i = 0; i < 8; i++ )
+ 135              		.loc 1 93 12 view .LVU43
+ 136 0044 0023     		movs	r3, #0
+ 137 0046 08E0     		b	.L8
+ 138              	.LVL20:
+ 139              	.L11:
+ 140              		.loc 1 93 12 view .LVU44
+ 141 0048 0023     		movs	r3, #0
+ 142              	.LVL21:
+ 143              		.loc 1 93 12 view .LVU45
+ 144 004a F7E7     		b	.L6
+ 145              	.LVL22:
+ 146              	.L12:
+ 147              		.loc 1 93 12 view .LVU46
+ 148 004c 0023     		movs	r3, #0
+ 149              	.LVL23:
+ 150              		.loc 1 93 12 view .LVU47
+ 151 004e F5E7     		b	.L6
+ 152              	.LVL24:
+ 153              	.L10:
+  94:u8g2/csrc/u8x8_8x8.c ****     {
+  95:u8g2/csrc/u8x8_8x8.c ****       buf[i] ^= 255;
+ 154              		.loc 1 95 7 is_stmt 1 discriminator 3 view .LVU48
+ 155              		.loc 1 95 14 is_stmt 0 discriminator 3 view .LVU49
+ 156 0050 D15C     		ldrb	r1, [r2, r3]	@ zero_extendqisi2
+ 157 0052 C943     		mvns	r1, r1
+ 158 0054 D154     		strb	r1, [r2, r3]
+  93:u8g2/csrc/u8x8_8x8.c ****     {
+ 159              		.loc 1 93 25 discriminator 3 view .LVU50
+ 160 0056 0133     		adds	r3, r3, #1
+ 161              	.LVL25:
+  93:u8g2/csrc/u8x8_8x8.c ****     {
+ 162              		.loc 1 93 25 discriminator 3 view .LVU51
+ 163 0058 DBB2     		uxtb	r3, r3
+ 164              	.LVL26:
+ 165              	.L8:
+  93:u8g2/csrc/u8x8_8x8.c ****     {
+ 166              		.loc 1 93 5 discriminator 1 view .LVU52
+ 167 005a 072B     		cmp	r3, #7
+ 168 005c F8D9     		bls	.L10
+ 169              	.LVL27:
+ 170              	.L1:
+  96:u8g2/csrc/u8x8_8x8.c ****     }
+  97:u8g2/csrc/u8x8_8x8.c ****   }
+  98:u8g2/csrc/u8x8_8x8.c ****   
+  99:u8g2/csrc/u8x8_8x8.c **** }
+ 171              		.loc 1 99 1 view .LVU53
+ 172 005e 10BC     		pop	{r4}
+ 173              	.LCFI1:
+ 174              		.cfi_restore 4
+ 175              		.cfi_def_cfa_offset 0
+ 176 0060 7047     		bx	lr
+ 177              		.cfi_endproc
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 6
+
+
+ 178              	.LFE1:
+ 180              		.section	.text.u8x8_upscale_buf,"ax",%progbits
+ 181              		.align	1
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu softvfp
+ 187              	u8x8_upscale_buf:
+ 188              	.LVL28:
+ 189              	.LFB4:
+ 100:u8g2/csrc/u8x8_8x8.c **** 
+ 101:u8g2/csrc/u8x8_8x8.c **** void u8x8_DrawGlyph(u8x8_t *u8x8, uint8_t x, uint8_t y, uint8_t encoding)
+ 102:u8g2/csrc/u8x8_8x8.c **** {
+ 103:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf[8];
+ 104:u8g2/csrc/u8x8_8x8.c ****   u8x8_get_glyph_data(u8x8, encoding, buf);
+ 105:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 106:u8g2/csrc/u8x8_8x8.c **** }
+ 107:u8g2/csrc/u8x8_8x8.c **** 
+ 108:u8g2/csrc/u8x8_8x8.c **** 
+ 109:u8g2/csrc/u8x8_8x8.c **** /*
+ 110:u8g2/csrc/u8x8_8x8.c ****   Source: http://graphics.stanford.edu/~seander/bithacks.html
+ 111:u8g2/csrc/u8x8_8x8.c **** 	Section: Interleave bits by Binary Magic Numbers 
+ 112:u8g2/csrc/u8x8_8x8.c ****    Original codes is here:
+ 113:u8g2/csrc/u8x8_8x8.c **** 		static const unsigned int B[] = {0x55555555, 0x33333333, 0x0F0F0F0F, 0x00FF00FF};
+ 114:u8g2/csrc/u8x8_8x8.c **** 		static const unsigned int S[] = {1, 2, 4, 8};
+ 115:u8g2/csrc/u8x8_8x8.c **** 
+ 116:u8g2/csrc/u8x8_8x8.c **** 		unsigned int x; // Interleave lower 16 bits of x and y, so the bits of x
+ 117:u8g2/csrc/u8x8_8x8.c **** 		unsigned int y; // are in the even positions and bits from y in the odd;
+ 118:u8g2/csrc/u8x8_8x8.c **** 		unsigned int z; // z gets the resulting 32-bit Morton Number.  
+ 119:u8g2/csrc/u8x8_8x8.c **** 				// x and y must initially be less than 65536.
+ 120:u8g2/csrc/u8x8_8x8.c **** 
+ 121:u8g2/csrc/u8x8_8x8.c **** 		x = (x | (x << S[3])) & B[3];
+ 122:u8g2/csrc/u8x8_8x8.c **** 		x = (x | (x << S[2])) & B[2];
+ 123:u8g2/csrc/u8x8_8x8.c **** 		x = (x | (x << S[1])) & B[1];
+ 124:u8g2/csrc/u8x8_8x8.c **** 		x = (x | (x << S[0])) & B[0];
+ 125:u8g2/csrc/u8x8_8x8.c **** 
+ 126:u8g2/csrc/u8x8_8x8.c **** 		y = (y | (y << S[3])) & B[3];
+ 127:u8g2/csrc/u8x8_8x8.c **** 		y = (y | (y << S[2])) & B[2];
+ 128:u8g2/csrc/u8x8_8x8.c **** 		y = (y | (y << S[1])) & B[1];
+ 129:u8g2/csrc/u8x8_8x8.c **** 		y = (y | (y << S[0])) & B[0];
+ 130:u8g2/csrc/u8x8_8x8.c **** 
+ 131:u8g2/csrc/u8x8_8x8.c **** 		z = x | (y << 1);
+ 132:u8g2/csrc/u8x8_8x8.c **** */
+ 133:u8g2/csrc/u8x8_8x8.c **** uint16_t u8x8_upscale_byte(uint8_t x) 
+ 134:u8g2/csrc/u8x8_8x8.c **** {
+ 135:u8g2/csrc/u8x8_8x8.c **** 	uint16_t y = x;
+ 136:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 4);		// x = (x | (x << S[2])) & B[2];
+ 137:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x0f0f;
+ 138:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 2);		// x = (x | (x << S[1])) & B[1];
+ 139:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x3333;
+ 140:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 1);		// x = (x | (x << S[0])) & B[0];
+ 141:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x5555;
+ 142:u8g2/csrc/u8x8_8x8.c ****   
+ 143:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 1);		// z = x | (y << 1);
+ 144:u8g2/csrc/u8x8_8x8.c **** 	return y;
+ 145:u8g2/csrc/u8x8_8x8.c **** }
+ 146:u8g2/csrc/u8x8_8x8.c **** 
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 7
+
+
+ 147:u8g2/csrc/u8x8_8x8.c **** static void u8x8_upscale_buf(uint8_t *src, uint8_t *dest) U8X8_NOINLINE;
+ 148:u8g2/csrc/u8x8_8x8.c **** static void u8x8_upscale_buf(uint8_t *src, uint8_t *dest)
+ 149:u8g2/csrc/u8x8_8x8.c **** {
+ 190              		.loc 1 149 1 is_stmt 1 view -0
+ 191              		.cfi_startproc
+ 192              		@ args = 0, pretend = 0, frame = 0
+ 193              		@ frame_needed = 0, uses_anonymous_args = 0
+ 194              		@ link register save eliminated.
+ 195              		.loc 1 149 1 is_stmt 0 view .LVU55
+ 196 0000 10B4     		push	{r4}
+ 197              	.LCFI2:
+ 198              		.cfi_def_cfa_offset 4
+ 199              		.cfi_offset 4, -4
+ 150:u8g2/csrc/u8x8_8x8.c ****   uint8_t i = 4;  
+ 200              		.loc 1 150 3 is_stmt 1 view .LVU56
+ 201              	.LVL29:
+ 202              		.loc 1 150 11 is_stmt 0 view .LVU57
+ 203 0002 0423     		movs	r3, #4
+ 204              	.LVL30:
+ 205              	.L16:
+ 151:u8g2/csrc/u8x8_8x8.c ****   do 
+ 206              		.loc 1 151 3 is_stmt 1 discriminator 1 view .LVU58
+ 152:u8g2/csrc/u8x8_8x8.c ****   {
+ 153:u8g2/csrc/u8x8_8x8.c ****     *dest++ = *src;
+ 207              		.loc 1 153 5 discriminator 1 view .LVU59
+ 208              		.loc 1 153 15 is_stmt 0 discriminator 1 view .LVU60
+ 209 0004 10F8014B 		ldrb	r4, [r0], #1	@ zero_extendqisi2
+ 210              	.LVL31:
+ 211              		.loc 1 153 13 discriminator 1 view .LVU61
+ 212 0008 0A46     		mov	r2, r1
+ 213 000a 02F8024B 		strb	r4, [r2], #2
+ 154:u8g2/csrc/u8x8_8x8.c ****     *dest++ = *src++;
+ 214              		.loc 1 154 5 is_stmt 1 discriminator 1 view .LVU62
+ 215              	.LVL32:
+ 216              		.loc 1 154 13 is_stmt 0 discriminator 1 view .LVU63
+ 217 000e 4C70     		strb	r4, [r1, #1]
+ 155:u8g2/csrc/u8x8_8x8.c ****     i--;
+ 218              		.loc 1 155 5 is_stmt 1 discriminator 1 view .LVU64
+ 219              		.loc 1 155 6 is_stmt 0 discriminator 1 view .LVU65
+ 220 0010 013B     		subs	r3, r3, #1
+ 221              	.LVL33:
+ 154:u8g2/csrc/u8x8_8x8.c ****     *dest++ = *src++;
+ 222              		.loc 1 154 10 discriminator 1 view .LVU66
+ 223 0012 1146     		mov	r1, r2
+ 156:u8g2/csrc/u8x8_8x8.c ****   } while( i > 0 );
+ 224              		.loc 1 156 3 discriminator 1 view .LVU67
+ 225 0014 13F0FF03 		ands	r3, r3, #255
+ 226              	.LVL34:
+ 227              		.loc 1 156 3 discriminator 1 view .LVU68
+ 228 0018 F4D1     		bne	.L16
+ 157:u8g2/csrc/u8x8_8x8.c **** }
+ 229              		.loc 1 157 1 view .LVU69
+ 230 001a 10BC     		pop	{r4}
+ 231              	.LCFI3:
+ 232              		.cfi_restore 4
+ 233              		.cfi_def_cfa_offset 0
+ 234 001c 7047     		bx	lr
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 8
+
+
+ 235              		.cfi_endproc
+ 236              	.LFE4:
+ 238              		.section	.text.u8x8_ascii_next,"ax",%progbits
+ 239              		.align	1
+ 240              		.global	u8x8_ascii_next
+ 241              		.syntax unified
+ 242              		.thumb
+ 243              		.thumb_func
+ 244              		.fpu softvfp
+ 246              	u8x8_ascii_next:
+ 247              	.LVL35:
+ 248              	.LFB7:
+ 158:u8g2/csrc/u8x8_8x8.c **** 
+ 159:u8g2/csrc/u8x8_8x8.c **** void u8x8_Draw2x2Glyph(u8x8_t *u8x8, uint8_t x, uint8_t y, uint8_t encoding)
+ 160:u8g2/csrc/u8x8_8x8.c **** {
+ 161:u8g2/csrc/u8x8_8x8.c ****   uint8_t i;
+ 162:u8g2/csrc/u8x8_8x8.c ****   uint16_t t;
+ 163:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf[8];
+ 164:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf1[8];
+ 165:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf2[8];
+ 166:u8g2/csrc/u8x8_8x8.c ****   u8x8_get_glyph_data(u8x8, encoding, buf);
+ 167:u8g2/csrc/u8x8_8x8.c ****   for( i = 0; i < 8; i ++ )
+ 168:u8g2/csrc/u8x8_8x8.c ****   {
+ 169:u8g2/csrc/u8x8_8x8.c ****       t = u8x8_upscale_byte(buf[i]);
+ 170:u8g2/csrc/u8x8_8x8.c ****       buf1[i] = t >> 8;
+ 171:u8g2/csrc/u8x8_8x8.c ****       buf2[i] = t & 255;
+ 172:u8g2/csrc/u8x8_8x8.c ****   }
+ 173:u8g2/csrc/u8x8_8x8.c ****   u8x8_upscale_buf(buf2, buf);
+ 174:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 175:u8g2/csrc/u8x8_8x8.c ****   
+ 176:u8g2/csrc/u8x8_8x8.c ****   u8x8_upscale_buf(buf2+4, buf);
+ 177:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x+1, y, 1, buf);
+ 178:u8g2/csrc/u8x8_8x8.c ****   
+ 179:u8g2/csrc/u8x8_8x8.c ****   u8x8_upscale_buf(buf1, buf);
+ 180:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y+1, 1, buf);
+ 181:u8g2/csrc/u8x8_8x8.c ****   
+ 182:u8g2/csrc/u8x8_8x8.c ****   u8x8_upscale_buf(buf1+4, buf);
+ 183:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x+1, y+1, 1, buf);  
+ 184:u8g2/csrc/u8x8_8x8.c **** }
+ 185:u8g2/csrc/u8x8_8x8.c **** 
+ 186:u8g2/csrc/u8x8_8x8.c **** 
+ 187:u8g2/csrc/u8x8_8x8.c **** /*
+ 188:u8g2/csrc/u8x8_8x8.c **** source: https://en.wikipedia.org/wiki/UTF-8
+ 189:u8g2/csrc/u8x8_8x8.c **** Bits	from 		to			bytes	Byte 1 		Byte 2 		Byte 3 		Byte 4 		Byte 5 		Byte 6
+ 190:u8g2/csrc/u8x8_8x8.c ****   7 	U+0000 		U+007F 		1 		0xxxxxxx
+ 191:u8g2/csrc/u8x8_8x8.c **** 11 	U+0080 		U+07FF 		2 		110xxxxx 	10xxxxxx
+ 192:u8g2/csrc/u8x8_8x8.c **** 16 	U+0800 		U+FFFF 		3 		1110xxxx 	10xxxxxx 	10xxxxxx
+ 193:u8g2/csrc/u8x8_8x8.c **** 21 	U+10000 	U+1FFFFF 	4 		11110xxx 	10xxxxxx 	10xxxxxx 	10xxxxxx
+ 194:u8g2/csrc/u8x8_8x8.c **** 26 	U+200000 	U+3FFFFFF 	5 		111110xx 	10xxxxxx 	10xxxxxx 	10xxxxxx 	10xxxxxx
+ 195:u8g2/csrc/u8x8_8x8.c **** 31 	U+4000000 	U+7FFFFFFF 	6 		1111110x 	10xxxxxx 	10xxxxxx 	10xxxxxx 	10xxxxxx 	10xxxxxx  
+ 196:u8g2/csrc/u8x8_8x8.c **** 
+ 197:u8g2/csrc/u8x8_8x8.c **** 
+ 198:u8g2/csrc/u8x8_8x8.c **** */
+ 199:u8g2/csrc/u8x8_8x8.c **** 
+ 200:u8g2/csrc/u8x8_8x8.c **** /* reset the internal state machine */
+ 201:u8g2/csrc/u8x8_8x8.c **** void u8x8_utf8_init(u8x8_t *u8x8)
+ 202:u8g2/csrc/u8x8_8x8.c **** {
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 9
+
+
+ 203:u8g2/csrc/u8x8_8x8.c ****   u8x8->utf8_state = 0;	/* also reset during u8x8_SetupDefaults() */
+ 204:u8g2/csrc/u8x8_8x8.c **** }
+ 205:u8g2/csrc/u8x8_8x8.c **** 
+ 206:u8g2/csrc/u8x8_8x8.c **** uint16_t u8x8_ascii_next(U8X8_UNUSED u8x8_t *u8x8, uint8_t b)
+ 207:u8g2/csrc/u8x8_8x8.c **** {
+ 249              		.loc 1 207 1 is_stmt 1 view -0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253              		@ link register save eliminated.
+ 208:u8g2/csrc/u8x8_8x8.c ****   if ( b == 0 || b == '\n' ) /* '\n' terminates the string to support the string list procedures */
+ 254              		.loc 1 208 3 view .LVU71
+ 255              		.loc 1 208 6 is_stmt 0 view .LVU72
+ 256 0000 19B1     		cbz	r1, .L20
+ 257              		.loc 1 208 15 discriminator 1 view .LVU73
+ 258 0002 0A29     		cmp	r1, #10
+ 259 0004 04D0     		beq	.L21
+ 209:u8g2/csrc/u8x8_8x8.c ****     return 0x0ffff;	/* end of string detected*/
+ 210:u8g2/csrc/u8x8_8x8.c ****   return b;
+ 260              		.loc 1 210 3 is_stmt 1 view .LVU74
+ 261              		.loc 1 210 10 is_stmt 0 view .LVU75
+ 262 0006 88B2     		uxth	r0, r1
+ 263              	.LVL36:
+ 264              		.loc 1 210 10 view .LVU76
+ 265 0008 7047     		bx	lr
+ 266              	.LVL37:
+ 267              	.L20:
+ 209:u8g2/csrc/u8x8_8x8.c ****     return 0x0ffff;	/* end of string detected*/
+ 268              		.loc 1 209 12 view .LVU77
+ 269 000a 4FF6FF70 		movw	r0, #65535
+ 270              	.LVL38:
+ 209:u8g2/csrc/u8x8_8x8.c ****     return 0x0ffff;	/* end of string detected*/
+ 271              		.loc 1 209 12 view .LVU78
+ 272 000e 7047     		bx	lr
+ 273              	.LVL39:
+ 274              	.L21:
+ 209:u8g2/csrc/u8x8_8x8.c ****     return 0x0ffff;	/* end of string detected*/
+ 275              		.loc 1 209 12 view .LVU79
+ 276 0010 4FF6FF70 		movw	r0, #65535
+ 277              	.LVL40:
+ 211:u8g2/csrc/u8x8_8x8.c **** }
+ 278              		.loc 1 211 1 view .LVU80
+ 279 0014 7047     		bx	lr
+ 280              		.cfi_endproc
+ 281              	.LFE7:
+ 283              		.section	.text.u8x8_utf8_next,"ax",%progbits
+ 284              		.align	1
+ 285              		.global	u8x8_utf8_next
+ 286              		.syntax unified
+ 287              		.thumb
+ 288              		.thumb_func
+ 289              		.fpu softvfp
+ 291              	u8x8_utf8_next:
+ 292              	.LVL41:
+ 293              	.LFB8:
+ 212:u8g2/csrc/u8x8_8x8.c **** 
+ 213:u8g2/csrc/u8x8_8x8.c **** /*
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 10
+
+
+ 214:u8g2/csrc/u8x8_8x8.c ****   pass a byte from an utf8 encoded string to the utf8 decoder state machine
+ 215:u8g2/csrc/u8x8_8x8.c ****   returns 
+ 216:u8g2/csrc/u8x8_8x8.c ****     0x0fffe: no glyph, just continue
+ 217:u8g2/csrc/u8x8_8x8.c ****     0x0ffff: end of string
+ 218:u8g2/csrc/u8x8_8x8.c ****     anything else: The decoded encoding
+ 219:u8g2/csrc/u8x8_8x8.c **** */
+ 220:u8g2/csrc/u8x8_8x8.c **** uint16_t u8x8_utf8_next(u8x8_t *u8x8, uint8_t b)
+ 221:u8g2/csrc/u8x8_8x8.c **** {
+ 294              		.loc 1 221 1 is_stmt 1 view -0
+ 295              		.cfi_startproc
+ 296              		@ args = 0, pretend = 0, frame = 0
+ 297              		@ frame_needed = 0, uses_anonymous_args = 0
+ 298              		@ link register save eliminated.
+ 222:u8g2/csrc/u8x8_8x8.c ****   if ( b == 0 || b == '\n' )	/* '\n' terminates the string to support the string list procedures */
+ 299              		.loc 1 222 3 view .LVU82
+ 300              		.loc 1 222 6 is_stmt 0 view .LVU83
+ 301 0000 0B46     		mov	r3, r1
+ 302 0002 0029     		cmp	r1, #0
+ 303 0004 3FD0     		beq	.L31
+ 304              		.loc 1 222 15 discriminator 1 view .LVU84
+ 305 0006 0A29     		cmp	r1, #10
+ 306 0008 40D0     		beq	.L32
+ 223:u8g2/csrc/u8x8_8x8.c ****     return 0x0ffff;	/* end of string detected, pending UTF8 is discarded */
+ 224:u8g2/csrc/u8x8_8x8.c ****   if ( u8x8->utf8_state == 0 )
+ 307              		.loc 1 224 3 is_stmt 1 view .LVU85
+ 308              		.loc 1 224 12 is_stmt 0 view .LVU86
+ 309 000a 90F82320 		ldrb	r2, [r0, #35]	@ zero_extendqisi2
+ 310              		.loc 1 224 6 view .LVU87
+ 311 000e 62BB     		cbnz	r2, .L24
+ 225:u8g2/csrc/u8x8_8x8.c ****   {
+ 226:u8g2/csrc/u8x8_8x8.c ****     if ( b >= 0xfc )	/* 6 byte sequence */
+ 312              		.loc 1 226 5 is_stmt 1 view .LVU88
+ 313              		.loc 1 226 8 is_stmt 0 view .LVU89
+ 314 0010 FB29     		cmp	r1, #251
+ 315 0012 09D8     		bhi	.L34
+ 227:u8g2/csrc/u8x8_8x8.c ****     {
+ 228:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 5;
+ 229:u8g2/csrc/u8x8_8x8.c ****       b &= 1;
+ 230:u8g2/csrc/u8x8_8x8.c ****     }
+ 231:u8g2/csrc/u8x8_8x8.c ****     else if ( b >= 0xf8 )
+ 316              		.loc 1 231 10 is_stmt 1 view .LVU90
+ 317              		.loc 1 231 13 is_stmt 0 view .LVU91
+ 318 0014 F729     		cmp	r1, #247
+ 319 0016 10D8     		bhi	.L35
+ 232:u8g2/csrc/u8x8_8x8.c ****     {
+ 233:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 4;
+ 234:u8g2/csrc/u8x8_8x8.c ****       b &= 3;
+ 235:u8g2/csrc/u8x8_8x8.c ****     }
+ 236:u8g2/csrc/u8x8_8x8.c ****     else if ( b >= 0xf0 )
+ 320              		.loc 1 236 10 is_stmt 1 view .LVU92
+ 321              		.loc 1 236 13 is_stmt 0 view .LVU93
+ 322 0018 EF29     		cmp	r1, #239
+ 323 001a 14D8     		bhi	.L36
+ 237:u8g2/csrc/u8x8_8x8.c ****     {
+ 238:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 3;
+ 239:u8g2/csrc/u8x8_8x8.c ****       b &= 7;      
+ 240:u8g2/csrc/u8x8_8x8.c ****     }
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 11
+
+
+ 241:u8g2/csrc/u8x8_8x8.c ****     else if ( b >= 0xe0 )
+ 324              		.loc 1 241 10 is_stmt 1 view .LVU94
+ 325              		.loc 1 241 13 is_stmt 0 view .LVU95
+ 326 001c DF29     		cmp	r1, #223
+ 327 001e 18D8     		bhi	.L37
+ 242:u8g2/csrc/u8x8_8x8.c ****     {
+ 243:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 2;
+ 244:u8g2/csrc/u8x8_8x8.c ****       b &= 15;
+ 245:u8g2/csrc/u8x8_8x8.c ****     }
+ 246:u8g2/csrc/u8x8_8x8.c ****     else if ( b >= 0xc0 )
+ 328              		.loc 1 246 10 is_stmt 1 view .LVU96
+ 329              		.loc 1 246 13 is_stmt 0 view .LVU97
+ 330 0020 BF29     		cmp	r1, #191
+ 331 0022 1CD8     		bhi	.L38
+ 247:u8g2/csrc/u8x8_8x8.c ****     {
+ 248:u8g2/csrc/u8x8_8x8.c ****       u8x8->utf8_state = 1;
+ 249:u8g2/csrc/u8x8_8x8.c ****       b &= 0x01f;
+ 250:u8g2/csrc/u8x8_8x8.c ****     }
+ 251:u8g2/csrc/u8x8_8x8.c ****     else
+ 252:u8g2/csrc/u8x8_8x8.c ****     {
+ 253:u8g2/csrc/u8x8_8x8.c ****       /* do nothing, just use the value as encoding */
+ 254:u8g2/csrc/u8x8_8x8.c ****       return b;
+ 332              		.loc 1 254 7 is_stmt 1 view .LVU98
+ 333              		.loc 1 254 14 is_stmt 0 view .LVU99
+ 334 0024 8BB2     		uxth	r3, r1
+ 335 0026 2CE0     		b	.L23
+ 336              	.L34:
+ 228:u8g2/csrc/u8x8_8x8.c ****       b &= 1;
+ 337              		.loc 1 228 7 is_stmt 1 view .LVU100
+ 228:u8g2/csrc/u8x8_8x8.c ****       b &= 1;
+ 338              		.loc 1 228 24 is_stmt 0 view .LVU101
+ 339 0028 0522     		movs	r2, #5
+ 340 002a 80F82320 		strb	r2, [r0, #35]
+ 229:u8g2/csrc/u8x8_8x8.c ****     }
+ 341              		.loc 1 229 7 is_stmt 1 view .LVU102
+ 229:u8g2/csrc/u8x8_8x8.c ****     }
+ 342              		.loc 1 229 9 is_stmt 0 view .LVU103
+ 343 002e 01F00103 		and	r3, r1, #1
+ 344              	.LVL42:
+ 345              	.L26:
+ 255:u8g2/csrc/u8x8_8x8.c ****     }
+ 256:u8g2/csrc/u8x8_8x8.c ****     u8x8->encoding = b;
+ 346              		.loc 1 256 5 is_stmt 1 view .LVU104
+ 347              		.loc 1 256 20 is_stmt 0 view .LVU105
+ 348 0032 8383     		strh	r3, [r0, #28]	@ movhi
+ 257:u8g2/csrc/u8x8_8x8.c ****     return 0x0fffe;
+ 349              		.loc 1 257 5 is_stmt 1 view .LVU106
+ 350              		.loc 1 257 12 is_stmt 0 view .LVU107
+ 351 0034 4FF6FE73 		movw	r3, #65534
+ 352              	.LVL43:
+ 353              		.loc 1 257 12 view .LVU108
+ 354 0038 23E0     		b	.L23
+ 355              	.LVL44:
+ 356              	.L35:
+ 233:u8g2/csrc/u8x8_8x8.c ****       b &= 3;
+ 357              		.loc 1 233 7 is_stmt 1 view .LVU109
+ 233:u8g2/csrc/u8x8_8x8.c ****       b &= 3;
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 12
+
+
+ 358              		.loc 1 233 24 is_stmt 0 view .LVU110
+ 359 003a 0422     		movs	r2, #4
+ 360 003c 80F82320 		strb	r2, [r0, #35]
+ 234:u8g2/csrc/u8x8_8x8.c ****     }
+ 361              		.loc 1 234 7 is_stmt 1 view .LVU111
+ 234:u8g2/csrc/u8x8_8x8.c ****     }
+ 362              		.loc 1 234 9 is_stmt 0 view .LVU112
+ 363 0040 01F00303 		and	r3, r1, #3
+ 364              	.LVL45:
+ 234:u8g2/csrc/u8x8_8x8.c ****     }
+ 365              		.loc 1 234 9 view .LVU113
+ 366 0044 F5E7     		b	.L26
+ 367              	.LVL46:
+ 368              	.L36:
+ 238:u8g2/csrc/u8x8_8x8.c ****       b &= 7;      
+ 369              		.loc 1 238 7 is_stmt 1 view .LVU114
+ 238:u8g2/csrc/u8x8_8x8.c ****       b &= 7;      
+ 370              		.loc 1 238 24 is_stmt 0 view .LVU115
+ 371 0046 0322     		movs	r2, #3
+ 372 0048 80F82320 		strb	r2, [r0, #35]
+ 239:u8g2/csrc/u8x8_8x8.c ****     }
+ 373              		.loc 1 239 7 is_stmt 1 view .LVU116
+ 239:u8g2/csrc/u8x8_8x8.c ****     }
+ 374              		.loc 1 239 9 is_stmt 0 view .LVU117
+ 375 004c 01F00703 		and	r3, r1, #7
+ 376              	.LVL47:
+ 239:u8g2/csrc/u8x8_8x8.c ****     }
+ 377              		.loc 1 239 9 view .LVU118
+ 378 0050 EFE7     		b	.L26
+ 379              	.LVL48:
+ 380              	.L37:
+ 243:u8g2/csrc/u8x8_8x8.c ****       b &= 15;
+ 381              		.loc 1 243 7 is_stmt 1 view .LVU119
+ 243:u8g2/csrc/u8x8_8x8.c ****       b &= 15;
+ 382              		.loc 1 243 24 is_stmt 0 view .LVU120
+ 383 0052 0222     		movs	r2, #2
+ 384 0054 80F82320 		strb	r2, [r0, #35]
+ 244:u8g2/csrc/u8x8_8x8.c ****     }
+ 385              		.loc 1 244 7 is_stmt 1 view .LVU121
+ 244:u8g2/csrc/u8x8_8x8.c ****     }
+ 386              		.loc 1 244 9 is_stmt 0 view .LVU122
+ 387 0058 01F00F03 		and	r3, r1, #15
+ 388              	.LVL49:
+ 244:u8g2/csrc/u8x8_8x8.c ****     }
+ 389              		.loc 1 244 9 view .LVU123
+ 390 005c E9E7     		b	.L26
+ 391              	.LVL50:
+ 392              	.L38:
+ 248:u8g2/csrc/u8x8_8x8.c ****       b &= 0x01f;
+ 393              		.loc 1 248 7 is_stmt 1 view .LVU124
+ 248:u8g2/csrc/u8x8_8x8.c ****       b &= 0x01f;
+ 394              		.loc 1 248 24 is_stmt 0 view .LVU125
+ 395 005e 0122     		movs	r2, #1
+ 396 0060 80F82320 		strb	r2, [r0, #35]
+ 249:u8g2/csrc/u8x8_8x8.c ****     }
+ 397              		.loc 1 249 7 is_stmt 1 view .LVU126
+ 249:u8g2/csrc/u8x8_8x8.c ****     }
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 13
+
+
+ 398              		.loc 1 249 9 is_stmt 0 view .LVU127
+ 399 0064 01F01F03 		and	r3, r1, #31
+ 400              	.LVL51:
+ 249:u8g2/csrc/u8x8_8x8.c ****     }
+ 401              		.loc 1 249 9 view .LVU128
+ 402 0068 E3E7     		b	.L26
+ 403              	.LVL52:
+ 404              	.L24:
+ 258:u8g2/csrc/u8x8_8x8.c ****   }
+ 259:u8g2/csrc/u8x8_8x8.c ****   else
+ 260:u8g2/csrc/u8x8_8x8.c ****   {
+ 261:u8g2/csrc/u8x8_8x8.c ****     u8x8->utf8_state--;
+ 405              		.loc 1 261 5 is_stmt 1 view .LVU129
+ 406              		.loc 1 261 21 is_stmt 0 view .LVU130
+ 407 006a 013A     		subs	r2, r2, #1
+ 408 006c D1B2     		uxtb	r1, r2
+ 409              	.LVL53:
+ 410              		.loc 1 261 21 view .LVU131
+ 411 006e 80F82310 		strb	r1, [r0, #35]
+ 262:u8g2/csrc/u8x8_8x8.c ****     /* The case b < 0x080 (an illegal UTF8 encoding) is not checked here. */
+ 263:u8g2/csrc/u8x8_8x8.c ****     u8x8->encoding<<=6;
+ 412              		.loc 1 263 5 is_stmt 1 view .LVU132
+ 413              		.loc 1 263 19 is_stmt 0 view .LVU133
+ 414 0072 828B     		ldrh	r2, [r0, #28]
+ 415 0074 9201     		lsls	r2, r2, #6
+ 416 0076 92B2     		uxth	r2, r2
+ 264:u8g2/csrc/u8x8_8x8.c ****     b &= 0x03f;
+ 417              		.loc 1 264 5 is_stmt 1 view .LVU134
+ 418              		.loc 1 264 7 is_stmt 0 view .LVU135
+ 419 0078 03F03F03 		and	r3, r3, #63
+ 420              	.LVL54:
+ 265:u8g2/csrc/u8x8_8x8.c ****     u8x8->encoding |= b;
+ 421              		.loc 1 265 5 is_stmt 1 view .LVU136
+ 422              		.loc 1 265 20 is_stmt 0 view .LVU137
+ 423 007c 1343     		orrs	r3, r3, r2
+ 424              	.LVL55:
+ 425              		.loc 1 265 20 view .LVU138
+ 426 007e 8383     		strh	r3, [r0, #28]	@ movhi
+ 266:u8g2/csrc/u8x8_8x8.c ****     if ( u8x8->utf8_state != 0 )
+ 427              		.loc 1 266 5 is_stmt 1 view .LVU139
+ 428              		.loc 1 266 8 is_stmt 0 view .LVU140
+ 429 0080 39B9     		cbnz	r1, .L39
+ 430              	.L23:
+ 267:u8g2/csrc/u8x8_8x8.c ****       return 0x0fffe;	/* nothing to do yet */
+ 268:u8g2/csrc/u8x8_8x8.c ****   }
+ 269:u8g2/csrc/u8x8_8x8.c ****   return u8x8->encoding;
+ 270:u8g2/csrc/u8x8_8x8.c **** }
+ 431              		.loc 1 270 1 view .LVU141
+ 432 0082 1846     		mov	r0, r3
+ 433              	.LVL56:
+ 434              		.loc 1 270 1 view .LVU142
+ 435 0084 7047     		bx	lr
+ 436              	.LVL57:
+ 437              	.L31:
+ 223:u8g2/csrc/u8x8_8x8.c ****   if ( u8x8->utf8_state == 0 )
+ 438              		.loc 1 223 12 view .LVU143
+ 439 0086 4FF6FF73 		movw	r3, #65535
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 14
+
+
+ 440 008a FAE7     		b	.L23
+ 441              	.L32:
+ 442 008c 4FF6FF73 		movw	r3, #65535
+ 443 0090 F7E7     		b	.L23
+ 444              	.LVL58:
+ 445              	.L39:
+ 267:u8g2/csrc/u8x8_8x8.c ****       return 0x0fffe;	/* nothing to do yet */
+ 446              		.loc 1 267 14 view .LVU144
+ 447 0092 4FF6FE73 		movw	r3, #65534
+ 448 0096 F4E7     		b	.L23
+ 449              		.cfi_endproc
+ 450              	.LFE8:
+ 452              		.section	.text.u8x8_SetFont,"ax",%progbits
+ 453              		.align	1
+ 454              		.global	u8x8_SetFont
+ 455              		.syntax unified
+ 456              		.thumb
+ 457              		.thumb_func
+ 458              		.fpu softvfp
+ 460              	u8x8_SetFont:
+ 461              	.LVL59:
+ 462              	.LFB0:
+  51:u8g2/csrc/u8x8_8x8.c ****   u8x8->font = font_8x8;
+ 463              		.loc 1 51 1 is_stmt 1 view -0
+ 464              		.cfi_startproc
+ 465              		@ args = 0, pretend = 0, frame = 0
+ 466              		@ frame_needed = 0, uses_anonymous_args = 0
+ 467              		@ link register save eliminated.
+  52:u8g2/csrc/u8x8_8x8.c **** }
+ 468              		.loc 1 52 3 view .LVU146
+  52:u8g2/csrc/u8x8_8x8.c **** }
+ 469              		.loc 1 52 14 is_stmt 0 view .LVU147
+ 470 0000 8161     		str	r1, [r0, #24]
+  53:u8g2/csrc/u8x8_8x8.c **** 
+ 471              		.loc 1 53 1 view .LVU148
+ 472 0002 7047     		bx	lr
+ 473              		.cfi_endproc
+ 474              	.LFE0:
+ 476              		.section	.text.u8x8_DrawGlyph,"ax",%progbits
+ 477              		.align	1
+ 478              		.global	u8x8_DrawGlyph
+ 479              		.syntax unified
+ 480              		.thumb
+ 481              		.thumb_func
+ 482              		.fpu softvfp
+ 484              	u8x8_DrawGlyph:
+ 485              	.LVL60:
+ 486              	.LFB2:
+ 102:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf[8];
+ 487              		.loc 1 102 1 is_stmt 1 view -0
+ 488              		.cfi_startproc
+ 489              		@ args = 0, pretend = 0, frame = 8
+ 490              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf[8];
+ 491              		.loc 1 102 1 is_stmt 0 view .LVU150
+ 492 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 493              	.LCFI4:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 15
+
+
+ 494              		.cfi_def_cfa_offset 20
+ 495              		.cfi_offset 4, -20
+ 496              		.cfi_offset 5, -16
+ 497              		.cfi_offset 6, -12
+ 498              		.cfi_offset 7, -8
+ 499              		.cfi_offset 14, -4
+ 500 0002 85B0     		sub	sp, sp, #20
+ 501              	.LCFI5:
+ 502              		.cfi_def_cfa_offset 40
+ 503 0004 0546     		mov	r5, r0
+ 504 0006 0E46     		mov	r6, r1
+ 505 0008 1746     		mov	r7, r2
+ 103:u8g2/csrc/u8x8_8x8.c ****   u8x8_get_glyph_data(u8x8, encoding, buf);
+ 506              		.loc 1 103 3 is_stmt 1 view .LVU151
+ 104:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 507              		.loc 1 104 3 view .LVU152
+ 508 000a 02AC     		add	r4, sp, #8
+ 509 000c 2246     		mov	r2, r4
+ 510              	.LVL61:
+ 104:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 511              		.loc 1 104 3 is_stmt 0 view .LVU153
+ 512 000e 1946     		mov	r1, r3
+ 513              	.LVL62:
+ 104:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 514              		.loc 1 104 3 view .LVU154
+ 515 0010 FFF7FEFF 		bl	u8x8_get_glyph_data
+ 516              	.LVL63:
+ 105:u8g2/csrc/u8x8_8x8.c **** }
+ 517              		.loc 1 105 3 is_stmt 1 view .LVU155
+ 518 0014 0094     		str	r4, [sp]
+ 519 0016 0123     		movs	r3, #1
+ 520 0018 3A46     		mov	r2, r7
+ 521 001a 3146     		mov	r1, r6
+ 522 001c 2846     		mov	r0, r5
+ 523 001e FFF7FEFF 		bl	u8x8_DrawTile
+ 524              	.LVL64:
+ 106:u8g2/csrc/u8x8_8x8.c **** 
+ 525              		.loc 1 106 1 is_stmt 0 view .LVU156
+ 526 0022 05B0     		add	sp, sp, #20
+ 527              	.LCFI6:
+ 528              		.cfi_def_cfa_offset 20
+ 529              		@ sp needed
+ 530 0024 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 106:u8g2/csrc/u8x8_8x8.c **** 
+ 531              		.loc 1 106 1 view .LVU157
+ 532              		.cfi_endproc
+ 533              	.LFE2:
+ 535              		.section	.text.u8x8_upscale_byte,"ax",%progbits
+ 536              		.align	1
+ 537              		.global	u8x8_upscale_byte
+ 538              		.syntax unified
+ 539              		.thumb
+ 540              		.thumb_func
+ 541              		.fpu softvfp
+ 543              	u8x8_upscale_byte:
+ 544              	.LVL65:
+ 545              	.LFB3:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 16
+
+
+ 134:u8g2/csrc/u8x8_8x8.c **** 	uint16_t y = x;
+ 546              		.loc 1 134 1 is_stmt 1 view -0
+ 547              		.cfi_startproc
+ 548              		@ args = 0, pretend = 0, frame = 0
+ 549              		@ frame_needed = 0, uses_anonymous_args = 0
+ 550              		@ link register save eliminated.
+ 135:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 4);		// x = (x | (x << S[2])) & B[2];
+ 551              		.loc 1 135 2 view .LVU159
+ 136:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x0f0f;
+ 552              		.loc 1 136 2 view .LVU160
+ 136:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x0f0f;
+ 553              		.loc 1 136 4 is_stmt 0 view .LVU161
+ 554 0000 40EA0010 		orr	r0, r0, r0, lsl #4
+ 555              	.LVL66:
+ 137:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 2);		// x = (x | (x << S[1])) & B[1];
+ 556              		.loc 1 137 2 is_stmt 1 view .LVU162
+ 137:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 2);		// x = (x | (x << S[1])) & B[1];
+ 557              		.loc 1 137 4 is_stmt 0 view .LVU163
+ 558 0004 20F0F000 		bic	r0, r0, #240
+ 559              	.LVL67:
+ 137:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 2);		// x = (x | (x << S[1])) & B[1];
+ 560              		.loc 1 137 4 view .LVU164
+ 561 0008 0005     		lsls	r0, r0, #20
+ 562 000a 000D     		lsrs	r0, r0, #20
+ 563              	.LVL68:
+ 138:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x3333;
+ 564              		.loc 1 138 2 is_stmt 1 view .LVU165
+ 138:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x3333;
+ 565              		.loc 1 138 4 is_stmt 0 view .LVU166
+ 566 000c 40EA8000 		orr	r0, r0, r0, lsl #2
+ 567              	.LVL69:
+ 139:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 1);		// x = (x | (x << S[0])) & B[0];
+ 568              		.loc 1 139 2 is_stmt 1 view .LVU167
+ 139:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 1);		// x = (x | (x << S[0])) & B[0];
+ 569              		.loc 1 139 4 is_stmt 0 view .LVU168
+ 570 0010 20F44C60 		bic	r0, r0, #3264
+ 571              	.LVL70:
+ 139:u8g2/csrc/u8x8_8x8.c **** 	y |= (y << 1);		// x = (x | (x << S[0])) & B[0];
+ 572              		.loc 1 139 4 view .LVU169
+ 573 0014 20F00C00 		bic	r0, r0, #12
+ 574 0018 8004     		lsls	r0, r0, #18
+ 575 001a 800C     		lsrs	r0, r0, #18
+ 576              	.LVL71:
+ 140:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x5555;
+ 577              		.loc 1 140 2 is_stmt 1 view .LVU170
+ 140:u8g2/csrc/u8x8_8x8.c **** 	y &= 0x5555;
+ 578              		.loc 1 140 4 is_stmt 0 view .LVU171
+ 579 001c 40EA4000 		orr	r0, r0, r0, lsl #1
+ 580              	.LVL72:
+ 141:u8g2/csrc/u8x8_8x8.c ****   
+ 581              		.loc 1 141 2 is_stmt 1 view .LVU172
+ 141:u8g2/csrc/u8x8_8x8.c ****   
+ 582              		.loc 1 141 4 is_stmt 0 view .LVU173
+ 583 0020 20F42A50 		bic	r0, r0, #10880
+ 584              	.LVL73:
+ 141:u8g2/csrc/u8x8_8x8.c ****   
+ 585              		.loc 1 141 4 view .LVU174
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 17
+
+
+ 586 0024 20F02A00 		bic	r0, r0, #42
+ 587 0028 4004     		lsls	r0, r0, #17
+ 588 002a 400C     		lsrs	r0, r0, #17
+ 589              	.LVL74:
+ 143:u8g2/csrc/u8x8_8x8.c **** 	return y;
+ 590              		.loc 1 143 2 is_stmt 1 view .LVU175
+ 144:u8g2/csrc/u8x8_8x8.c **** }
+ 591              		.loc 1 144 2 view .LVU176
+ 145:u8g2/csrc/u8x8_8x8.c **** 
+ 592              		.loc 1 145 1 is_stmt 0 view .LVU177
+ 593 002c 40EA4000 		orr	r0, r0, r0, lsl #1
+ 594              	.LVL75:
+ 145:u8g2/csrc/u8x8_8x8.c **** 
+ 595              		.loc 1 145 1 view .LVU178
+ 596 0030 7047     		bx	lr
+ 597              		.cfi_endproc
+ 598              	.LFE3:
+ 600              		.section	.text.u8x8_Draw2x2Glyph,"ax",%progbits
+ 601              		.align	1
+ 602              		.global	u8x8_Draw2x2Glyph
+ 603              		.syntax unified
+ 604              		.thumb
+ 605              		.thumb_func
+ 606              		.fpu softvfp
+ 608              	u8x8_Draw2x2Glyph:
+ 609              	.LVL76:
+ 610              	.LFB5:
+ 160:u8g2/csrc/u8x8_8x8.c ****   uint8_t i;
+ 611              		.loc 1 160 1 is_stmt 1 view -0
+ 612              		.cfi_startproc
+ 613              		@ args = 0, pretend = 0, frame = 24
+ 614              		@ frame_needed = 0, uses_anonymous_args = 0
+ 160:u8g2/csrc/u8x8_8x8.c ****   uint8_t i;
+ 615              		.loc 1 160 1 is_stmt 0 view .LVU180
+ 616 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 617              	.LCFI7:
+ 618              		.cfi_def_cfa_offset 24
+ 619              		.cfi_offset 4, -24
+ 620              		.cfi_offset 5, -20
+ 621              		.cfi_offset 6, -16
+ 622              		.cfi_offset 7, -12
+ 623              		.cfi_offset 8, -8
+ 624              		.cfi_offset 14, -4
+ 625 0004 88B0     		sub	sp, sp, #32
+ 626              	.LCFI8:
+ 627              		.cfi_def_cfa_offset 56
+ 628 0006 0746     		mov	r7, r0
+ 629 0008 8846     		mov	r8, r1
+ 630 000a 1646     		mov	r6, r2
+ 161:u8g2/csrc/u8x8_8x8.c ****   uint16_t t;
+ 631              		.loc 1 161 3 is_stmt 1 view .LVU181
+ 162:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf[8];
+ 632              		.loc 1 162 3 view .LVU182
+ 163:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf1[8];
+ 633              		.loc 1 163 3 view .LVU183
+ 164:u8g2/csrc/u8x8_8x8.c ****   uint8_t buf2[8];
+ 634              		.loc 1 164 3 view .LVU184
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 18
+
+
+ 165:u8g2/csrc/u8x8_8x8.c ****   u8x8_get_glyph_data(u8x8, encoding, buf);
+ 635              		.loc 1 165 3 view .LVU185
+ 166:u8g2/csrc/u8x8_8x8.c ****   for( i = 0; i < 8; i ++ )
+ 636              		.loc 1 166 3 view .LVU186
+ 637 000c 06AA     		add	r2, sp, #24
+ 638              	.LVL77:
+ 166:u8g2/csrc/u8x8_8x8.c ****   for( i = 0; i < 8; i ++ )
+ 639              		.loc 1 166 3 is_stmt 0 view .LVU187
+ 640 000e 1946     		mov	r1, r3
+ 641              	.LVL78:
+ 166:u8g2/csrc/u8x8_8x8.c ****   for( i = 0; i < 8; i ++ )
+ 642              		.loc 1 166 3 view .LVU188
+ 643 0010 FFF7FEFF 		bl	u8x8_get_glyph_data
+ 644              	.LVL79:
+ 167:u8g2/csrc/u8x8_8x8.c ****   {
+ 645              		.loc 1 167 3 is_stmt 1 view .LVU189
+ 167:u8g2/csrc/u8x8_8x8.c ****   {
+ 646              		.loc 1 167 10 is_stmt 0 view .LVU190
+ 647 0014 0024     		movs	r4, #0
+ 167:u8g2/csrc/u8x8_8x8.c ****   {
+ 648              		.loc 1 167 3 view .LVU191
+ 649 0016 0CE0     		b	.L45
+ 650              	.LVL80:
+ 651              	.L46:
+ 169:u8g2/csrc/u8x8_8x8.c ****       buf1[i] = t >> 8;
+ 652              		.loc 1 169 7 is_stmt 1 discriminator 3 view .LVU192
+ 169:u8g2/csrc/u8x8_8x8.c ****       buf1[i] = t >> 8;
+ 653              		.loc 1 169 11 is_stmt 0 discriminator 3 view .LVU193
+ 654 0018 08AB     		add	r3, sp, #32
+ 655 001a 1D19     		adds	r5, r3, r4
+ 656 001c 15F8080C 		ldrb	r0, [r5, #-8]	@ zero_extendqisi2
+ 657 0020 FFF7FEFF 		bl	u8x8_upscale_byte
+ 658              	.LVL81:
+ 170:u8g2/csrc/u8x8_8x8.c ****       buf2[i] = t & 255;
+ 659              		.loc 1 170 7 is_stmt 1 discriminator 3 view .LVU194
+ 170:u8g2/csrc/u8x8_8x8.c ****       buf2[i] = t & 255;
+ 660              		.loc 1 170 15 is_stmt 0 discriminator 3 view .LVU195
+ 661 0024 030A     		lsrs	r3, r0, #8
+ 662 0026 05F8103C 		strb	r3, [r5, #-16]
+ 171:u8g2/csrc/u8x8_8x8.c ****   }
+ 663              		.loc 1 171 7 is_stmt 1 discriminator 3 view .LVU196
+ 171:u8g2/csrc/u8x8_8x8.c ****   }
+ 664              		.loc 1 171 15 is_stmt 0 discriminator 3 view .LVU197
+ 665 002a 05F8180C 		strb	r0, [r5, #-24]
+ 167:u8g2/csrc/u8x8_8x8.c ****   {
+ 666              		.loc 1 167 24 discriminator 3 view .LVU198
+ 667 002e 0134     		adds	r4, r4, #1
+ 668              	.LVL82:
+ 167:u8g2/csrc/u8x8_8x8.c ****   {
+ 669              		.loc 1 167 24 discriminator 3 view .LVU199
+ 670 0030 E4B2     		uxtb	r4, r4
+ 671              	.LVL83:
+ 672              	.L45:
+ 167:u8g2/csrc/u8x8_8x8.c ****   {
+ 673              		.loc 1 167 3 discriminator 1 view .LVU200
+ 674 0032 072C     		cmp	r4, #7
+ 675 0034 F0D9     		bls	.L46
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 19
+
+
+ 173:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 676              		.loc 1 173 3 is_stmt 1 view .LVU201
+ 677 0036 06AC     		add	r4, sp, #24
+ 678              	.LVL84:
+ 173:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y, 1, buf);
+ 679              		.loc 1 173 3 is_stmt 0 view .LVU202
+ 680 0038 2146     		mov	r1, r4
+ 681 003a 02A8     		add	r0, sp, #8
+ 682 003c FFF7FEFF 		bl	u8x8_upscale_buf
+ 683              	.LVL85:
+ 174:u8g2/csrc/u8x8_8x8.c ****   
+ 684              		.loc 1 174 3 is_stmt 1 view .LVU203
+ 685 0040 0094     		str	r4, [sp]
+ 686 0042 0123     		movs	r3, #1
+ 687 0044 3246     		mov	r2, r6
+ 688 0046 4146     		mov	r1, r8
+ 689 0048 3846     		mov	r0, r7
+ 690 004a FFF7FEFF 		bl	u8x8_DrawTile
+ 691              	.LVL86:
+ 176:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x+1, y, 1, buf);
+ 692              		.loc 1 176 3 view .LVU204
+ 693 004e 2146     		mov	r1, r4
+ 694 0050 03A8     		add	r0, sp, #12
+ 695 0052 FFF7FEFF 		bl	u8x8_upscale_buf
+ 696              	.LVL87:
+ 177:u8g2/csrc/u8x8_8x8.c ****   
+ 697              		.loc 1 177 3 view .LVU205
+ 698 0056 08F10105 		add	r5, r8, #1
+ 699 005a EDB2     		uxtb	r5, r5
+ 700 005c 0094     		str	r4, [sp]
+ 701 005e 0123     		movs	r3, #1
+ 702 0060 3246     		mov	r2, r6
+ 703 0062 2946     		mov	r1, r5
+ 704 0064 3846     		mov	r0, r7
+ 705 0066 FFF7FEFF 		bl	u8x8_DrawTile
+ 706              	.LVL88:
+ 179:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x, y+1, 1, buf);
+ 707              		.loc 1 179 3 view .LVU206
+ 708 006a 2146     		mov	r1, r4
+ 709 006c 04A8     		add	r0, sp, #16
+ 710 006e FFF7FEFF 		bl	u8x8_upscale_buf
+ 711              	.LVL89:
+ 180:u8g2/csrc/u8x8_8x8.c ****   
+ 712              		.loc 1 180 3 view .LVU207
+ 713 0072 0136     		adds	r6, r6, #1
+ 714 0074 F6B2     		uxtb	r6, r6
+ 715 0076 0094     		str	r4, [sp]
+ 716 0078 0123     		movs	r3, #1
+ 717 007a 3246     		mov	r2, r6
+ 718 007c 4146     		mov	r1, r8
+ 719 007e 3846     		mov	r0, r7
+ 720 0080 FFF7FEFF 		bl	u8x8_DrawTile
+ 721              	.LVL90:
+ 182:u8g2/csrc/u8x8_8x8.c ****   u8x8_DrawTile(u8x8, x+1, y+1, 1, buf);  
+ 722              		.loc 1 182 3 view .LVU208
+ 723 0084 2146     		mov	r1, r4
+ 724 0086 05A8     		add	r0, sp, #20
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 20
+
+
+ 725 0088 FFF7FEFF 		bl	u8x8_upscale_buf
+ 726              	.LVL91:
+ 183:u8g2/csrc/u8x8_8x8.c **** }
+ 727              		.loc 1 183 3 view .LVU209
+ 728 008c 0094     		str	r4, [sp]
+ 729 008e 0123     		movs	r3, #1
+ 730 0090 3246     		mov	r2, r6
+ 731 0092 2946     		mov	r1, r5
+ 732 0094 3846     		mov	r0, r7
+ 733 0096 FFF7FEFF 		bl	u8x8_DrawTile
+ 734              	.LVL92:
+ 184:u8g2/csrc/u8x8_8x8.c **** 
+ 735              		.loc 1 184 1 is_stmt 0 view .LVU210
+ 736 009a 08B0     		add	sp, sp, #32
+ 737              	.LCFI9:
+ 738              		.cfi_def_cfa_offset 24
+ 739              		@ sp needed
+ 740 009c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 184:u8g2/csrc/u8x8_8x8.c **** 
+ 741              		.loc 1 184 1 view .LVU211
+ 742              		.cfi_endproc
+ 743              	.LFE5:
+ 745              		.section	.text.u8x8_utf8_init,"ax",%progbits
+ 746              		.align	1
+ 747              		.global	u8x8_utf8_init
+ 748              		.syntax unified
+ 749              		.thumb
+ 750              		.thumb_func
+ 751              		.fpu softvfp
+ 753              	u8x8_utf8_init:
+ 754              	.LVL93:
+ 755              	.LFB6:
+ 202:u8g2/csrc/u8x8_8x8.c ****   u8x8->utf8_state = 0;	/* also reset during u8x8_SetupDefaults() */
+ 756              		.loc 1 202 1 is_stmt 1 view -0
+ 757              		.cfi_startproc
+ 758              		@ args = 0, pretend = 0, frame = 0
+ 759              		@ frame_needed = 0, uses_anonymous_args = 0
+ 760              		@ link register save eliminated.
+ 203:u8g2/csrc/u8x8_8x8.c **** }
+ 761              		.loc 1 203 3 view .LVU213
+ 203:u8g2/csrc/u8x8_8x8.c **** }
+ 762              		.loc 1 203 20 is_stmt 0 view .LVU214
+ 763 0000 0023     		movs	r3, #0
+ 764 0002 80F82330 		strb	r3, [r0, #35]
+ 204:u8g2/csrc/u8x8_8x8.c **** 
+ 765              		.loc 1 204 1 view .LVU215
+ 766 0006 7047     		bx	lr
+ 767              		.cfi_endproc
+ 768              	.LFE6:
+ 770              		.section	.text.u8x8_draw_string,"ax",%progbits
+ 771              		.align	1
+ 772              		.syntax unified
+ 773              		.thumb
+ 774              		.thumb_func
+ 775              		.fpu softvfp
+ 777              	u8x8_draw_string:
+ 778              	.LVL94:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 21
+
+
+ 779              	.LFB9:
+ 271:u8g2/csrc/u8x8_8x8.c **** 
+ 272:u8g2/csrc/u8x8_8x8.c **** 
+ 273:u8g2/csrc/u8x8_8x8.c **** 
+ 274:u8g2/csrc/u8x8_8x8.c **** static uint8_t u8x8_draw_string(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s) U8X8_NOINLINE;
+ 275:u8g2/csrc/u8x8_8x8.c **** static uint8_t u8x8_draw_string(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 276:u8g2/csrc/u8x8_8x8.c **** {
+ 780              		.loc 1 276 1 is_stmt 1 view -0
+ 781              		.cfi_startproc
+ 782              		@ args = 0, pretend = 0, frame = 0
+ 783              		@ frame_needed = 0, uses_anonymous_args = 0
+ 784              		.loc 1 276 1 is_stmt 0 view .LVU217
+ 785 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 786              	.LCFI10:
+ 787              		.cfi_def_cfa_offset 24
+ 788              		.cfi_offset 4, -24
+ 789              		.cfi_offset 5, -20
+ 790              		.cfi_offset 6, -16
+ 791              		.cfi_offset 7, -12
+ 792              		.cfi_offset 8, -8
+ 793              		.cfi_offset 14, -4
+ 794 0004 0546     		mov	r5, r0
+ 795 0006 0E46     		mov	r6, r1
+ 796 0008 9046     		mov	r8, r2
+ 797 000a 1C46     		mov	r4, r3
+ 277:u8g2/csrc/u8x8_8x8.c ****   uint16_t e;
+ 798              		.loc 1 277 3 is_stmt 1 view .LVU218
+ 278:u8g2/csrc/u8x8_8x8.c ****   uint8_t cnt = 0;
+ 799              		.loc 1 278 3 view .LVU219
+ 800              	.LVL95:
+ 279:u8g2/csrc/u8x8_8x8.c ****   u8x8_utf8_init(u8x8);
+ 801              		.loc 1 279 3 view .LVU220
+ 802 000c FFF7FEFF 		bl	u8x8_utf8_init
+ 803              	.LVL96:
+ 278:u8g2/csrc/u8x8_8x8.c ****   uint8_t cnt = 0;
+ 804              		.loc 1 278 11 is_stmt 0 view .LVU221
+ 805 0010 0027     		movs	r7, #0
+ 806 0012 09E0     		b	.L50
+ 807              	.LVL97:
+ 808              	.L54:
+ 280:u8g2/csrc/u8x8_8x8.c ****   for(;;)
+ 281:u8g2/csrc/u8x8_8x8.c ****   {
+ 282:u8g2/csrc/u8x8_8x8.c ****     e = u8x8->next_cb(u8x8, (uint8_t)*s);
+ 283:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 284:u8g2/csrc/u8x8_8x8.c ****       break;
+ 285:u8g2/csrc/u8x8_8x8.c ****     s++;
+ 286:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 287:u8g2/csrc/u8x8_8x8.c ****     {
+ 288:u8g2/csrc/u8x8_8x8.c ****       u8x8_DrawGlyph(u8x8, x, y, e);
+ 809              		.loc 1 288 7 is_stmt 1 view .LVU222
+ 810 0014 C3B2     		uxtb	r3, r0
+ 811 0016 4246     		mov	r2, r8
+ 812 0018 3146     		mov	r1, r6
+ 813 001a 2846     		mov	r0, r5
+ 814              	.LVL98:
+ 815              		.loc 1 288 7 is_stmt 0 view .LVU223
+ 816 001c FFF7FEFF 		bl	u8x8_DrawGlyph
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 22
+
+
+ 817              	.LVL99:
+ 289:u8g2/csrc/u8x8_8x8.c ****       x++;
+ 818              		.loc 1 289 7 is_stmt 1 view .LVU224
+ 819              		.loc 1 289 8 is_stmt 0 view .LVU225
+ 820 0020 0136     		adds	r6, r6, #1
+ 821              	.LVL100:
+ 822              		.loc 1 289 8 view .LVU226
+ 823 0022 F6B2     		uxtb	r6, r6
+ 824              	.LVL101:
+ 290:u8g2/csrc/u8x8_8x8.c ****       cnt++;
+ 825              		.loc 1 290 7 is_stmt 1 view .LVU227
+ 826              		.loc 1 290 10 is_stmt 0 view .LVU228
+ 827 0024 0137     		adds	r7, r7, #1
+ 828              	.LVL102:
+ 829              		.loc 1 290 10 view .LVU229
+ 830 0026 FFB2     		uxtb	r7, r7
+ 831              	.LVL103:
+ 832              	.L50:
+ 280:u8g2/csrc/u8x8_8x8.c ****   for(;;)
+ 833              		.loc 1 280 3 is_stmt 1 view .LVU230
+ 282:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 834              		.loc 1 282 5 view .LVU231
+ 282:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 835              		.loc 1 282 13 is_stmt 0 view .LVU232
+ 836 0028 6B68     		ldr	r3, [r5, #4]
+ 282:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 837              		.loc 1 282 9 view .LVU233
+ 838 002a 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 839 002c 2846     		mov	r0, r5
+ 840 002e 9847     		blx	r3
+ 841              	.LVL104:
+ 283:u8g2/csrc/u8x8_8x8.c ****       break;
+ 842              		.loc 1 283 5 is_stmt 1 view .LVU234
+ 283:u8g2/csrc/u8x8_8x8.c ****       break;
+ 843              		.loc 1 283 8 is_stmt 0 view .LVU235
+ 844 0030 4FF6FF73 		movw	r3, #65535
+ 845 0034 9842     		cmp	r0, r3
+ 846 0036 05D0     		beq	.L51
+ 285:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 847              		.loc 1 285 5 is_stmt 1 view .LVU236
+ 285:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 848              		.loc 1 285 6 is_stmt 0 view .LVU237
+ 849 0038 0134     		adds	r4, r4, #1
+ 850              	.LVL105:
+ 286:u8g2/csrc/u8x8_8x8.c ****     {
+ 851              		.loc 1 286 5 is_stmt 1 view .LVU238
+ 286:u8g2/csrc/u8x8_8x8.c ****     {
+ 852              		.loc 1 286 8 is_stmt 0 view .LVU239
+ 853 003a 4FF6FE73 		movw	r3, #65534
+ 854 003e 9842     		cmp	r0, r3
+ 855 0040 F2D0     		beq	.L50
+ 856 0042 E7E7     		b	.L54
+ 857              	.L51:
+ 291:u8g2/csrc/u8x8_8x8.c ****     }
+ 292:u8g2/csrc/u8x8_8x8.c ****   }
+ 293:u8g2/csrc/u8x8_8x8.c ****   return cnt;
+ 858              		.loc 1 293 3 is_stmt 1 view .LVU240
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 23
+
+
+ 294:u8g2/csrc/u8x8_8x8.c **** }
+ 859              		.loc 1 294 1 is_stmt 0 view .LVU241
+ 860 0044 3846     		mov	r0, r7
+ 861              	.LVL106:
+ 862              		.loc 1 294 1 view .LVU242
+ 863 0046 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 864              		.loc 1 294 1 view .LVU243
+ 865              		.cfi_endproc
+ 866              	.LFE9:
+ 868              		.section	.text.u8x8_draw_2x2_string,"ax",%progbits
+ 869              		.align	1
+ 870              		.syntax unified
+ 871              		.thumb
+ 872              		.thumb_func
+ 873              		.fpu softvfp
+ 875              	u8x8_draw_2x2_string:
+ 876              	.LVL107:
+ 877              	.LFB12:
+ 295:u8g2/csrc/u8x8_8x8.c **** 
+ 296:u8g2/csrc/u8x8_8x8.c **** 
+ 297:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_DrawString(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 298:u8g2/csrc/u8x8_8x8.c **** {
+ 299:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_ascii_next;
+ 300:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 301:u8g2/csrc/u8x8_8x8.c **** }
+ 302:u8g2/csrc/u8x8_8x8.c **** 
+ 303:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_DrawUTF8(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 304:u8g2/csrc/u8x8_8x8.c **** {
+ 305:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_utf8_next;
+ 306:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 307:u8g2/csrc/u8x8_8x8.c **** }
+ 308:u8g2/csrc/u8x8_8x8.c **** 
+ 309:u8g2/csrc/u8x8_8x8.c **** 
+ 310:u8g2/csrc/u8x8_8x8.c **** 
+ 311:u8g2/csrc/u8x8_8x8.c **** static uint8_t u8x8_draw_2x2_string(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s) U8X8_NOINLIN
+ 312:u8g2/csrc/u8x8_8x8.c **** static uint8_t u8x8_draw_2x2_string(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 313:u8g2/csrc/u8x8_8x8.c **** {
+ 878              		.loc 1 313 1 is_stmt 1 view -0
+ 879              		.cfi_startproc
+ 880              		@ args = 0, pretend = 0, frame = 0
+ 881              		@ frame_needed = 0, uses_anonymous_args = 0
+ 882              		.loc 1 313 1 is_stmt 0 view .LVU245
+ 883 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 884              	.LCFI11:
+ 885              		.cfi_def_cfa_offset 24
+ 886              		.cfi_offset 4, -24
+ 887              		.cfi_offset 5, -20
+ 888              		.cfi_offset 6, -16
+ 889              		.cfi_offset 7, -12
+ 890              		.cfi_offset 8, -8
+ 891              		.cfi_offset 14, -4
+ 892 0004 0546     		mov	r5, r0
+ 893 0006 0E46     		mov	r6, r1
+ 894 0008 9046     		mov	r8, r2
+ 895 000a 1C46     		mov	r4, r3
+ 314:u8g2/csrc/u8x8_8x8.c ****   uint16_t e;
+ 896              		.loc 1 314 3 is_stmt 1 view .LVU246
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 24
+
+
+ 315:u8g2/csrc/u8x8_8x8.c ****   uint8_t cnt = 0;
+ 897              		.loc 1 315 3 view .LVU247
+ 898              	.LVL108:
+ 316:u8g2/csrc/u8x8_8x8.c ****   u8x8_utf8_init(u8x8);
+ 899              		.loc 1 316 3 view .LVU248
+ 900 000c FFF7FEFF 		bl	u8x8_utf8_init
+ 901              	.LVL109:
+ 315:u8g2/csrc/u8x8_8x8.c ****   uint8_t cnt = 0;
+ 902              		.loc 1 315 11 is_stmt 0 view .LVU249
+ 903 0010 0027     		movs	r7, #0
+ 904 0012 09E0     		b	.L56
+ 905              	.LVL110:
+ 906              	.L60:
+ 317:u8g2/csrc/u8x8_8x8.c ****   for(;;)
+ 318:u8g2/csrc/u8x8_8x8.c ****   {
+ 319:u8g2/csrc/u8x8_8x8.c ****     e = u8x8->next_cb(u8x8, (uint8_t)*s);
+ 320:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 321:u8g2/csrc/u8x8_8x8.c ****       break;
+ 322:u8g2/csrc/u8x8_8x8.c ****     s++;
+ 323:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 324:u8g2/csrc/u8x8_8x8.c ****     {
+ 325:u8g2/csrc/u8x8_8x8.c ****       u8x8_Draw2x2Glyph(u8x8, x, y, e);
+ 907              		.loc 1 325 7 is_stmt 1 view .LVU250
+ 908 0014 C3B2     		uxtb	r3, r0
+ 909 0016 4246     		mov	r2, r8
+ 910 0018 3146     		mov	r1, r6
+ 911 001a 2846     		mov	r0, r5
+ 912              	.LVL111:
+ 913              		.loc 1 325 7 is_stmt 0 view .LVU251
+ 914 001c FFF7FEFF 		bl	u8x8_Draw2x2Glyph
+ 915              	.LVL112:
+ 326:u8g2/csrc/u8x8_8x8.c ****       x+=2;
+ 916              		.loc 1 326 7 is_stmt 1 view .LVU252
+ 917              		.loc 1 326 8 is_stmt 0 view .LVU253
+ 918 0020 0236     		adds	r6, r6, #2
+ 919              	.LVL113:
+ 920              		.loc 1 326 8 view .LVU254
+ 921 0022 F6B2     		uxtb	r6, r6
+ 922              	.LVL114:
+ 327:u8g2/csrc/u8x8_8x8.c ****       cnt++;
+ 923              		.loc 1 327 7 is_stmt 1 view .LVU255
+ 924              		.loc 1 327 10 is_stmt 0 view .LVU256
+ 925 0024 0137     		adds	r7, r7, #1
+ 926              	.LVL115:
+ 927              		.loc 1 327 10 view .LVU257
+ 928 0026 FFB2     		uxtb	r7, r7
+ 929              	.LVL116:
+ 930              	.L56:
+ 317:u8g2/csrc/u8x8_8x8.c ****   for(;;)
+ 931              		.loc 1 317 3 is_stmt 1 view .LVU258
+ 319:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 932              		.loc 1 319 5 view .LVU259
+ 319:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 933              		.loc 1 319 13 is_stmt 0 view .LVU260
+ 934 0028 6B68     		ldr	r3, [r5, #4]
+ 319:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 935              		.loc 1 319 9 view .LVU261
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 25
+
+
+ 936 002a 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 937 002c 2846     		mov	r0, r5
+ 938 002e 9847     		blx	r3
+ 939              	.LVL117:
+ 320:u8g2/csrc/u8x8_8x8.c ****       break;
+ 940              		.loc 1 320 5 is_stmt 1 view .LVU262
+ 320:u8g2/csrc/u8x8_8x8.c ****       break;
+ 941              		.loc 1 320 8 is_stmt 0 view .LVU263
+ 942 0030 4FF6FF73 		movw	r3, #65535
+ 943 0034 9842     		cmp	r0, r3
+ 944 0036 05D0     		beq	.L57
+ 322:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 945              		.loc 1 322 5 is_stmt 1 view .LVU264
+ 322:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 946              		.loc 1 322 6 is_stmt 0 view .LVU265
+ 947 0038 0134     		adds	r4, r4, #1
+ 948              	.LVL118:
+ 323:u8g2/csrc/u8x8_8x8.c ****     {
+ 949              		.loc 1 323 5 is_stmt 1 view .LVU266
+ 323:u8g2/csrc/u8x8_8x8.c ****     {
+ 950              		.loc 1 323 8 is_stmt 0 view .LVU267
+ 951 003a 4FF6FE73 		movw	r3, #65534
+ 952 003e 9842     		cmp	r0, r3
+ 953 0040 F2D0     		beq	.L56
+ 954 0042 E7E7     		b	.L60
+ 955              	.L57:
+ 328:u8g2/csrc/u8x8_8x8.c ****     }
+ 329:u8g2/csrc/u8x8_8x8.c ****   }
+ 330:u8g2/csrc/u8x8_8x8.c ****   return cnt;
+ 956              		.loc 1 330 3 is_stmt 1 view .LVU268
+ 331:u8g2/csrc/u8x8_8x8.c **** }
+ 957              		.loc 1 331 1 is_stmt 0 view .LVU269
+ 958 0044 3846     		mov	r0, r7
+ 959              	.LVL119:
+ 960              		.loc 1 331 1 view .LVU270
+ 961 0046 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 962              		.loc 1 331 1 view .LVU271
+ 963              		.cfi_endproc
+ 964              	.LFE12:
+ 966              		.section	.text.u8x8_DrawString,"ax",%progbits
+ 967              		.align	1
+ 968              		.global	u8x8_DrawString
+ 969              		.syntax unified
+ 970              		.thumb
+ 971              		.thumb_func
+ 972              		.fpu softvfp
+ 974              	u8x8_DrawString:
+ 975              	.LVL120:
+ 976              	.LFB10:
+ 298:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_ascii_next;
+ 977              		.loc 1 298 1 is_stmt 1 view -0
+ 978              		.cfi_startproc
+ 979              		@ args = 0, pretend = 0, frame = 0
+ 980              		@ frame_needed = 0, uses_anonymous_args = 0
+ 298:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_ascii_next;
+ 981              		.loc 1 298 1 is_stmt 0 view .LVU273
+ 982 0000 10B5     		push	{r4, lr}
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 26
+
+
+ 983              	.LCFI12:
+ 984              		.cfi_def_cfa_offset 8
+ 985              		.cfi_offset 4, -8
+ 986              		.cfi_offset 14, -4
+ 299:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 987              		.loc 1 299 3 is_stmt 1 view .LVU274
+ 299:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 988              		.loc 1 299 17 is_stmt 0 view .LVU275
+ 989 0002 024C     		ldr	r4, .L63
+ 990 0004 4460     		str	r4, [r0, #4]
+ 300:u8g2/csrc/u8x8_8x8.c **** }
+ 991              		.loc 1 300 3 is_stmt 1 view .LVU276
+ 300:u8g2/csrc/u8x8_8x8.c **** }
+ 992              		.loc 1 300 10 is_stmt 0 view .LVU277
+ 993 0006 FFF7FEFF 		bl	u8x8_draw_string
+ 994              	.LVL121:
+ 301:u8g2/csrc/u8x8_8x8.c **** 
+ 995              		.loc 1 301 1 view .LVU278
+ 996 000a 10BD     		pop	{r4, pc}
+ 997              	.L64:
+ 998              		.align	2
+ 999              	.L63:
+ 1000 000c 00000000 		.word	u8x8_ascii_next
+ 1001              		.cfi_endproc
+ 1002              	.LFE10:
+ 1004              		.section	.text.u8x8_DrawUTF8,"ax",%progbits
+ 1005              		.align	1
+ 1006              		.global	u8x8_DrawUTF8
+ 1007              		.syntax unified
+ 1008              		.thumb
+ 1009              		.thumb_func
+ 1010              		.fpu softvfp
+ 1012              	u8x8_DrawUTF8:
+ 1013              	.LVL122:
+ 1014              	.LFB11:
+ 304:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_utf8_next;
+ 1015              		.loc 1 304 1 is_stmt 1 view -0
+ 1016              		.cfi_startproc
+ 1017              		@ args = 0, pretend = 0, frame = 0
+ 1018              		@ frame_needed = 0, uses_anonymous_args = 0
+ 304:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_utf8_next;
+ 1019              		.loc 1 304 1 is_stmt 0 view .LVU280
+ 1020 0000 10B5     		push	{r4, lr}
+ 1021              	.LCFI13:
+ 1022              		.cfi_def_cfa_offset 8
+ 1023              		.cfi_offset 4, -8
+ 1024              		.cfi_offset 14, -4
+ 305:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 1025              		.loc 1 305 3 is_stmt 1 view .LVU281
+ 305:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_string(u8x8, x, y, s);
+ 1026              		.loc 1 305 17 is_stmt 0 view .LVU282
+ 1027 0002 024C     		ldr	r4, .L67
+ 1028 0004 4460     		str	r4, [r0, #4]
+ 306:u8g2/csrc/u8x8_8x8.c **** }
+ 1029              		.loc 1 306 3 is_stmt 1 view .LVU283
+ 306:u8g2/csrc/u8x8_8x8.c **** }
+ 1030              		.loc 1 306 10 is_stmt 0 view .LVU284
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 27
+
+
+ 1031 0006 FFF7FEFF 		bl	u8x8_draw_string
+ 1032              	.LVL123:
+ 307:u8g2/csrc/u8x8_8x8.c **** 
+ 1033              		.loc 1 307 1 view .LVU285
+ 1034 000a 10BD     		pop	{r4, pc}
+ 1035              	.L68:
+ 1036              		.align	2
+ 1037              	.L67:
+ 1038 000c 00000000 		.word	u8x8_utf8_next
+ 1039              		.cfi_endproc
+ 1040              	.LFE11:
+ 1042              		.section	.text.u8x8_Draw2x2String,"ax",%progbits
+ 1043              		.align	1
+ 1044              		.global	u8x8_Draw2x2String
+ 1045              		.syntax unified
+ 1046              		.thumb
+ 1047              		.thumb_func
+ 1048              		.fpu softvfp
+ 1050              	u8x8_Draw2x2String:
+ 1051              	.LVL124:
+ 1052              	.LFB13:
+ 332:u8g2/csrc/u8x8_8x8.c **** 
+ 333:u8g2/csrc/u8x8_8x8.c **** 
+ 334:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_Draw2x2String(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 335:u8g2/csrc/u8x8_8x8.c **** {
+ 1053              		.loc 1 335 1 is_stmt 1 view -0
+ 1054              		.cfi_startproc
+ 1055              		@ args = 0, pretend = 0, frame = 0
+ 1056              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1057              		.loc 1 335 1 is_stmt 0 view .LVU287
+ 1058 0000 10B5     		push	{r4, lr}
+ 1059              	.LCFI14:
+ 1060              		.cfi_def_cfa_offset 8
+ 1061              		.cfi_offset 4, -8
+ 1062              		.cfi_offset 14, -4
+ 336:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_ascii_next;
+ 1063              		.loc 1 336 3 is_stmt 1 view .LVU288
+ 1064              		.loc 1 336 17 is_stmt 0 view .LVU289
+ 1065 0002 024C     		ldr	r4, .L71
+ 1066 0004 4460     		str	r4, [r0, #4]
+ 337:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_2x2_string(u8x8, x, y, s);
+ 1067              		.loc 1 337 3 is_stmt 1 view .LVU290
+ 1068              		.loc 1 337 10 is_stmt 0 view .LVU291
+ 1069 0006 FFF7FEFF 		bl	u8x8_draw_2x2_string
+ 1070              	.LVL125:
+ 338:u8g2/csrc/u8x8_8x8.c **** }
+ 1071              		.loc 1 338 1 view .LVU292
+ 1072 000a 10BD     		pop	{r4, pc}
+ 1073              	.L72:
+ 1074              		.align	2
+ 1075              	.L71:
+ 1076 000c 00000000 		.word	u8x8_ascii_next
+ 1077              		.cfi_endproc
+ 1078              	.LFE13:
+ 1080              		.section	.text.u8x8_Draw2x2UTF8,"ax",%progbits
+ 1081              		.align	1
+ 1082              		.global	u8x8_Draw2x2UTF8
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 28
+
+
+ 1083              		.syntax unified
+ 1084              		.thumb
+ 1085              		.thumb_func
+ 1086              		.fpu softvfp
+ 1088              	u8x8_Draw2x2UTF8:
+ 1089              	.LVL126:
+ 1090              	.LFB14:
+ 339:u8g2/csrc/u8x8_8x8.c **** 
+ 340:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_Draw2x2UTF8(u8x8_t *u8x8, uint8_t x, uint8_t y, const char *s)
+ 341:u8g2/csrc/u8x8_8x8.c **** {
+ 1091              		.loc 1 341 1 is_stmt 1 view -0
+ 1092              		.cfi_startproc
+ 1093              		@ args = 0, pretend = 0, frame = 0
+ 1094              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1095              		.loc 1 341 1 is_stmt 0 view .LVU294
+ 1096 0000 10B5     		push	{r4, lr}
+ 1097              	.LCFI15:
+ 1098              		.cfi_def_cfa_offset 8
+ 1099              		.cfi_offset 4, -8
+ 1100              		.cfi_offset 14, -4
+ 342:u8g2/csrc/u8x8_8x8.c ****   u8x8->next_cb = u8x8_utf8_next;
+ 1101              		.loc 1 342 3 is_stmt 1 view .LVU295
+ 1102              		.loc 1 342 17 is_stmt 0 view .LVU296
+ 1103 0002 024C     		ldr	r4, .L75
+ 1104 0004 4460     		str	r4, [r0, #4]
+ 343:u8g2/csrc/u8x8_8x8.c ****   return u8x8_draw_2x2_string(u8x8, x, y, s);
+ 1105              		.loc 1 343 3 is_stmt 1 view .LVU297
+ 1106              		.loc 1 343 10 is_stmt 0 view .LVU298
+ 1107 0006 FFF7FEFF 		bl	u8x8_draw_2x2_string
+ 1108              	.LVL127:
+ 344:u8g2/csrc/u8x8_8x8.c **** }
+ 1109              		.loc 1 344 1 view .LVU299
+ 1110 000a 10BD     		pop	{r4, pc}
+ 1111              	.L76:
+ 1112              		.align	2
+ 1113              	.L75:
+ 1114 000c 00000000 		.word	u8x8_utf8_next
+ 1115              		.cfi_endproc
+ 1116              	.LFE14:
+ 1118              		.section	.text.u8x8_GetUTF8Len,"ax",%progbits
+ 1119              		.align	1
+ 1120              		.global	u8x8_GetUTF8Len
+ 1121              		.syntax unified
+ 1122              		.thumb
+ 1123              		.thumb_func
+ 1124              		.fpu softvfp
+ 1126              	u8x8_GetUTF8Len:
+ 1127              	.LVL128:
+ 1128              	.LFB15:
+ 345:u8g2/csrc/u8x8_8x8.c **** 
+ 346:u8g2/csrc/u8x8_8x8.c **** 
+ 347:u8g2/csrc/u8x8_8x8.c **** 
+ 348:u8g2/csrc/u8x8_8x8.c **** uint8_t u8x8_GetUTF8Len(u8x8_t *u8x8, const char *s)
+ 349:u8g2/csrc/u8x8_8x8.c **** {
+ 1129              		.loc 1 349 1 is_stmt 1 view -0
+ 1130              		.cfi_startproc
+ 1131              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 29
+
+
+ 1132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1133              		.loc 1 349 1 is_stmt 0 view .LVU301
+ 1134 0000 70B5     		push	{r4, r5, r6, lr}
+ 1135              	.LCFI16:
+ 1136              		.cfi_def_cfa_offset 16
+ 1137              		.cfi_offset 4, -16
+ 1138              		.cfi_offset 5, -12
+ 1139              		.cfi_offset 6, -8
+ 1140              		.cfi_offset 14, -4
+ 1141 0002 0646     		mov	r6, r0
+ 1142 0004 0C46     		mov	r4, r1
+ 350:u8g2/csrc/u8x8_8x8.c ****   uint16_t e;
+ 1143              		.loc 1 350 3 is_stmt 1 view .LVU302
+ 351:u8g2/csrc/u8x8_8x8.c ****   uint8_t cnt = 0;
+ 1144              		.loc 1 351 3 view .LVU303
+ 1145              	.LVL129:
+ 352:u8g2/csrc/u8x8_8x8.c ****   u8x8_utf8_init(u8x8);
+ 1146              		.loc 1 352 3 view .LVU304
+ 1147 0006 FFF7FEFF 		bl	u8x8_utf8_init
+ 1148              	.LVL130:
+ 351:u8g2/csrc/u8x8_8x8.c ****   uint8_t cnt = 0;
+ 1149              		.loc 1 351 11 is_stmt 0 view .LVU305
+ 1150 000a 0025     		movs	r5, #0
+ 1151 000c 01E0     		b	.L78
+ 1152              	.LVL131:
+ 1153              	.L82:
+ 353:u8g2/csrc/u8x8_8x8.c ****   for(;;)
+ 354:u8g2/csrc/u8x8_8x8.c ****   {
+ 355:u8g2/csrc/u8x8_8x8.c ****     e = u8x8_utf8_next(u8x8, *s);
+ 356:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 357:u8g2/csrc/u8x8_8x8.c ****       break;
+ 358:u8g2/csrc/u8x8_8x8.c ****     s++;
+ 359:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 360:u8g2/csrc/u8x8_8x8.c ****       cnt++;
+ 1154              		.loc 1 360 7 is_stmt 1 view .LVU306
+ 1155              		.loc 1 360 10 is_stmt 0 view .LVU307
+ 1156 000e 0135     		adds	r5, r5, #1
+ 1157              	.LVL132:
+ 1158              		.loc 1 360 10 view .LVU308
+ 1159 0010 EDB2     		uxtb	r5, r5
+ 1160              	.LVL133:
+ 1161              	.L78:
+ 353:u8g2/csrc/u8x8_8x8.c ****   for(;;)
+ 1162              		.loc 1 353 3 is_stmt 1 view .LVU309
+ 355:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 1163              		.loc 1 355 5 view .LVU310
+ 355:u8g2/csrc/u8x8_8x8.c ****     if ( e == 0x0ffff )
+ 1164              		.loc 1 355 9 is_stmt 0 view .LVU311
+ 1165 0012 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 1166 0014 3046     		mov	r0, r6
+ 1167 0016 FFF7FEFF 		bl	u8x8_utf8_next
+ 1168              	.LVL134:
+ 356:u8g2/csrc/u8x8_8x8.c ****       break;
+ 1169              		.loc 1 356 5 is_stmt 1 view .LVU312
+ 356:u8g2/csrc/u8x8_8x8.c ****       break;
+ 1170              		.loc 1 356 8 is_stmt 0 view .LVU313
+ 1171 001a 4FF6FF73 		movw	r3, #65535
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 30
+
+
+ 1172 001e 9842     		cmp	r0, r3
+ 1173 0020 05D0     		beq	.L79
+ 358:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 1174              		.loc 1 358 5 is_stmt 1 view .LVU314
+ 358:u8g2/csrc/u8x8_8x8.c ****     if ( e != 0x0fffe )
+ 1175              		.loc 1 358 6 is_stmt 0 view .LVU315
+ 1176 0022 0134     		adds	r4, r4, #1
+ 1177              	.LVL135:
+ 359:u8g2/csrc/u8x8_8x8.c ****       cnt++;
+ 1178              		.loc 1 359 5 is_stmt 1 view .LVU316
+ 359:u8g2/csrc/u8x8_8x8.c ****       cnt++;
+ 1179              		.loc 1 359 8 is_stmt 0 view .LVU317
+ 1180 0024 4FF6FE73 		movw	r3, #65534
+ 1181 0028 9842     		cmp	r0, r3
+ 1182 002a F0D1     		bne	.L82
+ 1183 002c F1E7     		b	.L78
+ 1184              	.L79:
+ 361:u8g2/csrc/u8x8_8x8.c ****   }
+ 362:u8g2/csrc/u8x8_8x8.c ****   return cnt;
+ 1185              		.loc 1 362 3 is_stmt 1 view .LVU318
+ 363:u8g2/csrc/u8x8_8x8.c **** }
+ 1186              		.loc 1 363 1 is_stmt 0 view .LVU319
+ 1187 002e 2846     		mov	r0, r5
+ 1188              	.LVL136:
+ 1189              		.loc 1 363 1 view .LVU320
+ 1190 0030 70BD     		pop	{r4, r5, r6, pc}
+ 1191              		.loc 1 363 1 view .LVU321
+ 1192              		.cfi_endproc
+ 1193              	.LFE15:
+ 1195              		.text
+ 1196              	.Letext0:
+ 1197              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 1198              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 1199              		.file 4 "u8g2/csrc/u8x8.h"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s 			page 31
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8x8_8x8.c
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:16     .text.u8x8_get_glyph_data:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:23     .text.u8x8_get_glyph_data:00000000 u8x8_get_glyph_data
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:181    .text.u8x8_upscale_buf:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:187    .text.u8x8_upscale_buf:00000000 u8x8_upscale_buf
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:239    .text.u8x8_ascii_next:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:246    .text.u8x8_ascii_next:00000000 u8x8_ascii_next
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:284    .text.u8x8_utf8_next:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:291    .text.u8x8_utf8_next:00000000 u8x8_utf8_next
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:453    .text.u8x8_SetFont:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:460    .text.u8x8_SetFont:00000000 u8x8_SetFont
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:477    .text.u8x8_DrawGlyph:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:484    .text.u8x8_DrawGlyph:00000000 u8x8_DrawGlyph
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:536    .text.u8x8_upscale_byte:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:543    .text.u8x8_upscale_byte:00000000 u8x8_upscale_byte
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:601    .text.u8x8_Draw2x2Glyph:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:608    .text.u8x8_Draw2x2Glyph:00000000 u8x8_Draw2x2Glyph
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:746    .text.u8x8_utf8_init:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:753    .text.u8x8_utf8_init:00000000 u8x8_utf8_init
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:771    .text.u8x8_draw_string:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:777    .text.u8x8_draw_string:00000000 u8x8_draw_string
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:869    .text.u8x8_draw_2x2_string:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:875    .text.u8x8_draw_2x2_string:00000000 u8x8_draw_2x2_string
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:967    .text.u8x8_DrawString:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:974    .text.u8x8_DrawString:00000000 u8x8_DrawString
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1000   .text.u8x8_DrawString:0000000c $d
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1005   .text.u8x8_DrawUTF8:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1012   .text.u8x8_DrawUTF8:00000000 u8x8_DrawUTF8
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1038   .text.u8x8_DrawUTF8:0000000c $d
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1043   .text.u8x8_Draw2x2String:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1050   .text.u8x8_Draw2x2String:00000000 u8x8_Draw2x2String
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1076   .text.u8x8_Draw2x2String:0000000c $d
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1081   .text.u8x8_Draw2x2UTF8:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1088   .text.u8x8_Draw2x2UTF8:00000000 u8x8_Draw2x2UTF8
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1114   .text.u8x8_Draw2x2UTF8:0000000c $d
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1119   .text.u8x8_GetUTF8Len:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccs7ys1i.s:1126   .text.u8x8_GetUTF8Len:00000000 u8x8_GetUTF8Len
+
+UNDEFINED SYMBOLS
+u8x8_DrawTile

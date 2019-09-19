@@ -1,0 +1,843 @@
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8g2_d_setup.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8g2_Setup_st7920_p_128x64_1,"ax",%progbits
+  16              		.align	1
+  17              		.global	u8g2_Setup_st7920_p_128x64_1
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	u8g2_Setup_st7920_p_128x64_1:
+  25              	.LVL0:
+  26              	.LFB0:
+  27              		.file 1 "u8g2/csrc/u8g2_d_setup.c"
+   1:u8g2/csrc/u8g2_d_setup.c **** /* u8g2_d_setup.c */
+   2:u8g2/csrc/u8g2_d_setup.c **** /* generated code, codebuild, u8g2 project */
+   3:u8g2/csrc/u8g2_d_setup.c **** 
+   4:u8g2/csrc/u8g2_d_setup.c **** #include "u8g2.h"
+   5:u8g2/csrc/u8g2_d_setup.c **** 
+   6:u8g2/csrc/u8g2_d_setup.c **** /* st7920 1 */
+   7:u8g2/csrc/u8g2_d_setup.c **** void u8g2_Setup_st7920_p_128x64_1(u8g2_t *u8g2, const u8g2_cb_t *rotation, u8x8_msg_cb byte_cb, u8x
+   8:u8g2/csrc/u8g2_d_setup.c **** {
+  28              		.loc 1 8 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 8 1 is_stmt 0 view .LVU1
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 12
+  36              		.cfi_offset 4, -12
+  37              		.cfi_offset 5, -8
+  38              		.cfi_offset 14, -4
+  39 0002 85B0     		sub	sp, sp, #20
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 32
+  42 0004 0446     		mov	r4, r0
+  43 0006 0D46     		mov	r5, r1
+   9:u8g2/csrc/u8g2_d_setup.c ****   uint8_t tile_buf_height;
+  44              		.loc 1 9 3 is_stmt 1 view .LVU2
+  10:u8g2/csrc/u8g2_d_setup.c ****   uint8_t *buf;
+  45              		.loc 1 10 3 view .LVU3
+  11:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupDisplay(u8g2, u8x8_d_st7920_128x64, u8x8_cad_001, byte_cb, gpio_and_delay_cb);
+  46              		.loc 1 11 3 view .LVU4
+  47 0008 0093     		str	r3, [sp]
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 2
+
+
+  48 000a 1346     		mov	r3, r2
+  49              	.LVL1:
+  50              		.loc 1 11 3 is_stmt 0 view .LVU5
+  51 000c 084A     		ldr	r2, .L3
+  52              	.LVL2:
+  53              		.loc 1 11 3 view .LVU6
+  54 000e 0949     		ldr	r1, .L3+4
+  55              	.LVL3:
+  56              		.loc 1 11 3 view .LVU7
+  57 0010 FFF7FEFF 		bl	u8x8_Setup
+  58              	.LVL4:
+  12:u8g2/csrc/u8g2_d_setup.c ****   buf = u8g2_m_16_8_1(&tile_buf_height);
+  59              		.loc 1 12 3 is_stmt 1 view .LVU8
+  60              		.loc 1 12 9 is_stmt 0 view .LVU9
+  61 0014 0DF10F00 		add	r0, sp, #15
+  62 0018 FFF7FEFF 		bl	u8g2_m_16_8_1
+  63              	.LVL5:
+  13:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupBuffer(u8g2, buf, tile_buf_height, u8g2_ll_hvline_horizontal_right_lsb, rotation);
+  64              		.loc 1 13 3 is_stmt 1 view .LVU10
+  65 001c 0095     		str	r5, [sp]
+  66 001e 064B     		ldr	r3, .L3+8
+  67 0020 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+  68 0024 0146     		mov	r1, r0
+  69 0026 2046     		mov	r0, r4
+  70              	.LVL6:
+  71              		.loc 1 13 3 is_stmt 0 view .LVU11
+  72 0028 FFF7FEFF 		bl	u8g2_SetupBuffer
+  73              	.LVL7:
+  14:u8g2/csrc/u8g2_d_setup.c **** }
+  74              		.loc 1 14 1 view .LVU12
+  75 002c 05B0     		add	sp, sp, #20
+  76              	.LCFI2:
+  77              		.cfi_def_cfa_offset 12
+  78              		@ sp needed
+  79 002e 30BD     		pop	{r4, r5, pc}
+  80              	.LVL8:
+  81              	.L4:
+  82              		.loc 1 14 1 view .LVU13
+  83              		.align	2
+  84              	.L3:
+  85 0030 00000000 		.word	u8x8_cad_001
+  86 0034 00000000 		.word	u8x8_d_st7920_128x64
+  87 0038 00000000 		.word	u8g2_ll_hvline_horizontal_right_lsb
+  88              		.cfi_endproc
+  89              	.LFE0:
+  91              		.section	.text.u8g2_Setup_st7920_p_128x64_2,"ax",%progbits
+  92              		.align	1
+  93              		.global	u8g2_Setup_st7920_p_128x64_2
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu softvfp
+  99              	u8g2_Setup_st7920_p_128x64_2:
+ 100              	.LVL9:
+ 101              	.LFB1:
+  15:u8g2/csrc/u8g2_d_setup.c **** /* st7920 2 */
+  16:u8g2/csrc/u8g2_d_setup.c **** void u8g2_Setup_st7920_p_128x64_2(u8g2_t *u8g2, const u8g2_cb_t *rotation, u8x8_msg_cb byte_cb, u8x
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 3
+
+
+  17:u8g2/csrc/u8g2_d_setup.c **** {
+ 102              		.loc 1 17 1 is_stmt 1 view -0
+ 103              		.cfi_startproc
+ 104              		@ args = 0, pretend = 0, frame = 8
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106              		.loc 1 17 1 is_stmt 0 view .LVU15
+ 107 0000 30B5     		push	{r4, r5, lr}
+ 108              	.LCFI3:
+ 109              		.cfi_def_cfa_offset 12
+ 110              		.cfi_offset 4, -12
+ 111              		.cfi_offset 5, -8
+ 112              		.cfi_offset 14, -4
+ 113 0002 85B0     		sub	sp, sp, #20
+ 114              	.LCFI4:
+ 115              		.cfi_def_cfa_offset 32
+ 116 0004 0446     		mov	r4, r0
+ 117 0006 0D46     		mov	r5, r1
+  18:u8g2/csrc/u8g2_d_setup.c ****   uint8_t tile_buf_height;
+ 118              		.loc 1 18 3 is_stmt 1 view .LVU16
+  19:u8g2/csrc/u8g2_d_setup.c ****   uint8_t *buf;
+ 119              		.loc 1 19 3 view .LVU17
+  20:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupDisplay(u8g2, u8x8_d_st7920_128x64, u8x8_cad_001, byte_cb, gpio_and_delay_cb);
+ 120              		.loc 1 20 3 view .LVU18
+ 121 0008 0093     		str	r3, [sp]
+ 122 000a 1346     		mov	r3, r2
+ 123              	.LVL10:
+ 124              		.loc 1 20 3 is_stmt 0 view .LVU19
+ 125 000c 084A     		ldr	r2, .L7
+ 126              	.LVL11:
+ 127              		.loc 1 20 3 view .LVU20
+ 128 000e 0949     		ldr	r1, .L7+4
+ 129              	.LVL12:
+ 130              		.loc 1 20 3 view .LVU21
+ 131 0010 FFF7FEFF 		bl	u8x8_Setup
+ 132              	.LVL13:
+  21:u8g2/csrc/u8g2_d_setup.c ****   buf = u8g2_m_16_8_2(&tile_buf_height);
+ 133              		.loc 1 21 3 is_stmt 1 view .LVU22
+ 134              		.loc 1 21 9 is_stmt 0 view .LVU23
+ 135 0014 0DF10F00 		add	r0, sp, #15
+ 136 0018 FFF7FEFF 		bl	u8g2_m_16_8_2
+ 137              	.LVL14:
+  22:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupBuffer(u8g2, buf, tile_buf_height, u8g2_ll_hvline_horizontal_right_lsb, rotation);
+ 138              		.loc 1 22 3 is_stmt 1 view .LVU24
+ 139 001c 0095     		str	r5, [sp]
+ 140 001e 064B     		ldr	r3, .L7+8
+ 141 0020 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+ 142 0024 0146     		mov	r1, r0
+ 143 0026 2046     		mov	r0, r4
+ 144              	.LVL15:
+ 145              		.loc 1 22 3 is_stmt 0 view .LVU25
+ 146 0028 FFF7FEFF 		bl	u8g2_SetupBuffer
+ 147              	.LVL16:
+  23:u8g2/csrc/u8g2_d_setup.c **** }
+ 148              		.loc 1 23 1 view .LVU26
+ 149 002c 05B0     		add	sp, sp, #20
+ 150              	.LCFI5:
+ 151              		.cfi_def_cfa_offset 12
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 4
+
+
+ 152              		@ sp needed
+ 153 002e 30BD     		pop	{r4, r5, pc}
+ 154              	.LVL17:
+ 155              	.L8:
+ 156              		.loc 1 23 1 view .LVU27
+ 157              		.align	2
+ 158              	.L7:
+ 159 0030 00000000 		.word	u8x8_cad_001
+ 160 0034 00000000 		.word	u8x8_d_st7920_128x64
+ 161 0038 00000000 		.word	u8g2_ll_hvline_horizontal_right_lsb
+ 162              		.cfi_endproc
+ 163              	.LFE1:
+ 165              		.section	.text.u8g2_Setup_st7920_p_128x64_f,"ax",%progbits
+ 166              		.align	1
+ 167              		.global	u8g2_Setup_st7920_p_128x64_f
+ 168              		.syntax unified
+ 169              		.thumb
+ 170              		.thumb_func
+ 171              		.fpu softvfp
+ 173              	u8g2_Setup_st7920_p_128x64_f:
+ 174              	.LVL18:
+ 175              	.LFB2:
+  24:u8g2/csrc/u8g2_d_setup.c **** /* st7920 f */
+  25:u8g2/csrc/u8g2_d_setup.c **** void u8g2_Setup_st7920_p_128x64_f(u8g2_t *u8g2, const u8g2_cb_t *rotation, u8x8_msg_cb byte_cb, u8x
+  26:u8g2/csrc/u8g2_d_setup.c **** {
+ 176              		.loc 1 26 1 is_stmt 1 view -0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 8
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180              		.loc 1 26 1 is_stmt 0 view .LVU29
+ 181 0000 30B5     		push	{r4, r5, lr}
+ 182              	.LCFI6:
+ 183              		.cfi_def_cfa_offset 12
+ 184              		.cfi_offset 4, -12
+ 185              		.cfi_offset 5, -8
+ 186              		.cfi_offset 14, -4
+ 187 0002 85B0     		sub	sp, sp, #20
+ 188              	.LCFI7:
+ 189              		.cfi_def_cfa_offset 32
+ 190 0004 0446     		mov	r4, r0
+ 191 0006 0D46     		mov	r5, r1
+  27:u8g2/csrc/u8g2_d_setup.c ****   uint8_t tile_buf_height;
+ 192              		.loc 1 27 3 is_stmt 1 view .LVU30
+  28:u8g2/csrc/u8g2_d_setup.c ****   uint8_t *buf;
+ 193              		.loc 1 28 3 view .LVU31
+  29:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupDisplay(u8g2, u8x8_d_st7920_128x64, u8x8_cad_001, byte_cb, gpio_and_delay_cb);
+ 194              		.loc 1 29 3 view .LVU32
+ 195 0008 0093     		str	r3, [sp]
+ 196 000a 1346     		mov	r3, r2
+ 197              	.LVL19:
+ 198              		.loc 1 29 3 is_stmt 0 view .LVU33
+ 199 000c 084A     		ldr	r2, .L11
+ 200              	.LVL20:
+ 201              		.loc 1 29 3 view .LVU34
+ 202 000e 0949     		ldr	r1, .L11+4
+ 203              	.LVL21:
+ 204              		.loc 1 29 3 view .LVU35
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 5
+
+
+ 205 0010 FFF7FEFF 		bl	u8x8_Setup
+ 206              	.LVL22:
+  30:u8g2/csrc/u8g2_d_setup.c ****   buf = u8g2_m_16_8_f(&tile_buf_height);
+ 207              		.loc 1 30 3 is_stmt 1 view .LVU36
+ 208              		.loc 1 30 9 is_stmt 0 view .LVU37
+ 209 0014 0DF10F00 		add	r0, sp, #15
+ 210 0018 FFF7FEFF 		bl	u8g2_m_16_8_f
+ 211              	.LVL23:
+  31:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupBuffer(u8g2, buf, tile_buf_height, u8g2_ll_hvline_horizontal_right_lsb, rotation);
+ 212              		.loc 1 31 3 is_stmt 1 view .LVU38
+ 213 001c 0095     		str	r5, [sp]
+ 214 001e 064B     		ldr	r3, .L11+8
+ 215 0020 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+ 216 0024 0146     		mov	r1, r0
+ 217 0026 2046     		mov	r0, r4
+ 218              	.LVL24:
+ 219              		.loc 1 31 3 is_stmt 0 view .LVU39
+ 220 0028 FFF7FEFF 		bl	u8g2_SetupBuffer
+ 221              	.LVL25:
+  32:u8g2/csrc/u8g2_d_setup.c **** }
+ 222              		.loc 1 32 1 view .LVU40
+ 223 002c 05B0     		add	sp, sp, #20
+ 224              	.LCFI8:
+ 225              		.cfi_def_cfa_offset 12
+ 226              		@ sp needed
+ 227 002e 30BD     		pop	{r4, r5, pc}
+ 228              	.LVL26:
+ 229              	.L12:
+ 230              		.loc 1 32 1 view .LVU41
+ 231              		.align	2
+ 232              	.L11:
+ 233 0030 00000000 		.word	u8x8_cad_001
+ 234 0034 00000000 		.word	u8x8_d_st7920_128x64
+ 235 0038 00000000 		.word	u8g2_ll_hvline_horizontal_right_lsb
+ 236              		.cfi_endproc
+ 237              	.LFE2:
+ 239              		.section	.text.u8g2_Setup_st7920_128x64_1,"ax",%progbits
+ 240              		.align	1
+ 241              		.global	u8g2_Setup_st7920_128x64_1
+ 242              		.syntax unified
+ 243              		.thumb
+ 244              		.thumb_func
+ 245              		.fpu softvfp
+ 247              	u8g2_Setup_st7920_128x64_1:
+ 248              	.LVL27:
+ 249              	.LFB3:
+  33:u8g2/csrc/u8g2_d_setup.c **** /* st7920 */
+  34:u8g2/csrc/u8g2_d_setup.c **** /* st7920 1 */
+  35:u8g2/csrc/u8g2_d_setup.c **** void u8g2_Setup_st7920_128x64_1(u8g2_t *u8g2, const u8g2_cb_t *rotation, u8x8_msg_cb byte_cb, u8x8_
+  36:u8g2/csrc/u8g2_d_setup.c **** {
+ 250              		.loc 1 36 1 is_stmt 1 view -0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 8
+ 253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 254              		.loc 1 36 1 is_stmt 0 view .LVU43
+ 255 0000 30B5     		push	{r4, r5, lr}
+ 256              	.LCFI9:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 6
+
+
+ 257              		.cfi_def_cfa_offset 12
+ 258              		.cfi_offset 4, -12
+ 259              		.cfi_offset 5, -8
+ 260              		.cfi_offset 14, -4
+ 261 0002 85B0     		sub	sp, sp, #20
+ 262              	.LCFI10:
+ 263              		.cfi_def_cfa_offset 32
+ 264 0004 0446     		mov	r4, r0
+ 265 0006 0D46     		mov	r5, r1
+  37:u8g2/csrc/u8g2_d_setup.c ****   uint8_t tile_buf_height;
+ 266              		.loc 1 37 3 is_stmt 1 view .LVU44
+  38:u8g2/csrc/u8g2_d_setup.c ****   uint8_t *buf;
+ 267              		.loc 1 38 3 view .LVU45
+  39:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupDisplay(u8g2, u8x8_d_st7920_128x64, u8x8_cad_001, byte_cb, gpio_and_delay_cb);
+ 268              		.loc 1 39 3 view .LVU46
+ 269 0008 0093     		str	r3, [sp]
+ 270 000a 1346     		mov	r3, r2
+ 271              	.LVL28:
+ 272              		.loc 1 39 3 is_stmt 0 view .LVU47
+ 273 000c 084A     		ldr	r2, .L15
+ 274              	.LVL29:
+ 275              		.loc 1 39 3 view .LVU48
+ 276 000e 0949     		ldr	r1, .L15+4
+ 277              	.LVL30:
+ 278              		.loc 1 39 3 view .LVU49
+ 279 0010 FFF7FEFF 		bl	u8x8_Setup
+ 280              	.LVL31:
+  40:u8g2/csrc/u8g2_d_setup.c ****   buf = u8g2_m_16_8_1(&tile_buf_height);
+ 281              		.loc 1 40 3 is_stmt 1 view .LVU50
+ 282              		.loc 1 40 9 is_stmt 0 view .LVU51
+ 283 0014 0DF10F00 		add	r0, sp, #15
+ 284 0018 FFF7FEFF 		bl	u8g2_m_16_8_1
+ 285              	.LVL32:
+  41:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupBuffer(u8g2, buf, tile_buf_height, u8g2_ll_hvline_horizontal_right_lsb, rotation);
+ 286              		.loc 1 41 3 is_stmt 1 view .LVU52
+ 287 001c 0095     		str	r5, [sp]
+ 288 001e 064B     		ldr	r3, .L15+8
+ 289 0020 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+ 290 0024 0146     		mov	r1, r0
+ 291 0026 2046     		mov	r0, r4
+ 292              	.LVL33:
+ 293              		.loc 1 41 3 is_stmt 0 view .LVU53
+ 294 0028 FFF7FEFF 		bl	u8g2_SetupBuffer
+ 295              	.LVL34:
+  42:u8g2/csrc/u8g2_d_setup.c **** }
+ 296              		.loc 1 42 1 view .LVU54
+ 297 002c 05B0     		add	sp, sp, #20
+ 298              	.LCFI11:
+ 299              		.cfi_def_cfa_offset 12
+ 300              		@ sp needed
+ 301 002e 30BD     		pop	{r4, r5, pc}
+ 302              	.LVL35:
+ 303              	.L16:
+ 304              		.loc 1 42 1 view .LVU55
+ 305              		.align	2
+ 306              	.L15:
+ 307 0030 00000000 		.word	u8x8_cad_001
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 7
+
+
+ 308 0034 00000000 		.word	u8x8_d_st7920_128x64
+ 309 0038 00000000 		.word	u8g2_ll_hvline_horizontal_right_lsb
+ 310              		.cfi_endproc
+ 311              	.LFE3:
+ 313              		.section	.text.u8g2_Setup_st7920_128x64_2,"ax",%progbits
+ 314              		.align	1
+ 315              		.global	u8g2_Setup_st7920_128x64_2
+ 316              		.syntax unified
+ 317              		.thumb
+ 318              		.thumb_func
+ 319              		.fpu softvfp
+ 321              	u8g2_Setup_st7920_128x64_2:
+ 322              	.LVL36:
+ 323              	.LFB4:
+  43:u8g2/csrc/u8g2_d_setup.c **** /* st7920 2 */
+  44:u8g2/csrc/u8g2_d_setup.c **** void u8g2_Setup_st7920_128x64_2(u8g2_t *u8g2, const u8g2_cb_t *rotation, u8x8_msg_cb byte_cb, u8x8_
+  45:u8g2/csrc/u8g2_d_setup.c **** {
+ 324              		.loc 1 45 1 is_stmt 1 view -0
+ 325              		.cfi_startproc
+ 326              		@ args = 0, pretend = 0, frame = 8
+ 327              		@ frame_needed = 0, uses_anonymous_args = 0
+ 328              		.loc 1 45 1 is_stmt 0 view .LVU57
+ 329 0000 30B5     		push	{r4, r5, lr}
+ 330              	.LCFI12:
+ 331              		.cfi_def_cfa_offset 12
+ 332              		.cfi_offset 4, -12
+ 333              		.cfi_offset 5, -8
+ 334              		.cfi_offset 14, -4
+ 335 0002 85B0     		sub	sp, sp, #20
+ 336              	.LCFI13:
+ 337              		.cfi_def_cfa_offset 32
+ 338 0004 0446     		mov	r4, r0
+ 339 0006 0D46     		mov	r5, r1
+  46:u8g2/csrc/u8g2_d_setup.c ****   uint8_t tile_buf_height;
+ 340              		.loc 1 46 3 is_stmt 1 view .LVU58
+  47:u8g2/csrc/u8g2_d_setup.c ****   uint8_t *buf;
+ 341              		.loc 1 47 3 view .LVU59
+  48:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupDisplay(u8g2, u8x8_d_st7920_128x64, u8x8_cad_001, byte_cb, gpio_and_delay_cb);
+ 342              		.loc 1 48 3 view .LVU60
+ 343 0008 0093     		str	r3, [sp]
+ 344 000a 1346     		mov	r3, r2
+ 345              	.LVL37:
+ 346              		.loc 1 48 3 is_stmt 0 view .LVU61
+ 347 000c 084A     		ldr	r2, .L19
+ 348              	.LVL38:
+ 349              		.loc 1 48 3 view .LVU62
+ 350 000e 0949     		ldr	r1, .L19+4
+ 351              	.LVL39:
+ 352              		.loc 1 48 3 view .LVU63
+ 353 0010 FFF7FEFF 		bl	u8x8_Setup
+ 354              	.LVL40:
+  49:u8g2/csrc/u8g2_d_setup.c ****   buf = u8g2_m_16_8_2(&tile_buf_height);
+ 355              		.loc 1 49 3 is_stmt 1 view .LVU64
+ 356              		.loc 1 49 9 is_stmt 0 view .LVU65
+ 357 0014 0DF10F00 		add	r0, sp, #15
+ 358 0018 FFF7FEFF 		bl	u8g2_m_16_8_2
+ 359              	.LVL41:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 8
+
+
+  50:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupBuffer(u8g2, buf, tile_buf_height, u8g2_ll_hvline_horizontal_right_lsb, rotation);
+ 360              		.loc 1 50 3 is_stmt 1 view .LVU66
+ 361 001c 0095     		str	r5, [sp]
+ 362 001e 064B     		ldr	r3, .L19+8
+ 363 0020 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+ 364 0024 0146     		mov	r1, r0
+ 365 0026 2046     		mov	r0, r4
+ 366              	.LVL42:
+ 367              		.loc 1 50 3 is_stmt 0 view .LVU67
+ 368 0028 FFF7FEFF 		bl	u8g2_SetupBuffer
+ 369              	.LVL43:
+  51:u8g2/csrc/u8g2_d_setup.c **** }
+ 370              		.loc 1 51 1 view .LVU68
+ 371 002c 05B0     		add	sp, sp, #20
+ 372              	.LCFI14:
+ 373              		.cfi_def_cfa_offset 12
+ 374              		@ sp needed
+ 375 002e 30BD     		pop	{r4, r5, pc}
+ 376              	.LVL44:
+ 377              	.L20:
+ 378              		.loc 1 51 1 view .LVU69
+ 379              		.align	2
+ 380              	.L19:
+ 381 0030 00000000 		.word	u8x8_cad_001
+ 382 0034 00000000 		.word	u8x8_d_st7920_128x64
+ 383 0038 00000000 		.word	u8g2_ll_hvline_horizontal_right_lsb
+ 384              		.cfi_endproc
+ 385              	.LFE4:
+ 387              		.section	.text.u8g2_Setup_st7920_128x64_f,"ax",%progbits
+ 388              		.align	1
+ 389              		.global	u8g2_Setup_st7920_128x64_f
+ 390              		.syntax unified
+ 391              		.thumb
+ 392              		.thumb_func
+ 393              		.fpu softvfp
+ 395              	u8g2_Setup_st7920_128x64_f:
+ 396              	.LVL45:
+ 397              	.LFB5:
+  52:u8g2/csrc/u8g2_d_setup.c **** /* st7920 f */
+  53:u8g2/csrc/u8g2_d_setup.c **** void u8g2_Setup_st7920_128x64_f(u8g2_t *u8g2, const u8g2_cb_t *rotation, u8x8_msg_cb byte_cb, u8x8_
+  54:u8g2/csrc/u8g2_d_setup.c **** {
+ 398              		.loc 1 54 1 is_stmt 1 view -0
+ 399              		.cfi_startproc
+ 400              		@ args = 0, pretend = 0, frame = 8
+ 401              		@ frame_needed = 0, uses_anonymous_args = 0
+ 402              		.loc 1 54 1 is_stmt 0 view .LVU71
+ 403 0000 30B5     		push	{r4, r5, lr}
+ 404              	.LCFI15:
+ 405              		.cfi_def_cfa_offset 12
+ 406              		.cfi_offset 4, -12
+ 407              		.cfi_offset 5, -8
+ 408              		.cfi_offset 14, -4
+ 409 0002 85B0     		sub	sp, sp, #20
+ 410              	.LCFI16:
+ 411              		.cfi_def_cfa_offset 32
+ 412 0004 0446     		mov	r4, r0
+ 413 0006 0D46     		mov	r5, r1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 9
+
+
+  55:u8g2/csrc/u8g2_d_setup.c ****   uint8_t tile_buf_height;
+ 414              		.loc 1 55 3 is_stmt 1 view .LVU72
+  56:u8g2/csrc/u8g2_d_setup.c ****   uint8_t *buf;
+ 415              		.loc 1 56 3 view .LVU73
+  57:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupDisplay(u8g2, u8x8_d_st7920_128x64, u8x8_cad_001, byte_cb, gpio_and_delay_cb);
+ 416              		.loc 1 57 3 view .LVU74
+ 417 0008 0093     		str	r3, [sp]
+ 418 000a 1346     		mov	r3, r2
+ 419              	.LVL46:
+ 420              		.loc 1 57 3 is_stmt 0 view .LVU75
+ 421 000c 084A     		ldr	r2, .L23
+ 422              	.LVL47:
+ 423              		.loc 1 57 3 view .LVU76
+ 424 000e 0949     		ldr	r1, .L23+4
+ 425              	.LVL48:
+ 426              		.loc 1 57 3 view .LVU77
+ 427 0010 FFF7FEFF 		bl	u8x8_Setup
+ 428              	.LVL49:
+  58:u8g2/csrc/u8g2_d_setup.c ****   buf = u8g2_m_16_8_f(&tile_buf_height);
+ 429              		.loc 1 58 3 is_stmt 1 view .LVU78
+ 430              		.loc 1 58 9 is_stmt 0 view .LVU79
+ 431 0014 0DF10F00 		add	r0, sp, #15
+ 432 0018 FFF7FEFF 		bl	u8g2_m_16_8_f
+ 433              	.LVL50:
+  59:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupBuffer(u8g2, buf, tile_buf_height, u8g2_ll_hvline_horizontal_right_lsb, rotation);
+ 434              		.loc 1 59 3 is_stmt 1 view .LVU80
+ 435 001c 0095     		str	r5, [sp]
+ 436 001e 064B     		ldr	r3, .L23+8
+ 437 0020 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+ 438 0024 0146     		mov	r1, r0
+ 439 0026 2046     		mov	r0, r4
+ 440              	.LVL51:
+ 441              		.loc 1 59 3 is_stmt 0 view .LVU81
+ 442 0028 FFF7FEFF 		bl	u8g2_SetupBuffer
+ 443              	.LVL52:
+  60:u8g2/csrc/u8g2_d_setup.c **** }
+ 444              		.loc 1 60 1 view .LVU82
+ 445 002c 05B0     		add	sp, sp, #20
+ 446              	.LCFI17:
+ 447              		.cfi_def_cfa_offset 12
+ 448              		@ sp needed
+ 449 002e 30BD     		pop	{r4, r5, pc}
+ 450              	.LVL53:
+ 451              	.L24:
+ 452              		.loc 1 60 1 view .LVU83
+ 453              		.align	2
+ 454              	.L23:
+ 455 0030 00000000 		.word	u8x8_cad_001
+ 456 0034 00000000 		.word	u8x8_d_st7920_128x64
+ 457 0038 00000000 		.word	u8g2_ll_hvline_horizontal_right_lsb
+ 458              		.cfi_endproc
+ 459              	.LFE5:
+ 461              		.section	.text.u8g2_Setup_st7920_s_128x64_1,"ax",%progbits
+ 462              		.align	1
+ 463              		.global	u8g2_Setup_st7920_s_128x64_1
+ 464              		.syntax unified
+ 465              		.thumb
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 10
+
+
+ 466              		.thumb_func
+ 467              		.fpu softvfp
+ 469              	u8g2_Setup_st7920_s_128x64_1:
+ 470              	.LVL54:
+ 471              	.LFB6:
+  61:u8g2/csrc/u8g2_d_setup.c **** /* st7920 */
+  62:u8g2/csrc/u8g2_d_setup.c **** /* st7920 1 */
+  63:u8g2/csrc/u8g2_d_setup.c **** void u8g2_Setup_st7920_s_128x64_1(u8g2_t *u8g2, const u8g2_cb_t *rotation, u8x8_msg_cb byte_cb, u8x
+  64:u8g2/csrc/u8g2_d_setup.c **** {
+ 472              		.loc 1 64 1 is_stmt 1 view -0
+ 473              		.cfi_startproc
+ 474              		@ args = 0, pretend = 0, frame = 8
+ 475              		@ frame_needed = 0, uses_anonymous_args = 0
+ 476              		.loc 1 64 1 is_stmt 0 view .LVU85
+ 477 0000 30B5     		push	{r4, r5, lr}
+ 478              	.LCFI18:
+ 479              		.cfi_def_cfa_offset 12
+ 480              		.cfi_offset 4, -12
+ 481              		.cfi_offset 5, -8
+ 482              		.cfi_offset 14, -4
+ 483 0002 85B0     		sub	sp, sp, #20
+ 484              	.LCFI19:
+ 485              		.cfi_def_cfa_offset 32
+ 486 0004 0446     		mov	r4, r0
+ 487 0006 0D46     		mov	r5, r1
+  65:u8g2/csrc/u8g2_d_setup.c ****   uint8_t tile_buf_height;
+ 488              		.loc 1 65 3 is_stmt 1 view .LVU86
+  66:u8g2/csrc/u8g2_d_setup.c ****   uint8_t *buf;
+ 489              		.loc 1 66 3 view .LVU87
+  67:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupDisplay(u8g2, u8x8_d_st7920_128x64, u8x8_cad_st7920_spi, byte_cb, gpio_and_delay_cb);
+ 490              		.loc 1 67 3 view .LVU88
+ 491 0008 0093     		str	r3, [sp]
+ 492 000a 1346     		mov	r3, r2
+ 493              	.LVL55:
+ 494              		.loc 1 67 3 is_stmt 0 view .LVU89
+ 495 000c 084A     		ldr	r2, .L27
+ 496              	.LVL56:
+ 497              		.loc 1 67 3 view .LVU90
+ 498 000e 0949     		ldr	r1, .L27+4
+ 499              	.LVL57:
+ 500              		.loc 1 67 3 view .LVU91
+ 501 0010 FFF7FEFF 		bl	u8x8_Setup
+ 502              	.LVL58:
+  68:u8g2/csrc/u8g2_d_setup.c ****   buf = u8g2_m_16_8_1(&tile_buf_height);
+ 503              		.loc 1 68 3 is_stmt 1 view .LVU92
+ 504              		.loc 1 68 9 is_stmt 0 view .LVU93
+ 505 0014 0DF10F00 		add	r0, sp, #15
+ 506 0018 FFF7FEFF 		bl	u8g2_m_16_8_1
+ 507              	.LVL59:
+  69:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupBuffer(u8g2, buf, tile_buf_height, u8g2_ll_hvline_horizontal_right_lsb, rotation);
+ 508              		.loc 1 69 3 is_stmt 1 view .LVU94
+ 509 001c 0095     		str	r5, [sp]
+ 510 001e 064B     		ldr	r3, .L27+8
+ 511 0020 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+ 512 0024 0146     		mov	r1, r0
+ 513 0026 2046     		mov	r0, r4
+ 514              	.LVL60:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 11
+
+
+ 515              		.loc 1 69 3 is_stmt 0 view .LVU95
+ 516 0028 FFF7FEFF 		bl	u8g2_SetupBuffer
+ 517              	.LVL61:
+  70:u8g2/csrc/u8g2_d_setup.c **** }
+ 518              		.loc 1 70 1 view .LVU96
+ 519 002c 05B0     		add	sp, sp, #20
+ 520              	.LCFI20:
+ 521              		.cfi_def_cfa_offset 12
+ 522              		@ sp needed
+ 523 002e 30BD     		pop	{r4, r5, pc}
+ 524              	.LVL62:
+ 525              	.L28:
+ 526              		.loc 1 70 1 view .LVU97
+ 527              		.align	2
+ 528              	.L27:
+ 529 0030 00000000 		.word	u8x8_cad_st7920_spi
+ 530 0034 00000000 		.word	u8x8_d_st7920_128x64
+ 531 0038 00000000 		.word	u8g2_ll_hvline_horizontal_right_lsb
+ 532              		.cfi_endproc
+ 533              	.LFE6:
+ 535              		.section	.text.u8g2_Setup_st7920_s_128x64_2,"ax",%progbits
+ 536              		.align	1
+ 537              		.global	u8g2_Setup_st7920_s_128x64_2
+ 538              		.syntax unified
+ 539              		.thumb
+ 540              		.thumb_func
+ 541              		.fpu softvfp
+ 543              	u8g2_Setup_st7920_s_128x64_2:
+ 544              	.LVL63:
+ 545              	.LFB7:
+  71:u8g2/csrc/u8g2_d_setup.c **** /* st7920 2 */
+  72:u8g2/csrc/u8g2_d_setup.c **** void u8g2_Setup_st7920_s_128x64_2(u8g2_t *u8g2, const u8g2_cb_t *rotation, u8x8_msg_cb byte_cb, u8x
+  73:u8g2/csrc/u8g2_d_setup.c **** {
+ 546              		.loc 1 73 1 is_stmt 1 view -0
+ 547              		.cfi_startproc
+ 548              		@ args = 0, pretend = 0, frame = 8
+ 549              		@ frame_needed = 0, uses_anonymous_args = 0
+ 550              		.loc 1 73 1 is_stmt 0 view .LVU99
+ 551 0000 30B5     		push	{r4, r5, lr}
+ 552              	.LCFI21:
+ 553              		.cfi_def_cfa_offset 12
+ 554              		.cfi_offset 4, -12
+ 555              		.cfi_offset 5, -8
+ 556              		.cfi_offset 14, -4
+ 557 0002 85B0     		sub	sp, sp, #20
+ 558              	.LCFI22:
+ 559              		.cfi_def_cfa_offset 32
+ 560 0004 0446     		mov	r4, r0
+ 561 0006 0D46     		mov	r5, r1
+  74:u8g2/csrc/u8g2_d_setup.c ****   uint8_t tile_buf_height;
+ 562              		.loc 1 74 3 is_stmt 1 view .LVU100
+  75:u8g2/csrc/u8g2_d_setup.c ****   uint8_t *buf;
+ 563              		.loc 1 75 3 view .LVU101
+  76:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupDisplay(u8g2, u8x8_d_st7920_128x64, u8x8_cad_st7920_spi, byte_cb, gpio_and_delay_cb);
+ 564              		.loc 1 76 3 view .LVU102
+ 565 0008 0093     		str	r3, [sp]
+ 566 000a 1346     		mov	r3, r2
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 12
+
+
+ 567              	.LVL64:
+ 568              		.loc 1 76 3 is_stmt 0 view .LVU103
+ 569 000c 084A     		ldr	r2, .L31
+ 570              	.LVL65:
+ 571              		.loc 1 76 3 view .LVU104
+ 572 000e 0949     		ldr	r1, .L31+4
+ 573              	.LVL66:
+ 574              		.loc 1 76 3 view .LVU105
+ 575 0010 FFF7FEFF 		bl	u8x8_Setup
+ 576              	.LVL67:
+  77:u8g2/csrc/u8g2_d_setup.c ****   buf = u8g2_m_16_8_2(&tile_buf_height);
+ 577              		.loc 1 77 3 is_stmt 1 view .LVU106
+ 578              		.loc 1 77 9 is_stmt 0 view .LVU107
+ 579 0014 0DF10F00 		add	r0, sp, #15
+ 580 0018 FFF7FEFF 		bl	u8g2_m_16_8_2
+ 581              	.LVL68:
+  78:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupBuffer(u8g2, buf, tile_buf_height, u8g2_ll_hvline_horizontal_right_lsb, rotation);
+ 582              		.loc 1 78 3 is_stmt 1 view .LVU108
+ 583 001c 0095     		str	r5, [sp]
+ 584 001e 064B     		ldr	r3, .L31+8
+ 585 0020 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+ 586 0024 0146     		mov	r1, r0
+ 587 0026 2046     		mov	r0, r4
+ 588              	.LVL69:
+ 589              		.loc 1 78 3 is_stmt 0 view .LVU109
+ 590 0028 FFF7FEFF 		bl	u8g2_SetupBuffer
+ 591              	.LVL70:
+  79:u8g2/csrc/u8g2_d_setup.c **** }
+ 592              		.loc 1 79 1 view .LVU110
+ 593 002c 05B0     		add	sp, sp, #20
+ 594              	.LCFI23:
+ 595              		.cfi_def_cfa_offset 12
+ 596              		@ sp needed
+ 597 002e 30BD     		pop	{r4, r5, pc}
+ 598              	.LVL71:
+ 599              	.L32:
+ 600              		.loc 1 79 1 view .LVU111
+ 601              		.align	2
+ 602              	.L31:
+ 603 0030 00000000 		.word	u8x8_cad_st7920_spi
+ 604 0034 00000000 		.word	u8x8_d_st7920_128x64
+ 605 0038 00000000 		.word	u8g2_ll_hvline_horizontal_right_lsb
+ 606              		.cfi_endproc
+ 607              	.LFE7:
+ 609              		.section	.text.u8g2_Setup_st7920_s_128x64_f,"ax",%progbits
+ 610              		.align	1
+ 611              		.global	u8g2_Setup_st7920_s_128x64_f
+ 612              		.syntax unified
+ 613              		.thumb
+ 614              		.thumb_func
+ 615              		.fpu softvfp
+ 617              	u8g2_Setup_st7920_s_128x64_f:
+ 618              	.LVL72:
+ 619              	.LFB8:
+  80:u8g2/csrc/u8g2_d_setup.c **** /* st7920 f */
+  81:u8g2/csrc/u8g2_d_setup.c **** void u8g2_Setup_st7920_s_128x64_f(u8g2_t *u8g2, const u8g2_cb_t *rotation, u8x8_msg_cb byte_cb, u8x
+  82:u8g2/csrc/u8g2_d_setup.c **** {
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 13
+
+
+ 620              		.loc 1 82 1 is_stmt 1 view -0
+ 621              		.cfi_startproc
+ 622              		@ args = 0, pretend = 0, frame = 8
+ 623              		@ frame_needed = 0, uses_anonymous_args = 0
+ 624              		.loc 1 82 1 is_stmt 0 view .LVU113
+ 625 0000 30B5     		push	{r4, r5, lr}
+ 626              	.LCFI24:
+ 627              		.cfi_def_cfa_offset 12
+ 628              		.cfi_offset 4, -12
+ 629              		.cfi_offset 5, -8
+ 630              		.cfi_offset 14, -4
+ 631 0002 85B0     		sub	sp, sp, #20
+ 632              	.LCFI25:
+ 633              		.cfi_def_cfa_offset 32
+ 634 0004 0446     		mov	r4, r0
+ 635 0006 0D46     		mov	r5, r1
+  83:u8g2/csrc/u8g2_d_setup.c ****   uint8_t tile_buf_height;
+ 636              		.loc 1 83 3 is_stmt 1 view .LVU114
+  84:u8g2/csrc/u8g2_d_setup.c ****   uint8_t *buf;
+ 637              		.loc 1 84 3 view .LVU115
+  85:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupDisplay(u8g2, u8x8_d_st7920_128x64, u8x8_cad_st7920_spi, byte_cb, gpio_and_delay_cb);
+ 638              		.loc 1 85 3 view .LVU116
+ 639 0008 0093     		str	r3, [sp]
+ 640 000a 1346     		mov	r3, r2
+ 641              	.LVL73:
+ 642              		.loc 1 85 3 is_stmt 0 view .LVU117
+ 643 000c 084A     		ldr	r2, .L35
+ 644              	.LVL74:
+ 645              		.loc 1 85 3 view .LVU118
+ 646 000e 0949     		ldr	r1, .L35+4
+ 647              	.LVL75:
+ 648              		.loc 1 85 3 view .LVU119
+ 649 0010 FFF7FEFF 		bl	u8x8_Setup
+ 650              	.LVL76:
+  86:u8g2/csrc/u8g2_d_setup.c ****   buf = u8g2_m_16_8_f(&tile_buf_height);
+ 651              		.loc 1 86 3 is_stmt 1 view .LVU120
+ 652              		.loc 1 86 9 is_stmt 0 view .LVU121
+ 653 0014 0DF10F00 		add	r0, sp, #15
+ 654 0018 FFF7FEFF 		bl	u8g2_m_16_8_f
+ 655              	.LVL77:
+  87:u8g2/csrc/u8g2_d_setup.c ****   u8g2_SetupBuffer(u8g2, buf, tile_buf_height, u8g2_ll_hvline_horizontal_right_lsb, rotation);
+ 656              		.loc 1 87 3 is_stmt 1 view .LVU122
+ 657 001c 0095     		str	r5, [sp]
+ 658 001e 064B     		ldr	r3, .L35+8
+ 659 0020 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+ 660 0024 0146     		mov	r1, r0
+ 661 0026 2046     		mov	r0, r4
+ 662              	.LVL78:
+ 663              		.loc 1 87 3 is_stmt 0 view .LVU123
+ 664 0028 FFF7FEFF 		bl	u8g2_SetupBuffer
+ 665              	.LVL79:
+  88:u8g2/csrc/u8g2_d_setup.c **** }
+ 666              		.loc 1 88 1 view .LVU124
+ 667 002c 05B0     		add	sp, sp, #20
+ 668              	.LCFI26:
+ 669              		.cfi_def_cfa_offset 12
+ 670              		@ sp needed
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 14
+
+
+ 671 002e 30BD     		pop	{r4, r5, pc}
+ 672              	.LVL80:
+ 673              	.L36:
+ 674              		.loc 1 88 1 view .LVU125
+ 675              		.align	2
+ 676              	.L35:
+ 677 0030 00000000 		.word	u8x8_cad_st7920_spi
+ 678 0034 00000000 		.word	u8x8_d_st7920_128x64
+ 679 0038 00000000 		.word	u8g2_ll_hvline_horizontal_right_lsb
+ 680              		.cfi_endproc
+ 681              	.LFE8:
+ 683              		.text
+ 684              	.Letext0:
+ 685              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 686              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 687              		.file 4 "u8g2/csrc/u8x8.h"
+ 688              		.file 5 "u8g2/csrc/u8g2.h"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8g2_d_setup.c
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:16     .text.u8g2_Setup_st7920_p_128x64_1:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:24     .text.u8g2_Setup_st7920_p_128x64_1:00000000 u8g2_Setup_st7920_p_128x64_1
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:85     .text.u8g2_Setup_st7920_p_128x64_1:00000030 $d
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:92     .text.u8g2_Setup_st7920_p_128x64_2:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:99     .text.u8g2_Setup_st7920_p_128x64_2:00000000 u8g2_Setup_st7920_p_128x64_2
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:159    .text.u8g2_Setup_st7920_p_128x64_2:00000030 $d
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:166    .text.u8g2_Setup_st7920_p_128x64_f:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:173    .text.u8g2_Setup_st7920_p_128x64_f:00000000 u8g2_Setup_st7920_p_128x64_f
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:233    .text.u8g2_Setup_st7920_p_128x64_f:00000030 $d
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:240    .text.u8g2_Setup_st7920_128x64_1:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:247    .text.u8g2_Setup_st7920_128x64_1:00000000 u8g2_Setup_st7920_128x64_1
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:307    .text.u8g2_Setup_st7920_128x64_1:00000030 $d
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:314    .text.u8g2_Setup_st7920_128x64_2:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:321    .text.u8g2_Setup_st7920_128x64_2:00000000 u8g2_Setup_st7920_128x64_2
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:381    .text.u8g2_Setup_st7920_128x64_2:00000030 $d
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:388    .text.u8g2_Setup_st7920_128x64_f:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:395    .text.u8g2_Setup_st7920_128x64_f:00000000 u8g2_Setup_st7920_128x64_f
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:455    .text.u8g2_Setup_st7920_128x64_f:00000030 $d
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:462    .text.u8g2_Setup_st7920_s_128x64_1:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:469    .text.u8g2_Setup_st7920_s_128x64_1:00000000 u8g2_Setup_st7920_s_128x64_1
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:529    .text.u8g2_Setup_st7920_s_128x64_1:00000030 $d
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:536    .text.u8g2_Setup_st7920_s_128x64_2:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:543    .text.u8g2_Setup_st7920_s_128x64_2:00000000 u8g2_Setup_st7920_s_128x64_2
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:603    .text.u8g2_Setup_st7920_s_128x64_2:00000030 $d
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:610    .text.u8g2_Setup_st7920_s_128x64_f:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:617    .text.u8g2_Setup_st7920_s_128x64_f:00000000 u8g2_Setup_st7920_s_128x64_f
+C:\Users\behun\AppData\Local\Temp\ccPICYcJ.s:677    .text.u8g2_Setup_st7920_s_128x64_f:00000030 $d
+
+UNDEFINED SYMBOLS
+u8x8_Setup
+u8g2_m_16_8_1
+u8g2_SetupBuffer
+u8x8_cad_001
+u8x8_d_st7920_128x64
+u8g2_ll_hvline_horizontal_right_lsb
+u8g2_m_16_8_2
+u8g2_m_16_8_f
+u8x8_cad_st7920_spi
