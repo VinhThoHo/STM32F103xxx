@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s 			page 1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -30,13 +30,37 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s 			page 1
    2:Src/button.c  **** #include "u8g2.h"
    3:Src/button.c  **** 
    4:Src/button.c  **** extern u8g2_t u8g2;
-   5:Src/button.c  **** uint32_t t;
-   6:Src/button.c  **** 
-   7:Src/button.c  **** void button_init(void)
-   8:Src/button.c  **** {
-  27              		.loc 1 8 1 view -0
+   5:Src/button.c  **** uint32_t t, x;
+   6:Src/button.c  **** uint8_t key = 0;
+   7:Src/button.c  **** const unsigned char Fan [] = {
+   8:Src/button.c  **** 0x00, 0x00, 0x00, 0x7F, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0xFF, 0xFF, 0xF0, 0x00, 0x00,
+   9:Src/button.c  **** 0x00, 0x00, 0x7F, 0xC0, 0x03, 0xFE, 0x00, 0x00, 0x00, 0x01, 0xFC, 0x00, 0x00, 0x3F, 0x80, 0x00,
+  10:Src/button.c  **** 0x00, 0x07, 0xE1, 0xFF, 0x00, 0x07, 0xE0, 0x00, 0x00, 0x0F, 0x83, 0xFF, 0x80, 0x01, 0xF0, 0x00,
+  11:Src/button.c  **** 0x00, 0x1E, 0x07, 0xFF, 0xC0, 0x00, 0x78, 0x00, 0x00, 0x3C, 0x03, 0xFF, 0xC0, 0x00, 0x3C, 0x00,
+  12:Src/button.c  **** 0x00, 0x78, 0x01, 0xFF, 0xE0, 0x00, 0x1E, 0x00, 0x00, 0xF8, 0x00, 0x1F, 0xE0, 0x00, 0x1F, 0x00,
+  13:Src/button.c  **** 0x00, 0xF0, 0x00, 0x0C, 0x00, 0xFF, 0x0F, 0x00, 0x00, 0xF0, 0x00, 0x03, 0xCF, 0xFF, 0x8F, 0x00,
+  14:Src/button.c  **** 0x00, 0xF0, 0x00, 0x73, 0xCF, 0xFF, 0xCF, 0x00, 0x00, 0xF0, 0x03, 0xF8, 0x3F, 0xFF, 0xCF, 0x00,
+  15:Src/button.c  **** 0x00, 0xF8, 0x07, 0xFE, 0x1F, 0xFF, 0x9F, 0x00, 0x00, 0x78, 0x1F, 0xFC, 0x00, 0xFC, 0x1E, 0x00,
+  16:Src/button.c  **** 0x00, 0x3C, 0x1F, 0xFC, 0x00, 0x00, 0x3C, 0x00, 0x00, 0x1E, 0x1F, 0xFC, 0x00, 0x00, 0x78, 0x00,
+  17:Src/button.c  **** 0x00, 0x0F, 0x8F, 0xF8, 0x00, 0x01, 0xF0, 0x00, 0x00, 0x07, 0xE3, 0xE0, 0x00, 0x07, 0xE0, 0x00,
+  18:Src/button.c  **** 0x00, 0x01, 0xFC, 0x00, 0x00, 0x3F, 0x80, 0x00, 0x00, 0x00, 0x7F, 0xC0, 0x03, 0xFE, 0x00, 0x00,
+  19:Src/button.c  **** 0x00, 0x00, 0x0F, 0xFF, 0xFF, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7F, 0xFE, 0x00, 0x00, 0x00,
+  20:Src/button.c  **** 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFC, 0x00, 0x00, 0x00,
+  21:Src/button.c  **** 0x00, 0x00, 0x00, 0x7F, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0x00,
+  22:Src/button.c  **** 0x00, 0x00, 0x01, 0xFF, 0xFF, 0x80, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00,
+  23:Src/button.c  **** 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00
+  24:Src/button.c  **** };
+  25:Src/button.c  **** 
+  26:Src/button.c  **** 
+  27:Src/button.c  **** 
+  28:Src/button.c  **** void button_init(void)
+  29:Src/button.c  **** {
+  27              		.loc 1 29 1 view -0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 24
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 2
+
+
   30              		@ frame_needed = 0, uses_anonymous_args = 0
   31 0000 00B5     		push	{lr}
   32              	.LCFI0:
@@ -45,319 +69,850 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s 			page 1
   35 0002 87B0     		sub	sp, sp, #28
   36              	.LCFI1:
   37              		.cfi_def_cfa_offset 32
-   9:Src/button.c  ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
-  38              		.loc 1 9 3 view .LVU1
-  39              		.loc 1 9 20 is_stmt 0 view .LVU2
+  30:Src/button.c  ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+  38              		.loc 1 30 3 view .LVU1
+  39              		.loc 1 30 20 is_stmt 0 view .LVU2
   40 0004 0023     		movs	r3, #0
   41 0006 0393     		str	r3, [sp, #12]
   42 0008 0493     		str	r3, [sp, #16]
   43 000a 0593     		str	r3, [sp, #20]
-  10:Src/button.c  **** 
-  11:Src/button.c  ****   /* GPIO Ports Clock Enable */
-  12:Src/button.c  ****   __HAL_RCC_GPIOC_CLK_ENABLE();
-  44              		.loc 1 12 3 is_stmt 1 view .LVU3
+  31:Src/button.c  **** 
+  32:Src/button.c  ****   /* GPIO Ports Clock Enable */
+  33:Src/button.c  ****   __HAL_RCC_GPIOC_CLK_ENABLE();
+  44              		.loc 1 33 3 is_stmt 1 view .LVU3
   45              	.LBB2:
-  46              		.loc 1 12 3 view .LVU4
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s 			page 2
-
-
-  47              		.loc 1 12 3 view .LVU5
+  46              		.loc 1 33 3 view .LVU4
+  47              		.loc 1 33 3 view .LVU5
   48 000c 03F18043 		add	r3, r3, #1073741824
   49 0010 03F50433 		add	r3, r3, #135168
   50 0014 9A69     		ldr	r2, [r3, #24]
   51 0016 42F01002 		orr	r2, r2, #16
   52 001a 9A61     		str	r2, [r3, #24]
-  53              		.loc 1 12 3 view .LVU6
+  53              		.loc 1 33 3 view .LVU6
   54 001c 9B69     		ldr	r3, [r3, #24]
   55 001e 03F01003 		and	r3, r3, #16
   56 0022 0193     		str	r3, [sp, #4]
-  57              		.loc 1 12 3 view .LVU7
+  57              		.loc 1 33 3 view .LVU7
   58 0024 019B     		ldr	r3, [sp, #4]
   59              	.LBE2:
-  13:Src/button.c  **** 
-  14:Src/button.c  ****   /*Configure GPIO pins : PC13 PC10 PC11 PC12 */
-  15:Src/button.c  ****   GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12;
-  60              		.loc 1 15 3 view .LVU8
-  61              		.loc 1 15 23 is_stmt 0 view .LVU9
+  34:Src/button.c  **** 
+  35:Src/button.c  ****   /*Configure GPIO pins : PC13 PC10 PC11 PC12 */
+  36:Src/button.c  ****   GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12;
+  60              		.loc 1 36 3 view .LVU8
+  61              		.loc 1 36 23 is_stmt 0 view .LVU9
   62 0026 4FF47053 		mov	r3, #15360
   63 002a 0293     		str	r3, [sp, #8]
-  16:Src/button.c  ****   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  64              		.loc 1 16 3 is_stmt 1 view .LVU10
-  17:Src/button.c  ****   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  65              		.loc 1 17 3 view .LVU11
-  66              		.loc 1 17 24 is_stmt 0 view .LVU12
+  37:Src/button.c  ****   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  64              		.loc 1 37 3 is_stmt 1 view .LVU10
+  38:Src/button.c  ****   GPIO_InitStruct.Pull = GPIO_PULLUP;
+  65              		.loc 1 38 3 view .LVU11
+  66              		.loc 1 38 24 is_stmt 0 view .LVU12
   67 002c 0123     		movs	r3, #1
   68 002e 0493     		str	r3, [sp, #16]
-  18:Src/button.c  ****   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-  69              		.loc 1 18 3 is_stmt 1 view .LVU13
+  39:Src/button.c  ****   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  69              		.loc 1 39 3 is_stmt 1 view .LVU13
   70 0030 02A9     		add	r1, sp, #8
-  71 0032 0548     		ldr	r0, .L3
+  71 0032 0748     		ldr	r0, .L3
   72 0034 FFF7FEFF 		bl	HAL_GPIO_Init
   73              	.LVL0:
-  19:Src/button.c  ****   t = HAL_GetTick();
-  74              		.loc 1 19 3 view .LVU14
-  75              		.loc 1 19 7 is_stmt 0 view .LVU15
+  40:Src/button.c  ****   t = HAL_GetTick();
+  74              		.loc 1 40 3 view .LVU14
+  75              		.loc 1 40 7 is_stmt 0 view .LVU15
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 3
+
+
   76 0038 FFF7FEFF 		bl	HAL_GetTick
   77              	.LVL1:
-  78              		.loc 1 19 5 view .LVU16
-  79 003c 034B     		ldr	r3, .L3+4
+  78              		.loc 1 40 5 view .LVU16
+  79 003c 054B     		ldr	r3, .L3+4
   80 003e 1860     		str	r0, [r3]
-  20:Src/button.c  **** }
-  81              		.loc 1 20 1 view .LVU17
-  82 0040 07B0     		add	sp, sp, #28
-  83              	.LCFI2:
-  84              		.cfi_def_cfa_offset 4
-  85              		@ sp needed
-  86 0042 5DF804FB 		ldr	pc, [sp], #4
-  87              	.L4:
-  88 0046 00BF     		.align	2
-  89              	.L3:
-  90 0048 00100140 		.word	1073811456
-  91 004c 00000000 		.word	t
-  92              		.cfi_endproc
-  93              	.LFE66:
-  95              		.section	.text.get_button,"ax",%progbits
-  96              		.align	1
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s 			page 3
-
-
-  97              		.global	get_button
-  98              		.syntax unified
-  99              		.thumb
- 100              		.thumb_func
- 101              		.fpu softvfp
- 103              	get_button:
- 104              	.LFB67:
-  21:Src/button.c  **** 
-  22:Src/button.c  **** uint8_t get_button(void)
-  23:Src/button.c  **** {
- 105              		.loc 1 23 1 is_stmt 1 view -0
- 106              		.cfi_startproc
- 107              		@ args = 0, pretend = 0, frame = 0
- 108              		@ frame_needed = 0, uses_anonymous_args = 0
- 109 0000 08B5     		push	{r3, lr}
- 110              	.LCFI3:
- 111              		.cfi_def_cfa_offset 8
- 112              		.cfi_offset 3, -8
- 113              		.cfi_offset 14, -4
-  24:Src/button.c  ****   if(key1 == 0)
- 114              		.loc 1 24 3 view .LVU19
- 115              		.loc 1 24 6 is_stmt 0 view .LVU20
- 116 0002 4FF48061 		mov	r1, #1024
- 117 0006 0848     		ldr	r0, .L11
- 118 0008 FFF7FEFF 		bl	HAL_GPIO_ReadPin
- 119              	.LVL2:
- 120              		.loc 1 24 5 view .LVU21
- 121 000c 08B9     		cbnz	r0, .L10
-  25:Src/button.c  ****     return 1;
- 122              		.loc 1 25 12 view .LVU22
- 123 000e 0120     		movs	r0, #1
- 124              	.L6:
-  26:Src/button.c  ****   if(key2 == 0)
-  27:Src/button.c  ****     return 2;
-  28:Src/button.c  ****   return 0;
-  29:Src/button.c  **** }
- 125              		.loc 1 29 1 view .LVU23
- 126 0010 08BD     		pop	{r3, pc}
- 127              	.L10:
-  26:Src/button.c  ****   if(key2 == 0)
- 128              		.loc 1 26 3 is_stmt 1 view .LVU24
-  26:Src/button.c  ****   if(key2 == 0)
- 129              		.loc 1 26 6 is_stmt 0 view .LVU25
- 130 0012 4FF40061 		mov	r1, #2048
- 131 0016 0448     		ldr	r0, .L11
- 132 0018 FFF7FEFF 		bl	HAL_GPIO_ReadPin
- 133              	.LVL3:
-  26:Src/button.c  ****   if(key2 == 0)
- 134              		.loc 1 26 5 view .LVU26
- 135 001c 08B1     		cbz	r0, .L8
-  28:Src/button.c  **** }
- 136              		.loc 1 28 10 view .LVU27
- 137 001e 0020     		movs	r0, #0
- 138 0020 F6E7     		b	.L6
- 139              	.L8:
-  27:Src/button.c  ****   return 0;
- 140              		.loc 1 27 12 view .LVU28
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s 			page 4
-
-
- 141 0022 0220     		movs	r0, #2
- 142 0024 F4E7     		b	.L6
- 143              	.L12:
- 144 0026 00BF     		.align	2
- 145              	.L11:
- 146 0028 00100140 		.word	1073811456
- 147              		.cfi_endproc
- 148              	.LFE67:
- 150              		.section	.text.button_test,"ax",%progbits
- 151              		.align	1
- 152              		.global	button_test
- 153              		.syntax unified
- 154              		.thumb
- 155              		.thumb_func
- 156              		.fpu softvfp
- 158              	button_test:
- 159              	.LFB68:
-  30:Src/button.c  **** void button_test(void)
-  31:Src/button.c  **** {
- 160              		.loc 1 31 1 is_stmt 1 view -0
- 161              		.cfi_startproc
- 162              		@ args = 0, pretend = 0, frame = 0
- 163              		@ frame_needed = 0, uses_anonymous_args = 0
- 164 0000 10B5     		push	{r4, lr}
- 165              	.LCFI4:
- 166              		.cfi_def_cfa_offset 8
- 167              		.cfi_offset 4, -8
- 168              		.cfi_offset 14, -4
-  32:Src/button.c  ****   if(HAL_GetTick()-t >500)
- 169              		.loc 1 32 3 view .LVU30
- 170              		.loc 1 32 6 is_stmt 0 view .LVU31
- 171 0002 FFF7FEFF 		bl	HAL_GetTick
- 172              	.LVL4:
- 173              		.loc 1 32 19 view .LVU32
- 174 0006 0D4B     		ldr	r3, .L21
- 175 0008 1B68     		ldr	r3, [r3]
- 176 000a C01A     		subs	r0, r0, r3
- 177              		.loc 1 32 5 view .LVU33
- 178 000c B0F5FA7F 		cmp	r0, #500
- 179 0010 00D8     		bhi	.L18
- 180              	.L13:
-  33:Src/button.c  ****   {
-  34:Src/button.c  ****     uint8_t key = 0;
-  35:Src/button.c  ****     key = get_button();
-  36:Src/button.c  ****     if(key == 1)
-  37:Src/button.c  ****       printf("Button 1 Press\n");
-  38:Src/button.c  ****      if(key == 2)
-  39:Src/button.c  ****       printf("Button 2 Press\n");
-  40:Src/button.c  ****     t = HAL_GetTick();
-  41:Src/button.c  ****   }
+  41:Src/button.c  ****   x = HAL_GetTick();
+  81              		.loc 1 41 3 is_stmt 1 view .LVU17
+  82              		.loc 1 41 7 is_stmt 0 view .LVU18
+  83 0040 FFF7FEFF 		bl	HAL_GetTick
+  84              	.LVL2:
+  85              		.loc 1 41 5 view .LVU19
+  86 0044 044B     		ldr	r3, .L3+8
+  87 0046 1860     		str	r0, [r3]
   42:Src/button.c  **** }
- 181              		.loc 1 42 1 view .LVU34
- 182 0012 10BD     		pop	{r4, pc}
- 183              	.L18:
- 184              	.LBB3:
-  34:Src/button.c  ****     key = get_button();
- 185              		.loc 1 34 5 is_stmt 1 view .LVU35
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s 			page 5
+  88              		.loc 1 42 1 view .LVU20
+  89 0048 07B0     		add	sp, sp, #28
+  90              	.LCFI2:
+  91              		.cfi_def_cfa_offset 4
+  92              		@ sp needed
+  93 004a 5DF804FB 		ldr	pc, [sp], #4
+  94              	.L4:
+  95 004e 00BF     		.align	2
+  96              	.L3:
+  97 0050 00100140 		.word	1073811456
+  98 0054 00000000 		.word	t
+  99 0058 00000000 		.word	x
+ 100              		.cfi_endproc
+ 101              	.LFE66:
+ 103              		.section	.text.get_button,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	get_button
+ 106              		.syntax unified
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.fpu softvfp
+ 111              	get_button:
+ 112              	.LFB67:
+  43:Src/button.c  **** 
+  44:Src/button.c  **** uint8_t get_button(void)
+  45:Src/button.c  **** {
+ 113              		.loc 1 45 1 is_stmt 1 view -0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 0, uses_anonymous_args = 0
+ 117 0000 08B5     		push	{r3, lr}
+ 118              	.LCFI3:
+ 119              		.cfi_def_cfa_offset 8
+ 120              		.cfi_offset 3, -8
+ 121              		.cfi_offset 14, -4
+  46:Src/button.c  ****   if(key1 == 0)
+ 122              		.loc 1 46 3 view .LVU22
+ 123              		.loc 1 46 6 is_stmt 0 view .LVU23
+ 124 0002 4FF48061 		mov	r1, #1024
+ 125 0006 1048     		ldr	r0, .L14
+ 126 0008 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 127              	.LVL3:
+ 128              		.loc 1 46 5 view .LVU24
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 4
 
 
- 186              	.LVL5:
-  35:Src/button.c  ****     if(key == 1)
- 187              		.loc 1 35 5 view .LVU36
-  35:Src/button.c  ****     if(key == 1)
- 188              		.loc 1 35 11 is_stmt 0 view .LVU37
- 189 0014 FFF7FEFF 		bl	get_button
- 190              	.LVL6:
- 191 0018 0446     		mov	r4, r0
- 192              	.LVL7:
-  36:Src/button.c  ****       printf("Button 1 Press\n");
- 193              		.loc 1 36 5 is_stmt 1 view .LVU38
-  36:Src/button.c  ****       printf("Button 1 Press\n");
- 194              		.loc 1 36 7 is_stmt 0 view .LVU39
- 195 001a 0128     		cmp	r0, #1
- 196 001c 06D0     		beq	.L19
- 197              	.LVL8:
- 198              	.L15:
-  38:Src/button.c  ****       printf("Button 2 Press\n");
- 199              		.loc 1 38 6 is_stmt 1 view .LVU40
-  38:Src/button.c  ****       printf("Button 2 Press\n");
- 200              		.loc 1 38 8 is_stmt 0 view .LVU41
- 201 001e 022C     		cmp	r4, #2
- 202 0020 08D0     		beq	.L20
- 203              	.L16:
-  40:Src/button.c  ****   }
- 204              		.loc 1 40 5 is_stmt 1 view .LVU42
-  40:Src/button.c  ****   }
- 205              		.loc 1 40 9 is_stmt 0 view .LVU43
- 206 0022 FFF7FEFF 		bl	HAL_GetTick
- 207              	.LVL9:
-  40:Src/button.c  ****   }
- 208              		.loc 1 40 7 view .LVU44
- 209 0026 054B     		ldr	r3, .L21
- 210 0028 1860     		str	r0, [r3]
- 211              	.LBE3:
- 212              		.loc 1 42 1 view .LVU45
- 213 002a F2E7     		b	.L13
- 214              	.LVL10:
- 215              	.L19:
- 216              	.LBB4:
-  37:Src/button.c  ****      if(key == 2)
- 217              		.loc 1 37 7 is_stmt 1 view .LVU46
- 218 002c 0448     		ldr	r0, .L21+4
- 219              	.LVL11:
-  37:Src/button.c  ****      if(key == 2)
- 220              		.loc 1 37 7 is_stmt 0 view .LVU47
- 221 002e FFF7FEFF 		bl	puts
- 222              	.LVL12:
- 223 0032 F4E7     		b	.L15
- 224              	.L20:
-  39:Src/button.c  ****     t = HAL_GetTick();
- 225              		.loc 1 39 7 is_stmt 1 view .LVU48
- 226 0034 0348     		ldr	r0, .L21+8
- 227 0036 FFF7FEFF 		bl	puts
- 228              	.LVL13:
- 229 003a F2E7     		b	.L16
- 230              	.L22:
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s 			page 6
+ 129 000c 08B9     		cbnz	r0, .L12
+  47:Src/button.c  ****     return 1;
+ 130              		.loc 1 47 12 view .LVU25
+ 131 000e 0120     		movs	r0, #1
+ 132              	.L6:
+  48:Src/button.c  ****   else if(key2 == 0)
+  49:Src/button.c  ****     return 2;
+  50:Src/button.c  ****   else if(key3 ==0)
+  51:Src/button.c  ****     return 3;
+  52:Src/button.c  ****   else if(key4 == 0)
+  53:Src/button.c  ****     return 4;
+  54:Src/button.c  ****   else return 0;
+  55:Src/button.c  **** }
+ 133              		.loc 1 55 1 view .LVU26
+ 134 0010 08BD     		pop	{r3, pc}
+ 135              	.L12:
+  48:Src/button.c  ****   else if(key2 == 0)
+ 136              		.loc 1 48 8 is_stmt 1 view .LVU27
+  48:Src/button.c  ****   else if(key2 == 0)
+ 137              		.loc 1 48 11 is_stmt 0 view .LVU28
+ 138 0012 4FF40061 		mov	r1, #2048
+ 139 0016 0C48     		ldr	r0, .L14
+ 140 0018 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 141              	.LVL4:
+  48:Src/button.c  ****   else if(key2 == 0)
+ 142              		.loc 1 48 10 view .LVU29
+ 143 001c 78B1     		cbz	r0, .L8
+  50:Src/button.c  ****     return 3;
+ 144              		.loc 1 50 8 is_stmt 1 view .LVU30
+  50:Src/button.c  ****     return 3;
+ 145              		.loc 1 50 11 is_stmt 0 view .LVU31
+ 146 001e 4FF48051 		mov	r1, #4096
+ 147 0022 0948     		ldr	r0, .L14
+ 148 0024 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 149              	.LVL5:
+  50:Src/button.c  ****     return 3;
+ 150              		.loc 1 50 10 view .LVU32
+ 151 0028 58B1     		cbz	r0, .L9
+  52:Src/button.c  ****     return 4;
+ 152              		.loc 1 52 8 is_stmt 1 view .LVU33
+  52:Src/button.c  ****     return 4;
+ 153              		.loc 1 52 11 is_stmt 0 view .LVU34
+ 154 002a 4FF40051 		mov	r1, #8192
+ 155 002e 0648     		ldr	r0, .L14
+ 156 0030 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 157              	.LVL6:
+  52:Src/button.c  ****     return 4;
+ 158              		.loc 1 52 10 view .LVU35
+ 159 0034 08B1     		cbz	r0, .L13
+  54:Src/button.c  **** }
+ 160              		.loc 1 54 15 view .LVU36
+ 161 0036 0020     		movs	r0, #0
+ 162 0038 EAE7     		b	.L6
+ 163              	.L13:
+  53:Src/button.c  ****   else return 0;
+ 164              		.loc 1 53 12 view .LVU37
+ 165 003a 0420     		movs	r0, #4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 5
 
 
- 231              		.align	2
- 232              	.L21:
- 233 003c 00000000 		.word	t
- 234 0040 00000000 		.word	.LC0
- 235 0044 10000000 		.word	.LC1
- 236              	.LBE4:
- 237              		.cfi_endproc
- 238              	.LFE68:
- 240              		.comm	t,4,4
- 241              		.section	.rodata.button_test.str1.4,"aMS",%progbits,1
- 242              		.align	2
- 243              	.LC0:
- 244 0000 42757474 		.ascii	"Button 1 Press\000"
- 244      6F6E2031 
- 244      20507265 
- 244      737300
- 245 000f 00       		.space	1
- 246              	.LC1:
- 247 0010 42757474 		.ascii	"Button 2 Press\000"
- 247      6F6E2032 
- 247      20507265 
- 247      737300
- 248              		.text
- 249              	.Letext0:
- 250              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
- 251              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
- 252              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
- 253              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
- 254              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
- 255              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
- 256              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
- 257              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
- 258              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
- 259              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
- 260              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 261              		.file 13 "u8g2/csrc/u8x8.h"
- 262              		.file 14 "u8g2/csrc/u8g2.h"
- 263              		.file 15 "<built-in>"
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s 			page 7
+ 166 003c E8E7     		b	.L6
+ 167              	.L8:
+  49:Src/button.c  ****   else if(key3 ==0)
+ 168              		.loc 1 49 12 view .LVU38
+ 169 003e 0220     		movs	r0, #2
+ 170 0040 E6E7     		b	.L6
+ 171              	.L9:
+  51:Src/button.c  ****   else if(key4 == 0)
+ 172              		.loc 1 51 12 view .LVU39
+ 173 0042 0320     		movs	r0, #3
+ 174 0044 E4E7     		b	.L6
+ 175              	.L15:
+ 176 0046 00BF     		.align	2
+ 177              	.L14:
+ 178 0048 00100140 		.word	1073811456
+ 179              		.cfi_endproc
+ 180              	.LFE67:
+ 182              		.section	.text.button_test,"ax",%progbits
+ 183              		.align	1
+ 184              		.global	button_test
+ 185              		.syntax unified
+ 186              		.thumb
+ 187              		.thumb_func
+ 188              		.fpu softvfp
+ 190              	button_test:
+ 191              	.LFB68:
+  56:Src/button.c  **** void button_test(void)
+  57:Src/button.c  **** {
+ 192              		.loc 1 57 1 is_stmt 1 view -0
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 0, uses_anonymous_args = 0
+ 196 0000 10B5     		push	{r4, lr}
+ 197              	.LCFI4:
+ 198              		.cfi_def_cfa_offset 8
+ 199              		.cfi_offset 4, -8
+ 200              		.cfi_offset 14, -4
+ 201 0002 82B0     		sub	sp, sp, #8
+ 202              	.LCFI5:
+ 203              		.cfi_def_cfa_offset 16
+  58:Src/button.c  ****   if(HAL_GetTick()-t >200)
+ 204              		.loc 1 58 3 view .LVU41
+ 205              		.loc 1 58 6 is_stmt 0 view .LVU42
+ 206 0004 FFF7FEFF 		bl	HAL_GetTick
+ 207              	.LVL7:
+ 208              		.loc 1 58 19 view .LVU43
+ 209 0008 334B     		ldr	r3, .L26
+ 210 000a 1B68     		ldr	r3, [r3]
+ 211 000c C01A     		subs	r0, r0, r3
+ 212              		.loc 1 58 5 view .LVU44
+ 213 000e C828     		cmp	r0, #200
+ 214 0010 01D8     		bhi	.L25
+ 215              	.L16:
+  59:Src/button.c  ****   {
+  60:Src/button.c  ****     key = get_button();
+  61:Src/button.c  ****     switch(key)
+  62:Src/button.c  ****     { 
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 6
+
+
+  63:Src/button.c  ****       case 1:
+  64:Src/button.c  ****         printf("Button 1 Press\n");
+  65:Src/button.c  ****         u8g2_ClearBuffer(&u8g2);
+  66:Src/button.c  ****         u8g2_ClearDisplay(&u8g2);
+  67:Src/button.c  ****         u8g2_SetFont(&u8g2, u8g2_font_6x10_tf);
+  68:Src/button.c  ****         u8g2_SetFontRefHeightAll(&u8g2);   /* this will add some extra space for the text inside th
+  69:Src/button.c  ****         u8g2_UserInterfaceMessage(&u8g2, "UV", "Light", "Fan", " Ok \n Cancel ");
+  70:Src/button.c  ****         u8g2_SendBuffer(&u8g2);
+  71:Src/button.c  ****         break;
+  72:Src/button.c  ****       case 2:
+  73:Src/button.c  ****         printf("Button 2 Press\n");
+  74:Src/button.c  ****         u8g2_ClearBuffer(&u8g2);
+  75:Src/button.c  ****         u8g2_ClearDisplay(&u8g2);
+  76:Src/button.c  ****         u8g2_DrawBitmap(&u8g2, 32, 15, 8, 32, Fan);
+  77:Src/button.c  ****         u8g2_SendBuffer(&u8g2);
+  78:Src/button.c  ****         break;
+  79:Src/button.c  ****       case 3:
+  80:Src/button.c  ****         printf("Button 3 Press\n");
+  81:Src/button.c  ****         u8g2_ClearBuffer(&u8g2);
+  82:Src/button.c  ****         u8g2_ClearDisplay(&u8g2);
+  83:Src/button.c  ****         u8g2_SetFont(&u8g2, u8g2_font_unifont_t_symbols);
+  84:Src/button.c  ****         u8g2_DrawGlyph(&u8g2, 5, 20, 0x23f1);
+  85:Src/button.c  ****         u8g2_SendBuffer(&u8g2);
+  86:Src/button.c  ****         break;
+  87:Src/button.c  ****       case 4:
+  88:Src/button.c  ****         printf("Button 4 Press\n");
+  89:Src/button.c  ****         break;
+  90:Src/button.c  ****     }
+  91:Src/button.c  ****     t = HAL_GetTick();
+  92:Src/button.c  ****   }
+  93:Src/button.c  **** }
+ 216              		.loc 1 93 1 view .LVU45
+ 217 0012 02B0     		add	sp, sp, #8
+ 218              	.LCFI6:
+ 219              		.cfi_remember_state
+ 220              		.cfi_def_cfa_offset 8
+ 221              		@ sp needed
+ 222 0014 10BD     		pop	{r4, pc}
+ 223              	.L25:
+ 224              	.LCFI7:
+ 225              		.cfi_restore_state
+  60:Src/button.c  ****     switch(key)
+ 226              		.loc 1 60 5 is_stmt 1 view .LVU46
+  60:Src/button.c  ****     switch(key)
+ 227              		.loc 1 60 11 is_stmt 0 view .LVU47
+ 228 0016 FFF7FEFF 		bl	get_button
+ 229              	.LVL8:
+  60:Src/button.c  ****     switch(key)
+ 230              		.loc 1 60 9 view .LVU48
+ 231 001a 304B     		ldr	r3, .L26+4
+ 232 001c 1870     		strb	r0, [r3]
+  61:Src/button.c  ****     { 
+ 233              		.loc 1 61 5 is_stmt 1 view .LVU49
+ 234 001e 0138     		subs	r0, r0, #1
+ 235 0020 0328     		cmp	r0, #3
+ 236 0022 1FD8     		bhi	.L18
+ 237 0024 DFE800F0 		tbb	[pc, r0]
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 7
+
+
+ 238              	.L20:
+ 239 0028 02       		.byte	(.L23-.L20)/2
+ 240 0029 23       		.byte	(.L22-.L20)/2
+ 241 002a 3A       		.byte	(.L21-.L20)/2
+ 242 002b 53       		.byte	(.L19-.L20)/2
+ 243              		.p2align 1
+ 244              	.L23:
+  64:Src/button.c  ****         u8g2_ClearBuffer(&u8g2);
+ 245              		.loc 1 64 9 view .LVU50
+ 246 002c 2C48     		ldr	r0, .L26+8
+ 247 002e FFF7FEFF 		bl	puts
+ 248              	.LVL9:
+  65:Src/button.c  ****         u8g2_ClearDisplay(&u8g2);
+ 249              		.loc 1 65 9 view .LVU51
+ 250 0032 2C4C     		ldr	r4, .L26+12
+ 251 0034 2046     		mov	r0, r4
+ 252 0036 FFF7FEFF 		bl	u8g2_ClearBuffer
+ 253              	.LVL10:
+  66:Src/button.c  ****         u8g2_SetFont(&u8g2, u8g2_font_6x10_tf);
+ 254              		.loc 1 66 9 view .LVU52
+ 255 003a 2046     		mov	r0, r4
+ 256 003c FFF7FEFF 		bl	u8g2_ClearDisplay
+ 257              	.LVL11:
+  67:Src/button.c  ****         u8g2_SetFontRefHeightAll(&u8g2);   /* this will add some extra space for the text inside th
+ 258              		.loc 1 67 9 view .LVU53
+ 259 0040 2949     		ldr	r1, .L26+16
+ 260 0042 2046     		mov	r0, r4
+ 261 0044 FFF7FEFF 		bl	u8g2_SetFont
+ 262              	.LVL12:
+  68:Src/button.c  ****         u8g2_UserInterfaceMessage(&u8g2, "UV", "Light", "Fan", " Ok \n Cancel ");
+ 263              		.loc 1 68 9 view .LVU54
+ 264 0048 2046     		mov	r0, r4
+ 265 004a FFF7FEFF 		bl	u8g2_SetFontRefHeightAll
+ 266              	.LVL13:
+  69:Src/button.c  ****         u8g2_SendBuffer(&u8g2);
+ 267              		.loc 1 69 9 view .LVU55
+ 268 004e 274B     		ldr	r3, .L26+20
+ 269 0050 0093     		str	r3, [sp]
+ 270 0052 274B     		ldr	r3, .L26+24
+ 271 0054 274A     		ldr	r2, .L26+28
+ 272 0056 2849     		ldr	r1, .L26+32
+ 273 0058 2046     		mov	r0, r4
+ 274 005a FFF7FEFF 		bl	u8g2_UserInterfaceMessage
+ 275              	.LVL14:
+  70:Src/button.c  ****         break;
+ 276              		.loc 1 70 9 view .LVU56
+ 277 005e 2046     		mov	r0, r4
+ 278 0060 FFF7FEFF 		bl	u8g2_SendBuffer
+ 279              	.LVL15:
+  71:Src/button.c  ****       case 2:
+ 280              		.loc 1 71 9 view .LVU57
+ 281              	.L18:
+  91:Src/button.c  ****   }
+ 282              		.loc 1 91 5 view .LVU58
+  91:Src/button.c  ****   }
+ 283              		.loc 1 91 9 is_stmt 0 view .LVU59
+ 284 0064 FFF7FEFF 		bl	HAL_GetTick
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 8
+
+
+ 285              	.LVL16:
+  91:Src/button.c  ****   }
+ 286              		.loc 1 91 7 view .LVU60
+ 287 0068 1B4B     		ldr	r3, .L26
+ 288 006a 1860     		str	r0, [r3]
+ 289              		.loc 1 93 1 view .LVU61
+ 290 006c D1E7     		b	.L16
+ 291              	.L22:
+  73:Src/button.c  ****         u8g2_ClearBuffer(&u8g2);
+ 292              		.loc 1 73 9 is_stmt 1 view .LVU62
+ 293 006e 2348     		ldr	r0, .L26+36
+ 294 0070 FFF7FEFF 		bl	puts
+ 295              	.LVL17:
+  74:Src/button.c  ****         u8g2_ClearDisplay(&u8g2);
+ 296              		.loc 1 74 9 view .LVU63
+ 297 0074 1B4C     		ldr	r4, .L26+12
+ 298 0076 2046     		mov	r0, r4
+ 299 0078 FFF7FEFF 		bl	u8g2_ClearBuffer
+ 300              	.LVL18:
+  75:Src/button.c  ****         u8g2_DrawBitmap(&u8g2, 32, 15, 8, 32, Fan);
+ 301              		.loc 1 75 9 view .LVU64
+ 302 007c 2046     		mov	r0, r4
+ 303 007e FFF7FEFF 		bl	u8g2_ClearDisplay
+ 304              	.LVL19:
+  76:Src/button.c  ****         u8g2_SendBuffer(&u8g2);
+ 305              		.loc 1 76 9 view .LVU65
+ 306 0082 1F4B     		ldr	r3, .L26+40
+ 307 0084 0193     		str	r3, [sp, #4]
+ 308 0086 2021     		movs	r1, #32
+ 309 0088 0091     		str	r1, [sp]
+ 310 008a 0823     		movs	r3, #8
+ 311 008c 0F22     		movs	r2, #15
+ 312 008e 2046     		mov	r0, r4
+ 313 0090 FFF7FEFF 		bl	u8g2_DrawBitmap
+ 314              	.LVL20:
+  77:Src/button.c  ****         break;
+ 315              		.loc 1 77 9 view .LVU66
+ 316 0094 2046     		mov	r0, r4
+ 317 0096 FFF7FEFF 		bl	u8g2_SendBuffer
+ 318              	.LVL21:
+  78:Src/button.c  ****       case 3:
+ 319              		.loc 1 78 9 view .LVU67
+ 320 009a E3E7     		b	.L18
+ 321              	.L21:
+  80:Src/button.c  ****         u8g2_ClearBuffer(&u8g2);
+ 322              		.loc 1 80 9 view .LVU68
+ 323 009c 1948     		ldr	r0, .L26+44
+ 324 009e FFF7FEFF 		bl	puts
+ 325              	.LVL22:
+  81:Src/button.c  ****         u8g2_ClearDisplay(&u8g2);
+ 326              		.loc 1 81 9 view .LVU69
+ 327 00a2 104C     		ldr	r4, .L26+12
+ 328 00a4 2046     		mov	r0, r4
+ 329 00a6 FFF7FEFF 		bl	u8g2_ClearBuffer
+ 330              	.LVL23:
+  82:Src/button.c  ****         u8g2_SetFont(&u8g2, u8g2_font_unifont_t_symbols);
+ 331              		.loc 1 82 9 view .LVU70
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 9
+
+
+ 332 00aa 2046     		mov	r0, r4
+ 333 00ac FFF7FEFF 		bl	u8g2_ClearDisplay
+ 334              	.LVL24:
+  83:Src/button.c  ****         u8g2_DrawGlyph(&u8g2, 5, 20, 0x23f1);
+ 335              		.loc 1 83 9 view .LVU71
+ 336 00b0 1549     		ldr	r1, .L26+48
+ 337 00b2 2046     		mov	r0, r4
+ 338 00b4 FFF7FEFF 		bl	u8g2_SetFont
+ 339              	.LVL25:
+  84:Src/button.c  ****         u8g2_SendBuffer(&u8g2);
+ 340              		.loc 1 84 9 view .LVU72
+ 341 00b8 42F2F133 		movw	r3, #9201
+ 342 00bc 1422     		movs	r2, #20
+ 343 00be 0521     		movs	r1, #5
+ 344 00c0 2046     		mov	r0, r4
+ 345 00c2 FFF7FEFF 		bl	u8g2_DrawGlyph
+ 346              	.LVL26:
+  85:Src/button.c  ****         break;
+ 347              		.loc 1 85 9 view .LVU73
+ 348 00c6 2046     		mov	r0, r4
+ 349 00c8 FFF7FEFF 		bl	u8g2_SendBuffer
+ 350              	.LVL27:
+  86:Src/button.c  ****       case 4:
+ 351              		.loc 1 86 9 view .LVU74
+ 352 00cc CAE7     		b	.L18
+ 353              	.L19:
+  88:Src/button.c  ****         break;
+ 354              		.loc 1 88 9 view .LVU75
+ 355 00ce 0F48     		ldr	r0, .L26+52
+ 356 00d0 FFF7FEFF 		bl	puts
+ 357              	.LVL28:
+  89:Src/button.c  ****     }
+ 358              		.loc 1 89 9 view .LVU76
+ 359 00d4 C6E7     		b	.L18
+ 360              	.L27:
+ 361 00d6 00BF     		.align	2
+ 362              	.L26:
+ 363 00d8 00000000 		.word	t
+ 364 00dc 00000000 		.word	.LANCHOR0
+ 365 00e0 00000000 		.word	.LC0
+ 366 00e4 00000000 		.word	u8g2
+ 367 00e8 00000000 		.word	u8g2_font_6x10_tf
+ 368 00ec 20000000 		.word	.LC4
+ 369 00f0 10000000 		.word	.LC1
+ 370 00f4 14000000 		.word	.LC2
+ 371 00f8 1C000000 		.word	.LC3
+ 372 00fc 30000000 		.word	.LC5
+ 373 0100 00000000 		.word	.LANCHOR1
+ 374 0104 40000000 		.word	.LC6
+ 375 0108 00000000 		.word	u8g2_font_unifont_t_symbols
+ 376 010c 50000000 		.word	.LC7
+ 377              		.cfi_endproc
+ 378              	.LFE68:
+ 380              		.global	Fan
+ 381              		.global	key
+ 382              		.comm	x,4,4
+ 383              		.comm	t,4,4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 10
+
+
+ 384              		.section	.bss.key,"aw",%nobits
+ 385              		.set	.LANCHOR0,. + 0
+ 388              	key:
+ 389 0000 00       		.space	1
+ 390              		.section	.rodata.Fan,"a"
+ 391              		.align	2
+ 392              		.set	.LANCHOR1,. + 0
+ 395              	Fan:
+ 396 0000 00       		.byte	0
+ 397 0001 00       		.byte	0
+ 398 0002 00       		.byte	0
+ 399 0003 7F       		.byte	127
+ 400 0004 FE       		.byte	-2
+ 401 0005 00       		.byte	0
+ 402 0006 00       		.byte	0
+ 403 0007 00       		.byte	0
+ 404 0008 00       		.byte	0
+ 405 0009 00       		.byte	0
+ 406 000a 0F       		.byte	15
+ 407 000b FF       		.byte	-1
+ 408 000c FF       		.byte	-1
+ 409 000d F0       		.byte	-16
+ 410 000e 00       		.byte	0
+ 411 000f 00       		.byte	0
+ 412 0010 00       		.byte	0
+ 413 0011 00       		.byte	0
+ 414 0012 7F       		.byte	127
+ 415 0013 C0       		.byte	-64
+ 416 0014 03       		.byte	3
+ 417 0015 FE       		.byte	-2
+ 418 0016 00       		.byte	0
+ 419 0017 00       		.byte	0
+ 420 0018 00       		.byte	0
+ 421 0019 01       		.byte	1
+ 422 001a FC       		.byte	-4
+ 423 001b 00       		.byte	0
+ 424 001c 00       		.byte	0
+ 425 001d 3F       		.byte	63
+ 426 001e 80       		.byte	-128
+ 427 001f 00       		.byte	0
+ 428 0020 00       		.byte	0
+ 429 0021 07       		.byte	7
+ 430 0022 E1       		.byte	-31
+ 431 0023 FF       		.byte	-1
+ 432 0024 00       		.byte	0
+ 433 0025 07       		.byte	7
+ 434 0026 E0       		.byte	-32
+ 435 0027 00       		.byte	0
+ 436 0028 00       		.byte	0
+ 437 0029 0F       		.byte	15
+ 438 002a 83       		.byte	-125
+ 439 002b FF       		.byte	-1
+ 440 002c 80       		.byte	-128
+ 441 002d 01       		.byte	1
+ 442 002e F0       		.byte	-16
+ 443 002f 00       		.byte	0
+ 444 0030 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 11
+
+
+ 445 0031 1E       		.byte	30
+ 446 0032 07       		.byte	7
+ 447 0033 FF       		.byte	-1
+ 448 0034 C0       		.byte	-64
+ 449 0035 00       		.byte	0
+ 450 0036 78       		.byte	120
+ 451 0037 00       		.byte	0
+ 452 0038 00       		.byte	0
+ 453 0039 3C       		.byte	60
+ 454 003a 03       		.byte	3
+ 455 003b FF       		.byte	-1
+ 456 003c C0       		.byte	-64
+ 457 003d 00       		.byte	0
+ 458 003e 3C       		.byte	60
+ 459 003f 00       		.byte	0
+ 460 0040 00       		.byte	0
+ 461 0041 78       		.byte	120
+ 462 0042 01       		.byte	1
+ 463 0043 FF       		.byte	-1
+ 464 0044 E0       		.byte	-32
+ 465 0045 00       		.byte	0
+ 466 0046 1E       		.byte	30
+ 467 0047 00       		.byte	0
+ 468 0048 00       		.byte	0
+ 469 0049 F8       		.byte	-8
+ 470 004a 00       		.byte	0
+ 471 004b 1F       		.byte	31
+ 472 004c E0       		.byte	-32
+ 473 004d 00       		.byte	0
+ 474 004e 1F       		.byte	31
+ 475 004f 00       		.byte	0
+ 476 0050 00       		.byte	0
+ 477 0051 F0       		.byte	-16
+ 478 0052 00       		.byte	0
+ 479 0053 0C       		.byte	12
+ 480 0054 00       		.byte	0
+ 481 0055 FF       		.byte	-1
+ 482 0056 0F       		.byte	15
+ 483 0057 00       		.byte	0
+ 484 0058 00       		.byte	0
+ 485 0059 F0       		.byte	-16
+ 486 005a 00       		.byte	0
+ 487 005b 03       		.byte	3
+ 488 005c CF       		.byte	-49
+ 489 005d FF       		.byte	-1
+ 490 005e 8F       		.byte	-113
+ 491 005f 00       		.byte	0
+ 492 0060 00       		.byte	0
+ 493 0061 F0       		.byte	-16
+ 494 0062 00       		.byte	0
+ 495 0063 73       		.byte	115
+ 496 0064 CF       		.byte	-49
+ 497 0065 FF       		.byte	-1
+ 498 0066 CF       		.byte	-49
+ 499 0067 00       		.byte	0
+ 500 0068 00       		.byte	0
+ 501 0069 F0       		.byte	-16
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 12
+
+
+ 502 006a 03       		.byte	3
+ 503 006b F8       		.byte	-8
+ 504 006c 3F       		.byte	63
+ 505 006d FF       		.byte	-1
+ 506 006e CF       		.byte	-49
+ 507 006f 00       		.byte	0
+ 508 0070 00       		.byte	0
+ 509 0071 F8       		.byte	-8
+ 510 0072 07       		.byte	7
+ 511 0073 FE       		.byte	-2
+ 512 0074 1F       		.byte	31
+ 513 0075 FF       		.byte	-1
+ 514 0076 9F       		.byte	-97
+ 515 0077 00       		.byte	0
+ 516 0078 00       		.byte	0
+ 517 0079 78       		.byte	120
+ 518 007a 1F       		.byte	31
+ 519 007b FC       		.byte	-4
+ 520 007c 00       		.byte	0
+ 521 007d FC       		.byte	-4
+ 522 007e 1E       		.byte	30
+ 523 007f 00       		.byte	0
+ 524 0080 00       		.byte	0
+ 525 0081 3C       		.byte	60
+ 526 0082 1F       		.byte	31
+ 527 0083 FC       		.byte	-4
+ 528 0084 00       		.byte	0
+ 529 0085 00       		.byte	0
+ 530 0086 3C       		.byte	60
+ 531 0087 00       		.byte	0
+ 532 0088 00       		.byte	0
+ 533 0089 1E       		.byte	30
+ 534 008a 1F       		.byte	31
+ 535 008b FC       		.byte	-4
+ 536 008c 00       		.byte	0
+ 537 008d 00       		.byte	0
+ 538 008e 78       		.byte	120
+ 539 008f 00       		.byte	0
+ 540 0090 00       		.byte	0
+ 541 0091 0F       		.byte	15
+ 542 0092 8F       		.byte	-113
+ 543 0093 F8       		.byte	-8
+ 544 0094 00       		.byte	0
+ 545 0095 01       		.byte	1
+ 546 0096 F0       		.byte	-16
+ 547 0097 00       		.byte	0
+ 548 0098 00       		.byte	0
+ 549 0099 07       		.byte	7
+ 550 009a E3       		.byte	-29
+ 551 009b E0       		.byte	-32
+ 552 009c 00       		.byte	0
+ 553 009d 07       		.byte	7
+ 554 009e E0       		.byte	-32
+ 555 009f 00       		.byte	0
+ 556 00a0 00       		.byte	0
+ 557 00a1 01       		.byte	1
+ 558 00a2 FC       		.byte	-4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 13
+
+
+ 559 00a3 00       		.byte	0
+ 560 00a4 00       		.byte	0
+ 561 00a5 3F       		.byte	63
+ 562 00a6 80       		.byte	-128
+ 563 00a7 00       		.byte	0
+ 564 00a8 00       		.byte	0
+ 565 00a9 00       		.byte	0
+ 566 00aa 7F       		.byte	127
+ 567 00ab C0       		.byte	-64
+ 568 00ac 03       		.byte	3
+ 569 00ad FE       		.byte	-2
+ 570 00ae 00       		.byte	0
+ 571 00af 00       		.byte	0
+ 572 00b0 00       		.byte	0
+ 573 00b1 00       		.byte	0
+ 574 00b2 0F       		.byte	15
+ 575 00b3 FF       		.byte	-1
+ 576 00b4 FF       		.byte	-1
+ 577 00b5 F0       		.byte	-16
+ 578 00b6 00       		.byte	0
+ 579 00b7 00       		.byte	0
+ 580 00b8 00       		.byte	0
+ 581 00b9 00       		.byte	0
+ 582 00ba 00       		.byte	0
+ 583 00bb 7F       		.byte	127
+ 584 00bc FE       		.byte	-2
+ 585 00bd 00       		.byte	0
+ 586 00be 00       		.byte	0
+ 587 00bf 00       		.byte	0
+ 588 00c0 00       		.byte	0
+ 589 00c1 00       		.byte	0
+ 590 00c2 00       		.byte	0
+ 591 00c3 00       		.byte	0
+ 592 00c4 00       		.byte	0
+ 593 00c5 00       		.byte	0
+ 594 00c6 00       		.byte	0
+ 595 00c7 00       		.byte	0
+ 596 00c8 00       		.byte	0
+ 597 00c9 00       		.byte	0
+ 598 00ca 00       		.byte	0
+ 599 00cb 3F       		.byte	63
+ 600 00cc FC       		.byte	-4
+ 601 00cd 00       		.byte	0
+ 602 00ce 00       		.byte	0
+ 603 00cf 00       		.byte	0
+ 604 00d0 00       		.byte	0
+ 605 00d1 00       		.byte	0
+ 606 00d2 00       		.byte	0
+ 607 00d3 7F       		.byte	127
+ 608 00d4 FE       		.byte	-2
+ 609 00d5 00       		.byte	0
+ 610 00d6 00       		.byte	0
+ 611 00d7 00       		.byte	0
+ 612 00d8 00       		.byte	0
+ 613 00d9 00       		.byte	0
+ 614 00da 00       		.byte	0
+ 615 00db FF       		.byte	-1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 14
+
+
+ 616 00dc FF       		.byte	-1
+ 617 00dd 00       		.byte	0
+ 618 00de 00       		.byte	0
+ 619 00df 00       		.byte	0
+ 620 00e0 00       		.byte	0
+ 621 00e1 00       		.byte	0
+ 622 00e2 01       		.byte	1
+ 623 00e3 FF       		.byte	-1
+ 624 00e4 FF       		.byte	-1
+ 625 00e5 80       		.byte	-128
+ 626 00e6 00       		.byte	0
+ 627 00e7 00       		.byte	0
+ 628 00e8 00       		.byte	0
+ 629 00e9 00       		.byte	0
+ 630 00ea FF       		.byte	-1
+ 631 00eb FF       		.byte	-1
+ 632 00ec FF       		.byte	-1
+ 633 00ed FF       		.byte	-1
+ 634 00ee 00       		.byte	0
+ 635 00ef 00       		.byte	0
+ 636 00f0 00       		.byte	0
+ 637 00f1 00       		.byte	0
+ 638 00f2 FF       		.byte	-1
+ 639 00f3 FF       		.byte	-1
+ 640 00f4 FF       		.byte	-1
+ 641 00f5 FF       		.byte	-1
+ 642 00f6 00       		.byte	0
+ 643 00f7 00       		.byte	0
+ 644 00f8 00       		.byte	0
+ 645 00f9 00       		.byte	0
+ 646 00fa FF       		.byte	-1
+ 647 00fb FF       		.byte	-1
+ 648 00fc FF       		.byte	-1
+ 649 00fd FF       		.byte	-1
+ 650 00fe 00       		.byte	0
+ 651 00ff 00       		.byte	0
+ 652              		.section	.rodata.button_test.str1.4,"aMS",%progbits,1
+ 653              		.align	2
+ 654              	.LC0:
+ 655 0000 42757474 		.ascii	"Button 1 Press\000"
+ 655      6F6E2031 
+ 655      20507265 
+ 655      737300
+ 656 000f 00       		.space	1
+ 657              	.LC1:
+ 658 0010 46616E00 		.ascii	"Fan\000"
+ 659              	.LC2:
+ 660 0014 4C696768 		.ascii	"Light\000"
+ 660      7400
+ 661 001a 0000     		.space	2
+ 662              	.LC3:
+ 663 001c 555600   		.ascii	"UV\000"
+ 664 001f 00       		.space	1
+ 665              	.LC4:
+ 666 0020 204F6B20 		.ascii	" Ok \012 Cancel \000"
+ 666      0A204361 
+ 666      6E63656C 
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 15
+
+
+ 666      2000
+ 667 002e 0000     		.space	2
+ 668              	.LC5:
+ 669 0030 42757474 		.ascii	"Button 2 Press\000"
+ 669      6F6E2032 
+ 669      20507265 
+ 669      737300
+ 670 003f 00       		.space	1
+ 671              	.LC6:
+ 672 0040 42757474 		.ascii	"Button 3 Press\000"
+ 672      6F6E2033 
+ 672      20507265 
+ 672      737300
+ 673 004f 00       		.space	1
+ 674              	.LC7:
+ 675 0050 42757474 		.ascii	"Button 4 Press\000"
+ 675      6F6E2034 
+ 675      20507265 
+ 675      737300
+ 676              		.text
+ 677              	.Letext0:
+ 678              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 679              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 680              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 681              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 682              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 683              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
+ 684              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 685              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 686              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
+ 687              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 688              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 689              		.file 13 "u8g2/csrc/u8x8.h"
+ 690              		.file 14 "u8g2/csrc/u8g2.h"
+ 691              		.file 15 "<built-in>"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccHTF97P.s 			page 16
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 button.c
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:16     .text.button_init:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:24     .text.button_init:00000000 button_init
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:90     .text.button_init:00000048 $d
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:16     .text.button_init:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:24     .text.button_init:00000000 button_init
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:97     .text.button_init:00000050 $d
                             *COM*:00000004 t
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:96     .text.get_button:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:103    .text.get_button:00000000 get_button
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:146    .text.get_button:00000028 $d
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:151    .text.button_test:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:158    .text.button_test:00000000 button_test
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:233    .text.button_test:0000003c $d
-C:\Users\behun\AppData\Local\Temp\ccX7vkKk.s:242    .rodata.button_test.str1.4:00000000 $d
+                            *COM*:00000004 x
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:104    .text.get_button:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:111    .text.get_button:00000000 get_button
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:178    .text.get_button:00000048 $d
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:183    .text.button_test:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:190    .text.button_test:00000000 button_test
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:239    .text.button_test:00000028 $d
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:243    .text.button_test:0000002c $t
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:363    .text.button_test:000000d8 $d
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:395    .rodata.Fan:00000000 Fan
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:388    .bss.key:00000000 key
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:389    .bss.key:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:391    .rodata.Fan:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccHTF97P.s:653    .rodata.button_test.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_Init
 HAL_GetTick
 HAL_GPIO_ReadPin
 puts
+u8g2_ClearBuffer
+u8g2_ClearDisplay
+u8g2_SetFont
+u8g2_SetFontRefHeightAll
+u8g2_UserInterfaceMessage
+u8g2_SendBuffer
+u8g2_DrawBitmap
+u8g2_DrawGlyph
+u8g2
+u8g2_font_6x10_tf
+u8g2_font_unifont_t_symbols

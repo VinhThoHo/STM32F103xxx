@@ -11,4 +11,5 @@
 void button_init(void);
 uint8_t get_button(void);
 void button_test(void);
+uint8_t button_counter(uint8_t c);
 #endif
