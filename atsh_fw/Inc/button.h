@@ -1,5 +1,5 @@
-#ifndef __BUTTON_H__
-#define __BUTTON_H__
+#ifndef __BUTTON_H_
+#define __BUTTON_H_
 
 #include "main.h"
 
@@ -12,4 +12,6 @@ void button_init(void);
 uint8_t get_button(void);
 void button_test(void);
 uint8_t button_counter(uint8_t c);
+void menu(void);
+void selection_menu(void);
 #endif

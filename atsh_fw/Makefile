@@ -60,7 +60,9 @@ BUILD_DIR = build
 C_SOURCES =  \
 Src/main.c \
 Src/gpio.c \
-Src/button.c \
+Src/key.c \
+Src/logo.c \
+Src/userInterface.c \
 Src/i2c.c \
 Src/iwdg.c \
 Src/usart.c \

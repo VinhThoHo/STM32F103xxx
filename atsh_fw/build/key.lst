@@ -1,0 +1,720 @@
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"key.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.KeyInit,"ax",%progbits
+  16              		.align	1
+  17              		.global	KeyInit
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	KeyInit:
+  25              	.LFB66:
+  26              		.file 1 "Src/key.c"
+   1:Src/key.c     **** #include "key.h"
+   2:Src/key.c     **** #include "u8g2.h"
+   3:Src/key.c     **** 
+   4:Src/key.c     **** KEY_STRUCT key;
+   5:Src/key.c     **** 
+   6:Src/key.c     **** void KeyInit(void)
+   7:Src/key.c     **** {
+  27              		.loc 1 7 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 24
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 10B5     		push	{r4, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  36 0002 86B0     		sub	sp, sp, #24
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 32
+   8:Src/key.c     ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+  39              		.loc 1 8 3 view .LVU1
+  40              		.loc 1 8 20 is_stmt 0 view .LVU2
+  41 0004 0024     		movs	r4, #0
+  42 0006 0394     		str	r4, [sp, #12]
+  43 0008 0494     		str	r4, [sp, #16]
+  44 000a 0594     		str	r4, [sp, #20]
+   9:Src/key.c     **** 
+  10:Src/key.c     ****   __HAL_RCC_GPIOC_CLK_ENABLE();
+  45              		.loc 1 10 3 is_stmt 1 view .LVU3
+  46              	.LBB2:
+  47              		.loc 1 10 3 view .LVU4
+  48              		.loc 1 10 3 view .LVU5
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 2
+
+
+  49 000c 134B     		ldr	r3, .L6
+  50 000e 9A69     		ldr	r2, [r3, #24]
+  51 0010 42F01002 		orr	r2, r2, #16
+  52 0014 9A61     		str	r2, [r3, #24]
+  53              		.loc 1 10 3 view .LVU6
+  54 0016 9B69     		ldr	r3, [r3, #24]
+  55 0018 03F01003 		and	r3, r3, #16
+  56 001c 0193     		str	r3, [sp, #4]
+  57              		.loc 1 10 3 view .LVU7
+  58 001e 019B     		ldr	r3, [sp, #4]
+  59              	.LBE2:
+  11:Src/key.c     **** 
+  12:Src/key.c     ****   /*Configure GPIO pins : PC13 PC10 PC11 PC12 */
+  13:Src/key.c     ****   GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12;
+  60              		.loc 1 13 3 view .LVU8
+  61              		.loc 1 13 23 is_stmt 0 view .LVU9
+  62 0020 4FF47053 		mov	r3, #15360
+  63 0024 0293     		str	r3, [sp, #8]
+  14:Src/key.c     ****   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  64              		.loc 1 14 3 is_stmt 1 view .LVU10
+  15:Src/key.c     ****   GPIO_InitStruct.Pull = GPIO_PULLUP;
+  65              		.loc 1 15 3 view .LVU11
+  66              		.loc 1 15 24 is_stmt 0 view .LVU12
+  67 0026 0123     		movs	r3, #1
+  68 0028 0493     		str	r3, [sp, #16]
+  16:Src/key.c     ****   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  69              		.loc 1 16 3 is_stmt 1 view .LVU13
+  70 002a 02A9     		add	r1, sp, #8
+  71 002c 0C48     		ldr	r0, .L6+4
+  72 002e FFF7FEFF 		bl	HAL_GPIO_Init
+  73              	.LVL0:
+  17:Src/key.c     ****     for(key.name = 0; key.name < NUM_KEY; key.name++)
+  74              		.loc 1 17 5 view .LVU14
+  75              		.loc 1 17 18 is_stmt 0 view .LVU15
+  76 0032 0C4B     		ldr	r3, .L6+8
+  77 0034 1C70     		strb	r4, [r3]
+  78              	.L2:
+  79              		.loc 1 17 26 discriminator 1 view .LVU16
+  80 0036 0B4B     		ldr	r3, .L6+8
+  81 0038 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  82              		.loc 1 17 5 discriminator 1 view .LVU17
+  83 003a 032B     		cmp	r3, #3
+  84 003c 0BD8     		bhi	.L5
+  18:Src/key.c     **** 	{
+  19:Src/key.c     **** 		key.ext[key.name].press = key.ext[key.name].pressed = KEY_RELEASE;
+  85              		.loc 1 19 3 is_stmt 1 discriminator 3 view .LVU18
+  86              		.loc 1 19 55 is_stmt 0 discriminator 3 view .LVU19
+  87 003e 0948     		ldr	r0, .L6+8
+  88 0040 00EB8301 		add	r1, r0, r3, lsl #2
+  89 0044 0022     		movs	r2, #0
+  90 0046 4A70     		strb	r2, [r1, #1]
+  91              		.loc 1 19 27 discriminator 3 view .LVU20
+  92 0048 8A70     		strb	r2, [r1, #2]
+  20:Src/key.c     **** 		key.ext[key.name].waitRelease = 0;
+  93              		.loc 1 20 3 is_stmt 1 discriminator 3 view .LVU21
+  94              		.loc 1 20 33 is_stmt 0 discriminator 3 view .LVU22
+  95 004a CA70     		strb	r2, [r1, #3]
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 3
+
+
+  21:Src/key.c     **** 		key.ext[key.name].cnt = 0; 
+  96              		.loc 1 21 3 is_stmt 1 discriminator 3 view .LVU23
+  97              		.loc 1 21 25 is_stmt 0 discriminator 3 view .LVU24
+  98 004c 0A71     		strb	r2, [r1, #4]
+  22:Src/key.c     **** 		key.tick = 0;
+  99              		.loc 1 22 3 is_stmt 1 discriminator 3 view .LVU25
+ 100              		.loc 1 22 12 is_stmt 0 discriminator 3 view .LVU26
+ 101 004e 4261     		str	r2, [r0, #20]
+  17:Src/key.c     **** 	{
+ 102              		.loc 1 17 51 discriminator 3 view .LVU27
+ 103 0050 0133     		adds	r3, r3, #1
+ 104 0052 0370     		strb	r3, [r0]
+ 105 0054 EFE7     		b	.L2
+ 106              	.L5:
+  23:Src/key.c     **** 	}
+  24:Src/key.c     **** }
+ 107              		.loc 1 24 1 view .LVU28
+ 108 0056 06B0     		add	sp, sp, #24
+ 109              	.LCFI2:
+ 110              		.cfi_def_cfa_offset 8
+ 111              		@ sp needed
+ 112 0058 10BD     		pop	{r4, pc}
+ 113              	.L7:
+ 114 005a 00BF     		.align	2
+ 115              	.L6:
+ 116 005c 00100240 		.word	1073876992
+ 117 0060 00100140 		.word	1073811456
+ 118 0064 00000000 		.word	key
+ 119              		.cfi_endproc
+ 120              	.LFE66:
+ 122              		.section	.text.KeyGet,"ax",%progbits
+ 123              		.align	1
+ 124              		.global	KeyGet
+ 125              		.syntax unified
+ 126              		.thumb
+ 127              		.thumb_func
+ 128              		.fpu softvfp
+ 130              	KeyGet:
+ 131              	.LVL1:
+ 132              	.LFB67:
+  25:Src/key.c     **** 
+  26:Src/key.c     **** void KeyGet(uint8_t port_id)
+  27:Src/key.c     **** {
+ 133              		.loc 1 27 1 is_stmt 1 view -0
+ 134              		.cfi_startproc
+ 135              		@ args = 0, pretend = 0, frame = 0
+ 136              		@ frame_needed = 0, uses_anonymous_args = 0
+ 137              		.loc 1 27 1 is_stmt 0 view .LVU30
+ 138 0000 10B5     		push	{r4, lr}
+ 139              	.LCFI3:
+ 140              		.cfi_def_cfa_offset 8
+ 141              		.cfi_offset 4, -8
+ 142              		.cfi_offset 14, -4
+ 143 0002 0446     		mov	r4, r0
+  28:Src/key.c     **** 	uint16_t keyGet;
+ 144              		.loc 1 28 2 is_stmt 1 view .LVU31
+  29:Src/key.c     **** 	switch(port_id)
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 4
+
+
+ 145              		.loc 1 29 2 view .LVU32
+ 146 0004 0328     		cmp	r0, #3
+ 147 0006 0ED8     		bhi	.L9
+ 148 0008 DFE800F0 		tbb	[pc, r0]
+ 149              	.L11:
+ 150 000c 02       		.byte	(.L14-.L11)/2
+ 151 000d 24       		.byte	(.L13-.L11)/2
+ 152 000e 36       		.byte	(.L12-.L11)/2
+ 153 000f 48       		.byte	(.L10-.L11)/2
+ 154              		.p2align 1
+ 155              	.L14:
+  30:Src/key.c     **** 	{
+  31:Src/key.c     **** 		case 0: 
+  32:Src/key.c     **** 			keyGet = key1_in;
+ 156              		.loc 1 32 4 view .LVU33
+ 157              		.loc 1 32 13 is_stmt 0 view .LVU34
+ 158 0010 4FF48061 		mov	r1, #1024
+ 159 0014 3048     		ldr	r0, .L23
+ 160              	.LVL2:
+ 161              		.loc 1 32 13 view .LVU35
+ 162 0016 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 163              	.LVL3:
+  33:Src/key.c     **** 			if(keyGet == !key1) key.ext[port_id].press = KEY_PRESS;
+ 164              		.loc 1 33 4 is_stmt 1 view .LVU36
+ 165              		.loc 1 33 6 is_stmt 0 view .LVU37
+ 166 001a A8B9     		cbnz	r0, .L15
+ 167              		.loc 1 33 24 is_stmt 1 discriminator 1 view .LVU38
+ 168              		.loc 1 33 47 is_stmt 0 discriminator 1 view .LVU39
+ 169 001c 2F4B     		ldr	r3, .L23+4
+ 170 001e 03EB8403 		add	r3, r3, r4, lsl #2
+ 171 0022 0122     		movs	r2, #1
+ 172 0024 9A70     		strb	r2, [r3, #2]
+ 173              	.LVL4:
+ 174              	.L9:
+  34:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+  35:Src/key.c     **** 			break;
+  36:Src/key.c     **** 		case 1: 
+  37:Src/key.c     **** 			keyGet = key2_in;
+  38:Src/key.c     **** 			if(keyGet == !key2) key.ext[port_id].press = KEY_PRESS;
+  39:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+  40:Src/key.c     **** 			break;
+  41:Src/key.c     **** 		case 2: 
+  42:Src/key.c     **** 			keyGet = key3_in;
+  43:Src/key.c     **** 			if(keyGet == !key3) key.ext[port_id].press = KEY_PRESS;
+  44:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+  45:Src/key.c     **** 			break;
+  46:Src/key.c     **** 		case 3: 
+  47:Src/key.c     **** 			keyGet = key4_in;
+  48:Src/key.c     **** 			if(keyGet == !key4) key.ext[port_id].press = KEY_PRESS;
+  49:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+  50:Src/key.c     **** 			break;
+  51:Src/key.c     ****         default:
+  52:Src/key.c     ****             break;
+  53:Src/key.c     **** 	}
+  54:Src/key.c     **** 	if(key.ext[port_id].press != key.ext[port_id].pressed)
+ 175              		.loc 1 54 2 is_stmt 1 view .LVU40
+ 176              		.loc 1 54 21 is_stmt 0 view .LVU41
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 5
+
+
+ 177 0026 2D4B     		ldr	r3, .L23+4
+ 178 0028 03EB8403 		add	r3, r3, r4, lsl #2
+ 179 002c 9A78     		ldrb	r2, [r3, #2]	@ zero_extendqisi2
+ 180              		.loc 1 54 47 view .LVU42
+ 181 002e 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 182              		.loc 1 54 4 view .LVU43
+ 183 0030 9A42     		cmp	r2, r3
+ 184 0032 4AD0     		beq	.L19
+  55:Src/key.c     **** 	{
+  56:Src/key.c     **** 		++(key.ext[port_id].cnt);
+ 185              		.loc 1 56 3 is_stmt 1 view .LVU44
+ 186              		.loc 1 56 22 is_stmt 0 view .LVU45
+ 187 0034 294A     		ldr	r2, .L23+4
+ 188 0036 02EB8402 		add	r2, r2, r4, lsl #2
+ 189 003a 1379     		ldrb	r3, [r2, #4]	@ zero_extendqisi2
+ 190              		.loc 1 56 3 view .LVU46
+ 191 003c 0133     		adds	r3, r3, #1
+ 192 003e DBB2     		uxtb	r3, r3
+ 193 0040 1371     		strb	r3, [r2, #4]
+  57:Src/key.c     **** 		if(key.ext[port_id].cnt == NUM_OF_SAMPLE_KEY)
+ 194              		.loc 1 57 3 is_stmt 1 view .LVU47
+ 195              		.loc 1 57 5 is_stmt 0 view .LVU48
+ 196 0042 052B     		cmp	r3, #5
+ 197 0044 3CD0     		beq	.L22
+ 198              	.L8:
+  58:Src/key.c     **** 		{
+  59:Src/key.c     **** 			key.ext[port_id].pressed = key.ext[port_id].press;
+  60:Src/key.c     **** 			key.ext[port_id].cnt = 0;
+  61:Src/key.c     **** 		}
+  62:Src/key.c     **** 	}
+  63:Src/key.c     **** 	else
+  64:Src/key.c     **** 	{
+  65:Src/key.c     **** 		key.ext[port_id].cnt = 0;
+  66:Src/key.c     **** 	}
+  67:Src/key.c     **** }
+ 199              		.loc 1 67 1 view .LVU49
+ 200 0046 10BD     		pop	{r4, pc}
+ 201              	.LVL5:
+ 202              	.L15:
+  34:Src/key.c     **** 			break;
+ 203              		.loc 1 34 9 is_stmt 1 view .LVU50
+  34:Src/key.c     **** 			break;
+ 204              		.loc 1 34 32 is_stmt 0 view .LVU51
+ 205 0048 244B     		ldr	r3, .L23+4
+ 206 004a 03EB8403 		add	r3, r3, r4, lsl #2
+ 207 004e 0022     		movs	r2, #0
+ 208 0050 9A70     		strb	r2, [r3, #2]
+ 209 0052 E8E7     		b	.L9
+ 210              	.LVL6:
+ 211              	.L13:
+  37:Src/key.c     **** 			if(keyGet == !key2) key.ext[port_id].press = KEY_PRESS;
+ 212              		.loc 1 37 4 is_stmt 1 view .LVU52
+  37:Src/key.c     **** 			if(keyGet == !key2) key.ext[port_id].press = KEY_PRESS;
+ 213              		.loc 1 37 13 is_stmt 0 view .LVU53
+ 214 0054 4FF40061 		mov	r1, #2048
+ 215 0058 1F48     		ldr	r0, .L23
+ 216              	.LVL7:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 6
+
+
+  37:Src/key.c     **** 			if(keyGet == !key2) key.ext[port_id].press = KEY_PRESS;
+ 217              		.loc 1 37 13 view .LVU54
+ 218 005a FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 219              	.LVL8:
+  38:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 220              		.loc 1 38 4 is_stmt 1 view .LVU55
+  38:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 221              		.loc 1 38 6 is_stmt 0 view .LVU56
+ 222 005e 28B9     		cbnz	r0, .L16
+  38:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 223              		.loc 1 38 24 is_stmt 1 discriminator 1 view .LVU57
+  38:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 224              		.loc 1 38 47 is_stmt 0 discriminator 1 view .LVU58
+ 225 0060 1E4B     		ldr	r3, .L23+4
+ 226 0062 03EB8403 		add	r3, r3, r4, lsl #2
+ 227 0066 0122     		movs	r2, #1
+ 228 0068 9A70     		strb	r2, [r3, #2]
+ 229 006a DCE7     		b	.L9
+ 230              	.L16:
+  39:Src/key.c     **** 			break;
+ 231              		.loc 1 39 9 is_stmt 1 view .LVU59
+  39:Src/key.c     **** 			break;
+ 232              		.loc 1 39 32 is_stmt 0 view .LVU60
+ 233 006c 1B4B     		ldr	r3, .L23+4
+ 234 006e 03EB8403 		add	r3, r3, r4, lsl #2
+ 235 0072 0022     		movs	r2, #0
+ 236 0074 9A70     		strb	r2, [r3, #2]
+ 237 0076 D6E7     		b	.L9
+ 238              	.LVL9:
+ 239              	.L12:
+  42:Src/key.c     **** 			if(keyGet == !key3) key.ext[port_id].press = KEY_PRESS;
+ 240              		.loc 1 42 4 is_stmt 1 view .LVU61
+  42:Src/key.c     **** 			if(keyGet == !key3) key.ext[port_id].press = KEY_PRESS;
+ 241              		.loc 1 42 13 is_stmt 0 view .LVU62
+ 242 0078 4FF48051 		mov	r1, #4096
+ 243 007c 1648     		ldr	r0, .L23
+ 244              	.LVL10:
+  42:Src/key.c     **** 			if(keyGet == !key3) key.ext[port_id].press = KEY_PRESS;
+ 245              		.loc 1 42 13 view .LVU63
+ 246 007e FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 247              	.LVL11:
+  43:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 248              		.loc 1 43 4 is_stmt 1 view .LVU64
+  43:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 249              		.loc 1 43 6 is_stmt 0 view .LVU65
+ 250 0082 28B9     		cbnz	r0, .L17
+  43:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 251              		.loc 1 43 24 is_stmt 1 discriminator 1 view .LVU66
+  43:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 252              		.loc 1 43 47 is_stmt 0 discriminator 1 view .LVU67
+ 253 0084 154B     		ldr	r3, .L23+4
+ 254 0086 03EB8403 		add	r3, r3, r4, lsl #2
+ 255 008a 0122     		movs	r2, #1
+ 256 008c 9A70     		strb	r2, [r3, #2]
+ 257 008e CAE7     		b	.L9
+ 258              	.L17:
+  44:Src/key.c     **** 			break;
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 7
+
+
+ 259              		.loc 1 44 9 is_stmt 1 view .LVU68
+  44:Src/key.c     **** 			break;
+ 260              		.loc 1 44 32 is_stmt 0 view .LVU69
+ 261 0090 124B     		ldr	r3, .L23+4
+ 262 0092 03EB8403 		add	r3, r3, r4, lsl #2
+ 263 0096 0022     		movs	r2, #0
+ 264 0098 9A70     		strb	r2, [r3, #2]
+ 265 009a C4E7     		b	.L9
+ 266              	.LVL12:
+ 267              	.L10:
+  47:Src/key.c     **** 			if(keyGet == !key4) key.ext[port_id].press = KEY_PRESS;
+ 268              		.loc 1 47 4 is_stmt 1 view .LVU70
+  47:Src/key.c     **** 			if(keyGet == !key4) key.ext[port_id].press = KEY_PRESS;
+ 269              		.loc 1 47 13 is_stmt 0 view .LVU71
+ 270 009c 4FF40051 		mov	r1, #8192
+ 271 00a0 0D48     		ldr	r0, .L23
+ 272              	.LVL13:
+  47:Src/key.c     **** 			if(keyGet == !key4) key.ext[port_id].press = KEY_PRESS;
+ 273              		.loc 1 47 13 view .LVU72
+ 274 00a2 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 275              	.LVL14:
+  48:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 276              		.loc 1 48 4 is_stmt 1 view .LVU73
+  48:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 277              		.loc 1 48 6 is_stmt 0 view .LVU74
+ 278 00a6 28B9     		cbnz	r0, .L18
+  48:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 279              		.loc 1 48 24 is_stmt 1 discriminator 1 view .LVU75
+  48:Src/key.c     **** 			else key.ext[port_id].press = KEY_RELEASE;
+ 280              		.loc 1 48 47 is_stmt 0 discriminator 1 view .LVU76
+ 281 00a8 0C4B     		ldr	r3, .L23+4
+ 282 00aa 03EB8403 		add	r3, r3, r4, lsl #2
+ 283 00ae 0122     		movs	r2, #1
+ 284 00b0 9A70     		strb	r2, [r3, #2]
+ 285 00b2 B8E7     		b	.L9
+ 286              	.L18:
+  49:Src/key.c     **** 			break;
+ 287              		.loc 1 49 9 is_stmt 1 view .LVU77
+  49:Src/key.c     **** 			break;
+ 288              		.loc 1 49 32 is_stmt 0 view .LVU78
+ 289 00b4 094B     		ldr	r3, .L23+4
+ 290 00b6 03EB8403 		add	r3, r3, r4, lsl #2
+ 291 00ba 0022     		movs	r2, #0
+ 292 00bc 9A70     		strb	r2, [r3, #2]
+ 293 00be B2E7     		b	.L9
+ 294              	.LVL15:
+ 295              	.L22:
+  59:Src/key.c     **** 			key.ext[port_id].cnt = 0;
+ 296              		.loc 1 59 4 is_stmt 1 view .LVU79
+  59:Src/key.c     **** 			key.ext[port_id].cnt = 0;
+ 297              		.loc 1 59 47 is_stmt 0 view .LVU80
+ 298 00c0 9378     		ldrb	r3, [r2, #2]	@ zero_extendqisi2
+  59:Src/key.c     **** 			key.ext[port_id].cnt = 0;
+ 299              		.loc 1 59 29 view .LVU81
+ 300 00c2 5370     		strb	r3, [r2, #1]
+  60:Src/key.c     **** 		}
+ 301              		.loc 1 60 4 is_stmt 1 view .LVU82
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 8
+
+
+  60:Src/key.c     **** 		}
+ 302              		.loc 1 60 25 is_stmt 0 view .LVU83
+ 303 00c4 0023     		movs	r3, #0
+ 304 00c6 1371     		strb	r3, [r2, #4]
+ 305 00c8 BDE7     		b	.L8
+ 306              	.L19:
+  65:Src/key.c     **** 	}
+ 307              		.loc 1 65 3 is_stmt 1 view .LVU84
+  65:Src/key.c     **** 	}
+ 308              		.loc 1 65 24 is_stmt 0 view .LVU85
+ 309 00ca 044B     		ldr	r3, .L23+4
+ 310 00cc 03EB8404 		add	r4, r3, r4, lsl #2
+ 311 00d0 0023     		movs	r3, #0
+ 312 00d2 2371     		strb	r3, [r4, #4]
+ 313              		.loc 1 67 1 view .LVU86
+ 314 00d4 B7E7     		b	.L8
+ 315              	.L24:
+ 316 00d6 00BF     		.align	2
+ 317              	.L23:
+ 318 00d8 00100140 		.word	1073811456
+ 319 00dc 00000000 		.word	key
+ 320              		.cfi_endproc
+ 321              	.LFE67:
+ 323              		.section	.text.KeyProcess,"ax",%progbits
+ 324              		.align	1
+ 325              		.global	KeyProcess
+ 326              		.syntax unified
+ 327              		.thumb
+ 328              		.thumb_func
+ 329              		.fpu softvfp
+ 331              	KeyProcess:
+ 332              	.LFB68:
+  68:Src/key.c     **** 
+  69:Src/key.c     **** BUTTON_ID KeyProcess(void)
+  70:Src/key.c     **** {	
+ 333              		.loc 1 70 1 is_stmt 1 view -0
+ 334              		.cfi_startproc
+ 335              		@ args = 0, pretend = 0, frame = 0
+ 336              		@ frame_needed = 0, uses_anonymous_args = 0
+ 337 0000 10B5     		push	{r4, lr}
+ 338              	.LCFI4:
+ 339              		.cfi_def_cfa_offset 8
+ 340              		.cfi_offset 4, -8
+ 341              		.cfi_offset 14, -4
+  71:Src/key.c     **** 	uint8_t currentState = NONE;
+ 342              		.loc 1 71 2 view .LVU88
+ 343              	.LVL16:
+  72:Src/key.c     **** 	for(key.name = 0; key.name < NUM_KEY; key.name++)
+ 344              		.loc 1 72 2 view .LVU89
+ 345              		.loc 1 72 15 is_stmt 0 view .LVU90
+ 346 0002 0024     		movs	r4, #0
+ 347 0004 1D4B     		ldr	r3, .L40
+ 348 0006 1C70     		strb	r4, [r3]
+ 349              		.loc 1 72 2 view .LVU91
+ 350 0008 1CE0     		b	.L26
+ 351              	.LVL17:
+ 352              	.L39:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 9
+
+
+  73:Src/key.c     **** 	{
+  74:Src/key.c     **** 		KeyGet(key.name);
+  75:Src/key.c     **** 		
+  76:Src/key.c     **** 		if(key.ext[key.name].pressed == KEY_PRESS)
+  77:Src/key.c     **** 		{
+  78:Src/key.c     **** 			if(key.ext[key.name].waitRelease == 0)
+ 353              		.loc 1 78 4 is_stmt 1 view .LVU92
+ 354              		.loc 1 78 24 is_stmt 0 view .LVU93
+ 355 000a 1C49     		ldr	r1, .L40
+ 356 000c 01EB8301 		add	r1, r1, r3, lsl #2
+ 357 0010 C978     		ldrb	r1, [r1, #3]	@ zero_extendqisi2
+ 358              		.loc 1 78 6 view .LVU94
+ 359 0012 71B9     		cbnz	r1, .L28
+  79:Src/key.c     **** 			{
+  80:Src/key.c     **** 				switch(key.name)
+ 360              		.loc 1 80 5 is_stmt 1 view .LVU95
+ 361 0014 032B     		cmp	r3, #3
+ 362 0016 09D8     		bhi	.L29
+ 363 0018 DFE803F0 		tbb	[pc, r3]
+ 364              	.L31:
+ 365 001c 02       		.byte	(.L33-.L31)/2
+ 366 001d 0A       		.byte	(.L36-.L31)/2
+ 367 001e 04       		.byte	(.L32-.L31)/2
+ 368 001f 06       		.byte	(.L30-.L31)/2
+ 369              		.p2align 1
+ 370              	.L33:
+  81:Src/key.c     **** 				{
+  82:Src/key.c     **** 					case KEY_NEON:
+  83:Src/key.c     **** 						currentState = NEON;
+ 371              		.loc 1 83 20 is_stmt 0 view .LVU96
+ 372 0020 1446     		mov	r4, r2
+ 373              	.LVL18:
+ 374              		.loc 1 83 20 view .LVU97
+ 375 0022 06E0     		b	.L28
+ 376              	.LVL19:
+ 377              	.L32:
+  84:Src/key.c     **** 						// printf("KEY NEON\n");
+  85:Src/key.c     **** 						break;
+  86:Src/key.c     **** 					case KEY_UV:
+  87:Src/key.c     **** 						currentState = UV;
+  88:Src/key.c     **** 						// printf("KEY UV\n");
+  89:Src/key.c     **** 						break;
+  90:Src/key.c     **** 					case KEY_FAN:
+  91:Src/key.c     **** 						currentState = FAN;
+ 378              		.loc 1 91 7 is_stmt 1 view .LVU98
+  92:Src/key.c     **** 						// printf("KEY FAN\n");
+  93:Src/key.c     **** 						break;
+ 379              		.loc 1 93 7 view .LVU99
+  91:Src/key.c     **** 						// printf("KEY FAN\n");
+ 380              		.loc 1 91 20 is_stmt 0 view .LVU100
+ 381 0024 0324     		movs	r4, #3
+ 382              		.loc 1 93 7 view .LVU101
+ 383 0026 04E0     		b	.L28
+ 384              	.LVL20:
+ 385              	.L30:
+  94:Src/key.c     **** 					case KEY_SOCKET:
+  95:Src/key.c     **** 						currentState = SOCKET;
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 10
+
+
+ 386              		.loc 1 95 7 is_stmt 1 view .LVU102
+  96:Src/key.c     **** 						// printf("KEY SOCKET\n");
+  97:Src/key.c     **** 						break;
+ 387              		.loc 1 97 7 view .LVU103
+  95:Src/key.c     **** 						// printf("KEY SOCKET\n");
+ 388              		.loc 1 95 20 is_stmt 0 view .LVU104
+ 389 0028 0424     		movs	r4, #4
+ 390              		.loc 1 97 7 view .LVU105
+ 391 002a 02E0     		b	.L28
+ 392              	.LVL21:
+ 393              	.L29:
+  98:Src/key.c     **** 					default:
+  99:Src/key.c     **** 						currentState = NONE;
+ 394              		.loc 1 99 7 is_stmt 1 view .LVU106
+ 100:Src/key.c     **** 						break;
+ 395              		.loc 1 100 7 view .LVU107
+  99:Src/key.c     **** 						break;
+ 396              		.loc 1 99 20 is_stmt 0 view .LVU108
+ 397 002c 0C46     		mov	r4, r1
+ 398              		.loc 1 100 7 view .LVU109
+ 399 002e 00E0     		b	.L28
+ 400              	.LVL22:
+ 401              	.L36:
+  87:Src/key.c     **** 						// printf("KEY UV\n");
+ 402              		.loc 1 87 20 view .LVU110
+ 403 0030 0224     		movs	r4, #2
+ 404              	.LVL23:
+ 405              	.L28:
+ 101:Src/key.c     **** 				}
+ 102:Src/key.c     **** 			}
+ 103:Src/key.c     **** 			key.ext[key.name].waitRelease = 1;
+ 406              		.loc 1 103 4 is_stmt 1 view .LVU111
+ 407              		.loc 1 103 34 is_stmt 0 view .LVU112
+ 408 0032 124A     		ldr	r2, .L40
+ 409 0034 02EB8302 		add	r2, r2, r3, lsl #2
+ 410 0038 0121     		movs	r1, #1
+ 411 003a D170     		strb	r1, [r2, #3]
+ 412 003c 0FE0     		b	.L27
+ 413              	.L34:
+  72:Src/key.c     **** 	{
+ 414              		.loc 1 72 48 discriminator 2 view .LVU113
+ 415 003e 0133     		adds	r3, r3, #1
+ 416 0040 0E4A     		ldr	r2, .L40
+ 417 0042 1370     		strb	r3, [r2]
+ 418              	.LVL24:
+ 419              	.L26:
+  72:Src/key.c     **** 	{
+ 420              		.loc 1 72 23 discriminator 1 view .LVU114
+ 421 0044 0D4B     		ldr	r3, .L40
+ 422 0046 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+  72:Src/key.c     **** 	{
+ 423              		.loc 1 72 2 discriminator 1 view .LVU115
+ 424 0048 0328     		cmp	r0, #3
+ 425 004a 14D8     		bhi	.L38
+  74:Src/key.c     **** 		
+ 426              		.loc 1 74 3 is_stmt 1 view .LVU116
+ 427 004c FFF7FEFF 		bl	KeyGet
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 11
+
+
+ 428              	.LVL25:
+  76:Src/key.c     **** 		{
+ 429              		.loc 1 76 3 view .LVU117
+  76:Src/key.c     **** 		{
+ 430              		.loc 1 76 17 is_stmt 0 view .LVU118
+ 431 0050 0A4A     		ldr	r2, .L40
+ 432 0052 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  76:Src/key.c     **** 		{
+ 433              		.loc 1 76 23 view .LVU119
+ 434 0054 02EB8302 		add	r2, r2, r3, lsl #2
+ 435 0058 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+  76:Src/key.c     **** 		{
+ 436              		.loc 1 76 5 view .LVU120
+ 437 005a 012A     		cmp	r2, #1
+ 438 005c D5D0     		beq	.L39
+ 439              	.L27:
+ 104:Src/key.c     **** 		}
+ 105:Src/key.c     **** 		if(key.ext[key.name].pressed == KEY_RELEASE)
+ 440              		.loc 1 105 3 is_stmt 1 view .LVU121
+ 441              		.loc 1 105 23 is_stmt 0 view .LVU122
+ 442 005e 074A     		ldr	r2, .L40
+ 443 0060 02EB8302 		add	r2, r2, r3, lsl #2
+ 444 0064 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 445              		.loc 1 105 5 view .LVU123
+ 446 0066 002A     		cmp	r2, #0
+ 447 0068 E9D1     		bne	.L34
+ 106:Src/key.c     **** 		{
+ 107:Src/key.c     **** 			// if(key.ext[key.name].waitRelease == 1)
+ 108:Src/key.c     **** 			// {	
+ 109:Src/key.c     **** 			// 	switch(key.name)
+ 110:Src/key.c     **** 			// 	{
+ 111:Src/key.c     **** 			// 		case KEY_NEON:
+ 112:Src/key.c     **** 			// 			//HD44780_Clear();
+ 113:Src/key.c     **** 			// 			HD44780_Puts(0,1,"MENU RELEASE");
+ 114:Src/key.c     **** 			// 			break;
+ 115:Src/key.c     **** 			// 		case KEY_UV:
+ 116:Src/key.c     **** 			// 			//HD44780_Clear();
+ 117:Src/key.c     **** 			// 			HD44780_Puts(0,1,"UP RELEASE");
+ 118:Src/key.c     **** 			// 			break;
+ 119:Src/key.c     **** 			// 		case KEY_FAN:
+ 120:Src/key.c     **** 			// 			//HD44780_Clear();
+ 121:Src/key.c     **** 			// 			HD44780_Puts(0,1,"DOWN RELEASE");
+ 122:Src/key.c     **** 			// 			break;
+ 123:Src/key.c     **** 			// 		case KEY_SOCKET:
+ 124:Src/key.c     **** 			// 			//HD44780_Clear();
+ 125:Src/key.c     **** 			// 			HD44780_Puts(0,1,"EXIT RELEASE");
+ 126:Src/key.c     **** 			// 			break;
+ 127:Src/key.c     **** 			// 	}
+ 128:Src/key.c     **** 			// }
+ 129:Src/key.c     **** 			key.ext[key.name].waitRelease = 0;
+ 448              		.loc 1 129 4 is_stmt 1 view .LVU124
+ 449              		.loc 1 129 34 is_stmt 0 view .LVU125
+ 450 006a 044A     		ldr	r2, .L40
+ 451 006c 02EB8302 		add	r2, r2, r3, lsl #2
+ 452 0070 0021     		movs	r1, #0
+ 453 0072 D170     		strb	r1, [r2, #3]
+ 454 0074 E3E7     		b	.L34
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 12
+
+
+ 455              	.L38:
+ 130:Src/key.c     **** 		}
+ 131:Src/key.c     **** 	}
+ 132:Src/key.c     **** 	return currentState;
+ 456              		.loc 1 132 2 is_stmt 1 view .LVU126
+ 133:Src/key.c     **** }
+ 457              		.loc 1 133 1 is_stmt 0 view .LVU127
+ 458 0076 2046     		mov	r0, r4
+ 459 0078 10BD     		pop	{r4, pc}
+ 460              	.LVL26:
+ 461              	.L41:
+ 462              		.loc 1 133 1 view .LVU128
+ 463 007a 00BF     		.align	2
+ 464              	.L40:
+ 465 007c 00000000 		.word	key
+ 466              		.cfi_endproc
+ 467              	.LFE68:
+ 469              		.comm	key,24,4
+ 470              		.text
+ 471              	.Letext0:
+ 472              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 473              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 474              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 475              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 476              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 477              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
+ 478              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 479              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 480              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
+ 481              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 482              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 483              		.file 13 "Inc/key.h"
+ 484              		.file 14 "u8g2/csrc/u8x8.h"
+ 485              		.file 15 "u8g2/csrc/u8g2.h"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 key.c
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:16     .text.KeyInit:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:24     .text.KeyInit:00000000 KeyInit
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:116    .text.KeyInit:0000005c $d
+                            *COM*:00000018 key
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:123    .text.KeyGet:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:130    .text.KeyGet:00000000 KeyGet
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:150    .text.KeyGet:0000000c $d
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:154    .text.KeyGet:00000010 $t
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:318    .text.KeyGet:000000d8 $d
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:324    .text.KeyProcess:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:331    .text.KeyProcess:00000000 KeyProcess
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:365    .text.KeyProcess:0000001c $d
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:369    .text.KeyProcess:00000020 $t
+C:\Users\behun\AppData\Local\Temp\ccNoa7dh.s:465    .text.KeyProcess:0000007c $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_GPIO_ReadPin

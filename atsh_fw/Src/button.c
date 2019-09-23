@@ -62,27 +62,12 @@ void button_test(void)
     { 
       case 1:
         printf("Button 1 Press\n");
-        u8g2_ClearBuffer(&u8g2);
-        u8g2_ClearDisplay(&u8g2);
-        u8g2_SetFont(&u8g2, u8g2_font_6x10_tf);
-        u8g2_SetFontRefHeightAll(&u8g2);   /* this will add some extra space for the text inside the buttons */
-        u8g2_UserInterfaceMessage(&u8g2, "UV", "Light", "Fan", " Ok \n Cancel ");
-        u8g2_SendBuffer(&u8g2);
         break;
       case 2:
         printf("Button 2 Press\n");
-        u8g2_ClearBuffer(&u8g2);
-        u8g2_ClearDisplay(&u8g2);
-        u8g2_DrawBitmap(&u8g2, 32, 15, 8, 32, Fan);
-        u8g2_SendBuffer(&u8g2);
         break;
       case 3:
         printf("Button 3 Press\n");
-        u8g2_ClearBuffer(&u8g2);
-        u8g2_ClearDisplay(&u8g2);
-        u8g2_SetFont(&u8g2, u8g2_font_unifont_t_symbols);
-        u8g2_DrawGlyph(&u8g2, 5, 20, 0x23f1);
-        u8g2_SendBuffer(&u8g2);
         break;
       case 4:
         printf("Button 4 Press\n");
@@ -91,19 +76,36 @@ void button_test(void)
     t = HAL_GetTick();
   }
 }
-
-// void Display(void)
-// {
-//     if(SW1 == 0){
-//       if(HAL_GetTick()-t >500){
-//         u8g2_SetFont(&u8g2, u8g2_font_6x10_tf);
-//         u8g2_SetFontRefHeightAll(&u8g2);   /* this will add some extra space for the text inside the buttons */
-//         u8g2_UserInterfaceMessage(&u8g2, "UV", "Light", "Fan", " Ok \n Cancel ");
-//         u8g2_SendBuffer(&u8g2);
-//         t = HAL_GetTick();
-//       }
-//     }
-//     else{
-//       t= HAL_GetTick();
-//     }
-// }
+void menu(void)
+{
+  u8g2_ClearBuffer(&u8g2);
+  u8g2_ClearDisplay(&u8g2);
+  u8g2_SetFont(&u8g2, u8g2_font_6x10_tf);
+  u8g2_SetFontRefHeightAll(&u8g2);   /* this will add some extra space for the text inside the buttons */
+  u8g2_UserInterfaceMessage(&u8g2, "UV", "Light", "Fan", " Ok \n Cancel ");
+  u8g2_SendBuffer(&u8g2);
+}
+void selection_menu(void)
+{
+  u8g2_ClearBuffer(&u8g2);
+  u8g2_ClearDisplay(&u8g2);
+  u8g2_SetFont(&u8g2, u8g2_font_6x10_tf);
+  u8g2_SetFontRefHeightAll(&u8g2);
+  u8g2_UserInterfaceSelectionList(&u8g2, "UV", 1, "On\nOff");
+  u8g2_SendBuffer(&u8g2);
+}
+void Fan_key(void)
+{
+  u8g2_ClearBuffer(&u8g2);
+  u8g2_ClearDisplay(&u8g2);
+  u8g2_DrawBitmap(&u8g2, 32, 15, 8, 32, Fan);
+  u8g2_SendBuffer(&u8g2);
+}
+void Clock_key(void)
+{
+  u8g2_ClearBuffer(&u8g2);
+  u8g2_ClearDisplay(&u8g2);
+  u8g2_SetFont(&u8g2, u8g2_font_unifont_t_symbols);
+  u8g2_DrawGlyph(&u8g2, 5, 20, 0x23f1);
+  u8g2_SendBuffer(&u8g2);
+}

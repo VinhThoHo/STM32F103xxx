@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
   29:u8g2/csrc/u8x8_d_st7920.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
   30:u8g2/csrc/u8x8_d_st7920.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
   31:u8g2/csrc/u8x8_d_st7920.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 2
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 2
 
 
   32:u8g2/csrc/u8x8_d_st7920.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
   33 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
   34              	.LCFI0:
   35              		.cfi_def_cfa_offset 32
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 3
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 3
 
 
   36              		.cfi_offset 4, -32
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  116:u8g2/csrc/u8x8_d_st7920.c **** 	Tile structure is reused here for the ST7920, however u8x8 is not supported 
  117:u8g2/csrc/u8x8_d_st7920.c **** 	tile_ptr points to data which has cnt*8 bytes (same as SSD1306 tiles)
  118:u8g2/csrc/u8x8_d_st7920.c **** 	Buffer is expected to have 8 lines of code fitting to the ST7920 internal memory
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 4
 
 
  119:u8g2/csrc/u8x8_d_st7920.c **** 	"cnt" includes the number of horizontal bytes. width is equal to cnt*8
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
   93:u8g2/csrc/u8x8_d_st7920.c ****     case U8X8_MSG_DISPLAY_SET_POWER_SAVE:
   74              		.loc 1 93 7 view .LVU11
   75 0028 F5E7     		b	.L4
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 5
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 5
 
 
   76              	.LVL5:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  115              		.loc 1 103 9 is_stmt 0 view .LVU26
  116 0046 93F80590 		ldrb	r9, [r3, #5]	@ zero_extendqisi2
  117              	.LVL15:
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 6
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 6
 
 
  104:u8g2/csrc/u8x8_d_st7920.c ****     
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  155              		.loc 1 129 14 is_stmt 0 view .LVU43
  156 006c 0024     		movs	r4, #0
  129:u8g2/csrc/u8x8_d_st7920.c ****       {
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 7
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 7
 
 
  157              		.loc 1 129 7 view .LVU44
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  198              		.loc 1 129 7 discriminator 1 view .LVU57
  199 009e 072C     		cmp	r4, #7
  200 00a0 E6D9     		bls	.L8
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 8
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 8
 
 
  142:u8g2/csrc/u8x8_d_st7920.c **** 
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  173:u8g2/csrc/u8x8_d_st7920.c ****   /* pixel_height = */ 32
  174:u8g2/csrc/u8x8_d_st7920.c **** };
  175:u8g2/csrc/u8x8_d_st7920.c **** 
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 9
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 9
 
 
  176:u8g2/csrc/u8x8_d_st7920.c **** static const u8x8_display_info_t u8x8_st7920_128x64_display_info =
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  212:u8g2/csrc/u8x8_d_st7920.c ****   return 1;
  213:u8g2/csrc/u8x8_d_st7920.c **** }
  248              		.loc 1 213 1 view .LVU67
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 10
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 10
 
 
  249 000a 08BD     		pop	{r3, pc}
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  220:u8g2/csrc/u8x8_d_st7920.c ****       u8x8_d_helper_display_setup_memory(u8x8, &u8x8_st7920_128x64_display_info);
  221:u8g2/csrc/u8x8_d_st7920.c ****       break;
  222:u8g2/csrc/u8x8_d_st7920.c ****     default:
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 11
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 11
 
 
  223:u8g2/csrc/u8x8_d_st7920.c ****       return u8x8_d_st7920_common(u8x8, msg, arg_int, arg_ptr);
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  342 000f FE       		.byte	-2
  343 0010 04       		.byte	4
  344 0011 19       		.byte	25
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 12
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 12
 
 
  345 0012 FF       		.byte	-1
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  407 0004 01       		.byte	1
  408 0005 06       		.byte	6
  409 0006 14       		.byte	20
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 13
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 13
 
 
  410 0007 8C       		.byte	-116
@@ -738,30 +738,30 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 1
  424              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
  425              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
  426              		.file 4 "u8g2/csrc/u8x8.h"
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cctFVtMM.s 			page 14
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 u8x8_d_st7920.c
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:16     .text.u8x8_d_st7920_common:00000000 $t
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:24     .text.u8x8_d_st7920_common:00000000 u8x8_d_st7920_common
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:213    .text.u8x8_d_st7920_common:000000ac $d
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:220    .text.u8x8_d_st7920_192x32:00000000 $t
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:227    .text.u8x8_d_st7920_192x32:00000000 u8x8_d_st7920_192x32
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:266    .text.u8x8_d_st7920_192x32:00000018 $d
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:271    .text.u8x8_d_st7920_128x64:00000000 $t
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:278    .text.u8x8_d_st7920_128x64:00000000 u8x8_d_st7920_128x64
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:317    .text.u8x8_d_st7920_128x64:00000018 $d
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:322    .rodata.u8x8_d_st7920_init_seq:00000000 $d
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:326    .rodata.u8x8_d_st7920_init_seq:00000000 u8x8_d_st7920_init_seq
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:347    .rodata.u8x8_d_st7920_powersave0_seq:00000000 $d
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:351    .rodata.u8x8_d_st7920_powersave0_seq:00000000 u8x8_d_st7920_powersave0_seq
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:360    .rodata.u8x8_d_st7920_powersave1_seq:00000000 $d
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:364    .rodata.u8x8_d_st7920_powersave1_seq:00000000 u8x8_d_st7920_powersave1_seq
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:373    .rodata.u8x8_st7920_128x64_display_info:00000000 $d
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:377    .rodata.u8x8_st7920_128x64_display_info:00000000 u8x8_st7920_128x64_display_info
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:398    .rodata.u8x8_st7920_192x32_display_info:00000000 $d
-C:\Users\behun\AppData\Local\Temp\cctFVtMM.s:402    .rodata.u8x8_st7920_192x32_display_info:00000000 u8x8_st7920_192x32_display_info
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:16     .text.u8x8_d_st7920_common:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:24     .text.u8x8_d_st7920_common:00000000 u8x8_d_st7920_common
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:213    .text.u8x8_d_st7920_common:000000ac $d
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:220    .text.u8x8_d_st7920_192x32:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:227    .text.u8x8_d_st7920_192x32:00000000 u8x8_d_st7920_192x32
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:266    .text.u8x8_d_st7920_192x32:00000018 $d
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:271    .text.u8x8_d_st7920_128x64:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:278    .text.u8x8_d_st7920_128x64:00000000 u8x8_d_st7920_128x64
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:317    .text.u8x8_d_st7920_128x64:00000018 $d
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:322    .rodata.u8x8_d_st7920_init_seq:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:326    .rodata.u8x8_d_st7920_init_seq:00000000 u8x8_d_st7920_init_seq
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:347    .rodata.u8x8_d_st7920_powersave0_seq:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:351    .rodata.u8x8_d_st7920_powersave0_seq:00000000 u8x8_d_st7920_powersave0_seq
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:360    .rodata.u8x8_d_st7920_powersave1_seq:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:364    .rodata.u8x8_d_st7920_powersave1_seq:00000000 u8x8_d_st7920_powersave1_seq
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:373    .rodata.u8x8_st7920_128x64_display_info:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:377    .rodata.u8x8_st7920_128x64_display_info:00000000 u8x8_st7920_128x64_display_info
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:398    .rodata.u8x8_st7920_192x32_display_info:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccLaoWF8.s:402    .rodata.u8x8_st7920_192x32_display_info:00000000 u8x8_st7920_192x32_display_info
 
 UNDEFINED SYMBOLS
 u8x8_d_helper_display_init

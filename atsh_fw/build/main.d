@@ -25,8 +25,8 @@ build/main.o: Src/main.c Inc/main.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h Inc/i2c.h \
  Inc/main.h Inc/iwdg.h Inc/usart.h Inc/usb_device.h \
  Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- Inc/usbd_conf.h Inc/gpio.h u8g2/csrc/u8g2.h u8g2/csrc/u8x8.h \
- Inc/button.h
+ Inc/usbd_conf.h Inc/gpio.h u8g2/csrc/u8g2.h u8g2/csrc/u8x8.h Inc/key.h \
+ Inc/logo.h Inc/userInterface.h
 
 Inc/main.h:
 
@@ -102,4 +102,8 @@ u8g2/csrc/u8g2.h:
 
 u8g2/csrc/u8x8.h:
 
-Inc/button.h:
+Inc/key.h:
+
+Inc/logo.h:
+
+Inc/userInterface.h:
