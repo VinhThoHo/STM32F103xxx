@@ -52,8 +52,22 @@ void MX_GPIO_Init(void);
 static void delay_us(uint32_t time);
 static void delay_ms(uint32_t time);
 void Logo(void);
+void Filter(uint8_t FStatus);
+void Horizontal(void);
+void Lamp_Status(uint8_t status);
+void UV_Status(uint8_t uvStatus);
+void Fan_Status(uint8_t fanStatus);
+void Socket_Status(uint8_t sStatus);
 void Interface_Component(void);
+/*Variable for interface monitor*/
+uint8_t lampStatus = 0;
+uint8_t uvStatus = 0;
+uint8_t fanStatus = 0;
+uint8_t socketStatus = 0;
+uint8_t Filter_st = 0;
 u8g2_t u8g2;
+uint32_t tFan;
+
 int main(void)
 {
   HAL_Init();
@@ -69,8 +83,7 @@ int main(void)
   u8g2_InitDisplay(&u8g2);
   u8g2_SetPowerSave(&u8g2, 0); // wake up display
   Logo();
-  HAL_Delay(5000);
-
+  HAL_Delay(3000);
   void KeyInit(void);
   void KeyGet(uint8_t port_id);
   BUTTON_ID KeyProcess(void);
@@ -80,10 +93,10 @@ int main(void)
   uint32_t timeRefesh = HAL_GetTick();
   uint32_t timeSend;
   uint32_t timekey = HAL_GetTick();
-  uint8_t lampStatus = 0;
+  tFan = HAL_GetTick();
+  uint8_t rotage = 0;
   while (1)
   {
-    
     /* timeSend = HAL_GetTick();
     u8g2_SendBuffer(&u8g2);
     printf("Time Send Buff: %d \n", HAL_GetTick() - timeSend);*/
@@ -96,12 +109,15 @@ int main(void)
           printf("KEY NEON press\n"); 
           break;
         case UV:
+          uvStatus = ~uvStatus;
           printf("KEY UV press\n");
           break;
         case FAN:
+        fanStatus = ~fanStatus;
           printf("KEY FAN press\n");
           break;
         case SOCKET:
+          socketStatus = ~socketStatus;
           printf("KEY SOCKET press\n"); 
           break;
         default:
@@ -109,8 +125,19 @@ int main(void)
       }
       timekey = HAL_GetTick();
     }
-      Lamp_Status(lampStatus);
-    //Interface_Component();
+    Lamp_Status(lampStatus);
+    UV_Status(uvStatus);
+    if((HAL_GetTick() - tFan > 200) && fanStatus)
+    {
+      rotage = ~rotage;
+      tFan = HAL_GetTick();
+    }
+    
+    Fan_Status(rotage);
+    Socket_Status(socketStatus);
+    Filter(Filter_st);
+    Horizontal();
+    // Interface_Component();
 
     if(HAL_GetTick() - timeRefesh > 100)
     {
@@ -118,7 +145,7 @@ int main(void)
       timeRefesh = HAL_GetTick();
     }
     /* USER CODE END WHILE */
-
+    
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
