@@ -128,7 +128,7 @@ void Horizontal(void)
 }
 void Main_Screen_Manage(void)
 {
-    KeyManage();
+    //KeyManage();
     Lamp_Status(main_scr.lampStatus);
     UV_Status(main_scr.uvStatus);
     Fan_Status(main_scr.fanStatus);

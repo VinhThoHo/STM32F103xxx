@@ -39,10 +39,10 @@
 
 int _write(int file, char *data, int len);
 
-#define LCD_RST_1       HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6,  GPIO_PIN_SET)
-#define LCD_RST_0       HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6,  GPIO_PIN_RESET)
-#define LCD_RS_1        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
-#define LCD_RS_0        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
+#define LCD_RST_1 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET)
+#define LCD_RST_0 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET)
+#define LCD_RS_1 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
+#define LCD_RS_0 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
 
 void SystemClock_Config(void);
 uint8_t u8g2_gpio_and_delay_stm32(U8X8_UNUSED u8x8_t *u8x8, U8X8_UNUSED uint8_t msg, U8X8_UNUSED uint8_t arg_int, U8X8_UNUSED void *arg_ptr);
@@ -51,6 +51,7 @@ void MX_GPIO_Init(void);
 /*Variable for interface monitor*/
 
 u8g2_t u8g2;
+volatile uint8_t toggle = 0;
 
 int main(void)
 {
@@ -63,7 +64,7 @@ int main(void)
   // MX_IWDG_Init();
   // MX_USART1_UART_Init();
   // MX_USART2_UART_Init();
-  
+
   MX_USB_DEVICE_Init();
   KeyInit();
   u8g2_Setup_st7920_s_128x64_f(&u8g2, U8G2_R0, u8x8_byte_4wire_hw_spi, u8g2_gpio_and_delay_stm32); // init u8g2 structure
@@ -79,26 +80,38 @@ int main(void)
   main_screen_init();
   Info_Screen_Init();
   uint32_t timeRefesh = HAL_GetTick();
+  uint32_t tick = HAL_GetTick();
   // uint8_t timeSend;
   while (1)
   {
     /* timeSend = HAL_GetTick();
     u8g2_SendBuffer(&u8g2);
     printf("Time Send Buff: %d \n", HAL_GetTick() - timeSend);*/
-    // u8g2_ClearBuffer(&u8g2);
-    Main_Screen_Manage();
-    // Info_Screen_Manage();
-    // SysWork(Info_Scr.SysWork);
-    // Filter_Time(Info_Scr.Filter_Time);
-    // UV_Time(Info_Scr.UV);
 
-    if(HAL_GetTick() - timeRefesh > 100)
+    if (HAL_GetTick() - tick > 10000)
+    {
+      toggle = !toggle;
+      tick = HAL_GetTick();
+    }
+    if (toggle)
+    {
+      u8g2_ClearBuffer(&u8g2);
+      Main_Screen_Manage();
+    }
+    else
+    {
+      u8g2_ClearBuffer(&u8g2);
+      Info_Screen_Manage();
+    }
+    KeyManage();
+
+    if (HAL_GetTick() - timeRefesh > 100)
     {
       u8g2_SendBuffer(&u8g2);
       timeRefesh = HAL_GetTick();
     }
     /* USER CODE END WHILE */
-    
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -116,7 +129,7 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
@@ -130,14 +143,12 @@ void SystemClock_Config(void)
   }
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
@@ -156,15 +167,15 @@ void SystemClock_Config(void)
 uint8_t u8g2_gpio_and_delay_stm32(U8X8_UNUSED u8x8_t *u8x8, U8X8_UNUSED uint8_t msg, U8X8_UNUSED uint8_t arg_int, U8X8_UNUSED void *arg_ptr)
 {
   //   GPIO_InitTypeDef  gpioinitstruct;
-  
+
   //   switch(msg){
   //   //Function to define the logic level of the RESET line
-    // case U8X8_MSG_GPIO_RESET:
-    //   if (arg_int) LCD_RST_1;
-    //   else LCD_RST_0;
+  // case U8X8_MSG_GPIO_RESET:
+  //   if (arg_int) LCD_RST_1;
+  //   else LCD_RST_0;
 
-    // break;
-    
+  // break;
+
   //   default:
   //     return 0; //A message was received which is not implemented, return 0 to indicate an error
   // }
@@ -172,11 +183,10 @@ uint8_t u8g2_gpio_and_delay_stm32(U8X8_UNUSED u8x8_t *u8x8, U8X8_UNUSED uint8_t 
   return 1; // command processed successfully.
 }
 
-
 // uint8_t u8g2_gpio_and_delay_stm32(U8X8_UNUSED u8x8_t *u8x8, U8X8_UNUSED uint8_t msg, U8X8_UNUSED uint8_t arg_int, U8X8_UNUSED void *arg_ptr)
 // {
 //     GPIO_InitTypeDef  gpioinitstruct;
-  
+
 //     switch(msg){
 
 //     //Function which implements a delay, arg_int contains the amount of ms
@@ -234,7 +244,7 @@ uint8_t u8g2_gpio_and_delay_stm32(U8X8_UNUSED u8x8_t *u8x8, U8X8_UNUSED uint8_t 
 //       else LCD_RST_0;
 
 //     break;
-    
+
 //     default:
 //       return 0; //A message was received which is not implemented, return 0 to indicate an error
 //   }
@@ -246,31 +256,31 @@ uint8_t u8x8_byte_4wire_hw_spi(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void 
 {
   uint8_t byte;
   uint8_t *data;
- 
-  switch(msg)
+
+  switch (msg)
   {
-    case U8X8_MSG_BYTE_SEND:
-      data = (uint8_t *)arg_ptr;
-      while( arg_int > 0 )
-      {
-        byte = *data;
-        data++;
-        arg_int--;
-        HAL_SPI_Transmit(&hspi1, &byte, 1, 100);
-      }
-      break;
-    case U8X8_MSG_BYTE_START_TRANSFER:
-      //HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_SET);
-      LCD_RS_1;
-      __NOP(); // 21 ns
-      break;
-    case U8X8_MSG_BYTE_END_TRANSFER:
-      __NOP(); // 21 ns
-      //HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_RESET);
-      LCD_RS_0;
-      break;
-    default:
-      return 0;
+  case U8X8_MSG_BYTE_SEND:
+    data = (uint8_t *)arg_ptr;
+    while (arg_int > 0)
+    {
+      byte = *data;
+      data++;
+      arg_int--;
+      HAL_SPI_Transmit(&hspi1, &byte, 1, 100);
+    }
+    break;
+  case U8X8_MSG_BYTE_START_TRANSFER:
+    //HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_SET);
+    LCD_RS_1;
+    __NOP(); // 21 ns
+    break;
+  case U8X8_MSG_BYTE_END_TRANSFER:
+    __NOP(); // 21 ns
+    //HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_RESET);
+    LCD_RS_0;
+    break;
+  default:
+    return 0;
   }
   return 1;
 }
@@ -286,7 +296,7 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
@@ -295,7 +305,7 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
@@ -305,14 +315,13 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 int _write(int file, char *data, int len)
 {
-  if((file != STDOUT_FILENO) && (file != STDERR_FILENO))
+  if ((file != STDOUT_FILENO) && (file != STDERR_FILENO))
   {
     errno = EBADF;
     return -1;
   }
-  uint8_t status = CDC_Transmit_FS((uint8_t*)data, len);
-  return status; 
+  uint8_t status = CDC_Transmit_FS((uint8_t *)data, len);
+  return status;
 }
-
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
