@@ -1,0 +1,2225 @@
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"user_bitmap.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.global	bmp_socket_off
+  16              		.global	bmp_socket_on
+  17              		.global	bmp_fan_rotate
+  18              		.global	bmp_fan_origin
+  19              		.global	bmp_uv_off
+  20              		.global	bmp_uv_on
+  21              		.global	bmp_neon_off
+  22              		.global	bmp_neon_on
+  23              		.global	bmp_logo_ph
+  24              		.global	bmp_socket_off_data
+  25              		.global	bmp_socket_on_data
+  26              		.global	bmp_fan_rotate_data
+  27              		.global	bmp_fan_origin_data
+  28              		.global	bmp_uv_off_data
+  29              		.global	bmp_uv_on_data
+  30              		.global	bmp_neon_off_data
+  31              		.global	bmp_neon_on_data
+  32              		.global	bmp_ph_logo_data
+  33              		.section	.rodata.bmp_fan_origin,"a"
+  34              		.align	2
+  37              	bmp_fan_origin:
+  38 0000 18       		.byte	24
+  39 0001 18       		.byte	24
+  40 0002 0000     		.space	2
+  41 0004 00000000 		.word	bmp_fan_origin_data
+  42              		.section	.rodata.bmp_fan_origin_data,"a"
+  43              		.align	2
+  46              	bmp_fan_origin_data:
+  47 0000 00       		.byte	0
+  48 0001 1E       		.byte	30
+  49 0002 00       		.byte	0
+  50 0003 00       		.byte	0
+  51 0004 7F       		.byte	127
+  52 0005 80       		.byte	-128
+  53 0006 00       		.byte	0
+  54 0007 7F       		.byte	127
+  55 0008 80       		.byte	-128
+  56 0009 00       		.byte	0
+  57 000a FF       		.byte	-1
+  58 000b 80       		.byte	-128
+  59 000c 00       		.byte	0
+  60 000d FF       		.byte	-1
+  61 000e 80       		.byte	-128
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 2
+
+
+  62 000f 00       		.byte	0
+  63 0010 FF       		.byte	-1
+  64 0011 00       		.byte	0
+  65 0012 00       		.byte	0
+  66 0013 7E       		.byte	126
+  67 0014 00       		.byte	0
+  68 0015 78       		.byte	120
+  69 0016 7C       		.byte	124
+  70 0017 00       		.byte	0
+  71 0018 7C       		.byte	124
+  72 0019 3C       		.byte	60
+  73 001a 38       		.byte	56
+  74 001b FE       		.byte	-2
+  75 001c 42       		.byte	66
+  76 001d FE       		.byte	-2
+  77 001e FF       		.byte	-1
+  78 001f 81       		.byte	-127
+  79 0020 FE       		.byte	-2
+  80 0021 FF       		.byte	-1
+  81 0022 99       		.byte	-103
+  82 0023 FF       		.byte	-1
+  83 0024 FF       		.byte	-1
+  84 0025 99       		.byte	-103
+  85 0026 FF       		.byte	-1
+  86 0027 7F       		.byte	127
+  87 0028 81       		.byte	-127
+  88 0029 FF       		.byte	-1
+  89 002a 7F       		.byte	127
+  90 002b 42       		.byte	66
+  91 002c 7F       		.byte	127
+  92 002d 1C       		.byte	28
+  93 002e 3C       		.byte	60
+  94 002f 3E       		.byte	62
+  95 0030 00       		.byte	0
+  96 0031 3E       		.byte	62
+  97 0032 1E       		.byte	30
+  98 0033 00       		.byte	0
+  99 0034 7E       		.byte	126
+ 100 0035 00       		.byte	0
+ 101 0036 00       		.byte	0
+ 102 0037 FF       		.byte	-1
+ 103 0038 00       		.byte	0
+ 104 0039 01       		.byte	1
+ 105 003a FF       		.byte	-1
+ 106 003b 00       		.byte	0
+ 107 003c 01       		.byte	1
+ 108 003d FF       		.byte	-1
+ 109 003e 00       		.byte	0
+ 110 003f 01       		.byte	1
+ 111 0040 FE       		.byte	-2
+ 112 0041 00       		.byte	0
+ 113 0042 01       		.byte	1
+ 114 0043 FE       		.byte	-2
+ 115 0044 00       		.byte	0
+ 116 0045 00       		.byte	0
+ 117 0046 78       		.byte	120
+ 118 0047 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 3
+
+
+ 119              		.section	.rodata.bmp_fan_rotate,"a"
+ 120              		.align	2
+ 123              	bmp_fan_rotate:
+ 124 0000 18       		.byte	24
+ 125 0001 18       		.byte	24
+ 126 0002 0000     		.space	2
+ 127 0004 00000000 		.word	bmp_fan_rotate_data
+ 128              		.section	.rodata.bmp_fan_rotate_data,"a"
+ 129              		.align	2
+ 132              	bmp_fan_rotate_data:
+ 133 0000 00       		.byte	0
+ 134 0001 00       		.byte	0
+ 135 0002 00       		.byte	0
+ 136 0003 00       		.byte	0
+ 137 0004 00       		.byte	0
+ 138 0005 00       		.byte	0
+ 139 0006 03       		.byte	3
+ 140 0007 80       		.byte	-128
+ 141 0008 00       		.byte	0
+ 142 0009 07       		.byte	7
+ 143 000a C1       		.byte	-63
+ 144 000b F0       		.byte	-16
+ 145 000c 0F       		.byte	15
+ 146 000d C3       		.byte	-61
+ 147 000e F8       		.byte	-8
+ 148 000f 1F       		.byte	31
+ 149 0010 C3       		.byte	-61
+ 150 0011 FC       		.byte	-4
+ 151 0012 1F       		.byte	31
+ 152 0013 C7       		.byte	-57
+ 153 0014 FE       		.byte	-2
+ 154 0015 1F       		.byte	31
+ 155 0016 C7       		.byte	-57
+ 156 0017 FE       		.byte	-2
+ 157 0018 1F       		.byte	31
+ 158 0019 FF       		.byte	-1
+ 159 001a FE       		.byte	-2
+ 160 001b 0F       		.byte	15
+ 161 001c C3       		.byte	-61
+ 162 001d FC       		.byte	-4
+ 163 001e 03       		.byte	3
+ 164 001f 81       		.byte	-127
+ 165 0020 00       		.byte	0
+ 166 0021 00       		.byte	0
+ 167 0022 99       		.byte	-103
+ 168 0023 00       		.byte	0
+ 169 0024 00       		.byte	0
+ 170 0025 99       		.byte	-103
+ 171 0026 00       		.byte	0
+ 172 0027 00       		.byte	0
+ 173 0028 81       		.byte	-127
+ 174 0029 C0       		.byte	-64
+ 175 002a 3F       		.byte	63
+ 176 002b C3       		.byte	-61
+ 177 002c F0       		.byte	-16
+ 178 002d 7F       		.byte	127
+ 179 002e FF       		.byte	-1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 4
+
+
+ 180 002f F8       		.byte	-8
+ 181 0030 7F       		.byte	127
+ 182 0031 E3       		.byte	-29
+ 183 0032 F8       		.byte	-8
+ 184 0033 7F       		.byte	127
+ 185 0034 E3       		.byte	-29
+ 186 0035 F8       		.byte	-8
+ 187 0036 3F       		.byte	63
+ 188 0037 C3       		.byte	-61
+ 189 0038 F8       		.byte	-8
+ 190 0039 1F       		.byte	31
+ 191 003a C3       		.byte	-61
+ 192 003b F0       		.byte	-16
+ 193 003c 0F       		.byte	15
+ 194 003d 83       		.byte	-125
+ 195 003e E0       		.byte	-32
+ 196 003f 00       		.byte	0
+ 197 0040 01       		.byte	1
+ 198 0041 C0       		.byte	-64
+ 199 0042 00       		.byte	0
+ 200 0043 00       		.byte	0
+ 201 0044 00       		.byte	0
+ 202 0045 00       		.byte	0
+ 203 0046 00       		.byte	0
+ 204 0047 00       		.byte	0
+ 205              		.section	.rodata.bmp_logo_ph,"a"
+ 206              		.align	2
+ 209              	bmp_logo_ph:
+ 210 0000 80       		.byte	-128
+ 211 0001 40       		.byte	64
+ 212 0002 0000     		.space	2
+ 213 0004 00000000 		.word	bmp_ph_logo_data
+ 214              		.section	.rodata.bmp_neon_off,"a"
+ 215              		.align	2
+ 218              	bmp_neon_off:
+ 219 0000 20       		.byte	32
+ 220 0001 20       		.byte	32
+ 221 0002 0000     		.space	2
+ 222 0004 00000000 		.word	bmp_neon_off_data
+ 223              		.section	.rodata.bmp_neon_off_data,"a"
+ 224              		.align	2
+ 227              	bmp_neon_off_data:
+ 228 0000 00       		.byte	0
+ 229 0001 00       		.byte	0
+ 230 0002 00       		.byte	0
+ 231 0003 00       		.byte	0
+ 232 0004 00       		.byte	0
+ 233 0005 00       		.byte	0
+ 234 0006 00       		.byte	0
+ 235 0007 00       		.byte	0
+ 236 0008 00       		.byte	0
+ 237 0009 00       		.byte	0
+ 238 000a 00       		.byte	0
+ 239 000b 00       		.byte	0
+ 240 000c 00       		.byte	0
+ 241 000d 00       		.byte	0
+ 242 000e 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 5
+
+
+ 243 000f 00       		.byte	0
+ 244 0010 00       		.byte	0
+ 245 0011 00       		.byte	0
+ 246 0012 00       		.byte	0
+ 247 0013 00       		.byte	0
+ 248 0014 00       		.byte	0
+ 249 0015 00       		.byte	0
+ 250 0016 00       		.byte	0
+ 251 0017 00       		.byte	0
+ 252 0018 00       		.byte	0
+ 253 0019 00       		.byte	0
+ 254 001a 00       		.byte	0
+ 255 001b 00       		.byte	0
+ 256 001c 00       		.byte	0
+ 257 001d 00       		.byte	0
+ 258 001e 00       		.byte	0
+ 259 001f 00       		.byte	0
+ 260 0020 00       		.byte	0
+ 261 0021 07       		.byte	7
+ 262 0022 F0       		.byte	-16
+ 263 0023 00       		.byte	0
+ 264 0024 00       		.byte	0
+ 265 0025 18       		.byte	24
+ 266 0026 18       		.byte	24
+ 267 0027 00       		.byte	0
+ 268 0028 00       		.byte	0
+ 269 0029 20       		.byte	32
+ 270 002a 04       		.byte	4
+ 271 002b 00       		.byte	0
+ 272 002c 00       		.byte	0
+ 273 002d 20       		.byte	32
+ 274 002e 04       		.byte	4
+ 275 002f 00       		.byte	0
+ 276 0030 00       		.byte	0
+ 277 0031 40       		.byte	64
+ 278 0032 02       		.byte	2
+ 279 0033 00       		.byte	0
+ 280 0034 00       		.byte	0
+ 281 0035 40       		.byte	64
+ 282 0036 02       		.byte	2
+ 283 0037 00       		.byte	0
+ 284 0038 00       		.byte	0
+ 285 0039 44       		.byte	68
+ 286 003a 42       		.byte	66
+ 287 003b 00       		.byte	0
+ 288 003c 00       		.byte	0
+ 289 003d 42       		.byte	66
+ 290 003e 82       		.byte	-126
+ 291 003f 00       		.byte	0
+ 292 0040 00       		.byte	0
+ 293 0041 41       		.byte	65
+ 294 0042 02       		.byte	2
+ 295 0043 00       		.byte	0
+ 296 0044 00       		.byte	0
+ 297 0045 21       		.byte	33
+ 298 0046 04       		.byte	4
+ 299 0047 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 6
+
+
+ 300 0048 00       		.byte	0
+ 301 0049 21       		.byte	33
+ 302 004a 04       		.byte	4
+ 303 004b 00       		.byte	0
+ 304 004c 00       		.byte	0
+ 305 004d 19       		.byte	25
+ 306 004e 18       		.byte	24
+ 307 004f 00       		.byte	0
+ 308 0050 00       		.byte	0
+ 309 0051 09       		.byte	9
+ 310 0052 10       		.byte	16
+ 311 0053 00       		.byte	0
+ 312 0054 00       		.byte	0
+ 313 0055 05       		.byte	5
+ 314 0056 20       		.byte	32
+ 315 0057 00       		.byte	0
+ 316 0058 00       		.byte	0
+ 317 0059 05       		.byte	5
+ 318 005a 20       		.byte	32
+ 319 005b 00       		.byte	0
+ 320 005c 00       		.byte	0
+ 321 005d 07       		.byte	7
+ 322 005e E0       		.byte	-32
+ 323 005f 00       		.byte	0
+ 324 0060 00       		.byte	0
+ 325 0061 04       		.byte	4
+ 326 0062 20       		.byte	32
+ 327 0063 00       		.byte	0
+ 328 0064 00       		.byte	0
+ 329 0065 04       		.byte	4
+ 330 0066 20       		.byte	32
+ 331 0067 00       		.byte	0
+ 332 0068 00       		.byte	0
+ 333 0069 07       		.byte	7
+ 334 006a E0       		.byte	-32
+ 335 006b 00       		.byte	0
+ 336 006c 00       		.byte	0
+ 337 006d 02       		.byte	2
+ 338 006e 40       		.byte	64
+ 339 006f 00       		.byte	0
+ 340 0070 00       		.byte	0
+ 341 0071 03       		.byte	3
+ 342 0072 C0       		.byte	-64
+ 343 0073 00       		.byte	0
+ 344 0074 00       		.byte	0
+ 345 0075 00       		.byte	0
+ 346 0076 00       		.byte	0
+ 347 0077 00       		.byte	0
+ 348 0078 00       		.byte	0
+ 349 0079 00       		.byte	0
+ 350 007a 00       		.byte	0
+ 351 007b 00       		.byte	0
+ 352 007c 00       		.byte	0
+ 353 007d 00       		.byte	0
+ 354 007e 00       		.byte	0
+ 355 007f 00       		.byte	0
+ 356              		.section	.rodata.bmp_neon_on,"a"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 7
+
+
+ 357              		.align	2
+ 360              	bmp_neon_on:
+ 361 0000 20       		.byte	32
+ 362 0001 20       		.byte	32
+ 363 0002 0000     		.space	2
+ 364 0004 00000000 		.word	bmp_neon_on_data
+ 365              		.section	.rodata.bmp_neon_on_data,"a"
+ 366              		.align	2
+ 369              	bmp_neon_on_data:
+ 370 0000 00       		.byte	0
+ 371 0001 00       		.byte	0
+ 372 0002 00       		.byte	0
+ 373 0003 00       		.byte	0
+ 374 0004 00       		.byte	0
+ 375 0005 00       		.byte	0
+ 376 0006 00       		.byte	0
+ 377 0007 00       		.byte	0
+ 378 0008 00       		.byte	0
+ 379 0009 00       		.byte	0
+ 380 000a 00       		.byte	0
+ 381 000b 00       		.byte	0
+ 382 000c 00       		.byte	0
+ 383 000d 01       		.byte	1
+ 384 000e 00       		.byte	0
+ 385 000f 00       		.byte	0
+ 386 0010 00       		.byte	0
+ 387 0011 01       		.byte	1
+ 388 0012 00       		.byte	0
+ 389 0013 00       		.byte	0
+ 390 0014 00       		.byte	0
+ 391 0015 11       		.byte	17
+ 392 0016 08       		.byte	8
+ 393 0017 00       		.byte	0
+ 394 0018 00       		.byte	0
+ 395 0019 08       		.byte	8
+ 396 001a 10       		.byte	16
+ 397 001b 00       		.byte	0
+ 398 001c 00       		.byte	0
+ 399 001d 80       		.byte	-128
+ 400 001e 01       		.byte	1
+ 401 001f 00       		.byte	0
+ 402 0020 00       		.byte	0
+ 403 0021 47       		.byte	71
+ 404 0022 F2       		.byte	-14
+ 405 0023 00       		.byte	0
+ 406 0024 00       		.byte	0
+ 407 0025 18       		.byte	24
+ 408 0026 18       		.byte	24
+ 409 0027 00       		.byte	0
+ 410 0028 00       		.byte	0
+ 411 0029 20       		.byte	32
+ 412 002a 04       		.byte	4
+ 413 002b 00       		.byte	0
+ 414 002c 03       		.byte	3
+ 415 002d 20       		.byte	32
+ 416 002e 04       		.byte	4
+ 417 002f C0       		.byte	-64
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 8
+
+
+ 418 0030 00       		.byte	0
+ 419 0031 40       		.byte	64
+ 420 0032 02       		.byte	2
+ 421 0033 00       		.byte	0
+ 422 0034 00       		.byte	0
+ 423 0035 40       		.byte	64
+ 424 0036 02       		.byte	2
+ 425 0037 00       		.byte	0
+ 426 0038 00       		.byte	0
+ 427 0039 44       		.byte	68
+ 428 003a 42       		.byte	66
+ 429 003b 00       		.byte	0
+ 430 003c 07       		.byte	7
+ 431 003d 42       		.byte	66
+ 432 003e 82       		.byte	-126
+ 433 003f E0       		.byte	-32
+ 434 0040 00       		.byte	0
+ 435 0041 41       		.byte	65
+ 436 0042 02       		.byte	2
+ 437 0043 00       		.byte	0
+ 438 0044 00       		.byte	0
+ 439 0045 21       		.byte	33
+ 440 0046 04       		.byte	4
+ 441 0047 00       		.byte	0
+ 442 0048 00       		.byte	0
+ 443 0049 21       		.byte	33
+ 444 004a 04       		.byte	4
+ 445 004b 00       		.byte	0
+ 446 004c 01       		.byte	1
+ 447 004d 99       		.byte	-103
+ 448 004e 19       		.byte	25
+ 449 004f 80       		.byte	-128
+ 450 0050 00       		.byte	0
+ 451 0051 09       		.byte	9
+ 452 0052 10       		.byte	16
+ 453 0053 00       		.byte	0
+ 454 0054 00       		.byte	0
+ 455 0055 05       		.byte	5
+ 456 0056 20       		.byte	32
+ 457 0057 00       		.byte	0
+ 458 0058 00       		.byte	0
+ 459 0059 05       		.byte	5
+ 460 005a 20       		.byte	32
+ 461 005b 00       		.byte	0
+ 462 005c 00       		.byte	0
+ 463 005d 07       		.byte	7
+ 464 005e E0       		.byte	-32
+ 465 005f 00       		.byte	0
+ 466 0060 00       		.byte	0
+ 467 0061 04       		.byte	4
+ 468 0062 20       		.byte	32
+ 469 0063 00       		.byte	0
+ 470 0064 00       		.byte	0
+ 471 0065 04       		.byte	4
+ 472 0066 20       		.byte	32
+ 473 0067 00       		.byte	0
+ 474 0068 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 9
+
+
+ 475 0069 07       		.byte	7
+ 476 006a E0       		.byte	-32
+ 477 006b 00       		.byte	0
+ 478 006c 00       		.byte	0
+ 479 006d 02       		.byte	2
+ 480 006e 40       		.byte	64
+ 481 006f 00       		.byte	0
+ 482 0070 00       		.byte	0
+ 483 0071 03       		.byte	3
+ 484 0072 C0       		.byte	-64
+ 485 0073 00       		.byte	0
+ 486 0074 00       		.byte	0
+ 487 0075 00       		.byte	0
+ 488 0076 00       		.byte	0
+ 489 0077 00       		.byte	0
+ 490 0078 00       		.byte	0
+ 491 0079 00       		.byte	0
+ 492 007a 00       		.byte	0
+ 493 007b 00       		.byte	0
+ 494 007c 00       		.byte	0
+ 495 007d 00       		.byte	0
+ 496 007e 00       		.byte	0
+ 497 007f 00       		.byte	0
+ 498              		.section	.rodata.bmp_ph_logo_data,"a"
+ 499              		.align	2
+ 502              	bmp_ph_logo_data:
+ 503 0000 00       		.byte	0
+ 504 0001 00       		.byte	0
+ 505 0002 00       		.byte	0
+ 506 0003 00       		.byte	0
+ 507 0004 00       		.byte	0
+ 508 0005 00       		.byte	0
+ 509 0006 00       		.byte	0
+ 510 0007 00       		.byte	0
+ 511 0008 00       		.byte	0
+ 512 0009 00       		.byte	0
+ 513 000a 00       		.byte	0
+ 514 000b 1E       		.byte	30
+ 515 000c 00       		.byte	0
+ 516 000d 00       		.byte	0
+ 517 000e 00       		.byte	0
+ 518 000f 00       		.byte	0
+ 519 0010 00       		.byte	0
+ 520 0011 00       		.byte	0
+ 521 0012 00       		.byte	0
+ 522 0013 00       		.byte	0
+ 523 0014 00       		.byte	0
+ 524 0015 00       		.byte	0
+ 525 0016 00       		.byte	0
+ 526 0017 00       		.byte	0
+ 527 0018 00       		.byte	0
+ 528 0019 00       		.byte	0
+ 529 001a 00       		.byte	0
+ 530 001b 3E       		.byte	62
+ 531 001c 00       		.byte	0
+ 532 001d 00       		.byte	0
+ 533 001e 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 10
+
+
+ 534 001f 00       		.byte	0
+ 535 0020 00       		.byte	0
+ 536 0021 00       		.byte	0
+ 537 0022 00       		.byte	0
+ 538 0023 00       		.byte	0
+ 539 0024 00       		.byte	0
+ 540 0025 00       		.byte	0
+ 541 0026 00       		.byte	0
+ 542 0027 00       		.byte	0
+ 543 0028 00       		.byte	0
+ 544 0029 00       		.byte	0
+ 545 002a 00       		.byte	0
+ 546 002b 3F       		.byte	63
+ 547 002c 00       		.byte	0
+ 548 002d 00       		.byte	0
+ 549 002e 00       		.byte	0
+ 550 002f 00       		.byte	0
+ 551 0030 00       		.byte	0
+ 552 0031 00       		.byte	0
+ 553 0032 00       		.byte	0
+ 554 0033 00       		.byte	0
+ 555 0034 00       		.byte	0
+ 556 0035 00       		.byte	0
+ 557 0036 00       		.byte	0
+ 558 0037 00       		.byte	0
+ 559 0038 07       		.byte	7
+ 560 0039 80       		.byte	-128
+ 561 003a 00       		.byte	0
+ 562 003b 7F       		.byte	127
+ 563 003c 00       		.byte	0
+ 564 003d 00       		.byte	0
+ 565 003e 00       		.byte	0
+ 566 003f 00       		.byte	0
+ 567 0040 00       		.byte	0
+ 568 0041 00       		.byte	0
+ 569 0042 00       		.byte	0
+ 570 0043 00       		.byte	0
+ 571 0044 00       		.byte	0
+ 572 0045 00       		.byte	0
+ 573 0046 00       		.byte	0
+ 574 0047 00       		.byte	0
+ 575 0048 07       		.byte	7
+ 576 0049 C0       		.byte	-64
+ 577 004a 00       		.byte	0
+ 578 004b 7F       		.byte	127
+ 579 004c 00       		.byte	0
+ 580 004d 00       		.byte	0
+ 581 004e 00       		.byte	0
+ 582 004f 00       		.byte	0
+ 583 0050 00       		.byte	0
+ 584 0051 00       		.byte	0
+ 585 0052 00       		.byte	0
+ 586 0053 00       		.byte	0
+ 587 0054 00       		.byte	0
+ 588 0055 00       		.byte	0
+ 589 0056 00       		.byte	0
+ 590 0057 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 11
+
+
+ 591 0058 0F       		.byte	15
+ 592 0059 E0       		.byte	-32
+ 593 005a 00       		.byte	0
+ 594 005b 7F       		.byte	127
+ 595 005c 00       		.byte	0
+ 596 005d 00       		.byte	0
+ 597 005e 00       		.byte	0
+ 598 005f 00       		.byte	0
+ 599 0060 00       		.byte	0
+ 600 0061 00       		.byte	0
+ 601 0062 00       		.byte	0
+ 602 0063 00       		.byte	0
+ 603 0064 00       		.byte	0
+ 604 0065 00       		.byte	0
+ 605 0066 00       		.byte	0
+ 606 0067 00       		.byte	0
+ 607 0068 0F       		.byte	15
+ 608 0069 E0       		.byte	-32
+ 609 006a 00       		.byte	0
+ 610 006b FF       		.byte	-1
+ 611 006c 00       		.byte	0
+ 612 006d 00       		.byte	0
+ 613 006e 00       		.byte	0
+ 614 006f 00       		.byte	0
+ 615 0070 00       		.byte	0
+ 616 0071 00       		.byte	0
+ 617 0072 00       		.byte	0
+ 618 0073 00       		.byte	0
+ 619 0074 00       		.byte	0
+ 620 0075 70       		.byte	112
+ 621 0076 00       		.byte	0
+ 622 0077 00       		.byte	0
+ 623 0078 1F       		.byte	31
+ 624 0079 E0       		.byte	-32
+ 625 007a 00       		.byte	0
+ 626 007b FF       		.byte	-1
+ 627 007c 00       		.byte	0
+ 628 007d 00       		.byte	0
+ 629 007e 00       		.byte	0
+ 630 007f 00       		.byte	0
+ 631 0080 00       		.byte	0
+ 632 0081 00       		.byte	0
+ 633 0082 00       		.byte	0
+ 634 0083 00       		.byte	0
+ 635 0084 00       		.byte	0
+ 636 0085 F8       		.byte	-8
+ 637 0086 00       		.byte	0
+ 638 0087 00       		.byte	0
+ 639 0088 1F       		.byte	31
+ 640 0089 E0       		.byte	-32
+ 641 008a 00       		.byte	0
+ 642 008b FF       		.byte	-1
+ 643 008c 80       		.byte	-128
+ 644 008d 00       		.byte	0
+ 645 008e 00       		.byte	0
+ 646 008f 00       		.byte	0
+ 647 0090 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 12
+
+
+ 648 0091 00       		.byte	0
+ 649 0092 00       		.byte	0
+ 650 0093 00       		.byte	0
+ 651 0094 00       		.byte	0
+ 652 0095 FC       		.byte	-4
+ 653 0096 00       		.byte	0
+ 654 0097 00       		.byte	0
+ 655 0098 1F       		.byte	31
+ 656 0099 E0       		.byte	-32
+ 657 009a 00       		.byte	0
+ 658 009b FF       		.byte	-1
+ 659 009c 80       		.byte	-128
+ 660 009d 00       		.byte	0
+ 661 009e 00       		.byte	0
+ 662 009f 00       		.byte	0
+ 663 00a0 00       		.byte	0
+ 664 00a1 00       		.byte	0
+ 665 00a2 00       		.byte	0
+ 666 00a3 00       		.byte	0
+ 667 00a4 01       		.byte	1
+ 668 00a5 FC       		.byte	-4
+ 669 00a6 00       		.byte	0
+ 670 00a7 00       		.byte	0
+ 671 00a8 3F       		.byte	63
+ 672 00a9 E0       		.byte	-32
+ 673 00aa 01       		.byte	1
+ 674 00ab FF       		.byte	-1
+ 675 00ac 80       		.byte	-128
+ 676 00ad 00       		.byte	0
+ 677 00ae 00       		.byte	0
+ 678 00af 00       		.byte	0
+ 679 00b0 00       		.byte	0
+ 680 00b1 00       		.byte	0
+ 681 00b2 00       		.byte	0
+ 682 00b3 00       		.byte	0
+ 683 00b4 01       		.byte	1
+ 684 00b5 FE       		.byte	-2
+ 685 00b6 00       		.byte	0
+ 686 00b7 00       		.byte	0
+ 687 00b8 3F       		.byte	63
+ 688 00b9 E0       		.byte	-32
+ 689 00ba 01       		.byte	1
+ 690 00bb FF       		.byte	-1
+ 691 00bc 80       		.byte	-128
+ 692 00bd 00       		.byte	0
+ 693 00be 00       		.byte	0
+ 694 00bf 00       		.byte	0
+ 695 00c0 00       		.byte	0
+ 696 00c1 00       		.byte	0
+ 697 00c2 00       		.byte	0
+ 698 00c3 00       		.byte	0
+ 699 00c4 01       		.byte	1
+ 700 00c5 FE       		.byte	-2
+ 701 00c6 00       		.byte	0
+ 702 00c7 00       		.byte	0
+ 703 00c8 3F       		.byte	63
+ 704 00c9 E0       		.byte	-32
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 13
+
+
+ 705 00ca 01       		.byte	1
+ 706 00cb FF       		.byte	-1
+ 707 00cc 80       		.byte	-128
+ 708 00cd 00       		.byte	0
+ 709 00ce 00       		.byte	0
+ 710 00cf 00       		.byte	0
+ 711 00d0 00       		.byte	0
+ 712 00d1 00       		.byte	0
+ 713 00d2 00       		.byte	0
+ 714 00d3 00       		.byte	0
+ 715 00d4 03       		.byte	3
+ 716 00d5 FE       		.byte	-2
+ 717 00d6 00       		.byte	0
+ 718 00d7 00       		.byte	0
+ 719 00d8 7F       		.byte	127
+ 720 00d9 E0       		.byte	-32
+ 721 00da 03       		.byte	3
+ 722 00db FF       		.byte	-1
+ 723 00dc 80       		.byte	-128
+ 724 00dd 00       		.byte	0
+ 725 00de 00       		.byte	0
+ 726 00df 00       		.byte	0
+ 727 00e0 00       		.byte	0
+ 728 00e1 00       		.byte	0
+ 729 00e2 00       		.byte	0
+ 730 00e3 00       		.byte	0
+ 731 00e4 03       		.byte	3
+ 732 00e5 FE       		.byte	-2
+ 733 00e6 00       		.byte	0
+ 734 00e7 00       		.byte	0
+ 735 00e8 7F       		.byte	127
+ 736 00e9 E0       		.byte	-32
+ 737 00ea 03       		.byte	3
+ 738 00eb FF       		.byte	-1
+ 739 00ec 80       		.byte	-128
+ 740 00ed 00       		.byte	0
+ 741 00ee 00       		.byte	0
+ 742 00ef 00       		.byte	0
+ 743 00f0 00       		.byte	0
+ 744 00f1 00       		.byte	0
+ 745 00f2 00       		.byte	0
+ 746 00f3 00       		.byte	0
+ 747 00f4 07       		.byte	7
+ 748 00f5 FF       		.byte	-1
+ 749 00f6 F8       		.byte	-8
+ 750 00f7 00       		.byte	0
+ 751 00f8 7F       		.byte	127
+ 752 00f9 E0       		.byte	-32
+ 753 00fa 03       		.byte	3
+ 754 00fb FF       		.byte	-1
+ 755 00fc 00       		.byte	0
+ 756 00fd 00       		.byte	0
+ 757 00fe 00       		.byte	0
+ 758 00ff 00       		.byte	0
+ 759 0100 00       		.byte	0
+ 760 0101 00       		.byte	0
+ 761 0102 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 14
+
+
+ 762 0103 00       		.byte	0
+ 763 0104 07       		.byte	7
+ 764 0105 FF       		.byte	-1
+ 765 0106 FE       		.byte	-2
+ 766 0107 00       		.byte	0
+ 767 0108 7F       		.byte	127
+ 768 0109 E0       		.byte	-32
+ 769 010a 03       		.byte	3
+ 770 010b FF       		.byte	-1
+ 771 010c 00       		.byte	0
+ 772 010d 00       		.byte	0
+ 773 010e 00       		.byte	0
+ 774 010f 00       		.byte	0
+ 775 0110 00       		.byte	0
+ 776 0111 00       		.byte	0
+ 777 0112 00       		.byte	0
+ 778 0113 00       		.byte	0
+ 779 0114 0F       		.byte	15
+ 780 0115 FF       		.byte	-1
+ 781 0116 FF       		.byte	-1
+ 782 0117 80       		.byte	-128
+ 783 0118 FF       		.byte	-1
+ 784 0119 E0       		.byte	-32
+ 785 011a 03       		.byte	3
+ 786 011b FF       		.byte	-1
+ 787 011c 00       		.byte	0
+ 788 011d 00       		.byte	0
+ 789 011e 00       		.byte	0
+ 790 011f 00       		.byte	0
+ 791 0120 00       		.byte	0
+ 792 0121 00       		.byte	0
+ 793 0122 00       		.byte	0
+ 794 0123 00       		.byte	0
+ 795 0124 0F       		.byte	15
+ 796 0125 FF       		.byte	-1
+ 797 0126 FF       		.byte	-1
+ 798 0127 C0       		.byte	-64
+ 799 0128 FF       		.byte	-1
+ 800 0129 E0       		.byte	-32
+ 801 012a 07       		.byte	7
+ 802 012b FF       		.byte	-1
+ 803 012c 00       		.byte	0
+ 804 012d 00       		.byte	0
+ 805 012e 00       		.byte	0
+ 806 012f 00       		.byte	0
+ 807 0130 00       		.byte	0
+ 808 0131 00       		.byte	0
+ 809 0132 00       		.byte	0
+ 810 0133 00       		.byte	0
+ 811 0134 0F       		.byte	15
+ 812 0135 FF       		.byte	-1
+ 813 0136 FF       		.byte	-1
+ 814 0137 E0       		.byte	-32
+ 815 0138 FF       		.byte	-1
+ 816 0139 C0       		.byte	-64
+ 817 013a 07       		.byte	7
+ 818 013b FF       		.byte	-1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 15
+
+
+ 819 013c 00       		.byte	0
+ 820 013d 00       		.byte	0
+ 821 013e 00       		.byte	0
+ 822 013f 00       		.byte	0
+ 823 0140 00       		.byte	0
+ 824 0141 00       		.byte	0
+ 825 0142 00       		.byte	0
+ 826 0143 00       		.byte	0
+ 827 0144 1F       		.byte	31
+ 828 0145 FF       		.byte	-1
+ 829 0146 FF       		.byte	-1
+ 830 0147 E0       		.byte	-32
+ 831 0148 FF       		.byte	-1
+ 832 0149 C0       		.byte	-64
+ 833 014a 07       		.byte	7
+ 834 014b FF       		.byte	-1
+ 835 014c 00       		.byte	0
+ 836 014d 00       		.byte	0
+ 837 014e 00       		.byte	0
+ 838 014f 00       		.byte	0
+ 839 0150 00       		.byte	0
+ 840 0151 00       		.byte	0
+ 841 0152 00       		.byte	0
+ 842 0153 00       		.byte	0
+ 843 0154 1F       		.byte	31
+ 844 0155 FF       		.byte	-1
+ 845 0156 FF       		.byte	-1
+ 846 0157 F0       		.byte	-16
+ 847 0158 FF       		.byte	-1
+ 848 0159 C0       		.byte	-64
+ 849 015a 0F       		.byte	15
+ 850 015b FF       		.byte	-1
+ 851 015c 00       		.byte	0
+ 852 015d 00       		.byte	0
+ 853 015e 00       		.byte	0
+ 854 015f 00       		.byte	0
+ 855 0160 00       		.byte	0
+ 856 0161 00       		.byte	0
+ 857 0162 00       		.byte	0
+ 858 0163 00       		.byte	0
+ 859 0164 3F       		.byte	63
+ 860 0165 FF       		.byte	-1
+ 861 0166 FF       		.byte	-1
+ 862 0167 F0       		.byte	-16
+ 863 0168 FF       		.byte	-1
+ 864 0169 C1       		.byte	-63
+ 865 016a FF       		.byte	-1
+ 866 016b FF       		.byte	-1
+ 867 016c E0       		.byte	-32
+ 868 016d 00       		.byte	0
+ 869 016e 00       		.byte	0
+ 870 016f 00       		.byte	0
+ 871 0170 00       		.byte	0
+ 872 0171 00       		.byte	0
+ 873 0172 00       		.byte	0
+ 874 0173 00       		.byte	0
+ 875 0174 7F       		.byte	127
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 16
+
+
+ 876 0175 FF       		.byte	-1
+ 877 0176 FF       		.byte	-1
+ 878 0177 F8       		.byte	-8
+ 879 0178 FF       		.byte	-1
+ 880 0179 FF       		.byte	-1
+ 881 017a FF       		.byte	-1
+ 882 017b FF       		.byte	-1
+ 883 017c E0       		.byte	-32
+ 884 017d 00       		.byte	0
+ 885 017e 00       		.byte	0
+ 886 017f 00       		.byte	0
+ 887 0180 00       		.byte	0
+ 888 0181 00       		.byte	0
+ 889 0182 00       		.byte	0
+ 890 0183 00       		.byte	0
+ 891 0184 7F       		.byte	127
+ 892 0185 FE       		.byte	-2
+ 893 0186 1F       		.byte	31
+ 894 0187 F8       		.byte	-8
+ 895 0188 FF       		.byte	-1
+ 896 0189 FF       		.byte	-1
+ 897 018a FF       		.byte	-1
+ 898 018b FF       		.byte	-1
+ 899 018c 00       		.byte	0
+ 900 018d 00       		.byte	0
+ 901 018e 00       		.byte	0
+ 902 018f 00       		.byte	0
+ 903 0190 00       		.byte	0
+ 904 0191 00       		.byte	0
+ 905 0192 00       		.byte	0
+ 906 0193 00       		.byte	0
+ 907 0194 FF       		.byte	-1
+ 908 0195 FC       		.byte	-4
+ 909 0196 0F       		.byte	15
+ 910 0197 F9       		.byte	-7
+ 911 0198 FF       		.byte	-1
+ 912 0199 FF       		.byte	-1
+ 913 019a FF       		.byte	-1
+ 914 019b FC       		.byte	-4
+ 915 019c 00       		.byte	0
+ 916 019d 00       		.byte	0
+ 917 019e 00       		.byte	0
+ 918 019f 00       		.byte	0
+ 919 01a0 00       		.byte	0
+ 920 01a1 00       		.byte	0
+ 921 01a2 00       		.byte	0
+ 922 01a3 00       		.byte	0
+ 923 01a4 FF       		.byte	-1
+ 924 01a5 F8       		.byte	-8
+ 925 01a6 07       		.byte	7
+ 926 01a7 F9       		.byte	-7
+ 927 01a8 FF       		.byte	-1
+ 928 01a9 F8       		.byte	-8
+ 929 01aa 0F       		.byte	15
+ 930 01ab FC       		.byte	-4
+ 931 01ac 00       		.byte	0
+ 932 01ad 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 17
+
+
+ 933 01ae 00       		.byte	0
+ 934 01af 00       		.byte	0
+ 935 01b0 00       		.byte	0
+ 936 01b1 00       		.byte	0
+ 937 01b2 00       		.byte	0
+ 938 01b3 00       		.byte	0
+ 939 01b4 7F       		.byte	127
+ 940 01b5 F0       		.byte	-16
+ 941 01b6 07       		.byte	7
+ 942 01b7 F9       		.byte	-7
+ 943 01b8 FF       		.byte	-1
+ 944 01b9 C0       		.byte	-64
+ 945 01ba 0F       		.byte	15
+ 946 01bb F8       		.byte	-8
+ 947 01bc 00       		.byte	0
+ 948 01bd 00       		.byte	0
+ 949 01be 00       		.byte	0
+ 950 01bf 00       		.byte	0
+ 951 01c0 00       		.byte	0
+ 952 01c1 00       		.byte	0
+ 953 01c2 00       		.byte	0
+ 954 01c3 00       		.byte	0
+ 955 01c4 7F       		.byte	127
+ 956 01c5 F0       		.byte	-16
+ 957 01c6 03       		.byte	3
+ 958 01c7 F9       		.byte	-7
+ 959 01c8 FF       		.byte	-1
+ 960 01c9 80       		.byte	-128
+ 961 01ca 0F       		.byte	15
+ 962 01cb F8       		.byte	-8
+ 963 01cc 00       		.byte	0
+ 964 01cd 00       		.byte	0
+ 965 01ce 00       		.byte	0
+ 966 01cf 00       		.byte	0
+ 967 01d0 00       		.byte	0
+ 968 01d1 00       		.byte	0
+ 969 01d2 00       		.byte	0
+ 970 01d3 00       		.byte	0
+ 971 01d4 7F       		.byte	127
+ 972 01d5 E0       		.byte	-32
+ 973 01d6 07       		.byte	7
+ 974 01d7 F9       		.byte	-7
+ 975 01d8 FF       		.byte	-1
+ 976 01d9 80       		.byte	-128
+ 977 01da 0F       		.byte	15
+ 978 01db F8       		.byte	-8
+ 979 01dc 00       		.byte	0
+ 980 01dd 00       		.byte	0
+ 981 01de 00       		.byte	0
+ 982 01df 00       		.byte	0
+ 983 01e0 00       		.byte	0
+ 984 01e1 00       		.byte	0
+ 985 01e2 00       		.byte	0
+ 986 01e3 00       		.byte	0
+ 987 01e4 7F       		.byte	127
+ 988 01e5 F0       		.byte	-16
+ 989 01e6 07       		.byte	7
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 18
+
+
+ 990 01e7 F9       		.byte	-7
+ 991 01e8 FF       		.byte	-1
+ 992 01e9 00       		.byte	0
+ 993 01ea 0F       		.byte	15
+ 994 01eb F8       		.byte	-8
+ 995 01ec 00       		.byte	0
+ 996 01ed 00       		.byte	0
+ 997 01ee 00       		.byte	0
+ 998 01ef 00       		.byte	0
+ 999 01f0 00       		.byte	0
+ 1000 01f1 00       		.byte	0
+ 1001 01f2 00       		.byte	0
+ 1002 01f3 00       		.byte	0
+ 1003 01f4 7F       		.byte	127
+ 1004 01f5 F0       		.byte	-16
+ 1005 01f6 1F       		.byte	31
+ 1006 01f7 F9       		.byte	-7
+ 1007 01f8 FF       		.byte	-1
+ 1008 01f9 00       		.byte	0
+ 1009 01fa 0F       		.byte	15
+ 1010 01fb F0       		.byte	-16
+ 1011 01fc 00       		.byte	0
+ 1012 01fd 00       		.byte	0
+ 1013 01fe 00       		.byte	0
+ 1014 01ff 00       		.byte	0
+ 1015 0200 00       		.byte	0
+ 1016 0201 00       		.byte	0
+ 1017 0202 00       		.byte	0
+ 1018 0203 00       		.byte	0
+ 1019 0204 FF       		.byte	-1
+ 1020 0205 FC       		.byte	-4
+ 1021 0206 7F       		.byte	127
+ 1022 0207 F9       		.byte	-7
+ 1023 0208 FF       		.byte	-1
+ 1024 0209 00       		.byte	0
+ 1025 020a 0F       		.byte	15
+ 1026 020b F0       		.byte	-16
+ 1027 020c 00       		.byte	0
+ 1028 020d 00       		.byte	0
+ 1029 020e 00       		.byte	0
+ 1030 020f 00       		.byte	0
+ 1031 0210 00       		.byte	0
+ 1032 0211 00       		.byte	0
+ 1033 0212 00       		.byte	0
+ 1034 0213 00       		.byte	0
+ 1035 0214 FF       		.byte	-1
+ 1036 0215 FF       		.byte	-1
+ 1037 0216 FF       		.byte	-1
+ 1038 0217 F1       		.byte	-15
+ 1039 0218 FE       		.byte	-2
+ 1040 0219 00       		.byte	0
+ 1041 021a 0F       		.byte	15
+ 1042 021b F0       		.byte	-16
+ 1043 021c 00       		.byte	0
+ 1044 021d 00       		.byte	0
+ 1045 021e 00       		.byte	0
+ 1046 021f 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 19
+
+
+ 1047 0220 00       		.byte	0
+ 1048 0221 00       		.byte	0
+ 1049 0222 00       		.byte	0
+ 1050 0223 00       		.byte	0
+ 1051 0224 FF       		.byte	-1
+ 1052 0225 FF       		.byte	-1
+ 1053 0226 FF       		.byte	-1
+ 1054 0227 F1       		.byte	-15
+ 1055 0228 FE       		.byte	-2
+ 1056 0229 00       		.byte	0
+ 1057 022a 0F       		.byte	15
+ 1058 022b F0       		.byte	-16
+ 1059 022c 00       		.byte	0
+ 1060 022d 00       		.byte	0
+ 1061 022e 00       		.byte	0
+ 1062 022f 00       		.byte	0
+ 1063 0230 00       		.byte	0
+ 1064 0231 00       		.byte	0
+ 1065 0232 00       		.byte	0
+ 1066 0233 00       		.byte	0
+ 1067 0234 FF       		.byte	-1
+ 1068 0235 FF       		.byte	-1
+ 1069 0236 FF       		.byte	-1
+ 1070 0237 E1       		.byte	-31
+ 1071 0238 FE       		.byte	-2
+ 1072 0239 00       		.byte	0
+ 1073 023a 0F       		.byte	15
+ 1074 023b F0       		.byte	-16
+ 1075 023c 00       		.byte	0
+ 1076 023d 00       		.byte	0
+ 1077 023e 00       		.byte	0
+ 1078 023f 00       		.byte	0
+ 1079 0240 00       		.byte	0
+ 1080 0241 00       		.byte	0
+ 1081 0242 00       		.byte	0
+ 1082 0243 01       		.byte	1
+ 1083 0244 FF       		.byte	-1
+ 1084 0245 FF       		.byte	-1
+ 1085 0246 FF       		.byte	-1
+ 1086 0247 C1       		.byte	-63
+ 1087 0248 FC       		.byte	-4
+ 1088 0249 00       		.byte	0
+ 1089 024a 0F       		.byte	15
+ 1090 024b F0       		.byte	-16
+ 1091 024c 00       		.byte	0
+ 1092 024d 00       		.byte	0
+ 1093 024e 00       		.byte	0
+ 1094 024f 00       		.byte	0
+ 1095 0250 00       		.byte	0
+ 1096 0251 00       		.byte	0
+ 1097 0252 00       		.byte	0
+ 1098 0253 01       		.byte	1
+ 1099 0254 FF       		.byte	-1
+ 1100 0255 FF       		.byte	-1
+ 1101 0256 FF       		.byte	-1
+ 1102 0257 81       		.byte	-127
+ 1103 0258 FC       		.byte	-4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 20
+
+
+ 1104 0259 00       		.byte	0
+ 1105 025a 0F       		.byte	15
+ 1106 025b F0       		.byte	-16
+ 1107 025c 00       		.byte	0
+ 1108 025d 00       		.byte	0
+ 1109 025e 00       		.byte	0
+ 1110 025f 00       		.byte	0
+ 1111 0260 00       		.byte	0
+ 1112 0261 00       		.byte	0
+ 1113 0262 00       		.byte	0
+ 1114 0263 01       		.byte	1
+ 1115 0264 FE       		.byte	-2
+ 1116 0265 FF       		.byte	-1
+ 1117 0266 FF       		.byte	-1
+ 1118 0267 01       		.byte	1
+ 1119 0268 FC       		.byte	-4
+ 1120 0269 00       		.byte	0
+ 1121 026a 0F       		.byte	15
+ 1122 026b F0       		.byte	-16
+ 1123 026c 00       		.byte	0
+ 1124 026d 00       		.byte	0
+ 1125 026e 00       		.byte	0
+ 1126 026f 00       		.byte	0
+ 1127 0270 00       		.byte	0
+ 1128 0271 00       		.byte	0
+ 1129 0272 00       		.byte	0
+ 1130 0273 01       		.byte	1
+ 1131 0274 FE       		.byte	-2
+ 1132 0275 1F       		.byte	31
+ 1133 0276 FC       		.byte	-4
+ 1134 0277 01       		.byte	1
+ 1135 0278 FC       		.byte	-4
+ 1136 0279 00       		.byte	0
+ 1137 027a 07       		.byte	7
+ 1138 027b F0       		.byte	-16
+ 1139 027c 00       		.byte	0
+ 1140 027d 00       		.byte	0
+ 1141 027e 00       		.byte	0
+ 1142 027f 00       		.byte	0
+ 1143 0280 00       		.byte	0
+ 1144 0281 00       		.byte	0
+ 1145 0282 00       		.byte	0
+ 1146 0283 01       		.byte	1
+ 1147 0284 FC       		.byte	-4
+ 1148 0285 01       		.byte	1
+ 1149 0286 C0       		.byte	-64
+ 1150 0287 01       		.byte	1
+ 1151 0288 F8       		.byte	-8
+ 1152 0289 00       		.byte	0
+ 1153 028a 07       		.byte	7
+ 1154 028b F0       		.byte	-16
+ 1155 028c 00       		.byte	0
+ 1156 028d 00       		.byte	0
+ 1157 028e 00       		.byte	0
+ 1158 028f 00       		.byte	0
+ 1159 0290 00       		.byte	0
+ 1160 0291 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 21
+
+
+ 1161 0292 00       		.byte	0
+ 1162 0293 03       		.byte	3
+ 1163 0294 FC       		.byte	-4
+ 1164 0295 00       		.byte	0
+ 1165 0296 00       		.byte	0
+ 1166 0297 00       		.byte	0
+ 1167 0298 F8       		.byte	-8
+ 1168 0299 00       		.byte	0
+ 1169 029a 07       		.byte	7
+ 1170 029b F0       		.byte	-16
+ 1171 029c 00       		.byte	0
+ 1172 029d 00       		.byte	0
+ 1173 029e 00       		.byte	0
+ 1174 029f 00       		.byte	0
+ 1175 02a0 00       		.byte	0
+ 1176 02a1 00       		.byte	0
+ 1177 02a2 00       		.byte	0
+ 1178 02a3 03       		.byte	3
+ 1179 02a4 FC       		.byte	-4
+ 1180 02a5 00       		.byte	0
+ 1181 02a6 00       		.byte	0
+ 1182 02a7 00       		.byte	0
+ 1183 02a8 F8       		.byte	-8
+ 1184 02a9 00       		.byte	0
+ 1185 02aa 07       		.byte	7
+ 1186 02ab F0       		.byte	-16
+ 1187 02ac 00       		.byte	0
+ 1188 02ad 00       		.byte	0
+ 1189 02ae 00       		.byte	0
+ 1190 02af 00       		.byte	0
+ 1191 02b0 00       		.byte	0
+ 1192 02b1 00       		.byte	0
+ 1193 02b2 00       		.byte	0
+ 1194 02b3 03       		.byte	3
+ 1195 02b4 FC       		.byte	-4
+ 1196 02b5 00       		.byte	0
+ 1197 02b6 00       		.byte	0
+ 1198 02b7 00       		.byte	0
+ 1199 02b8 F0       		.byte	-16
+ 1200 02b9 00       		.byte	0
+ 1201 02ba 07       		.byte	7
+ 1202 02bb F0       		.byte	-16
+ 1203 02bc 0F       		.byte	15
+ 1204 02bd 80       		.byte	-128
+ 1205 02be 00       		.byte	0
+ 1206 02bf 00       		.byte	0
+ 1207 02c0 00       		.byte	0
+ 1208 02c1 00       		.byte	0
+ 1209 02c2 00       		.byte	0
+ 1210 02c3 03       		.byte	3
+ 1211 02c4 F8       		.byte	-8
+ 1212 02c5 00       		.byte	0
+ 1213 02c6 00       		.byte	0
+ 1214 02c7 00       		.byte	0
+ 1215 02c8 F0       		.byte	-16
+ 1216 02c9 00       		.byte	0
+ 1217 02ca 03       		.byte	3
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 22
+
+
+ 1218 02cb F0       		.byte	-16
+ 1219 02cc 38       		.byte	56
+ 1220 02cd E0       		.byte	-32
+ 1221 02ce 00       		.byte	0
+ 1222 02cf 00       		.byte	0
+ 1223 02d0 00       		.byte	0
+ 1224 02d1 00       		.byte	0
+ 1225 02d2 00       		.byte	0
+ 1226 02d3 03       		.byte	3
+ 1227 02d4 F8       		.byte	-8
+ 1228 02d5 00       		.byte	0
+ 1229 02d6 00       		.byte	0
+ 1230 02d7 00       		.byte	0
+ 1231 02d8 F0       		.byte	-16
+ 1232 02d9 00       		.byte	0
+ 1233 02da 03       		.byte	3
+ 1234 02db F0       		.byte	-16
+ 1235 02dc 30       		.byte	48
+ 1236 02dd 60       		.byte	96
+ 1237 02de 00       		.byte	0
+ 1238 02df 00       		.byte	0
+ 1239 02e0 00       		.byte	0
+ 1240 02e1 00       		.byte	0
+ 1241 02e2 00       		.byte	0
+ 1242 02e3 03       		.byte	3
+ 1243 02e4 F8       		.byte	-8
+ 1244 02e5 00       		.byte	0
+ 1245 02e6 00       		.byte	0
+ 1246 02e7 00       		.byte	0
+ 1247 02e8 60       		.byte	96
+ 1248 02e9 00       		.byte	0
+ 1249 02ea 03       		.byte	3
+ 1250 02eb E0       		.byte	-32
+ 1251 02ec 60       		.byte	96
+ 1252 02ed 4C       		.byte	76
+ 1253 02ee 00       		.byte	0
+ 1254 02ef 00       		.byte	0
+ 1255 02f0 00       		.byte	0
+ 1256 02f1 00       		.byte	0
+ 1257 02f2 00       		.byte	0
+ 1258 02f3 03       		.byte	3
+ 1259 02f4 F0       		.byte	-16
+ 1260 02f5 00       		.byte	0
+ 1261 02f6 00       		.byte	0
+ 1262 02f7 00       		.byte	0
+ 1263 02f8 00       		.byte	0
+ 1264 02f9 00       		.byte	0
+ 1265 02fa 00       		.byte	0
+ 1266 02fb 00       		.byte	0
+ 1267 02fc 60       		.byte	96
+ 1268 02fd 0C       		.byte	12
+ 1269 02fe 00       		.byte	0
+ 1270 02ff 00       		.byte	0
+ 1271 0300 00       		.byte	0
+ 1272 0301 00       		.byte	0
+ 1273 0302 00       		.byte	0
+ 1274 0303 07       		.byte	7
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 23
+
+
+ 1275 0304 F0       		.byte	-16
+ 1276 0305 00       		.byte	0
+ 1277 0306 00       		.byte	0
+ 1278 0307 00       		.byte	0
+ 1279 0308 00       		.byte	0
+ 1280 0309 10       		.byte	16
+ 1281 030a 00       		.byte	0
+ 1282 030b 00       		.byte	0
+ 1283 030c 60       		.byte	96
+ 1284 030d 00       		.byte	0
+ 1285 030e 00       		.byte	0
+ 1286 030f 00       		.byte	0
+ 1287 0310 00       		.byte	0
+ 1288 0311 00       		.byte	0
+ 1289 0312 00       		.byte	0
+ 1290 0313 07       		.byte	7
+ 1291 0314 F0       		.byte	-16
+ 1292 0315 00       		.byte	0
+ 1293 0316 00       		.byte	0
+ 1294 0317 00       		.byte	0
+ 1295 0318 00       		.byte	0
+ 1296 0319 18       		.byte	24
+ 1297 031a 00       		.byte	0
+ 1298 031b 00       		.byte	0
+ 1299 031c 60       		.byte	96
+ 1300 031d 00       		.byte	0
+ 1301 031e 00       		.byte	0
+ 1302 031f 00       		.byte	0
+ 1303 0320 06       		.byte	6
+ 1304 0321 00       		.byte	0
+ 1305 0322 1E       		.byte	30
+ 1306 0323 07       		.byte	7
+ 1307 0324 F0       		.byte	-16
+ 1308 0325 18       		.byte	24
+ 1309 0326 00       		.byte	0
+ 1310 0327 03       		.byte	3
+ 1311 0328 00       		.byte	0
+ 1312 0329 3C       		.byte	60
+ 1313 032a 80       		.byte	-128
+ 1314 032b 00       		.byte	0
+ 1315 032c F0       		.byte	-16
+ 1316 032d 00       		.byte	0
+ 1317 032e 00       		.byte	0
+ 1318 032f 38       		.byte	56
+ 1319 0330 3F       		.byte	63
+ 1320 0331 80       		.byte	-128
+ 1321 0332 F7       		.byte	-9
+ 1322 0333 87       		.byte	-121
+ 1323 0334 F0       		.byte	-16
+ 1324 0335 E7       		.byte	-25
+ 1325 0336 03       		.byte	3
+ 1326 0337 FF       		.byte	-1
+ 1327 0338 E0       		.byte	-32
+ 1328 0339 FF       		.byte	-1
+ 1329 033a C7       		.byte	-57
+ 1330 033b 83       		.byte	-125
+ 1331 033c FF       		.byte	-1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 24
+
+
+ 1332 033d 3C       		.byte	60
+ 1333 033e 03       		.byte	3
+ 1334 033f FE       		.byte	-2
+ 1335 0340 60       		.byte	96
+ 1336 0341 C1       		.byte	-63
+ 1337 0342 C1       		.byte	-63
+ 1338 0343 87       		.byte	-121
+ 1339 0344 E1       		.byte	-31
+ 1340 0345 83       		.byte	-125
+ 1341 0346 81       		.byte	-127
+ 1342 0347 F0       		.byte	-16
+ 1343 0348 F0       		.byte	-16
+ 1344 0349 38       		.byte	56
+ 1345 034a 01       		.byte	1
+ 1346 034b 80       		.byte	-128
+ 1347 034c F0       		.byte	-16
+ 1348 034d 0C       		.byte	12
+ 1349 034e 07       		.byte	7
+ 1350 034f 07       		.byte	7
+ 1351 0350 E0       		.byte	-32
+ 1352 0351 C3       		.byte	-61
+ 1353 0352 80       		.byte	-128
+ 1354 0353 87       		.byte	-121
+ 1355 0354 E3       		.byte	-29
+ 1356 0355 81       		.byte	-127
+ 1357 0356 C1       		.byte	-63
+ 1358 0357 E0       		.byte	-32
+ 1359 0358 70       		.byte	112
+ 1360 0359 38       		.byte	56
+ 1361 035a 01       		.byte	1
+ 1362 035b 80       		.byte	-128
+ 1363 035c 60       		.byte	96
+ 1364 035d 0C       		.byte	12
+ 1365 035e 0E       		.byte	14
+ 1366 035f 03       		.byte	3
+ 1367 0360 E0       		.byte	-32
+ 1368 0361 07       		.byte	7
+ 1369 0362 00       		.byte	0
+ 1370 0363 07       		.byte	7
+ 1371 0364 E7       		.byte	-25
+ 1372 0365 81       		.byte	-127
+ 1373 0366 C1       		.byte	-63
+ 1374 0367 C0       		.byte	-64
+ 1375 0368 70       		.byte	112
+ 1376 0369 38       		.byte	56
+ 1377 036a 01       		.byte	1
+ 1378 036b 80       		.byte	-128
+ 1379 036c 60       		.byte	96
+ 1380 036d 0C       		.byte	12
+ 1381 036e 0E       		.byte	14
+ 1382 036f 00       		.byte	0
+ 1383 0370 78       		.byte	120
+ 1384 0371 07       		.byte	7
+ 1385 0372 00       		.byte	0
+ 1386 0373 07       		.byte	7
+ 1387 0374 E7       		.byte	-25
+ 1388 0375 FF       		.byte	-1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 25
+
+
+ 1389 0376 C1       		.byte	-63
+ 1390 0377 C0       		.byte	-64
+ 1391 0378 30       		.byte	48
+ 1392 0379 38       		.byte	56
+ 1393 037a 01       		.byte	1
+ 1394 037b 80       		.byte	-128
+ 1395 037c 60       		.byte	96
+ 1396 037d 0C       		.byte	12
+ 1397 037e 1C       		.byte	28
+ 1398 037f 00       		.byte	0
+ 1399 0380 7F       		.byte	127
+ 1400 0381 07       		.byte	7
+ 1401 0382 00       		.byte	0
+ 1402 0383 07       		.byte	7
+ 1403 0384 E7       		.byte	-25
+ 1404 0385 FF       		.byte	-1
+ 1405 0386 81       		.byte	-127
+ 1406 0387 C0       		.byte	-64
+ 1407 0388 30       		.byte	48
+ 1408 0389 38       		.byte	56
+ 1409 038a 01       		.byte	1
+ 1410 038b 80       		.byte	-128
+ 1411 038c 60       		.byte	96
+ 1412 038d 0C       		.byte	12
+ 1413 038e 1C       		.byte	28
+ 1414 038f 00       		.byte	0
+ 1415 0390 0F       		.byte	15
+ 1416 0391 C7       		.byte	-57
+ 1417 0392 00       		.byte	0
+ 1418 0393 07       		.byte	7
+ 1419 0394 E7       		.byte	-25
+ 1420 0395 00       		.byte	0
+ 1421 0396 01       		.byte	1
+ 1422 0397 C0       		.byte	-64
+ 1423 0398 30       		.byte	48
+ 1424 0399 38       		.byte	56
+ 1425 039a 01       		.byte	1
+ 1426 039b 80       		.byte	-128
+ 1427 039c 60       		.byte	96
+ 1428 039d 0C       		.byte	12
+ 1429 039e 1C       		.byte	28
+ 1430 039f 00       		.byte	0
+ 1431 03a0 03       		.byte	3
+ 1432 03a1 E7       		.byte	-25
+ 1433 03a2 00       		.byte	0
+ 1434 03a3 07       		.byte	7
+ 1435 03a4 E7       		.byte	-25
+ 1436 03a5 00       		.byte	0
+ 1437 03a6 01       		.byte	1
+ 1438 03a7 C0       		.byte	-64
+ 1439 03a8 30       		.byte	48
+ 1440 03a9 38       		.byte	56
+ 1441 03aa 01       		.byte	1
+ 1442 03ab 80       		.byte	-128
+ 1443 03ac 60       		.byte	96
+ 1444 03ad 0C       		.byte	12
+ 1445 03ae 1C       		.byte	28
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 26
+
+
+ 1446 03af 00       		.byte	0
+ 1447 03b0 00       		.byte	0
+ 1448 03b1 E7       		.byte	-25
+ 1449 03b2 00       		.byte	0
+ 1450 03b3 0F       		.byte	15
+ 1451 03b4 C7       		.byte	-57
+ 1452 03b5 80       		.byte	-128
+ 1453 03b6 01       		.byte	1
+ 1454 03b7 C0       		.byte	-64
+ 1455 03b8 30       		.byte	48
+ 1456 03b9 38       		.byte	56
+ 1457 03ba 01       		.byte	1
+ 1458 03bb 80       		.byte	-128
+ 1459 03bc 60       		.byte	96
+ 1460 03bd 0C       		.byte	12
+ 1461 03be 0E       		.byte	14
+ 1462 03bf 00       		.byte	0
+ 1463 03c0 40       		.byte	64
+ 1464 03c1 E3       		.byte	-29
+ 1465 03c2 80       		.byte	-128
+ 1466 03c3 07       		.byte	7
+ 1467 03c4 83       		.byte	-125
+ 1468 03c5 80       		.byte	-128
+ 1469 03c6 01       		.byte	1
+ 1470 03c7 C0       		.byte	-64
+ 1471 03c8 30       		.byte	48
+ 1472 03c9 38       		.byte	56
+ 1473 03ca 01       		.byte	1
+ 1474 03cb 80       		.byte	-128
+ 1475 03cc 60       		.byte	96
+ 1476 03cd 0C       		.byte	12
+ 1477 03ce 0E       		.byte	14
+ 1478 03cf 00       		.byte	0
+ 1479 03d0 60       		.byte	96
+ 1480 03d1 C3       		.byte	-61
+ 1481 03d2 C0       		.byte	-64
+ 1482 03d3 87       		.byte	-121
+ 1483 03d4 83       		.byte	-125
+ 1484 03d5 C0       		.byte	-64
+ 1485 03d6 C1       		.byte	-63
+ 1486 03d7 E0       		.byte	-32
+ 1487 03d8 78       		.byte	120
+ 1488 03d9 1C       		.byte	28
+ 1489 03da 41       		.byte	65
+ 1490 03db 80       		.byte	-128
+ 1491 03dc F0       		.byte	-16
+ 1492 03dd 0E       		.byte	14
+ 1493 03de 0F       		.byte	15
+ 1494 03df 83       		.byte	-125
+ 1495 03e0 7F       		.byte	127
+ 1496 03e1 81       		.byte	-127
+ 1497 03e2 FF       		.byte	-1
+ 1498 03e3 83       		.byte	-125
+ 1499 03e4 00       		.byte	0
+ 1500 03e5 FF       		.byte	-1
+ 1501 03e6 87       		.byte	-121
+ 1502 03e7 F0       		.byte	-16
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 27
+
+
+ 1503 03e8 FC       		.byte	-4
+ 1504 03e9 0F       		.byte	15
+ 1505 03ea CF       		.byte	-49
+ 1506 03eb E2       		.byte	-30
+ 1507 03ec 04       		.byte	4
+ 1508 03ed 3F       		.byte	63
+ 1509 03ee 83       		.byte	-125
+ 1510 03ef FE       		.byte	-2
+ 1511 03f0 00       		.byte	0
+ 1512 03f1 00       		.byte	0
+ 1513 03f2 08       		.byte	8
+ 1514 03f3 00       		.byte	0
+ 1515 03f4 00       		.byte	0
+ 1516 03f5 1E       		.byte	30
+ 1517 03f6 00       		.byte	0
+ 1518 03f7 00       		.byte	0
+ 1519 03f8 00       		.byte	0
+ 1520 03f9 00       		.byte	0
+ 1521 03fa 00       		.byte	0
+ 1522 03fb 00       		.byte	0
+ 1523 03fc 00       		.byte	0
+ 1524 03fd 00       		.byte	0
+ 1525 03fe 00       		.byte	0
+ 1526 03ff 20       		.byte	32
+ 1527              		.section	.rodata.bmp_socket_off,"a"
+ 1528              		.align	2
+ 1531              	bmp_socket_off:
+ 1532 0000 20       		.byte	32
+ 1533 0001 20       		.byte	32
+ 1534 0002 0000     		.space	2
+ 1535 0004 00000000 		.word	bmp_socket_off_data
+ 1536              		.section	.rodata.bmp_socket_off_data,"a"
+ 1537              		.align	2
+ 1540              	bmp_socket_off_data:
+ 1541 0000 00       		.byte	0
+ 1542 0001 00       		.byte	0
+ 1543 0002 00       		.byte	0
+ 1544 0003 00       		.byte	0
+ 1545 0004 00       		.byte	0
+ 1546 0005 00       		.byte	0
+ 1547 0006 00       		.byte	0
+ 1548 0007 00       		.byte	0
+ 1549 0008 00       		.byte	0
+ 1550 0009 00       		.byte	0
+ 1551 000a 00       		.byte	0
+ 1552 000b 00       		.byte	0
+ 1553 000c 00       		.byte	0
+ 1554 000d 00       		.byte	0
+ 1555 000e 00       		.byte	0
+ 1556 000f 00       		.byte	0
+ 1557 0010 00       		.byte	0
+ 1558 0011 00       		.byte	0
+ 1559 0012 00       		.byte	0
+ 1560 0013 00       		.byte	0
+ 1561 0014 00       		.byte	0
+ 1562 0015 00       		.byte	0
+ 1563 0016 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 28
+
+
+ 1564 0017 00       		.byte	0
+ 1565 0018 00       		.byte	0
+ 1566 0019 FF       		.byte	-1
+ 1567 001a F8       		.byte	-8
+ 1568 001b 00       		.byte	0
+ 1569 001c 01       		.byte	1
+ 1570 001d 00       		.byte	0
+ 1571 001e 04       		.byte	4
+ 1572 001f 00       		.byte	0
+ 1573 0020 02       		.byte	2
+ 1574 0021 0F       		.byte	15
+ 1575 0022 82       		.byte	-126
+ 1576 0023 00       		.byte	0
+ 1577 0024 02       		.byte	2
+ 1578 0025 10       		.byte	16
+ 1579 0026 42       		.byte	66
+ 1580 0027 00       		.byte	0
+ 1581 0028 02       		.byte	2
+ 1582 0029 20       		.byte	32
+ 1583 002a 22       		.byte	34
+ 1584 002b 00       		.byte	0
+ 1585 002c 02       		.byte	2
+ 1586 002d 40       		.byte	64
+ 1587 002e 12       		.byte	18
+ 1588 002f 00       		.byte	0
+ 1589 0030 02       		.byte	2
+ 1590 0031 80       		.byte	-128
+ 1591 0032 0A       		.byte	10
+ 1592 0033 00       		.byte	0
+ 1593 0034 02       		.byte	2
+ 1594 0035 80       		.byte	-128
+ 1595 0036 0A       		.byte	10
+ 1596 0037 00       		.byte	0
+ 1597 0038 02       		.byte	2
+ 1598 0039 80       		.byte	-128
+ 1599 003a 0A       		.byte	10
+ 1600 003b 00       		.byte	0
+ 1601 003c 02       		.byte	2
+ 1602 003d 80       		.byte	-128
+ 1603 003e 0A       		.byte	10
+ 1604 003f 00       		.byte	0
+ 1605 0040 02       		.byte	2
+ 1606 0041 80       		.byte	-128
+ 1607 0042 0A       		.byte	10
+ 1608 0043 00       		.byte	0
+ 1609 0044 02       		.byte	2
+ 1610 0045 40       		.byte	64
+ 1611 0046 12       		.byte	18
+ 1612 0047 00       		.byte	0
+ 1613 0048 02       		.byte	2
+ 1614 0049 20       		.byte	32
+ 1615 004a 22       		.byte	34
+ 1616 004b 00       		.byte	0
+ 1617 004c 02       		.byte	2
+ 1618 004d 10       		.byte	16
+ 1619 004e 42       		.byte	66
+ 1620 004f 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 29
+
+
+ 1621 0050 02       		.byte	2
+ 1622 0051 0F       		.byte	15
+ 1623 0052 82       		.byte	-126
+ 1624 0053 00       		.byte	0
+ 1625 0054 01       		.byte	1
+ 1626 0055 00       		.byte	0
+ 1627 0056 04       		.byte	4
+ 1628 0057 00       		.byte	0
+ 1629 0058 00       		.byte	0
+ 1630 0059 FF       		.byte	-1
+ 1631 005a F8       		.byte	-8
+ 1632 005b 00       		.byte	0
+ 1633 005c 00       		.byte	0
+ 1634 005d 00       		.byte	0
+ 1635 005e 00       		.byte	0
+ 1636 005f 00       		.byte	0
+ 1637 0060 00       		.byte	0
+ 1638 0061 00       		.byte	0
+ 1639 0062 00       		.byte	0
+ 1640 0063 00       		.byte	0
+ 1641 0064 00       		.byte	0
+ 1642 0065 00       		.byte	0
+ 1643 0066 00       		.byte	0
+ 1644 0067 00       		.byte	0
+ 1645 0068 00       		.byte	0
+ 1646 0069 00       		.byte	0
+ 1647 006a 00       		.byte	0
+ 1648 006b 00       		.byte	0
+ 1649 006c 00       		.byte	0
+ 1650 006d 00       		.byte	0
+ 1651 006e 00       		.byte	0
+ 1652 006f 00       		.byte	0
+ 1653 0070 00       		.byte	0
+ 1654 0071 00       		.byte	0
+ 1655 0072 00       		.byte	0
+ 1656 0073 00       		.byte	0
+ 1657 0074 00       		.byte	0
+ 1658 0075 00       		.byte	0
+ 1659 0076 00       		.byte	0
+ 1660 0077 00       		.byte	0
+ 1661 0078 00       		.byte	0
+ 1662 0079 00       		.byte	0
+ 1663 007a 00       		.byte	0
+ 1664 007b 00       		.byte	0
+ 1665 007c 00       		.byte	0
+ 1666 007d 00       		.byte	0
+ 1667 007e 00       		.byte	0
+ 1668 007f 00       		.byte	0
+ 1669              		.section	.rodata.bmp_socket_on,"a"
+ 1670              		.align	2
+ 1673              	bmp_socket_on:
+ 1674 0000 20       		.byte	32
+ 1675 0001 20       		.byte	32
+ 1676 0002 0000     		.space	2
+ 1677 0004 00000000 		.word	bmp_socket_on_data
+ 1678              		.section	.rodata.bmp_socket_on_data,"a"
+ 1679              		.align	2
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 30
+
+
+ 1682              	bmp_socket_on_data:
+ 1683 0000 00       		.byte	0
+ 1684 0001 00       		.byte	0
+ 1685 0002 00       		.byte	0
+ 1686 0003 00       		.byte	0
+ 1687 0004 00       		.byte	0
+ 1688 0005 00       		.byte	0
+ 1689 0006 00       		.byte	0
+ 1690 0007 00       		.byte	0
+ 1691 0008 00       		.byte	0
+ 1692 0009 00       		.byte	0
+ 1693 000a 00       		.byte	0
+ 1694 000b 00       		.byte	0
+ 1695 000c 00       		.byte	0
+ 1696 000d 00       		.byte	0
+ 1697 000e 00       		.byte	0
+ 1698 000f 00       		.byte	0
+ 1699 0010 00       		.byte	0
+ 1700 0011 00       		.byte	0
+ 1701 0012 00       		.byte	0
+ 1702 0013 00       		.byte	0
+ 1703 0014 00       		.byte	0
+ 1704 0015 00       		.byte	0
+ 1705 0016 00       		.byte	0
+ 1706 0017 00       		.byte	0
+ 1707 0018 00       		.byte	0
+ 1708 0019 FF       		.byte	-1
+ 1709 001a F8       		.byte	-8
+ 1710 001b 00       		.byte	0
+ 1711 001c 01       		.byte	1
+ 1712 001d 00       		.byte	0
+ 1713 001e 04       		.byte	4
+ 1714 001f 00       		.byte	0
+ 1715 0020 02       		.byte	2
+ 1716 0021 0F       		.byte	15
+ 1717 0022 82       		.byte	-126
+ 1718 0023 00       		.byte	0
+ 1719 0024 02       		.byte	2
+ 1720 0025 10       		.byte	16
+ 1721 0026 42       		.byte	66
+ 1722 0027 00       		.byte	0
+ 1723 0028 02       		.byte	2
+ 1724 0029 20       		.byte	32
+ 1725 002a 22       		.byte	34
+ 1726 002b 00       		.byte	0
+ 1727 002c 02       		.byte	2
+ 1728 002d 40       		.byte	64
+ 1729 002e 12       		.byte	18
+ 1730 002f 00       		.byte	0
+ 1731 0030 02       		.byte	2
+ 1732 0031 80       		.byte	-128
+ 1733 0032 0A       		.byte	10
+ 1734 0033 00       		.byte	0
+ 1735 0034 02       		.byte	2
+ 1736 0035 8D       		.byte	-115
+ 1737 0036 8A       		.byte	-118
+ 1738 0037 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 31
+
+
+ 1739 0038 02       		.byte	2
+ 1740 0039 8D       		.byte	-115
+ 1741 003a 8A       		.byte	-118
+ 1742 003b 00       		.byte	0
+ 1743 003c 02       		.byte	2
+ 1744 003d 8D       		.byte	-115
+ 1745 003e 8A       		.byte	-118
+ 1746 003f 00       		.byte	0
+ 1747 0040 02       		.byte	2
+ 1748 0041 80       		.byte	-128
+ 1749 0042 0A       		.byte	10
+ 1750 0043 00       		.byte	0
+ 1751 0044 02       		.byte	2
+ 1752 0045 40       		.byte	64
+ 1753 0046 12       		.byte	18
+ 1754 0047 00       		.byte	0
+ 1755 0048 02       		.byte	2
+ 1756 0049 20       		.byte	32
+ 1757 004a 22       		.byte	34
+ 1758 004b 00       		.byte	0
+ 1759 004c 02       		.byte	2
+ 1760 004d 10       		.byte	16
+ 1761 004e 42       		.byte	66
+ 1762 004f 00       		.byte	0
+ 1763 0050 02       		.byte	2
+ 1764 0051 0F       		.byte	15
+ 1765 0052 82       		.byte	-126
+ 1766 0053 00       		.byte	0
+ 1767 0054 01       		.byte	1
+ 1768 0055 00       		.byte	0
+ 1769 0056 04       		.byte	4
+ 1770 0057 00       		.byte	0
+ 1771 0058 00       		.byte	0
+ 1772 0059 FF       		.byte	-1
+ 1773 005a F8       		.byte	-8
+ 1774 005b 00       		.byte	0
+ 1775 005c 00       		.byte	0
+ 1776 005d 00       		.byte	0
+ 1777 005e 00       		.byte	0
+ 1778 005f 00       		.byte	0
+ 1779 0060 00       		.byte	0
+ 1780 0061 00       		.byte	0
+ 1781 0062 00       		.byte	0
+ 1782 0063 00       		.byte	0
+ 1783 0064 00       		.byte	0
+ 1784 0065 00       		.byte	0
+ 1785 0066 00       		.byte	0
+ 1786 0067 00       		.byte	0
+ 1787 0068 00       		.byte	0
+ 1788 0069 00       		.byte	0
+ 1789 006a 00       		.byte	0
+ 1790 006b 00       		.byte	0
+ 1791 006c 00       		.byte	0
+ 1792 006d 00       		.byte	0
+ 1793 006e 00       		.byte	0
+ 1794 006f 00       		.byte	0
+ 1795 0070 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 32
+
+
+ 1796 0071 00       		.byte	0
+ 1797 0072 00       		.byte	0
+ 1798 0073 00       		.byte	0
+ 1799 0074 00       		.byte	0
+ 1800 0075 00       		.byte	0
+ 1801 0076 00       		.byte	0
+ 1802 0077 00       		.byte	0
+ 1803 0078 00       		.byte	0
+ 1804 0079 00       		.byte	0
+ 1805 007a 00       		.byte	0
+ 1806 007b 00       		.byte	0
+ 1807 007c 00       		.byte	0
+ 1808 007d 00       		.byte	0
+ 1809 007e 00       		.byte	0
+ 1810 007f 00       		.byte	0
+ 1811              		.section	.rodata.bmp_uv_off,"a"
+ 1812              		.align	2
+ 1815              	bmp_uv_off:
+ 1816 0000 20       		.byte	32
+ 1817 0001 20       		.byte	32
+ 1818 0002 0000     		.space	2
+ 1819 0004 00000000 		.word	bmp_uv_off_data
+ 1820              		.section	.rodata.bmp_uv_off_data,"a"
+ 1821              		.align	2
+ 1824              	bmp_uv_off_data:
+ 1825 0000 00       		.byte	0
+ 1826 0001 00       		.byte	0
+ 1827 0002 00       		.byte	0
+ 1828 0003 00       		.byte	0
+ 1829 0004 00       		.byte	0
+ 1830 0005 00       		.byte	0
+ 1831 0006 00       		.byte	0
+ 1832 0007 00       		.byte	0
+ 1833 0008 00       		.byte	0
+ 1834 0009 00       		.byte	0
+ 1835 000a 00       		.byte	0
+ 1836 000b 00       		.byte	0
+ 1837 000c 00       		.byte	0
+ 1838 000d 00       		.byte	0
+ 1839 000e 00       		.byte	0
+ 1840 000f 00       		.byte	0
+ 1841 0010 00       		.byte	0
+ 1842 0011 00       		.byte	0
+ 1843 0012 00       		.byte	0
+ 1844 0013 00       		.byte	0
+ 1845 0014 00       		.byte	0
+ 1846 0015 00       		.byte	0
+ 1847 0016 00       		.byte	0
+ 1848 0017 00       		.byte	0
+ 1849 0018 00       		.byte	0
+ 1850 0019 00       		.byte	0
+ 1851 001a 00       		.byte	0
+ 1852 001b 00       		.byte	0
+ 1853 001c 00       		.byte	0
+ 1854 001d 00       		.byte	0
+ 1855 001e 00       		.byte	0
+ 1856 001f 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 33
+
+
+ 1857 0020 00       		.byte	0
+ 1858 0021 03       		.byte	3
+ 1859 0022 E0       		.byte	-32
+ 1860 0023 00       		.byte	0
+ 1861 0024 00       		.byte	0
+ 1862 0025 0C       		.byte	12
+ 1863 0026 18       		.byte	24
+ 1864 0027 00       		.byte	0
+ 1865 0028 00       		.byte	0
+ 1866 0029 10       		.byte	16
+ 1867 002a 04       		.byte	4
+ 1868 002b 00       		.byte	0
+ 1869 002c 00       		.byte	0
+ 1870 002d 20       		.byte	32
+ 1871 002e 02       		.byte	2
+ 1872 002f 00       		.byte	0
+ 1873 0030 00       		.byte	0
+ 1874 0031 40       		.byte	64
+ 1875 0032 01       		.byte	1
+ 1876 0033 00       		.byte	0
+ 1877 0034 00       		.byte	0
+ 1878 0035 40       		.byte	64
+ 1879 0036 01       		.byte	1
+ 1880 0037 00       		.byte	0
+ 1881 0038 00       		.byte	0
+ 1882 0039 84       		.byte	-124
+ 1883 003a 10       		.byte	16
+ 1884 003b 80       		.byte	-128
+ 1885 003c 00       		.byte	0
+ 1886 003d 80       		.byte	-128
+ 1887 003e 00       		.byte	0
+ 1888 003f 80       		.byte	-128
+ 1889 0040 00       		.byte	0
+ 1890 0041 80       		.byte	-128
+ 1891 0042 00       		.byte	0
+ 1892 0043 80       		.byte	-128
+ 1893 0044 00       		.byte	0
+ 1894 0045 80       		.byte	-128
+ 1895 0046 00       		.byte	0
+ 1896 0047 80       		.byte	-128
+ 1897 0048 00       		.byte	0
+ 1898 0049 80       		.byte	-128
+ 1899 004a 00       		.byte	0
+ 1900 004b 80       		.byte	-128
+ 1901 004c 00       		.byte	0
+ 1902 004d 41       		.byte	65
+ 1903 004e C1       		.byte	-63
+ 1904 004f 00       		.byte	0
+ 1905 0050 00       		.byte	0
+ 1906 0051 42       		.byte	66
+ 1907 0052 21       		.byte	33
+ 1908 0053 00       		.byte	0
+ 1909 0054 00       		.byte	0
+ 1910 0055 20       		.byte	32
+ 1911 0056 02       		.byte	2
+ 1912 0057 00       		.byte	0
+ 1913 0058 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 34
+
+
+ 1914 0059 10       		.byte	16
+ 1915 005a 04       		.byte	4
+ 1916 005b 00       		.byte	0
+ 1917 005c 00       		.byte	0
+ 1918 005d 0C       		.byte	12
+ 1919 005e 18       		.byte	24
+ 1920 005f 00       		.byte	0
+ 1921 0060 00       		.byte	0
+ 1922 0061 03       		.byte	3
+ 1923 0062 E0       		.byte	-32
+ 1924 0063 00       		.byte	0
+ 1925 0064 00       		.byte	0
+ 1926 0065 00       		.byte	0
+ 1927 0066 00       		.byte	0
+ 1928 0067 00       		.byte	0
+ 1929 0068 00       		.byte	0
+ 1930 0069 00       		.byte	0
+ 1931 006a 00       		.byte	0
+ 1932 006b 00       		.byte	0
+ 1933 006c 00       		.byte	0
+ 1934 006d 00       		.byte	0
+ 1935 006e 00       		.byte	0
+ 1936 006f 00       		.byte	0
+ 1937 0070 00       		.byte	0
+ 1938 0071 00       		.byte	0
+ 1939 0072 00       		.byte	0
+ 1940 0073 00       		.byte	0
+ 1941 0074 00       		.byte	0
+ 1942 0075 00       		.byte	0
+ 1943 0076 00       		.byte	0
+ 1944 0077 00       		.byte	0
+ 1945 0078 00       		.byte	0
+ 1946 0079 00       		.byte	0
+ 1947 007a 00       		.byte	0
+ 1948 007b 00       		.byte	0
+ 1949 007c 00       		.byte	0
+ 1950 007d 00       		.byte	0
+ 1951 007e 00       		.byte	0
+ 1952 007f 00       		.byte	0
+ 1953              		.section	.rodata.bmp_uv_on,"a"
+ 1954              		.align	2
+ 1957              	bmp_uv_on:
+ 1958 0000 20       		.byte	32
+ 1959 0001 20       		.byte	32
+ 1960 0002 0000     		.space	2
+ 1961 0004 00000000 		.word	bmp_uv_on_data
+ 1962              		.section	.rodata.bmp_uv_on_data,"a"
+ 1963              		.align	2
+ 1966              	bmp_uv_on_data:
+ 1967 0000 00       		.byte	0
+ 1968 0001 00       		.byte	0
+ 1969 0002 00       		.byte	0
+ 1970 0003 00       		.byte	0
+ 1971 0004 00       		.byte	0
+ 1972 0005 00       		.byte	0
+ 1973 0006 00       		.byte	0
+ 1974 0007 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 35
+
+
+ 1975 0008 00       		.byte	0
+ 1976 0009 00       		.byte	0
+ 1977 000a 00       		.byte	0
+ 1978 000b 00       		.byte	0
+ 1979 000c 00       		.byte	0
+ 1980 000d 00       		.byte	0
+ 1981 000e 00       		.byte	0
+ 1982 000f 00       		.byte	0
+ 1983 0010 00       		.byte	0
+ 1984 0011 00       		.byte	0
+ 1985 0012 80       		.byte	-128
+ 1986 0013 00       		.byte	0
+ 1987 0014 00       		.byte	0
+ 1988 0015 00       		.byte	0
+ 1989 0016 80       		.byte	-128
+ 1990 0017 00       		.byte	0
+ 1991 0018 00       		.byte	0
+ 1992 0019 00       		.byte	0
+ 1993 001a 80       		.byte	-128
+ 1994 001b 00       		.byte	0
+ 1995 001c 01       		.byte	1
+ 1996 001d 00       		.byte	0
+ 1997 001e 00       		.byte	0
+ 1998 001f 40       		.byte	64
+ 1999 0020 00       		.byte	0
+ 2000 0021 83       		.byte	-125
+ 2001 0022 E0       		.byte	-32
+ 2002 0023 80       		.byte	-128
+ 2003 0024 00       		.byte	0
+ 2004 0025 0C       		.byte	12
+ 2005 0026 18       		.byte	24
+ 2006 0027 00       		.byte	0
+ 2007 0028 00       		.byte	0
+ 2008 0029 10       		.byte	16
+ 2009 002a 04       		.byte	4
+ 2010 002b 00       		.byte	0
+ 2011 002c 00       		.byte	0
+ 2012 002d 20       		.byte	32
+ 2013 002e 02       		.byte	2
+ 2014 002f 00       		.byte	0
+ 2015 0030 00       		.byte	0
+ 2016 0031 40       		.byte	64
+ 2017 0032 01       		.byte	1
+ 2018 0033 00       		.byte	0
+ 2019 0034 00       		.byte	0
+ 2020 0035 40       		.byte	64
+ 2021 0036 01       		.byte	1
+ 2022 0037 00       		.byte	0
+ 2023 0038 00       		.byte	0
+ 2024 0039 84       		.byte	-124
+ 2025 003a 10       		.byte	16
+ 2026 003b 80       		.byte	-128
+ 2027 003c 00       		.byte	0
+ 2028 003d 80       		.byte	-128
+ 2029 003e 00       		.byte	0
+ 2030 003f 80       		.byte	-128
+ 2031 0040 0E       		.byte	14
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 36
+
+
+ 2032 0041 80       		.byte	-128
+ 2033 0042 00       		.byte	0
+ 2034 0043 B8       		.byte	-72
+ 2035 0044 00       		.byte	0
+ 2036 0045 80       		.byte	-128
+ 2037 0046 00       		.byte	0
+ 2038 0047 80       		.byte	-128
+ 2039 0048 00       		.byte	0
+ 2040 0049 80       		.byte	-128
+ 2041 004a 00       		.byte	0
+ 2042 004b 80       		.byte	-128
+ 2043 004c 00       		.byte	0
+ 2044 004d 46       		.byte	70
+ 2045 004e 31       		.byte	49
+ 2046 004f 00       		.byte	0
+ 2047 0050 00       		.byte	0
+ 2048 0051 41       		.byte	65
+ 2049 0052 C1       		.byte	-63
+ 2050 0053 00       		.byte	0
+ 2051 0054 00       		.byte	0
+ 2052 0055 20       		.byte	32
+ 2053 0056 02       		.byte	2
+ 2054 0057 00       		.byte	0
+ 2055 0058 00       		.byte	0
+ 2056 0059 10       		.byte	16
+ 2057 005a 04       		.byte	4
+ 2058 005b 00       		.byte	0
+ 2059 005c 00       		.byte	0
+ 2060 005d 0C       		.byte	12
+ 2061 005e 18       		.byte	24
+ 2062 005f 00       		.byte	0
+ 2063 0060 00       		.byte	0
+ 2064 0061 83       		.byte	-125
+ 2065 0062 E0       		.byte	-32
+ 2066 0063 80       		.byte	-128
+ 2067 0064 01       		.byte	1
+ 2068 0065 00       		.byte	0
+ 2069 0066 00       		.byte	0
+ 2070 0067 40       		.byte	64
+ 2071 0068 00       		.byte	0
+ 2072 0069 00       		.byte	0
+ 2073 006a 80       		.byte	-128
+ 2074 006b 00       		.byte	0
+ 2075 006c 00       		.byte	0
+ 2076 006d 00       		.byte	0
+ 2077 006e 80       		.byte	-128
+ 2078 006f 00       		.byte	0
+ 2079 0070 00       		.byte	0
+ 2080 0071 00       		.byte	0
+ 2081 0072 80       		.byte	-128
+ 2082 0073 00       		.byte	0
+ 2083 0074 00       		.byte	0
+ 2084 0075 00       		.byte	0
+ 2085 0076 00       		.byte	0
+ 2086 0077 00       		.byte	0
+ 2087 0078 00       		.byte	0
+ 2088 0079 00       		.byte	0
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 37
+
+
+ 2089 007a 00       		.byte	0
+ 2090 007b 00       		.byte	0
+ 2091 007c 00       		.byte	0
+ 2092 007d 00       		.byte	0
+ 2093 007e 00       		.byte	0
+ 2094 007f 00       		.byte	0
+ 2095              		.text
+ 2096              	.Letext0:
+ 2097              		.file 1 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 2098              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 2099              		.file 3 "Drivers/CMSIS/Include/core_cm3.h"
+ 2100              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 2101              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
+ 2102              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 2103              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 2104              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 2105              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 2106              		.file 10 "Inc/user_bitmap.h"
+ 2107              		.file 11 "Src/user_bitmap.c"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccQUaMca.s 			page 38
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 user_bitmap.c
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1531   .rodata.bmp_socket_off:00000000 bmp_socket_off
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1673   .rodata.bmp_socket_on:00000000 bmp_socket_on
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:123    .rodata.bmp_fan_rotate:00000000 bmp_fan_rotate
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:37     .rodata.bmp_fan_origin:00000000 bmp_fan_origin
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1815   .rodata.bmp_uv_off:00000000 bmp_uv_off
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1957   .rodata.bmp_uv_on:00000000 bmp_uv_on
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:218    .rodata.bmp_neon_off:00000000 bmp_neon_off
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:360    .rodata.bmp_neon_on:00000000 bmp_neon_on
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:209    .rodata.bmp_logo_ph:00000000 bmp_logo_ph
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1540   .rodata.bmp_socket_off_data:00000000 bmp_socket_off_data
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1682   .rodata.bmp_socket_on_data:00000000 bmp_socket_on_data
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:132    .rodata.bmp_fan_rotate_data:00000000 bmp_fan_rotate_data
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:46     .rodata.bmp_fan_origin_data:00000000 bmp_fan_origin_data
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1824   .rodata.bmp_uv_off_data:00000000 bmp_uv_off_data
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1966   .rodata.bmp_uv_on_data:00000000 bmp_uv_on_data
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:227    .rodata.bmp_neon_off_data:00000000 bmp_neon_off_data
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:369    .rodata.bmp_neon_on_data:00000000 bmp_neon_on_data
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:502    .rodata.bmp_ph_logo_data:00000000 bmp_ph_logo_data
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:34     .rodata.bmp_fan_origin:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:43     .rodata.bmp_fan_origin_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:120    .rodata.bmp_fan_rotate:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:129    .rodata.bmp_fan_rotate_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:206    .rodata.bmp_logo_ph:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:215    .rodata.bmp_neon_off:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:224    .rodata.bmp_neon_off_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:357    .rodata.bmp_neon_on:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:366    .rodata.bmp_neon_on_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:499    .rodata.bmp_ph_logo_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1528   .rodata.bmp_socket_off:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1537   .rodata.bmp_socket_off_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1670   .rodata.bmp_socket_on:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1679   .rodata.bmp_socket_on_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1812   .rodata.bmp_uv_off:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1821   .rodata.bmp_uv_off_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1954   .rodata.bmp_uv_on:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccQUaMca.s:1963   .rodata.bmp_uv_on_data:00000000 $d
+
+NO UNDEFINED SYMBOLS

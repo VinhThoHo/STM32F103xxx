@@ -1,0 +1,731 @@
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8x8_d_a2printer.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.get_delay_in_milliseconds,"ax",%progbits
+  16              		.align	1
+  17              		.global	get_delay_in_milliseconds
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	get_delay_in_milliseconds:
+  25              	.LVL0:
+  26              	.LFB0:
+  27              		.file 1 "u8g2/csrc/u8x8_d_a2printer.c"
+   1:u8g2/csrc/u8x8_d_a2printer.c **** /*
+   2:u8g2/csrc/u8x8_d_a2printer.c **** 
+   3:u8g2/csrc/u8x8_d_a2printer.c ****   u8x8_d_a2printer.c
+   4:u8g2/csrc/u8x8_d_a2printer.c ****   
+   5:u8g2/csrc/u8x8_d_a2printer.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   6:u8g2/csrc/u8x8_d_a2printer.c **** 
+   7:u8g2/csrc/u8x8_d_a2printer.c ****   Copyright (c) 2016, olikraus@gmail.com
+   8:u8g2/csrc/u8x8_d_a2printer.c ****   All rights reserved.
+   9:u8g2/csrc/u8x8_d_a2printer.c **** 
+  10:u8g2/csrc/u8x8_d_a2printer.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  11:u8g2/csrc/u8x8_d_a2printer.c ****   are permitted provided that the following conditions are met:
+  12:u8g2/csrc/u8x8_d_a2printer.c **** 
+  13:u8g2/csrc/u8x8_d_a2printer.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  14:u8g2/csrc/u8x8_d_a2printer.c ****     of conditions and the following disclaimer.
+  15:u8g2/csrc/u8x8_d_a2printer.c ****     
+  16:u8g2/csrc/u8x8_d_a2printer.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  17:u8g2/csrc/u8x8_d_a2printer.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  18:u8g2/csrc/u8x8_d_a2printer.c ****     materials provided with the distribution.
+  19:u8g2/csrc/u8x8_d_a2printer.c **** 
+  20:u8g2/csrc/u8x8_d_a2printer.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  21:u8g2/csrc/u8x8_d_a2printer.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  22:u8g2/csrc/u8x8_d_a2printer.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  23:u8g2/csrc/u8x8_d_a2printer.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  24:u8g2/csrc/u8x8_d_a2printer.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  25:u8g2/csrc/u8x8_d_a2printer.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  26:u8g2/csrc/u8x8_d_a2printer.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  27:u8g2/csrc/u8x8_d_a2printer.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  28:u8g2/csrc/u8x8_d_a2printer.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  29:u8g2/csrc/u8x8_d_a2printer.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  30:u8g2/csrc/u8x8_d_a2printer.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:u8g2/csrc/u8x8_d_a2printer.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 2
+
+
+  32:u8g2/csrc/u8x8_d_a2printer.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
+  33:u8g2/csrc/u8x8_d_a2printer.c **** 
+  34:u8g2/csrc/u8x8_d_a2printer.c **** 
+  35:u8g2/csrc/u8x8_d_a2printer.c ****   Use DC2 bitmap command of the A2 Micro panel termal printer
+  36:u8g2/csrc/u8x8_d_a2printer.c ****   double stroke
+  37:u8g2/csrc/u8x8_d_a2printer.c ****   
+  38:u8g2/csrc/u8x8_d_a2printer.c ****   
+  39:u8g2/csrc/u8x8_d_a2printer.c **** */
+  40:u8g2/csrc/u8x8_d_a2printer.c **** 
+  41:u8g2/csrc/u8x8_d_a2printer.c **** 
+  42:u8g2/csrc/u8x8_d_a2printer.c **** #include "u8x8.h"
+  43:u8g2/csrc/u8x8_d_a2printer.c **** 
+  44:u8g2/csrc/u8x8_d_a2printer.c **** #define LINE_MIN_DELAY_MS 15
+  45:u8g2/csrc/u8x8_d_a2printer.c **** /* higher values improve quality */
+  46:u8g2/csrc/u8x8_d_a2printer.c **** /* however if the value is too high (>=5) then form feed does not work any more */
+  47:u8g2/csrc/u8x8_d_a2printer.c **** #define LINE_EXTRA_8PIXEL_DELAY_MS 3
+  48:u8g2/csrc/u8x8_d_a2printer.c **** /* this must be a power of two and between 1 and 8 */
+  49:u8g2/csrc/u8x8_d_a2printer.c **** /* best quality only with 1 */
+  50:u8g2/csrc/u8x8_d_a2printer.c **** #define NO_OF_LINES_TO_SEND_WITHOUT_DELAY 1
+  51:u8g2/csrc/u8x8_d_a2printer.c **** 
+  52:u8g2/csrc/u8x8_d_a2printer.c **** /* calculates the delay, based on the number of black pixel */
+  53:u8g2/csrc/u8x8_d_a2printer.c **** /* actually only "none-zero" bytes are calculated which is, of course not so accurate, but should b
+  54:u8g2/csrc/u8x8_d_a2printer.c **** uint16_t get_delay_in_milliseconds(uint8_t cnt, uint8_t *data)
+  55:u8g2/csrc/u8x8_d_a2printer.c **** {
+  28              		.loc 1 55 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  56:u8g2/csrc/u8x8_d_a2printer.c ****   uint8_t i;
+  33              		.loc 1 56 3 view .LVU1
+  57:u8g2/csrc/u8x8_d_a2printer.c ****   uint16_t time = LINE_MIN_DELAY_MS;
+  34              		.loc 1 57 3 view .LVU2
+  58:u8g2/csrc/u8x8_d_a2printer.c ****   for ( i = 0; i < cnt; i++ )
+  35              		.loc 1 58 3 view .LVU3
+  57:u8g2/csrc/u8x8_d_a2printer.c ****   uint16_t time = LINE_MIN_DELAY_MS;
+  36              		.loc 1 57 12 is_stmt 0 view .LVU4
+  37 0000 0F22     		movs	r2, #15
+  38              		.loc 1 58 11 view .LVU5
+  39 0002 0023     		movs	r3, #0
+  40              	.LVL1:
+  41              		.loc 1 58 3 view .LVU6
+  42 0004 8342     		cmp	r3, r0
+  43 0006 0ED2     		bcs	.L9
+  55:u8g2/csrc/u8x8_d_a2printer.c ****   uint8_t i;
+  44              		.loc 1 55 1 view .LVU7
+  45 0008 10B4     		push	{r4}
+  46              	.LCFI0:
+  47              		.cfi_def_cfa_offset 4
+  48              		.cfi_offset 4, -4
+  49 000a 03E0     		b	.L4
+  50              	.L3:
+  51              		.loc 1 58 26 discriminator 2 view .LVU8
+  52 000c 0133     		adds	r3, r3, #1
+  53              	.LVL2:
+  54              		.loc 1 58 26 discriminator 2 view .LVU9
+  55 000e DBB2     		uxtb	r3, r3
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 3
+
+
+  56              	.LVL3:
+  57              		.loc 1 58 3 discriminator 2 view .LVU10
+  58 0010 8342     		cmp	r3, r0
+  59 0012 05D2     		bcs	.L10
+  60              	.L4:
+  59:u8g2/csrc/u8x8_d_a2printer.c ****     if ( data[i] != 0 )
+  61              		.loc 1 59 5 is_stmt 1 view .LVU11
+  62              		.loc 1 59 14 is_stmt 0 view .LVU12
+  63 0014 CC5C     		ldrb	r4, [r1, r3]	@ zero_extendqisi2
+  64              		.loc 1 59 8 view .LVU13
+  65 0016 002C     		cmp	r4, #0
+  66 0018 F8D0     		beq	.L3
+  60:u8g2/csrc/u8x8_d_a2printer.c ****       time += LINE_EXTRA_8PIXEL_DELAY_MS;
+  67              		.loc 1 60 7 is_stmt 1 view .LVU14
+  68              		.loc 1 60 12 is_stmt 0 view .LVU15
+  69 001a 0332     		adds	r2, r2, #3
+  70              	.LVL4:
+  71              		.loc 1 60 12 view .LVU16
+  72 001c 92B2     		uxth	r2, r2
+  73              	.LVL5:
+  74              		.loc 1 60 12 view .LVU17
+  75 001e F5E7     		b	.L3
+  76              	.L10:
+  61:u8g2/csrc/u8x8_d_a2printer.c ****   return time;
+  77              		.loc 1 61 3 is_stmt 1 view .LVU18
+  62:u8g2/csrc/u8x8_d_a2printer.c **** }
+  78              		.loc 1 62 1 is_stmt 0 view .LVU19
+  79 0020 1046     		mov	r0, r2
+  80              	.LVL6:
+  81              		.loc 1 62 1 view .LVU20
+  82 0022 10BC     		pop	{r4}
+  83              	.LCFI1:
+  84              		.cfi_restore 4
+  85              		.cfi_def_cfa_offset 0
+  86 0024 7047     		bx	lr
+  87              	.LVL7:
+  88              	.L9:
+  61:u8g2/csrc/u8x8_d_a2printer.c ****   return time;
+  89              		.loc 1 61 3 is_stmt 1 view .LVU21
+  90              		.loc 1 62 1 is_stmt 0 view .LVU22
+  91 0026 1046     		mov	r0, r2
+  92              	.LVL8:
+  93              		.loc 1 62 1 view .LVU23
+  94 0028 7047     		bx	lr
+  95              		.cfi_endproc
+  96              	.LFE0:
+  98              		.section	.text.u8x8_d_a2printer_common,"ax",%progbits
+  99              		.align	1
+ 100              		.global	u8x8_d_a2printer_common
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu softvfp
+ 106              	u8x8_d_a2printer_common:
+ 107              	.LVL9:
+ 108              	.LFB1:
+  63:u8g2/csrc/u8x8_d_a2printer.c **** 
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 4
+
+
+  64:u8g2/csrc/u8x8_d_a2printer.c **** uint8_t u8x8_d_a2printer_common(u8x8_t *u8x8, uint8_t msg, U8X8_UNUSED uint8_t arg_int, void *arg_p
+  65:u8g2/csrc/u8x8_d_a2printer.c **** {
+ 109              		.loc 1 65 1 is_stmt 1 view -0
+ 110              		.cfi_startproc
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 0, uses_anonymous_args = 0
+  66:u8g2/csrc/u8x8_d_a2printer.c ****   uint8_t c, i, j;
+ 113              		.loc 1 66 3 view .LVU25
+  67:u8g2/csrc/u8x8_d_a2printer.c ****   uint8_t *ptr;
+ 114              		.loc 1 67 3 view .LVU26
+  68:u8g2/csrc/u8x8_d_a2printer.c ****   uint16_t delay_in_milliseconds;
+ 115              		.loc 1 68 3 view .LVU27
+  69:u8g2/csrc/u8x8_d_a2printer.c ****   switch(msg)
+ 116              		.loc 1 69 3 view .LVU28
+ 117 0000 0B29     		cmp	r1, #11
+ 118 0002 7CD0     		beq	.L19
+  65:u8g2/csrc/u8x8_d_a2printer.c ****   uint8_t c, i, j;
+ 119              		.loc 1 65 1 is_stmt 0 view .LVU29
+ 120 0004 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 121              	.LCFI2:
+ 122              		.cfi_def_cfa_offset 32
+ 123              		.cfi_offset 3, -32
+ 124              		.cfi_offset 4, -28
+ 125              		.cfi_offset 5, -24
+ 126              		.cfi_offset 6, -20
+ 127              		.cfi_offset 7, -16
+ 128              		.cfi_offset 8, -12
+ 129              		.cfi_offset 9, -8
+ 130              		.cfi_offset 14, -4
+ 131 0008 1C46     		mov	r4, r3
+ 132 000a 0546     		mov	r5, r0
+ 133              		.loc 1 69 3 view .LVU30
+ 134 000c 0F29     		cmp	r1, #15
+ 135 000e 08D0     		beq	.L13
+ 136 0010 0A29     		cmp	r1, #10
+ 137 0012 02D0     		beq	.L26
+  70:u8g2/csrc/u8x8_d_a2printer.c ****   {
+  71:u8g2/csrc/u8x8_d_a2printer.c ****     /* U8X8_MSG_DISPLAY_SETUP_MEMORY is handled by the calling function */
+  72:u8g2/csrc/u8x8_d_a2printer.c ****     /*
+  73:u8g2/csrc/u8x8_d_a2printer.c ****     case U8X8_MSG_DISPLAY_SETUP_MEMORY:
+  74:u8g2/csrc/u8x8_d_a2printer.c ****       break;
+  75:u8g2/csrc/u8x8_d_a2printer.c ****     */
+  76:u8g2/csrc/u8x8_d_a2printer.c ****     case U8X8_MSG_DISPLAY_INIT:
+  77:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_d_helper_display_init(u8x8);
+  78:u8g2/csrc/u8x8_d_a2printer.c ****       // no setup required
+  79:u8g2/csrc/u8x8_d_a2printer.c ****       // u8x8_cad_SendSequence(u8x8, u8x8_d_a2printer_init_seq);
+  80:u8g2/csrc/u8x8_d_a2printer.c ****       break;
+  81:u8g2/csrc/u8x8_d_a2printer.c ****     case U8X8_MSG_DISPLAY_SET_POWER_SAVE:
+  82:u8g2/csrc/u8x8_d_a2printer.c ****       // no powersave 
+  83:u8g2/csrc/u8x8_d_a2printer.c ****       break;
+  84:u8g2/csrc/u8x8_d_a2printer.c ****     case U8X8_MSG_DISPLAY_DRAW_TILE:
+  85:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_StartTransfer(u8x8);
+  86:u8g2/csrc/u8x8_d_a2printer.c ****       
+  87:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 27);      /* ESC */
+  88:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 55 );      /* parameter command */
+  89:u8g2/csrc/u8x8_d_a2printer.c ****       /* increasing the "max printing dots" requires a good power supply, but LINE_EXTRA_8PIXEL_DEL
+  90:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 0);      /* Max printing dots,Unit(8dots),Default:7(64 dots) 8*(x+1) .
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 5
+
+
+  91:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 200);      /* 3-255 Heating time,Unit(10us),Default:80(800us) */
+  92:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 2);      /* 0-255 Heating interval,Unit(10us),Default:2(20us) ... does
+  93:u8g2/csrc/u8x8_d_a2printer.c ****       
+  94:u8g2/csrc/u8x8_d_a2printer.c ****       //c = ((u8x8_tile_t *)arg_ptr)->cnt;	/* number of tiles */
+  95:u8g2/csrc/u8x8_d_a2printer.c ****       c = u8x8->display_info->tile_width;
+  96:u8g2/csrc/u8x8_d_a2printer.c ****       ptr = ((u8x8_tile_t *)arg_ptr)->tile_ptr;	/* data ptr to the tiles */
+  97:u8g2/csrc/u8x8_d_a2printer.c ****     
+  98:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 18);      /* DC2 */
+  99:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 42 );      /* *  */
+ 100:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 8 ); 	/* height */
+ 101:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, c ); 	/* c, u8x8->display_info->tile_width */
+ 102:u8g2/csrc/u8x8_d_a2printer.c ****       
+ 103:u8g2/csrc/u8x8_d_a2printer.c ****       for( j = 0; j < 8 / NO_OF_LINES_TO_SEND_WITHOUT_DELAY; j ++ )
+ 104:u8g2/csrc/u8x8_d_a2printer.c ****       {
+ 105:u8g2/csrc/u8x8_d_a2printer.c **** 
+ 106:u8g2/csrc/u8x8_d_a2printer.c **** 	delay_in_milliseconds = 0;
+ 107:u8g2/csrc/u8x8_d_a2printer.c **** 	for( i = 0; i < NO_OF_LINES_TO_SEND_WITHOUT_DELAY; i++ )
+ 108:u8g2/csrc/u8x8_d_a2printer.c **** 	{
+ 109:u8g2/csrc/u8x8_d_a2printer.c **** 	  u8x8_cad_SendData(u8x8, c, ptr);	/* c, note: SendData can not handle more than 255 bytes, send o
+ 110:u8g2/csrc/u8x8_d_a2printer.c **** 	  delay_in_milliseconds += get_delay_in_milliseconds(c, ptr);
+ 111:u8g2/csrc/u8x8_d_a2printer.c **** 	  ptr += c;
+ 112:u8g2/csrc/u8x8_d_a2printer.c **** 	}
+ 113:u8g2/csrc/u8x8_d_a2printer.c **** 	
+ 114:u8g2/csrc/u8x8_d_a2printer.c **** 	while( delay_in_milliseconds > 200 )
+ 115:u8g2/csrc/u8x8_d_a2printer.c **** 	{
+ 116:u8g2/csrc/u8x8_d_a2printer.c **** 	  u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_MILLI, 200, NULL);	
+ 117:u8g2/csrc/u8x8_d_a2printer.c **** 	  delay_in_milliseconds -= 200;
+ 118:u8g2/csrc/u8x8_d_a2printer.c **** 	}
+ 119:u8g2/csrc/u8x8_d_a2printer.c **** 	u8x8->gpio_and_delay_cb(u8x8, U8X8_MSG_DELAY_MILLI, delay_in_milliseconds, NULL);	
+ 120:u8g2/csrc/u8x8_d_a2printer.c ****       }
+ 121:u8g2/csrc/u8x8_d_a2printer.c **** 
+ 122:u8g2/csrc/u8x8_d_a2printer.c ****       /* set parameters back to their default values */
+ 123:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 27);      /* ESC */
+ 124:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 55 );      /* parameter command */
+ 125:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 7);      /* Max printing dots,Unit(8dots),Default:7(64 dots) 8*(x+1)*/
+ 126:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 80);      /* 3-255 Heating time,Unit(10us),Default:80(800us) */
+ 127:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 2);      /* 0-255 Heating interval,Unit(10us),Default:2(20us)*/
+ 128:u8g2/csrc/u8x8_d_a2printer.c **** 
+ 129:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_EndTransfer(u8x8);
+ 130:u8g2/csrc/u8x8_d_a2printer.c **** 
+ 131:u8g2/csrc/u8x8_d_a2printer.c ****       break;
+ 132:u8g2/csrc/u8x8_d_a2printer.c ****     default:
+ 133:u8g2/csrc/u8x8_d_a2printer.c ****       return 0;
+ 138              		.loc 1 133 14 view .LVU31
+ 139 0014 0020     		movs	r0, #0
+ 140              	.LVL10:
+ 141              	.L12:
+ 134:u8g2/csrc/u8x8_d_a2printer.c ****   }
+ 135:u8g2/csrc/u8x8_d_a2printer.c ****   return 1;
+ 136:u8g2/csrc/u8x8_d_a2printer.c **** }
+ 142              		.loc 1 136 1 view .LVU32
+ 143 0016 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 144              	.LVL11:
+ 145              	.L26:
+  77:u8g2/csrc/u8x8_d_a2printer.c ****       // no setup required
+ 146              		.loc 1 77 7 is_stmt 1 view .LVU33
+ 147 001a FFF7FEFF 		bl	u8x8_d_helper_display_init
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 6
+
+
+ 148              	.LVL12:
+  80:u8g2/csrc/u8x8_d_a2printer.c ****     case U8X8_MSG_DISPLAY_SET_POWER_SAVE:
+ 149              		.loc 1 80 7 view .LVU34
+ 135:u8g2/csrc/u8x8_d_a2printer.c **** }
+ 150              		.loc 1 135 10 is_stmt 0 view .LVU35
+ 151 001e 0120     		movs	r0, #1
+  80:u8g2/csrc/u8x8_d_a2printer.c ****     case U8X8_MSG_DISPLAY_SET_POWER_SAVE:
+ 152              		.loc 1 80 7 view .LVU36
+ 153 0020 F9E7     		b	.L12
+ 154              	.LVL13:
+ 155              	.L13:
+  85:u8g2/csrc/u8x8_d_a2printer.c ****       
+ 156              		.loc 1 85 7 is_stmt 1 view .LVU37
+ 157 0022 FFF7FEFF 		bl	u8x8_cad_StartTransfer
+ 158              	.LVL14:
+  87:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 55 );      /* parameter command */
+ 159              		.loc 1 87 7 view .LVU38
+ 160 0026 1B21     		movs	r1, #27
+ 161 0028 2846     		mov	r0, r5
+ 162 002a FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 163              	.LVL15:
+  88:u8g2/csrc/u8x8_d_a2printer.c ****       /* increasing the "max printing dots" requires a good power supply, but LINE_EXTRA_8PIXEL_DEL
+ 164              		.loc 1 88 7 view .LVU39
+ 165 002e 3721     		movs	r1, #55
+ 166 0030 2846     		mov	r0, r5
+ 167 0032 FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 168              	.LVL16:
+  90:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 200);      /* 3-255 Heating time,Unit(10us),Default:80(800us) */
+ 169              		.loc 1 90 7 view .LVU40
+ 170 0036 0021     		movs	r1, #0
+ 171 0038 2846     		mov	r0, r5
+ 172 003a FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 173              	.LVL17:
+  91:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 2);      /* 0-255 Heating interval,Unit(10us),Default:2(20us) ... does
+ 174              		.loc 1 91 7 view .LVU41
+ 175 003e C821     		movs	r1, #200
+ 176 0040 2846     		mov	r0, r5
+ 177 0042 FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 178              	.LVL18:
+  92:u8g2/csrc/u8x8_d_a2printer.c ****       
+ 179              		.loc 1 92 7 view .LVU42
+ 180 0046 0221     		movs	r1, #2
+ 181 0048 2846     		mov	r0, r5
+ 182 004a FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 183              	.LVL19:
+  95:u8g2/csrc/u8x8_d_a2printer.c ****       ptr = ((u8x8_tile_t *)arg_ptr)->tile_ptr;	/* data ptr to the tiles */
+ 184              		.loc 1 95 7 view .LVU43
+  95:u8g2/csrc/u8x8_d_a2printer.c ****       ptr = ((u8x8_tile_t *)arg_ptr)->tile_ptr;	/* data ptr to the tiles */
+ 185              		.loc 1 95 15 is_stmt 0 view .LVU44
+ 186 004e 2B68     		ldr	r3, [r5]
+  95:u8g2/csrc/u8x8_d_a2printer.c ****       ptr = ((u8x8_tile_t *)arg_ptr)->tile_ptr;	/* data ptr to the tiles */
+ 187              		.loc 1 95 9 view .LVU45
+ 188 0050 93F81090 		ldrb	r9, [r3, #16]	@ zero_extendqisi2
+ 189              	.LVL20:
+  96:u8g2/csrc/u8x8_d_a2printer.c ****     
+ 190              		.loc 1 96 7 is_stmt 1 view .LVU46
+  96:u8g2/csrc/u8x8_d_a2printer.c ****     
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 7
+
+
+ 191              		.loc 1 96 11 is_stmt 0 view .LVU47
+ 192 0054 D4F80080 		ldr	r8, [r4]
+ 193              	.LVL21:
+  98:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 42 );      /* *  */
+ 194              		.loc 1 98 7 is_stmt 1 view .LVU48
+ 195 0058 1221     		movs	r1, #18
+ 196 005a 2846     		mov	r0, r5
+ 197 005c FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 198              	.LVL22:
+  99:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 8 ); 	/* height */
+ 199              		.loc 1 99 7 view .LVU49
+ 200 0060 2A21     		movs	r1, #42
+ 201 0062 2846     		mov	r0, r5
+ 202 0064 FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 203              	.LVL23:
+ 100:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, c ); 	/* c, u8x8->display_info->tile_width */
+ 204              		.loc 1 100 7 view .LVU50
+ 205 0068 0821     		movs	r1, #8
+ 206 006a 2846     		mov	r0, r5
+ 207 006c FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 208              	.LVL24:
+ 101:u8g2/csrc/u8x8_d_a2printer.c ****       
+ 209              		.loc 1 101 7 view .LVU51
+ 210 0070 4946     		mov	r1, r9
+ 211 0072 2846     		mov	r0, r5
+ 212 0074 FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 213              	.LVL25:
+ 103:u8g2/csrc/u8x8_d_a2printer.c ****       {
+ 214              		.loc 1 103 7 view .LVU52
+ 103:u8g2/csrc/u8x8_d_a2printer.c ****       {
+ 215              		.loc 1 103 14 is_stmt 0 view .LVU53
+ 216 0078 0027     		movs	r7, #0
+ 103:u8g2/csrc/u8x8_d_a2printer.c ****       {
+ 217              		.loc 1 103 7 view .LVU54
+ 218 007a 22E0     		b	.L14
+ 219              	.LVL26:
+ 220              	.L15:
+ 109:u8g2/csrc/u8x8_d_a2printer.c **** 	  delay_in_milliseconds += get_delay_in_milliseconds(c, ptr);
+ 221              		.loc 1 109 4 is_stmt 1 discriminator 3 view .LVU55
+ 222 007c 4246     		mov	r2, r8
+ 223 007e 4946     		mov	r1, r9
+ 224 0080 2846     		mov	r0, r5
+ 225 0082 FFF7FEFF 		bl	u8x8_cad_SendData
+ 226              	.LVL27:
+ 110:u8g2/csrc/u8x8_d_a2printer.c **** 	  ptr += c;
+ 227              		.loc 1 110 4 discriminator 3 view .LVU56
+ 110:u8g2/csrc/u8x8_d_a2printer.c **** 	  ptr += c;
+ 228              		.loc 1 110 29 is_stmt 0 discriminator 3 view .LVU57
+ 229 0086 4146     		mov	r1, r8
+ 230 0088 4846     		mov	r0, r9
+ 231 008a FFF7FEFF 		bl	get_delay_in_milliseconds
+ 232              	.LVL28:
+ 110:u8g2/csrc/u8x8_d_a2printer.c **** 	  ptr += c;
+ 233              		.loc 1 110 26 discriminator 3 view .LVU58
+ 234 008e 0444     		add	r4, r4, r0
+ 235              	.LVL29:
+ 110:u8g2/csrc/u8x8_d_a2printer.c **** 	  ptr += c;
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 8
+
+
+ 236              		.loc 1 110 26 discriminator 3 view .LVU59
+ 237 0090 A4B2     		uxth	r4, r4
+ 238              	.LVL30:
+ 111:u8g2/csrc/u8x8_d_a2printer.c **** 	}
+ 239              		.loc 1 111 4 is_stmt 1 discriminator 3 view .LVU60
+ 111:u8g2/csrc/u8x8_d_a2printer.c **** 	}
+ 240              		.loc 1 111 8 is_stmt 0 discriminator 3 view .LVU61
+ 241 0092 C844     		add	r8, r8, r9
+ 242              	.LVL31:
+ 107:u8g2/csrc/u8x8_d_a2printer.c **** 	{
+ 243              		.loc 1 107 54 discriminator 3 view .LVU62
+ 244 0094 0136     		adds	r6, r6, #1
+ 245              	.LVL32:
+ 107:u8g2/csrc/u8x8_d_a2printer.c **** 	{
+ 246              		.loc 1 107 54 discriminator 3 view .LVU63
+ 247 0096 F6B2     		uxtb	r6, r6
+ 248              	.LVL33:
+ 249              	.L18:
+ 107:u8g2/csrc/u8x8_d_a2printer.c **** 	{
+ 250              		.loc 1 107 2 discriminator 1 view .LVU64
+ 251 0098 002E     		cmp	r6, #0
+ 252 009a EFD0     		beq	.L15
+ 253              	.LVL34:
+ 254              	.L16:
+ 114:u8g2/csrc/u8x8_d_a2printer.c **** 	{
+ 255              		.loc 1 114 7 view .LVU65
+ 256 009c C82C     		cmp	r4, #200
+ 257 009e 08D9     		bls	.L27
+ 116:u8g2/csrc/u8x8_d_a2printer.c **** 	  delay_in_milliseconds -= 200;
+ 258              		.loc 1 116 4 is_stmt 1 view .LVU66
+ 116:u8g2/csrc/u8x8_d_a2printer.c **** 	  delay_in_milliseconds -= 200;
+ 259              		.loc 1 116 8 is_stmt 0 view .LVU67
+ 260 00a0 6E69     		ldr	r6, [r5, #20]
+ 116:u8g2/csrc/u8x8_d_a2printer.c **** 	  delay_in_milliseconds -= 200;
+ 261              		.loc 1 116 4 view .LVU68
+ 262 00a2 0023     		movs	r3, #0
+ 263 00a4 C822     		movs	r2, #200
+ 264 00a6 2921     		movs	r1, #41
+ 265 00a8 2846     		mov	r0, r5
+ 266 00aa B047     		blx	r6
+ 267              	.LVL35:
+ 117:u8g2/csrc/u8x8_d_a2printer.c **** 	}
+ 268              		.loc 1 117 4 is_stmt 1 view .LVU69
+ 117:u8g2/csrc/u8x8_d_a2printer.c **** 	}
+ 269              		.loc 1 117 26 is_stmt 0 view .LVU70
+ 270 00ac C83C     		subs	r4, r4, #200
+ 271              	.LVL36:
+ 117:u8g2/csrc/u8x8_d_a2printer.c **** 	}
+ 272              		.loc 1 117 26 view .LVU71
+ 273 00ae A4B2     		uxth	r4, r4
+ 274              	.LVL37:
+ 117:u8g2/csrc/u8x8_d_a2printer.c **** 	}
+ 275              		.loc 1 117 26 view .LVU72
+ 276 00b0 F4E7     		b	.L16
+ 277              	.L27:
+ 119:u8g2/csrc/u8x8_d_a2printer.c ****       }
+ 278              		.loc 1 119 2 is_stmt 1 discriminator 2 view .LVU73
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 9
+
+
+ 119:u8g2/csrc/u8x8_d_a2printer.c ****       }
+ 279              		.loc 1 119 6 is_stmt 0 discriminator 2 view .LVU74
+ 280 00b2 6E69     		ldr	r6, [r5, #20]
+ 119:u8g2/csrc/u8x8_d_a2printer.c ****       }
+ 281              		.loc 1 119 2 discriminator 2 view .LVU75
+ 282 00b4 0023     		movs	r3, #0
+ 283 00b6 E2B2     		uxtb	r2, r4
+ 284 00b8 2921     		movs	r1, #41
+ 285 00ba 2846     		mov	r0, r5
+ 286 00bc B047     		blx	r6
+ 287              	.LVL38:
+ 103:u8g2/csrc/u8x8_d_a2printer.c ****       {
+ 288              		.loc 1 103 64 discriminator 2 view .LVU76
+ 289 00be 0137     		adds	r7, r7, #1
+ 290              	.LVL39:
+ 103:u8g2/csrc/u8x8_d_a2printer.c ****       {
+ 291              		.loc 1 103 64 discriminator 2 view .LVU77
+ 292 00c0 FFB2     		uxtb	r7, r7
+ 293              	.LVL40:
+ 294              	.L14:
+ 103:u8g2/csrc/u8x8_d_a2printer.c ****       {
+ 295              		.loc 1 103 7 discriminator 1 view .LVU78
+ 296 00c2 072F     		cmp	r7, #7
+ 297 00c4 02D8     		bhi	.L28
+ 106:u8g2/csrc/u8x8_d_a2printer.c **** 	for( i = 0; i < NO_OF_LINES_TO_SEND_WITHOUT_DELAY; i++ )
+ 298              		.loc 1 106 24 view .LVU79
+ 299 00c6 0024     		movs	r4, #0
+ 107:u8g2/csrc/u8x8_d_a2printer.c **** 	{
+ 300              		.loc 1 107 9 view .LVU80
+ 301 00c8 2646     		mov	r6, r4
+ 302 00ca E5E7     		b	.L18
+ 303              	.L28:
+ 123:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 55 );      /* parameter command */
+ 304              		.loc 1 123 7 is_stmt 1 view .LVU81
+ 305 00cc 1B21     		movs	r1, #27
+ 306 00ce 2846     		mov	r0, r5
+ 307 00d0 FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 308              	.LVL41:
+ 124:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 7);      /* Max printing dots,Unit(8dots),Default:7(64 dots) 8*(x+1)*/
+ 309              		.loc 1 124 7 view .LVU82
+ 310 00d4 3721     		movs	r1, #55
+ 311 00d6 2846     		mov	r0, r5
+ 312 00d8 FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 313              	.LVL42:
+ 125:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 80);      /* 3-255 Heating time,Unit(10us),Default:80(800us) */
+ 314              		.loc 1 125 7 view .LVU83
+ 315 00dc 0721     		movs	r1, #7
+ 316 00de 2846     		mov	r0, r5
+ 317 00e0 FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 318              	.LVL43:
+ 126:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_cad_SendCmd(u8x8, 2);      /* 0-255 Heating interval,Unit(10us),Default:2(20us)*/
+ 319              		.loc 1 126 7 view .LVU84
+ 320 00e4 5021     		movs	r1, #80
+ 321 00e6 2846     		mov	r0, r5
+ 322 00e8 FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 323              	.LVL44:
+ 127:u8g2/csrc/u8x8_d_a2printer.c **** 
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 10
+
+
+ 324              		.loc 1 127 7 view .LVU85
+ 325 00ec 0221     		movs	r1, #2
+ 326 00ee 2846     		mov	r0, r5
+ 327 00f0 FFF7FEFF 		bl	u8x8_cad_SendCmd
+ 328              	.LVL45:
+ 129:u8g2/csrc/u8x8_d_a2printer.c **** 
+ 329              		.loc 1 129 7 view .LVU86
+ 330 00f4 2846     		mov	r0, r5
+ 331 00f6 FFF7FEFF 		bl	u8x8_cad_EndTransfer
+ 332              	.LVL46:
+ 131:u8g2/csrc/u8x8_d_a2printer.c ****     default:
+ 333              		.loc 1 131 7 view .LVU87
+ 135:u8g2/csrc/u8x8_d_a2printer.c **** }
+ 334              		.loc 1 135 10 is_stmt 0 view .LVU88
+ 335 00fa 0120     		movs	r0, #1
+ 131:u8g2/csrc/u8x8_d_a2printer.c ****     default:
+ 336              		.loc 1 131 7 view .LVU89
+ 337 00fc 8BE7     		b	.L12
+ 338              	.LVL47:
+ 339              	.L19:
+ 340              	.LCFI3:
+ 341              		.cfi_def_cfa_offset 0
+ 342              		.cfi_restore 3
+ 343              		.cfi_restore 4
+ 344              		.cfi_restore 5
+ 345              		.cfi_restore 6
+ 346              		.cfi_restore 7
+ 347              		.cfi_restore 8
+ 348              		.cfi_restore 9
+ 349              		.cfi_restore 14
+ 135:u8g2/csrc/u8x8_d_a2printer.c **** }
+ 350              		.loc 1 135 10 view .LVU90
+ 351 00fe 0120     		movs	r0, #1
+ 352              	.LVL48:
+ 353              		.loc 1 136 1 view .LVU91
+ 354 0100 7047     		bx	lr
+ 355              		.cfi_endproc
+ 356              	.LFE1:
+ 358              		.section	.text.u8x8_d_a2printer_384x240,"ax",%progbits
+ 359              		.align	1
+ 360              		.global	u8x8_d_a2printer_384x240
+ 361              		.syntax unified
+ 362              		.thumb
+ 363              		.thumb_func
+ 364              		.fpu softvfp
+ 366              	u8x8_d_a2printer_384x240:
+ 367              	.LVL49:
+ 368              	.LFB2:
+ 137:u8g2/csrc/u8x8_d_a2printer.c **** 
+ 138:u8g2/csrc/u8x8_d_a2printer.c **** 
+ 139:u8g2/csrc/u8x8_d_a2printer.c **** static const u8x8_display_info_t u8x8_a2printer_384x240_display_info =
+ 140:u8g2/csrc/u8x8_d_a2printer.c **** {
+ 141:u8g2/csrc/u8x8_d_a2printer.c ****   /* most of the settings are not required, because this is a serial RS232 printer */
+ 142:u8g2/csrc/u8x8_d_a2printer.c ****   
+ 143:u8g2/csrc/u8x8_d_a2printer.c ****   /* chip_enable_level = */ 1,
+ 144:u8g2/csrc/u8x8_d_a2printer.c ****   /* chip_disable_level = */ 0,
+ 145:u8g2/csrc/u8x8_d_a2printer.c ****   
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 11
+
+
+ 146:u8g2/csrc/u8x8_d_a2printer.c ****   /* post_chip_enable_wait_ns = */ 5,
+ 147:u8g2/csrc/u8x8_d_a2printer.c ****   /* pre_chip_disable_wait_ns = */ 5,
+ 148:u8g2/csrc/u8x8_d_a2printer.c ****   /* reset_pulse_width_ms = */ 1, 
+ 149:u8g2/csrc/u8x8_d_a2printer.c ****   /* post_reset_wait_ms = */ 6, 
+ 150:u8g2/csrc/u8x8_d_a2printer.c ****   /* sda_setup_time_ns = */ 20,		
+ 151:u8g2/csrc/u8x8_d_a2printer.c ****   /* sck_pulse_width_ns = */  140,	
+ 152:u8g2/csrc/u8x8_d_a2printer.c ****   /* sck_clock_hz = */ 1000000UL,	/* since Arduino 1.6.0, the SPI bus speed in Hz. Should be  10000
+ 153:u8g2/csrc/u8x8_d_a2printer.c ****   /* spi_mode = */ 0,		/* old: sck_takeover_edge, new: active high (bit 1), rising edge (bit 0) */
+ 154:u8g2/csrc/u8x8_d_a2printer.c ****   /* i2c_bus_clock_100kHz = */ 4,
+ 155:u8g2/csrc/u8x8_d_a2printer.c ****   /* data_setup_time_ns = */ 30,
+ 156:u8g2/csrc/u8x8_d_a2printer.c ****   /* write_pulse_width_ns = */ 40,
+ 157:u8g2/csrc/u8x8_d_a2printer.c ****   /* tile_width = */ 48,
+ 158:u8g2/csrc/u8x8_d_a2printer.c ****   /* tile_hight = */ 30,
+ 159:u8g2/csrc/u8x8_d_a2printer.c ****   /* default_x_offset = */ 0,
+ 160:u8g2/csrc/u8x8_d_a2printer.c ****   /* flipmode_x_offset = */ 0,
+ 161:u8g2/csrc/u8x8_d_a2printer.c ****   /* pixel_width = */ 384,
+ 162:u8g2/csrc/u8x8_d_a2printer.c ****   /* pixel_height = */ 240
+ 163:u8g2/csrc/u8x8_d_a2printer.c **** };
+ 164:u8g2/csrc/u8x8_d_a2printer.c **** 
+ 165:u8g2/csrc/u8x8_d_a2printer.c **** uint8_t u8x8_d_a2printer_384x240(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+ 166:u8g2/csrc/u8x8_d_a2printer.c **** {
+ 369              		.loc 1 166 1 is_stmt 1 view -0
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 0
+ 372              		@ frame_needed = 0, uses_anonymous_args = 0
+ 373              		.loc 1 166 1 is_stmt 0 view .LVU93
+ 374 0000 08B5     		push	{r3, lr}
+ 375              	.LCFI4:
+ 376              		.cfi_def_cfa_offset 8
+ 377              		.cfi_offset 3, -8
+ 378              		.cfi_offset 14, -4
+ 167:u8g2/csrc/u8x8_d_a2printer.c ****   switch(msg)
+ 379              		.loc 1 167 3 is_stmt 1 view .LVU94
+ 380 0002 0929     		cmp	r1, #9
+ 381 0004 02D0     		beq	.L33
+ 168:u8g2/csrc/u8x8_d_a2printer.c ****   {
+ 169:u8g2/csrc/u8x8_d_a2printer.c ****     case U8X8_MSG_DISPLAY_SETUP_MEMORY:
+ 170:u8g2/csrc/u8x8_d_a2printer.c ****       u8x8_d_helper_display_setup_memory(u8x8, &u8x8_a2printer_384x240_display_info);
+ 171:u8g2/csrc/u8x8_d_a2printer.c ****       break;
+ 172:u8g2/csrc/u8x8_d_a2printer.c ****     default:
+ 173:u8g2/csrc/u8x8_d_a2printer.c ****       return u8x8_d_a2printer_common(u8x8, msg, arg_int, arg_ptr);
+ 382              		.loc 1 173 7 view .LVU95
+ 383              		.loc 1 173 14 is_stmt 0 view .LVU96
+ 384 0006 FFF7FEFF 		bl	u8x8_d_a2printer_common
+ 385              	.LVL50:
+ 386              	.L31:
+ 174:u8g2/csrc/u8x8_d_a2printer.c ****   }
+ 175:u8g2/csrc/u8x8_d_a2printer.c ****   return 1;
+ 176:u8g2/csrc/u8x8_d_a2printer.c **** }
+ 387              		.loc 1 176 1 view .LVU97
+ 388 000a 08BD     		pop	{r3, pc}
+ 389              	.LVL51:
+ 390              	.L33:
+ 170:u8g2/csrc/u8x8_d_a2printer.c ****       break;
+ 391              		.loc 1 170 7 is_stmt 1 view .LVU98
+ 392 000c 0249     		ldr	r1, .L34
+ 393              	.LVL52:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 12
+
+
+ 170:u8g2/csrc/u8x8_d_a2printer.c ****       break;
+ 394              		.loc 1 170 7 is_stmt 0 view .LVU99
+ 395 000e FFF7FEFF 		bl	u8x8_d_helper_display_setup_memory
+ 396              	.LVL53:
+ 171:u8g2/csrc/u8x8_d_a2printer.c ****     default:
+ 397              		.loc 1 171 7 is_stmt 1 view .LVU100
+ 175:u8g2/csrc/u8x8_d_a2printer.c **** }
+ 398              		.loc 1 175 3 view .LVU101
+ 175:u8g2/csrc/u8x8_d_a2printer.c **** }
+ 399              		.loc 1 175 10 is_stmt 0 view .LVU102
+ 400 0012 0120     		movs	r0, #1
+ 401 0014 F9E7     		b	.L31
+ 402              	.L35:
+ 403 0016 00BF     		.align	2
+ 404              	.L34:
+ 405 0018 00000000 		.word	.LANCHOR0
+ 406              		.cfi_endproc
+ 407              	.LFE2:
+ 409              		.section	.rodata.u8x8_a2printer_384x240_display_info,"a"
+ 410              		.align	2
+ 411              		.set	.LANCHOR0,. + 0
+ 414              	u8x8_a2printer_384x240_display_info:
+ 415 0000 01       		.byte	1
+ 416 0001 00       		.byte	0
+ 417 0002 05       		.byte	5
+ 418 0003 05       		.byte	5
+ 419 0004 01       		.byte	1
+ 420 0005 06       		.byte	6
+ 421 0006 14       		.byte	20
+ 422 0007 8C       		.byte	-116
+ 423 0008 40420F00 		.word	1000000
+ 424 000c 00       		.byte	0
+ 425 000d 04       		.byte	4
+ 426 000e 1E       		.byte	30
+ 427 000f 28       		.byte	40
+ 428 0010 30       		.byte	48
+ 429 0011 1E       		.byte	30
+ 430 0012 00       		.byte	0
+ 431 0013 00       		.byte	0
+ 432 0014 8001     		.short	384
+ 433 0016 F000     		.short	240
+ 434              		.text
+ 435              	.Letext0:
+ 436              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 437              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 438              		.file 4 "u8g2/csrc/u8x8.h"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccTXViYu.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8x8_d_a2printer.c
+C:\Users\behun\AppData\Local\Temp\ccTXViYu.s:16     .text.get_delay_in_milliseconds:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccTXViYu.s:24     .text.get_delay_in_milliseconds:00000000 get_delay_in_milliseconds
+C:\Users\behun\AppData\Local\Temp\ccTXViYu.s:99     .text.u8x8_d_a2printer_common:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccTXViYu.s:106    .text.u8x8_d_a2printer_common:00000000 u8x8_d_a2printer_common
+C:\Users\behun\AppData\Local\Temp\ccTXViYu.s:359    .text.u8x8_d_a2printer_384x240:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccTXViYu.s:366    .text.u8x8_d_a2printer_384x240:00000000 u8x8_d_a2printer_384x240
+C:\Users\behun\AppData\Local\Temp\ccTXViYu.s:405    .text.u8x8_d_a2printer_384x240:00000018 $d
+C:\Users\behun\AppData\Local\Temp\ccTXViYu.s:410    .rodata.u8x8_a2printer_384x240_display_info:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccTXViYu.s:414    .rodata.u8x8_a2printer_384x240_display_info:00000000 u8x8_a2printer_384x240_display_info
+
+UNDEFINED SYMBOLS
+u8x8_d_helper_display_init
+u8x8_cad_StartTransfer
+u8x8_cad_SendCmd
+u8x8_cad_SendData
+u8x8_cad_EndTransfer
+u8x8_d_helper_display_setup_memory

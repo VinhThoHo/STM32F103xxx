@@ -1,0 +1,1181 @@
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"main_screen.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.main_screen_init,"ax",%progbits
+  16              		.align	1
+  17              		.global	main_screen_init
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	main_screen_init:
+  25              	.LFB66:
+  26              		.file 1 "Src/main_screen.c"
+   1:Src/main_screen.c **** #include "main_screen.h"
+   2:Src/main_screen.c **** #include "u8g2.h"
+   3:Src/main_screen.c **** #include "key.h"
+   4:Src/main_screen.c **** 
+   5:Src/main_screen.c **** 
+   6:Src/main_screen.c **** u8g2_t u8g2;
+   7:Src/main_screen.c **** 
+   8:Src/main_screen.c **** MAIN_SCREEN_STR main_scr;
+   9:Src/main_screen.c **** 
+  10:Src/main_screen.c **** void main_screen_init(void)
+  11:Src/main_screen.c **** {
+  27              		.loc 1 11 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 10B5     		push	{r4, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  12:Src/main_screen.c ****     main_scr.lampStatus = 0;
+  36              		.loc 1 12 5 view .LVU1
+  37              		.loc 1 12 25 is_stmt 0 view .LVU2
+  38 0002 074C     		ldr	r4, .L3
+  39 0004 0023     		movs	r3, #0
+  40 0006 2370     		strb	r3, [r4]
+  13:Src/main_screen.c ****     main_scr.uvStatus = 0;
+  41              		.loc 1 13 5 is_stmt 1 view .LVU3
+  42              		.loc 1 13 23 is_stmt 0 view .LVU4
+  43 0008 6370     		strb	r3, [r4, #1]
+  14:Src/main_screen.c ****     main_scr.fanStatus = 0;
+  44              		.loc 1 14 5 is_stmt 1 view .LVU5
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 2
+
+
+  45              		.loc 1 14 24 is_stmt 0 view .LVU6
+  46 000a A370     		strb	r3, [r4, #2]
+  15:Src/main_screen.c ****     main_scr.socketStatus = 0;
+  47              		.loc 1 15 5 is_stmt 1 view .LVU7
+  48              		.loc 1 15 27 is_stmt 0 view .LVU8
+  49 000c E370     		strb	r3, [r4, #3]
+  16:Src/main_screen.c ****     main_scr.fanRotate = 0;
+  50              		.loc 1 16 5 is_stmt 1 view .LVU9
+  51              		.loc 1 16 24 is_stmt 0 view .LVU10
+  52 000e 2371     		strb	r3, [r4, #4]
+  17:Src/main_screen.c ****     u8g2_ClearBuffer(&u8g2);
+  53              		.loc 1 17 5 is_stmt 1 view .LVU11
+  54 0010 0448     		ldr	r0, .L3+4
+  55 0012 FFF7FEFF 		bl	u8g2_ClearBuffer
+  56              	.LVL0:
+  18:Src/main_screen.c ****     main_scr.tick = HAL_GetTick();
+  57              		.loc 1 18 5 view .LVU12
+  58              		.loc 1 18 21 is_stmt 0 view .LVU13
+  59 0016 FFF7FEFF 		bl	HAL_GetTick
+  60              	.LVL1:
+  61              		.loc 1 18 19 view .LVU14
+  62 001a A060     		str	r0, [r4, #8]
+  19:Src/main_screen.c **** }
+  63              		.loc 1 19 1 view .LVU15
+  64 001c 10BD     		pop	{r4, pc}
+  65              	.L4:
+  66 001e 00BF     		.align	2
+  67              	.L3:
+  68 0020 00000000 		.word	main_scr
+  69 0024 00000000 		.word	u8g2
+  70              		.cfi_endproc
+  71              	.LFE66:
+  73              		.section	.text.Lamp_Status,"ax",%progbits
+  74              		.align	1
+  75              		.global	Lamp_Status
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu softvfp
+  81              	Lamp_Status:
+  82              	.LVL2:
+  83              	.LFB67:
+  20:Src/main_screen.c **** 
+  21:Src/main_screen.c **** void Lamp_Status(uint8_t lampStatus)
+  22:Src/main_screen.c **** {
+  84              		.loc 1 22 1 is_stmt 1 view -0
+  85              		.cfi_startproc
+  86              		@ args = 0, pretend = 0, frame = 0
+  87              		@ frame_needed = 0, uses_anonymous_args = 0
+  88              		.loc 1 22 1 is_stmt 0 view .LVU17
+  89 0000 10B5     		push	{r4, lr}
+  90              	.LCFI1:
+  91              		.cfi_def_cfa_offset 8
+  92              		.cfi_offset 4, -8
+  93              		.cfi_offset 14, -4
+  94 0002 82B0     		sub	sp, sp, #8
+  95              	.LCFI2:
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 3
+
+
+  96              		.cfi_def_cfa_offset 16
+  23:Src/main_screen.c ****     if(lampStatus)
+  97              		.loc 1 23 5 is_stmt 1 view .LVU18
+  98              		.loc 1 23 7 is_stmt 0 view .LVU19
+  99 0004 C0B1     		cbz	r0, .L6
+  24:Src/main_screen.c ****     {
+  25:Src/main_screen.c ****         // u8g2_ClearBuffer(&u8g2);
+  26:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 0, 33, bmp_neon_on.width/8, bmp_neon_on.height, bmp_neon_on.data);
+ 100              		.loc 1 26 9 is_stmt 1 view .LVU20
+ 101              		.loc 1 26 50 is_stmt 0 view .LVU21
+ 102 0006 184A     		ldr	r2, .L9
+ 103 0008 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 104              		.loc 1 26 9 view .LVU22
+ 105 000a 184C     		ldr	r4, .L9+4
+ 106 000c 5168     		ldr	r1, [r2, #4]
+ 107 000e 0191     		str	r1, [sp, #4]
+ 108 0010 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 109 0012 0092     		str	r2, [sp]
+ 110 0014 DB08     		lsrs	r3, r3, #3
+ 111 0016 2122     		movs	r2, #33
+ 112 0018 0021     		movs	r1, #0
+ 113 001a 2046     		mov	r0, r4
+ 114              	.LVL3:
+ 115              		.loc 1 26 9 view .LVU23
+ 116 001c FFF7FEFF 		bl	u8g2_DrawBitmap
+ 117              	.LVL4:
+  27:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 118              		.loc 1 27 9 is_stmt 1 view .LVU24
+ 119 0020 1349     		ldr	r1, .L9+8
+ 120 0022 2046     		mov	r0, r4
+ 121 0024 FFF7FEFF 		bl	u8g2_SetFont
+ 122              	.LVL5:
+  28:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~lampStatus);
+  29:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 9, 33, "NEON");
+ 123              		.loc 1 29 9 view .LVU25
+ 124 0028 124B     		ldr	r3, .L9+12
+ 125 002a 2122     		movs	r2, #33
+ 126 002c 0921     		movs	r1, #9
+ 127 002e 2046     		mov	r0, r4
+ 128 0030 FFF7FEFF 		bl	u8g2_DrawStr
+ 129              	.LVL6:
+ 130              	.L5:
+  30:Src/main_screen.c ****     }
+  31:Src/main_screen.c ****     else
+  32:Src/main_screen.c ****     {
+  33:Src/main_screen.c ****         // u8g2_ClearBuffer(&u8g2);
+  34:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 0, 33, bmp_neon_off.width/8, bmp_neon_off.height, bmp_neon_off.data)
+  35:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+  36:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~lampStatus);
+  37:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 9, 33, "NEON");
+  38:Src/main_screen.c ****     }  
+  39:Src/main_screen.c **** }
+ 131              		.loc 1 39 1 is_stmt 0 view .LVU26
+ 132 0034 02B0     		add	sp, sp, #8
+ 133              	.LCFI3:
+ 134              		.cfi_remember_state
+ 135              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 4
+
+
+ 136              		@ sp needed
+ 137 0036 10BD     		pop	{r4, pc}
+ 138              	.LVL7:
+ 139              	.L6:
+ 140              	.LCFI4:
+ 141              		.cfi_restore_state
+  34:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 142              		.loc 1 34 9 is_stmt 1 view .LVU27
+  34:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 143              		.loc 1 34 51 is_stmt 0 view .LVU28
+ 144 0038 0F4A     		ldr	r2, .L9+16
+ 145 003a 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  34:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 146              		.loc 1 34 9 view .LVU29
+ 147 003c 0B4C     		ldr	r4, .L9+4
+ 148 003e 5168     		ldr	r1, [r2, #4]
+ 149 0040 0191     		str	r1, [sp, #4]
+ 150 0042 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 151 0044 0092     		str	r2, [sp]
+ 152 0046 DB08     		lsrs	r3, r3, #3
+ 153 0048 2122     		movs	r2, #33
+ 154 004a 0021     		movs	r1, #0
+ 155 004c 2046     		mov	r0, r4
+ 156              	.LVL8:
+  34:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 157              		.loc 1 34 9 view .LVU30
+ 158 004e FFF7FEFF 		bl	u8g2_DrawBitmap
+ 159              	.LVL9:
+  35:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~lampStatus);
+ 160              		.loc 1 35 9 is_stmt 1 view .LVU31
+ 161 0052 0749     		ldr	r1, .L9+8
+ 162 0054 2046     		mov	r0, r4
+ 163 0056 FFF7FEFF 		bl	u8g2_SetFont
+ 164              	.LVL10:
+  37:Src/main_screen.c ****     }  
+ 165              		.loc 1 37 9 view .LVU32
+ 166 005a 064B     		ldr	r3, .L9+12
+ 167 005c 2122     		movs	r2, #33
+ 168 005e 0921     		movs	r1, #9
+ 169 0060 2046     		mov	r0, r4
+ 170 0062 FFF7FEFF 		bl	u8g2_DrawStr
+ 171              	.LVL11:
+ 172              		.loc 1 39 1 is_stmt 0 view .LVU33
+ 173 0066 E5E7     		b	.L5
+ 174              	.L10:
+ 175              		.align	2
+ 176              	.L9:
+ 177 0068 00000000 		.word	bmp_neon_on
+ 178 006c 00000000 		.word	u8g2
+ 179 0070 00000000 		.word	u8g2_font_micro_tr
+ 180 0074 00000000 		.word	.LC0
+ 181 0078 00000000 		.word	bmp_neon_off
+ 182              		.cfi_endproc
+ 183              	.LFE67:
+ 185              		.section	.text.UV_Status,"ax",%progbits
+ 186              		.align	1
+ 187              		.global	UV_Status
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 5
+
+
+ 188              		.syntax unified
+ 189              		.thumb
+ 190              		.thumb_func
+ 191              		.fpu softvfp
+ 193              	UV_Status:
+ 194              	.LVL12:
+ 195              	.LFB68:
+  40:Src/main_screen.c **** void UV_Status(uint8_t uvStatus)
+  41:Src/main_screen.c **** {
+ 196              		.loc 1 41 1 is_stmt 1 view -0
+ 197              		.cfi_startproc
+ 198              		@ args = 0, pretend = 0, frame = 0
+ 199              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200              		.loc 1 41 1 is_stmt 0 view .LVU35
+ 201 0000 10B5     		push	{r4, lr}
+ 202              	.LCFI5:
+ 203              		.cfi_def_cfa_offset 8
+ 204              		.cfi_offset 4, -8
+ 205              		.cfi_offset 14, -4
+ 206 0002 82B0     		sub	sp, sp, #8
+ 207              	.LCFI6:
+ 208              		.cfi_def_cfa_offset 16
+  42:Src/main_screen.c ****     if(uvStatus)
+ 209              		.loc 1 42 5 is_stmt 1 view .LVU36
+ 210              		.loc 1 42 7 is_stmt 0 view .LVU37
+ 211 0004 C0B1     		cbz	r0, .L12
+  43:Src/main_screen.c ****     {
+  44:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 32, 33, bmp_uv_on.width/8, bmp_uv_on.height, bmp_uv_on.data);
+ 212              		.loc 1 44 9 is_stmt 1 view .LVU38
+ 213              		.loc 1 44 49 is_stmt 0 view .LVU39
+ 214 0006 184A     		ldr	r2, .L15
+ 215 0008 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 216              		.loc 1 44 9 view .LVU40
+ 217 000a 184C     		ldr	r4, .L15+4
+ 218 000c 5168     		ldr	r1, [r2, #4]
+ 219 000e 0191     		str	r1, [sp, #4]
+ 220 0010 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 221 0012 0092     		str	r2, [sp]
+ 222 0014 DB08     		lsrs	r3, r3, #3
+ 223 0016 2122     		movs	r2, #33
+ 224 0018 2021     		movs	r1, #32
+ 225 001a 2046     		mov	r0, r4
+ 226              	.LVL13:
+ 227              		.loc 1 44 9 view .LVU41
+ 228 001c FFF7FEFF 		bl	u8g2_DrawBitmap
+ 229              	.LVL14:
+  45:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 230              		.loc 1 45 9 is_stmt 1 view .LVU42
+ 231 0020 1349     		ldr	r1, .L15+8
+ 232 0022 2046     		mov	r0, r4
+ 233 0024 FFF7FEFF 		bl	u8g2_SetFont
+ 234              	.LVL15:
+  46:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~uvStatus);
+  47:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 45, 33, "UV");
+ 235              		.loc 1 47 9 view .LVU43
+ 236 0028 124B     		ldr	r3, .L15+12
+ 237 002a 2122     		movs	r2, #33
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 6
+
+
+ 238 002c 2D21     		movs	r1, #45
+ 239 002e 2046     		mov	r0, r4
+ 240 0030 FFF7FEFF 		bl	u8g2_DrawStr
+ 241              	.LVL16:
+ 242              	.L11:
+  48:Src/main_screen.c ****     }
+  49:Src/main_screen.c ****     else
+  50:Src/main_screen.c ****     {
+  51:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 32, 33, bmp_uv_off.width/8, bmp_uv_off.height, bmp_uv_off.data);
+  52:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+  53:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~uvStatus);
+  54:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 45, 33, "UV");
+  55:Src/main_screen.c ****     }  
+  56:Src/main_screen.c **** }
+ 243              		.loc 1 56 1 is_stmt 0 view .LVU44
+ 244 0034 02B0     		add	sp, sp, #8
+ 245              	.LCFI7:
+ 246              		.cfi_remember_state
+ 247              		.cfi_def_cfa_offset 8
+ 248              		@ sp needed
+ 249 0036 10BD     		pop	{r4, pc}
+ 250              	.LVL17:
+ 251              	.L12:
+ 252              	.LCFI8:
+ 253              		.cfi_restore_state
+  51:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 254              		.loc 1 51 9 is_stmt 1 view .LVU45
+  51:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 255              		.loc 1 51 50 is_stmt 0 view .LVU46
+ 256 0038 0F4A     		ldr	r2, .L15+16
+ 257 003a 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  51:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 258              		.loc 1 51 9 view .LVU47
+ 259 003c 0B4C     		ldr	r4, .L15+4
+ 260 003e 5168     		ldr	r1, [r2, #4]
+ 261 0040 0191     		str	r1, [sp, #4]
+ 262 0042 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 263 0044 0092     		str	r2, [sp]
+ 264 0046 DB08     		lsrs	r3, r3, #3
+ 265 0048 2122     		movs	r2, #33
+ 266 004a 2021     		movs	r1, #32
+ 267 004c 2046     		mov	r0, r4
+ 268              	.LVL18:
+  51:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 269              		.loc 1 51 9 view .LVU48
+ 270 004e FFF7FEFF 		bl	u8g2_DrawBitmap
+ 271              	.LVL19:
+  52:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~uvStatus);
+ 272              		.loc 1 52 9 is_stmt 1 view .LVU49
+ 273 0052 0749     		ldr	r1, .L15+8
+ 274 0054 2046     		mov	r0, r4
+ 275 0056 FFF7FEFF 		bl	u8g2_SetFont
+ 276              	.LVL20:
+  54:Src/main_screen.c ****     }  
+ 277              		.loc 1 54 9 view .LVU50
+ 278 005a 064B     		ldr	r3, .L15+12
+ 279 005c 2122     		movs	r2, #33
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 7
+
+
+ 280 005e 2D21     		movs	r1, #45
+ 281 0060 2046     		mov	r0, r4
+ 282 0062 FFF7FEFF 		bl	u8g2_DrawStr
+ 283              	.LVL21:
+ 284              		.loc 1 56 1 is_stmt 0 view .LVU51
+ 285 0066 E5E7     		b	.L11
+ 286              	.L16:
+ 287              		.align	2
+ 288              	.L15:
+ 289 0068 00000000 		.word	bmp_uv_on
+ 290 006c 00000000 		.word	u8g2
+ 291 0070 00000000 		.word	u8g2_font_micro_tr
+ 292 0074 00000000 		.word	.LC1
+ 293 0078 00000000 		.word	bmp_uv_off
+ 294              		.cfi_endproc
+ 295              	.LFE68:
+ 297              		.section	.text.Fan_Status,"ax",%progbits
+ 298              		.align	1
+ 299              		.global	Fan_Status
+ 300              		.syntax unified
+ 301              		.thumb
+ 302              		.thumb_func
+ 303              		.fpu softvfp
+ 305              	Fan_Status:
+ 306              	.LVL22:
+ 307              	.LFB69:
+  57:Src/main_screen.c **** 
+  58:Src/main_screen.c **** void Fan_Status(uint8_t fanStatus)
+  59:Src/main_screen.c **** {
+ 308              		.loc 1 59 1 is_stmt 1 view -0
+ 309              		.cfi_startproc
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              		.loc 1 59 1 is_stmt 0 view .LVU53
+ 313 0000 10B5     		push	{r4, lr}
+ 314              	.LCFI9:
+ 315              		.cfi_def_cfa_offset 8
+ 316              		.cfi_offset 4, -8
+ 317              		.cfi_offset 14, -4
+ 318 0002 82B0     		sub	sp, sp, #8
+ 319              	.LCFI10:
+ 320              		.cfi_def_cfa_offset 16
+  60:Src/main_screen.c ****     if((HAL_GetTick() - main_scr.tick > 200) && main_scr.fanStatus)
+ 321              		.loc 1 60 5 is_stmt 1 view .LVU54
+ 322              		.loc 1 60 9 is_stmt 0 view .LVU55
+ 323 0004 FFF7FEFF 		bl	HAL_GetTick
+ 324              	.LVL23:
+ 325              		.loc 1 60 33 view .LVU56
+ 326 0008 224B     		ldr	r3, .L23
+ 327 000a 9B68     		ldr	r3, [r3, #8]
+ 328              		.loc 1 60 23 view .LVU57
+ 329 000c C01A     		subs	r0, r0, r3
+ 330              		.loc 1 60 7 view .LVU58
+ 331 000e C828     		cmp	r0, #200
+ 332 0010 02D9     		bls	.L18
+ 333              		.loc 1 60 57 discriminator 1 view .LVU59
+ 334 0012 204B     		ldr	r3, .L23
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 8
+
+
+ 335 0014 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 336              		.loc 1 60 46 discriminator 1 view .LVU60
+ 337 0016 E3B9     		cbnz	r3, .L22
+ 338              	.L18:
+  61:Src/main_screen.c ****     {
+  62:Src/main_screen.c ****       main_scr.fanRotate = ~main_scr.fanRotate;
+  63:Src/main_screen.c ****       main_scr.tick = HAL_GetTick();
+  64:Src/main_screen.c ****     }
+  65:Src/main_screen.c ****     if(main_scr.fanRotate)
+ 339              		.loc 1 65 5 is_stmt 1 view .LVU61
+ 340              		.loc 1 65 16 is_stmt 0 view .LVU62
+ 341 0018 1E4B     		ldr	r3, .L23
+ 342 001a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 343              		.loc 1 65 7 view .LVU63
+ 344 001c 0BB3     		cbz	r3, .L19
+  66:Src/main_screen.c ****     {
+  67:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 345              		.loc 1 67 9 is_stmt 1 view .LVU64
+ 346 001e 1E4C     		ldr	r4, .L23+4
+ 347 0020 1E49     		ldr	r1, .L23+8
+ 348 0022 2046     		mov	r0, r4
+ 349 0024 FFF7FEFF 		bl	u8g2_SetFont
+ 350              	.LVL24:
+  68:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~fanStatus);
+  69:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 75, 33, "FAN");
+ 351              		.loc 1 69 9 view .LVU65
+ 352 0028 1D4B     		ldr	r3, .L23+12
+ 353 002a 2122     		movs	r2, #33
+ 354 002c 4B21     		movs	r1, #75
+ 355 002e 2046     		mov	r0, r4
+ 356 0030 FFF7FEFF 		bl	u8g2_DrawStr
+ 357              	.LVL25:
+  70:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 68, 38, bmp_fan_origin.width/8, bmp_fan_rotate.height, bmp_fan_rotat
+ 358              		.loc 1 70 9 view .LVU66
+ 359              		.loc 1 70 54 is_stmt 0 view .LVU67
+ 360 0034 1B4B     		ldr	r3, .L23+16
+ 361 0036 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 362              		.loc 1 70 9 view .LVU68
+ 363 0038 1B4A     		ldr	r2, .L23+20
+ 364 003a 5168     		ldr	r1, [r2, #4]
+ 365 003c 0191     		str	r1, [sp, #4]
+ 366 003e 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 367 0040 0092     		str	r2, [sp]
+ 368 0042 DB08     		lsrs	r3, r3, #3
+ 369 0044 2622     		movs	r2, #38
+ 370 0046 4421     		movs	r1, #68
+ 371 0048 2046     		mov	r0, r4
+ 372 004a FFF7FEFF 		bl	u8g2_DrawBitmap
+ 373              	.LVL26:
+ 374              	.L17:
+  71:Src/main_screen.c ****     }
+  72:Src/main_screen.c ****     else
+  73:Src/main_screen.c ****     {
+  74:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+  75:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~fanStatus);
+  76:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 75, 33, "FAN");
+  77:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 68, 38, bmp_fan_origin.width/8, bmp_fan_origin.height, bmp_fan_origi
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 9
+
+
+  78:Src/main_screen.c ****     }  
+  79:Src/main_screen.c **** }
+ 375              		.loc 1 79 1 view .LVU69
+ 376 004e 02B0     		add	sp, sp, #8
+ 377              	.LCFI11:
+ 378              		.cfi_remember_state
+ 379              		.cfi_def_cfa_offset 8
+ 380              		@ sp needed
+ 381 0050 10BD     		pop	{r4, pc}
+ 382              	.L22:
+ 383              	.LCFI12:
+ 384              		.cfi_restore_state
+  62:Src/main_screen.c ****       main_scr.tick = HAL_GetTick();
+ 385              		.loc 1 62 7 is_stmt 1 view .LVU70
+  62:Src/main_screen.c ****       main_scr.tick = HAL_GetTick();
+ 386              		.loc 1 62 37 is_stmt 0 view .LVU71
+ 387 0052 104C     		ldr	r4, .L23
+ 388 0054 2379     		ldrb	r3, [r4, #4]	@ zero_extendqisi2
+  62:Src/main_screen.c ****       main_scr.tick = HAL_GetTick();
+ 389              		.loc 1 62 26 view .LVU72
+ 390 0056 DB43     		mvns	r3, r3
+ 391 0058 2371     		strb	r3, [r4, #4]
+  63:Src/main_screen.c ****     }
+ 392              		.loc 1 63 7 is_stmt 1 view .LVU73
+  63:Src/main_screen.c ****     }
+ 393              		.loc 1 63 23 is_stmt 0 view .LVU74
+ 394 005a FFF7FEFF 		bl	HAL_GetTick
+ 395              	.LVL27:
+  63:Src/main_screen.c ****     }
+ 396              		.loc 1 63 21 view .LVU75
+ 397 005e A060     		str	r0, [r4, #8]
+ 398 0060 DAE7     		b	.L18
+ 399              	.L19:
+  74:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~fanStatus);
+ 400              		.loc 1 74 9 is_stmt 1 view .LVU76
+ 401 0062 0D4C     		ldr	r4, .L23+4
+ 402 0064 0D49     		ldr	r1, .L23+8
+ 403 0066 2046     		mov	r0, r4
+ 404 0068 FFF7FEFF 		bl	u8g2_SetFont
+ 405              	.LVL28:
+  76:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 68, 38, bmp_fan_origin.width/8, bmp_fan_origin.height, bmp_fan_origi
+ 406              		.loc 1 76 9 view .LVU77
+ 407 006c 0C4B     		ldr	r3, .L23+12
+ 408 006e 2122     		movs	r2, #33
+ 409 0070 4B21     		movs	r1, #75
+ 410 0072 2046     		mov	r0, r4
+ 411 0074 FFF7FEFF 		bl	u8g2_DrawStr
+ 412              	.LVL29:
+  77:Src/main_screen.c ****     }  
+ 413              		.loc 1 77 9 view .LVU78
+  77:Src/main_screen.c ****     }  
+ 414              		.loc 1 77 54 is_stmt 0 view .LVU79
+ 415 0078 0A4A     		ldr	r2, .L23+16
+ 416 007a 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  77:Src/main_screen.c ****     }  
+ 417              		.loc 1 77 9 view .LVU80
+ 418 007c 5168     		ldr	r1, [r2, #4]
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 10
+
+
+ 419 007e 0191     		str	r1, [sp, #4]
+ 420 0080 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 421 0082 0092     		str	r2, [sp]
+ 422 0084 DB08     		lsrs	r3, r3, #3
+ 423 0086 2622     		movs	r2, #38
+ 424 0088 4421     		movs	r1, #68
+ 425 008a 2046     		mov	r0, r4
+ 426 008c FFF7FEFF 		bl	u8g2_DrawBitmap
+ 427              	.LVL30:
+ 428              		.loc 1 79 1 view .LVU81
+ 429 0090 DDE7     		b	.L17
+ 430              	.L24:
+ 431 0092 00BF     		.align	2
+ 432              	.L23:
+ 433 0094 00000000 		.word	main_scr
+ 434 0098 00000000 		.word	u8g2
+ 435 009c 00000000 		.word	u8g2_font_micro_tr
+ 436 00a0 00000000 		.word	.LC2
+ 437 00a4 00000000 		.word	bmp_fan_origin
+ 438 00a8 00000000 		.word	bmp_fan_rotate
+ 439              		.cfi_endproc
+ 440              	.LFE69:
+ 442              		.section	.text.Socket_Status,"ax",%progbits
+ 443              		.align	1
+ 444              		.global	Socket_Status
+ 445              		.syntax unified
+ 446              		.thumb
+ 447              		.thumb_func
+ 448              		.fpu softvfp
+ 450              	Socket_Status:
+ 451              	.LVL31:
+ 452              	.LFB70:
+  80:Src/main_screen.c **** void Socket_Status(uint8_t sStatus)
+  81:Src/main_screen.c **** {
+ 453              		.loc 1 81 1 is_stmt 1 view -0
+ 454              		.cfi_startproc
+ 455              		@ args = 0, pretend = 0, frame = 0
+ 456              		@ frame_needed = 0, uses_anonymous_args = 0
+ 457              		.loc 1 81 1 is_stmt 0 view .LVU83
+ 458 0000 10B5     		push	{r4, lr}
+ 459              	.LCFI13:
+ 460              		.cfi_def_cfa_offset 8
+ 461              		.cfi_offset 4, -8
+ 462              		.cfi_offset 14, -4
+ 463 0002 82B0     		sub	sp, sp, #8
+ 464              	.LCFI14:
+ 465              		.cfi_def_cfa_offset 16
+  82:Src/main_screen.c ****     if(sStatus)
+ 466              		.loc 1 82 5 is_stmt 1 view .LVU84
+ 467              		.loc 1 82 7 is_stmt 0 view .LVU85
+ 468 0004 10B3     		cbz	r0, .L26
+  83:Src/main_screen.c ****     {
+  84:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 98, 34, bmp_socket_on.width/8, bmp_socket_on.height, bmp_socket_on.d
+ 469              		.loc 1 84 9 is_stmt 1 view .LVU86
+ 470              		.loc 1 84 53 is_stmt 0 view .LVU87
+ 471 0006 224A     		ldr	r2, .L29
+ 472 0008 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 11
+
+
+ 473              		.loc 1 84 9 view .LVU88
+ 474 000a 224C     		ldr	r4, .L29+4
+ 475 000c 5168     		ldr	r1, [r2, #4]
+ 476 000e 0191     		str	r1, [sp, #4]
+ 477 0010 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 478 0012 0092     		str	r2, [sp]
+ 479 0014 DB08     		lsrs	r3, r3, #3
+ 480 0016 2222     		movs	r2, #34
+ 481 0018 6221     		movs	r1, #98
+ 482 001a 2046     		mov	r0, r4
+ 483              	.LVL32:
+ 484              		.loc 1 84 9 view .LVU89
+ 485 001c FFF7FEFF 		bl	u8g2_DrawBitmap
+ 486              	.LVL33:
+  85:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_u8glib_4_tf );
+ 487              		.loc 1 85 9 is_stmt 1 view .LVU90
+ 488 0020 1D49     		ldr	r1, .L29+8
+ 489 0022 2046     		mov	r0, r4
+ 490 0024 FFF7FEFF 		bl	u8g2_SetFont
+ 491              	.LVL34:
+  86:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 108, 62, "ON");
+ 492              		.loc 1 86 9 view .LVU91
+ 493 0028 1C4B     		ldr	r3, .L29+12
+ 494 002a 3E22     		movs	r2, #62
+ 495 002c 6C21     		movs	r1, #108
+ 496 002e 2046     		mov	r0, r4
+ 497 0030 FFF7FEFF 		bl	u8g2_DrawStr
+ 498              	.LVL35:
+  87:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 499              		.loc 1 87 9 view .LVU92
+ 500 0034 1A49     		ldr	r1, .L29+16
+ 501 0036 2046     		mov	r0, r4
+ 502 0038 FFF7FEFF 		bl	u8g2_SetFont
+ 503              	.LVL36:
+  88:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~sStatus);
+  89:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 101, 33, "SOCKET");
+ 504              		.loc 1 89 9 view .LVU93
+ 505 003c 194B     		ldr	r3, .L29+20
+ 506 003e 2122     		movs	r2, #33
+ 507 0040 6521     		movs	r1, #101
+ 508 0042 2046     		mov	r0, r4
+ 509 0044 FFF7FEFF 		bl	u8g2_DrawStr
+ 510              	.LVL37:
+ 511              	.L25:
+  90:Src/main_screen.c ****     }
+  91:Src/main_screen.c ****     else
+  92:Src/main_screen.c ****     {
+  93:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 98, 34, bmp_socket_off.width/8, bmp_socket_off.height, bmp_socket_of
+  94:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_u8glib_4_tf );
+  95:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 105, 62, "OFF");
+  96:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+  97:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~sStatus);
+  98:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 101, 33, "SOCKET");
+  99:Src/main_screen.c ****     }  
+ 100:Src/main_screen.c **** }
+ 512              		.loc 1 100 1 is_stmt 0 view .LVU94
+ 513 0048 02B0     		add	sp, sp, #8
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 12
+
+
+ 514              	.LCFI15:
+ 515              		.cfi_remember_state
+ 516              		.cfi_def_cfa_offset 8
+ 517              		@ sp needed
+ 518 004a 10BD     		pop	{r4, pc}
+ 519              	.LVL38:
+ 520              	.L26:
+ 521              	.LCFI16:
+ 522              		.cfi_restore_state
+  93:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_u8glib_4_tf );
+ 523              		.loc 1 93 9 is_stmt 1 view .LVU95
+  93:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_u8glib_4_tf );
+ 524              		.loc 1 93 54 is_stmt 0 view .LVU96
+ 525 004c 164A     		ldr	r2, .L29+24
+ 526 004e 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  93:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_u8glib_4_tf );
+ 527              		.loc 1 93 9 view .LVU97
+ 528 0050 104C     		ldr	r4, .L29+4
+ 529 0052 5168     		ldr	r1, [r2, #4]
+ 530 0054 0191     		str	r1, [sp, #4]
+ 531 0056 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 532 0058 0092     		str	r2, [sp]
+ 533 005a DB08     		lsrs	r3, r3, #3
+ 534 005c 2222     		movs	r2, #34
+ 535 005e 6221     		movs	r1, #98
+ 536 0060 2046     		mov	r0, r4
+ 537              	.LVL39:
+  93:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_u8glib_4_tf );
+ 538              		.loc 1 93 9 view .LVU98
+ 539 0062 FFF7FEFF 		bl	u8g2_DrawBitmap
+ 540              	.LVL40:
+  94:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 105, 62, "OFF");
+ 541              		.loc 1 94 9 is_stmt 1 view .LVU99
+ 542 0066 0C49     		ldr	r1, .L29+8
+ 543 0068 2046     		mov	r0, r4
+ 544 006a FFF7FEFF 		bl	u8g2_SetFont
+ 545              	.LVL41:
+  95:Src/main_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_micro_tr );
+ 546              		.loc 1 95 9 view .LVU100
+ 547 006e 0F4B     		ldr	r3, .L29+28
+ 548 0070 3E22     		movs	r2, #62
+ 549 0072 6921     		movs	r1, #105
+ 550 0074 2046     		mov	r0, r4
+ 551 0076 FFF7FEFF 		bl	u8g2_DrawStr
+ 552              	.LVL42:
+  96:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~sStatus);
+ 553              		.loc 1 96 9 view .LVU101
+ 554 007a 0949     		ldr	r1, .L29+16
+ 555 007c 2046     		mov	r0, r4
+ 556 007e FFF7FEFF 		bl	u8g2_SetFont
+ 557              	.LVL43:
+  98:Src/main_screen.c ****     }  
+ 558              		.loc 1 98 9 view .LVU102
+ 559 0082 084B     		ldr	r3, .L29+20
+ 560 0084 2122     		movs	r2, #33
+ 561 0086 6521     		movs	r1, #101
+ 562 0088 2046     		mov	r0, r4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 13
+
+
+ 563 008a FFF7FEFF 		bl	u8g2_DrawStr
+ 564              	.LVL44:
+ 565              		.loc 1 100 1 is_stmt 0 view .LVU103
+ 566 008e DBE7     		b	.L25
+ 567              	.L30:
+ 568              		.align	2
+ 569              	.L29:
+ 570 0090 00000000 		.word	bmp_socket_on
+ 571 0094 00000000 		.word	u8g2
+ 572 0098 00000000 		.word	u8g2_font_u8glib_4_tf
+ 573 009c 00000000 		.word	.LC3
+ 574 00a0 00000000 		.word	u8g2_font_micro_tr
+ 575 00a4 04000000 		.word	.LC4
+ 576 00a8 00000000 		.word	bmp_socket_off
+ 577 00ac 0C000000 		.word	.LC5
+ 578              		.cfi_endproc
+ 579              	.LFE70:
+ 581              		.section	.text.Filter,"ax",%progbits
+ 582              		.align	1
+ 583              		.global	Filter
+ 584              		.syntax unified
+ 585              		.thumb
+ 586              		.thumb_func
+ 587              		.fpu softvfp
+ 589              	Filter:
+ 590              	.LVL45:
+ 591              	.LFB71:
+ 101:Src/main_screen.c **** void Filter(uint8_t FStatus)
+ 102:Src/main_screen.c **** {
+ 592              		.loc 1 102 1 is_stmt 1 view -0
+ 593              		.cfi_startproc
+ 594              		@ args = 0, pretend = 0, frame = 0
+ 595              		@ frame_needed = 0, uses_anonymous_args = 0
+ 596              		.loc 1 102 1 is_stmt 0 view .LVU105
+ 597 0000 10B5     		push	{r4, lr}
+ 598              	.LCFI17:
+ 599              		.cfi_def_cfa_offset 8
+ 600              		.cfi_offset 4, -8
+ 601              		.cfi_offset 14, -4
+ 602 0002 82B0     		sub	sp, sp, #8
+ 603              	.LCFI18:
+ 604              		.cfi_def_cfa_offset 16
+ 103:Src/main_screen.c ****     switch(FStatus)
+ 605              		.loc 1 103 5 is_stmt 1 view .LVU106
+ 606 0004 70B1     		cbz	r0, .L32
+ 607 0006 0128     		cmp	r0, #1
+ 608 0008 0AD1     		bne	.L31
+ 104:Src/main_screen.c ****     {
+ 105:Src/main_screen.c ****         case 1:
+ 106:Src/main_screen.c ****             u8g2_SetFont(&u8g2, u8g2_font_5x7_tf);//
+ 609              		.loc 1 106 13 view .LVU107
+ 610 000a 1C4C     		ldr	r4, .L35
+ 611 000c 1C49     		ldr	r1, .L35+4
+ 612 000e 2046     		mov	r0, r4
+ 613              	.LVL46:
+ 614              		.loc 1 106 13 is_stmt 0 view .LVU108
+ 615 0010 FFF7FEFF 		bl	u8g2_SetFont
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 14
+
+
+ 616              	.LVL47:
+ 107:Src/main_screen.c ****             u8g2_DrawStr(&u8g2, 2, 19, "Please change the filter!");// When Filter < 30%, show stri
+ 617              		.loc 1 107 13 is_stmt 1 view .LVU109
+ 618 0014 1B4B     		ldr	r3, .L35+8
+ 619 0016 1322     		movs	r2, #19
+ 620 0018 0221     		movs	r1, #2
+ 621 001a 2046     		mov	r0, r4
+ 622 001c FFF7FEFF 		bl	u8g2_DrawStr
+ 623              	.LVL48:
+ 108:Src/main_screen.c ****             break;
+ 624              		.loc 1 108 13 view .LVU110
+ 625              	.L31:
+ 109:Src/main_screen.c ****         case 0:
+ 110:Src/main_screen.c ****             u8g2_SetDrawColor(&u8g2, ~FStatus);
+ 111:Src/main_screen.c ****             u8g2_SetFont(&u8g2, u8g2_font_5x7_tf);//
+ 112:Src/main_screen.c ****             u8g2_DrawStr(&u8g2, 2, 19, "Please change the filter!");// When Filter < 30%, show stri
+ 113:Src/main_screen.c ****             u8g2_DrawStr(&u8g2, 7, 10, "Filter:");
+ 114:Src/main_screen.c ****             u8g2_DrawStr(&u8g2, 98, 10, "100"); //variable x
+ 115:Src/main_screen.c ****             u8g2_DrawStr(&u8g2, 115, 10, "%");
+ 116:Src/main_screen.c ****             u8g2_DrawBox(&u8g2, 45, 4, 50, 6); //Value of filter
+ 117:Src/main_screen.c ****             break;
+ 118:Src/main_screen.c ****     }
+ 119:Src/main_screen.c **** }
+ 626              		.loc 1 119 1 is_stmt 0 view .LVU111
+ 627 0020 02B0     		add	sp, sp, #8
+ 628              	.LCFI19:
+ 629              		.cfi_remember_state
+ 630              		.cfi_def_cfa_offset 8
+ 631              		@ sp needed
+ 632 0022 10BD     		pop	{r4, pc}
+ 633              	.LVL49:
+ 634              	.L32:
+ 635              	.LCFI20:
+ 636              		.cfi_restore_state
+ 110:Src/main_screen.c ****             u8g2_SetFont(&u8g2, u8g2_font_5x7_tf);//
+ 637              		.loc 1 110 13 is_stmt 1 view .LVU112
+ 638 0024 C143     		mvns	r1, r0
+ 639 0026 154C     		ldr	r4, .L35
+ 640 0028 C9B2     		uxtb	r1, r1
+ 641 002a 2046     		mov	r0, r4
+ 642              	.LVL50:
+ 110:Src/main_screen.c ****             u8g2_SetFont(&u8g2, u8g2_font_5x7_tf);//
+ 643              		.loc 1 110 13 is_stmt 0 view .LVU113
+ 644 002c FFF7FEFF 		bl	u8g2_SetDrawColor
+ 645              	.LVL51:
+ 111:Src/main_screen.c ****             u8g2_DrawStr(&u8g2, 2, 19, "Please change the filter!");// When Filter < 30%, show stri
+ 646              		.loc 1 111 13 is_stmt 1 view .LVU114
+ 647 0030 1349     		ldr	r1, .L35+4
+ 648 0032 2046     		mov	r0, r4
+ 649 0034 FFF7FEFF 		bl	u8g2_SetFont
+ 650              	.LVL52:
+ 112:Src/main_screen.c ****             u8g2_DrawStr(&u8g2, 7, 10, "Filter:");
+ 651              		.loc 1 112 13 view .LVU115
+ 652 0038 124B     		ldr	r3, .L35+8
+ 653 003a 1322     		movs	r2, #19
+ 654 003c 0221     		movs	r1, #2
+ 655 003e 2046     		mov	r0, r4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 15
+
+
+ 656 0040 FFF7FEFF 		bl	u8g2_DrawStr
+ 657              	.LVL53:
+ 113:Src/main_screen.c ****             u8g2_DrawStr(&u8g2, 98, 10, "100"); //variable x
+ 658              		.loc 1 113 13 view .LVU116
+ 659 0044 104B     		ldr	r3, .L35+12
+ 660 0046 0A22     		movs	r2, #10
+ 661 0048 0721     		movs	r1, #7
+ 662 004a 2046     		mov	r0, r4
+ 663 004c FFF7FEFF 		bl	u8g2_DrawStr
+ 664              	.LVL54:
+ 114:Src/main_screen.c ****             u8g2_DrawStr(&u8g2, 115, 10, "%");
+ 665              		.loc 1 114 13 view .LVU117
+ 666 0050 0E4B     		ldr	r3, .L35+16
+ 667 0052 0A22     		movs	r2, #10
+ 668 0054 6221     		movs	r1, #98
+ 669 0056 2046     		mov	r0, r4
+ 670 0058 FFF7FEFF 		bl	u8g2_DrawStr
+ 671              	.LVL55:
+ 115:Src/main_screen.c ****             u8g2_DrawBox(&u8g2, 45, 4, 50, 6); //Value of filter
+ 672              		.loc 1 115 13 view .LVU118
+ 673 005c 0C4B     		ldr	r3, .L35+20
+ 674 005e 0A22     		movs	r2, #10
+ 675 0060 7321     		movs	r1, #115
+ 676 0062 2046     		mov	r0, r4
+ 677 0064 FFF7FEFF 		bl	u8g2_DrawStr
+ 678              	.LVL56:
+ 116:Src/main_screen.c ****             break;
+ 679              		.loc 1 116 13 view .LVU119
+ 680 0068 0623     		movs	r3, #6
+ 681 006a 0093     		str	r3, [sp]
+ 682 006c 3223     		movs	r3, #50
+ 683 006e 0422     		movs	r2, #4
+ 684 0070 2D21     		movs	r1, #45
+ 685 0072 2046     		mov	r0, r4
+ 686 0074 FFF7FEFF 		bl	u8g2_DrawBox
+ 687              	.LVL57:
+ 117:Src/main_screen.c ****     }
+ 688              		.loc 1 117 13 view .LVU120
+ 689              		.loc 1 119 1 is_stmt 0 view .LVU121
+ 690 0078 D2E7     		b	.L31
+ 691              	.L36:
+ 692 007a 00BF     		.align	2
+ 693              	.L35:
+ 694 007c 00000000 		.word	u8g2
+ 695 0080 00000000 		.word	u8g2_font_5x7_tf
+ 696 0084 00000000 		.word	.LC6
+ 697 0088 1C000000 		.word	.LC7
+ 698 008c 24000000 		.word	.LC8
+ 699 0090 28000000 		.word	.LC9
+ 700              		.cfi_endproc
+ 701              	.LFE71:
+ 703              		.section	.text.Horizontal,"ax",%progbits
+ 704              		.align	1
+ 705              		.global	Horizontal
+ 706              		.syntax unified
+ 707              		.thumb
+ 708              		.thumb_func
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 16
+
+
+ 709              		.fpu softvfp
+ 711              	Horizontal:
+ 712              	.LFB72:
+ 120:Src/main_screen.c **** void Horizontal(void)
+ 121:Src/main_screen.c **** {
+ 713              		.loc 1 121 1 is_stmt 1 view -0
+ 714              		.cfi_startproc
+ 715              		@ args = 0, pretend = 0, frame = 0
+ 716              		@ frame_needed = 0, uses_anonymous_args = 0
+ 717 0000 70B5     		push	{r4, r5, r6, lr}
+ 718              	.LCFI21:
+ 719              		.cfi_def_cfa_offset 16
+ 720              		.cfi_offset 4, -16
+ 721              		.cfi_offset 5, -12
+ 722              		.cfi_offset 6, -8
+ 723              		.cfi_offset 14, -4
+ 724 0002 82B0     		sub	sp, sp, #8
+ 725              	.LCFI22:
+ 726              		.cfi_def_cfa_offset 24
+ 122:Src/main_screen.c ****     u8g2_SetDrawColor(&u8g2, 1);
+ 727              		.loc 1 122 5 view .LVU123
+ 728 0004 154C     		ldr	r4, .L39
+ 729 0006 0121     		movs	r1, #1
+ 730 0008 2046     		mov	r0, r4
+ 731 000a FFF7FEFF 		bl	u8g2_SetDrawColor
+ 732              	.LVL58:
+ 123:Src/main_screen.c ****     u8g2_DrawFrame(&u8g2, 0, 24, 128, 40);
+ 733              		.loc 1 123 5 view .LVU124
+ 734 000e 2825     		movs	r5, #40
+ 735 0010 0095     		str	r5, [sp]
+ 736 0012 8023     		movs	r3, #128
+ 737 0014 1822     		movs	r2, #24
+ 738 0016 0021     		movs	r1, #0
+ 739 0018 2046     		mov	r0, r4
+ 740 001a FFF7FEFF 		bl	u8g2_DrawFrame
+ 741              	.LVL59:
+ 124:Src/main_screen.c ****     u8g2_DrawHLine(&u8g2, 0, 36, 128);
+ 742              		.loc 1 124 5 view .LVU125
+ 743 001e 8023     		movs	r3, #128
+ 744 0020 2422     		movs	r2, #36
+ 745 0022 0021     		movs	r1, #0
+ 746 0024 2046     		mov	r0, r4
+ 747 0026 FFF7FEFF 		bl	u8g2_DrawHLine
+ 748              	.LVL60:
+ 125:Src/main_screen.c ****     u8g2_DrawHVLine(&u8g2, 32, 24, 40, 1);
+ 749              		.loc 1 125 5 view .LVU126
+ 750 002a 0126     		movs	r6, #1
+ 751 002c 0096     		str	r6, [sp]
+ 752 002e 2B46     		mov	r3, r5
+ 753 0030 1822     		movs	r2, #24
+ 754 0032 2021     		movs	r1, #32
+ 755 0034 2046     		mov	r0, r4
+ 756 0036 FFF7FEFF 		bl	u8g2_DrawHVLine
+ 757              	.LVL61:
+ 126:Src/main_screen.c ****     u8g2_DrawHVLine(&u8g2, 64, 24, 40, 1);
+ 758              		.loc 1 126 5 view .LVU127
+ 759 003a 0096     		str	r6, [sp]
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 17
+
+
+ 760 003c 2B46     		mov	r3, r5
+ 761 003e 1822     		movs	r2, #24
+ 762 0040 4021     		movs	r1, #64
+ 763 0042 2046     		mov	r0, r4
+ 764 0044 FFF7FEFF 		bl	u8g2_DrawHVLine
+ 765              	.LVL62:
+ 127:Src/main_screen.c ****     u8g2_DrawHVLine(&u8g2, 96, 24, 40, 1);
+ 766              		.loc 1 127 5 view .LVU128
+ 767 0048 0096     		str	r6, [sp]
+ 768 004a 2B46     		mov	r3, r5
+ 769 004c 1822     		movs	r2, #24
+ 770 004e 6021     		movs	r1, #96
+ 771 0050 2046     		mov	r0, r4
+ 772 0052 FFF7FEFF 		bl	u8g2_DrawHVLine
+ 773              	.LVL63:
+ 128:Src/main_screen.c **** }
+ 774              		.loc 1 128 1 is_stmt 0 view .LVU129
+ 775 0056 02B0     		add	sp, sp, #8
+ 776              	.LCFI23:
+ 777              		.cfi_def_cfa_offset 16
+ 778              		@ sp needed
+ 779 0058 70BD     		pop	{r4, r5, r6, pc}
+ 780              	.L40:
+ 781 005a 00BF     		.align	2
+ 782              	.L39:
+ 783 005c 00000000 		.word	u8g2
+ 784              		.cfi_endproc
+ 785              	.LFE72:
+ 787              		.section	.text.Main_Screen_Manage,"ax",%progbits
+ 788              		.align	1
+ 789              		.global	Main_Screen_Manage
+ 790              		.syntax unified
+ 791              		.thumb
+ 792              		.thumb_func
+ 793              		.fpu softvfp
+ 795              	Main_Screen_Manage:
+ 796              	.LFB73:
+ 129:Src/main_screen.c **** void Main_Screen_Manage(void)
+ 130:Src/main_screen.c **** {
+ 797              		.loc 1 130 1 is_stmt 1 view -0
+ 798              		.cfi_startproc
+ 799              		@ args = 0, pretend = 0, frame = 0
+ 800              		@ frame_needed = 0, uses_anonymous_args = 0
+ 801 0000 10B5     		push	{r4, lr}
+ 802              	.LCFI24:
+ 803              		.cfi_def_cfa_offset 8
+ 804              		.cfi_offset 4, -8
+ 805              		.cfi_offset 14, -4
+ 131:Src/main_screen.c ****     KeyManage();
+ 806              		.loc 1 131 5 view .LVU131
+ 807 0002 FFF7FEFF 		bl	KeyManage
+ 808              	.LVL64:
+ 132:Src/main_screen.c ****     Lamp_Status(main_scr.lampStatus);
+ 809              		.loc 1 132 5 view .LVU132
+ 810 0006 094C     		ldr	r4, .L43
+ 811 0008 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 812 000a FFF7FEFF 		bl	Lamp_Status
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 18
+
+
+ 813              	.LVL65:
+ 133:Src/main_screen.c ****     UV_Status(main_scr.uvStatus);
+ 814              		.loc 1 133 5 view .LVU133
+ 815 000e 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+ 816 0010 FFF7FEFF 		bl	UV_Status
+ 817              	.LVL66:
+ 134:Src/main_screen.c ****     Fan_Status(main_scr.fanStatus);
+ 818              		.loc 1 134 5 view .LVU134
+ 819 0014 A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
+ 820 0016 FFF7FEFF 		bl	Fan_Status
+ 821              	.LVL67:
+ 135:Src/main_screen.c ****     Socket_Status(main_scr.socketStatus);
+ 822              		.loc 1 135 5 view .LVU135
+ 823 001a E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
+ 824 001c FFF7FEFF 		bl	Socket_Status
+ 825              	.LVL68:
+ 136:Src/main_screen.c ****     Filter(0);
+ 826              		.loc 1 136 5 view .LVU136
+ 827 0020 0020     		movs	r0, #0
+ 828 0022 FFF7FEFF 		bl	Filter
+ 829              	.LVL69:
+ 137:Src/main_screen.c ****     Horizontal();
+ 830              		.loc 1 137 5 view .LVU137
+ 831 0026 FFF7FEFF 		bl	Horizontal
+ 832              	.LVL70:
+ 138:Src/main_screen.c **** }
+ 833              		.loc 1 138 1 is_stmt 0 view .LVU138
+ 834 002a 10BD     		pop	{r4, pc}
+ 835              	.L44:
+ 836              		.align	2
+ 837              	.L43:
+ 838 002c 00000000 		.word	main_scr
+ 839              		.cfi_endproc
+ 840              	.LFE73:
+ 842              		.comm	main_scr,12,4
+ 843              		.comm	u8g2,128,4
+ 844              		.section	.rodata.Fan_Status.str1.4,"aMS",%progbits,1
+ 845              		.align	2
+ 846              	.LC2:
+ 847 0000 46414E00 		.ascii	"FAN\000"
+ 848              		.section	.rodata.Filter.str1.4,"aMS",%progbits,1
+ 849              		.align	2
+ 850              	.LC6:
+ 851 0000 506C6561 		.ascii	"Please change the filter!\000"
+ 851      73652063 
+ 851      68616E67 
+ 851      65207468 
+ 851      65206669 
+ 852 001a 0000     		.space	2
+ 853              	.LC7:
+ 854 001c 46696C74 		.ascii	"Filter:\000"
+ 854      65723A00 
+ 855              	.LC8:
+ 856 0024 31303000 		.ascii	"100\000"
+ 857              	.LC9:
+ 858 0028 2500     		.ascii	"%\000"
+ 859              		.section	.rodata.Lamp_Status.str1.4,"aMS",%progbits,1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 19
+
+
+ 860              		.align	2
+ 861              	.LC0:
+ 862 0000 4E454F4E 		.ascii	"NEON\000"
+ 862      00
+ 863              		.section	.rodata.Socket_Status.str1.4,"aMS",%progbits,1
+ 864              		.align	2
+ 865              	.LC3:
+ 866 0000 4F4E00   		.ascii	"ON\000"
+ 867 0003 00       		.space	1
+ 868              	.LC4:
+ 869 0004 534F434B 		.ascii	"SOCKET\000"
+ 869      455400
+ 870 000b 00       		.space	1
+ 871              	.LC5:
+ 872 000c 4F464600 		.ascii	"OFF\000"
+ 873              		.section	.rodata.UV_Status.str1.4,"aMS",%progbits,1
+ 874              		.align	2
+ 875              	.LC1:
+ 876 0000 555600   		.ascii	"UV\000"
+ 877              		.text
+ 878              	.Letext0:
+ 879              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 880              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 881              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 882              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 883              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
+ 884              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 885              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 886              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 887              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 888              		.file 11 "Inc/user_bitmap.h"
+ 889              		.file 12 "Inc/main_screen.h"
+ 890              		.file 13 "u8g2/csrc/u8x8.h"
+ 891              		.file 14 "u8g2/csrc/u8g2.h"
+ 892              		.file 15 "Inc/key.h"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main_screen.c
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:16     .text.main_screen_init:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:24     .text.main_screen_init:00000000 main_screen_init
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:68     .text.main_screen_init:00000020 $d
+                            *COM*:0000000c main_scr
+                            *COM*:00000080 u8g2
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:74     .text.Lamp_Status:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:81     .text.Lamp_Status:00000000 Lamp_Status
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:177    .text.Lamp_Status:00000068 $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:186    .text.UV_Status:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:193    .text.UV_Status:00000000 UV_Status
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:289    .text.UV_Status:00000068 $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:298    .text.Fan_Status:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:305    .text.Fan_Status:00000000 Fan_Status
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:433    .text.Fan_Status:00000094 $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:443    .text.Socket_Status:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:450    .text.Socket_Status:00000000 Socket_Status
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:570    .text.Socket_Status:00000090 $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:582    .text.Filter:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:589    .text.Filter:00000000 Filter
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:694    .text.Filter:0000007c $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:704    .text.Horizontal:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:711    .text.Horizontal:00000000 Horizontal
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:783    .text.Horizontal:0000005c $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:788    .text.Main_Screen_Manage:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:795    .text.Main_Screen_Manage:00000000 Main_Screen_Manage
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:838    .text.Main_Screen_Manage:0000002c $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:845    .rodata.Fan_Status.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:849    .rodata.Filter.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:860    .rodata.Lamp_Status.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:864    .rodata.Socket_Status.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s:874    .rodata.UV_Status.str1.4:00000000 $d
+
+UNDEFINED SYMBOLS
+u8g2_ClearBuffer
+HAL_GetTick
+u8g2_DrawBitmap
+u8g2_SetFont
+u8g2_DrawStr
+bmp_neon_on
+u8g2_font_micro_tr
+bmp_neon_off
+bmp_uv_on
+bmp_uv_off
+bmp_fan_origin
+bmp_fan_rotate
+bmp_socket_on
+u8g2_font_u8glib_4_tf
+bmp_socket_off
+u8g2_SetDrawColor
+u8g2_DrawBox
+u8g2_font_5x7_tf
+u8g2_DrawFrame
+u8g2_DrawHLine
+u8g2_DrawHVLine
+KeyManage
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccL3N5Eq.s 			page 21
+
+

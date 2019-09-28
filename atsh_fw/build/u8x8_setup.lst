@@ -1,0 +1,285 @@
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"u8x8_setup.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.u8x8_dummy_cb,"ax",%progbits
+  16              		.align	1
+  17              		.global	u8x8_dummy_cb
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	u8x8_dummy_cb:
+  25              	.LVL0:
+  26              	.LFB0:
+  27              		.file 1 "u8g2/csrc/u8x8_setup.c"
+   1:u8g2/csrc/u8x8_setup.c **** /*
+   2:u8g2/csrc/u8x8_setup.c **** 
+   3:u8g2/csrc/u8x8_setup.c ****   u8x8_setup.c
+   4:u8g2/csrc/u8x8_setup.c **** 
+   5:u8g2/csrc/u8x8_setup.c ****   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
+   6:u8g2/csrc/u8x8_setup.c **** 
+   7:u8g2/csrc/u8x8_setup.c ****   Copyright (c) 2016, olikraus@gmail.com
+   8:u8g2/csrc/u8x8_setup.c ****   All rights reserved.
+   9:u8g2/csrc/u8x8_setup.c **** 
+  10:u8g2/csrc/u8x8_setup.c ****   Redistribution and use in source and binary forms, with or without modification, 
+  11:u8g2/csrc/u8x8_setup.c ****   are permitted provided that the following conditions are met:
+  12:u8g2/csrc/u8x8_setup.c **** 
+  13:u8g2/csrc/u8x8_setup.c ****   * Redistributions of source code must retain the above copyright notice, this list 
+  14:u8g2/csrc/u8x8_setup.c ****     of conditions and the following disclaimer.
+  15:u8g2/csrc/u8x8_setup.c ****     
+  16:u8g2/csrc/u8x8_setup.c ****   * Redistributions in binary form must reproduce the above copyright notice, this 
+  17:u8g2/csrc/u8x8_setup.c ****     list of conditions and the following disclaimer in the documentation and/or other 
+  18:u8g2/csrc/u8x8_setup.c ****     materials provided with the distribution.
+  19:u8g2/csrc/u8x8_setup.c **** 
+  20:u8g2/csrc/u8x8_setup.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+  21:u8g2/csrc/u8x8_setup.c ****   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+  22:u8g2/csrc/u8x8_setup.c ****   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+  23:u8g2/csrc/u8x8_setup.c ****   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+  24:u8g2/csrc/u8x8_setup.c ****   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
+  25:u8g2/csrc/u8x8_setup.c ****   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+  26:u8g2/csrc/u8x8_setup.c ****   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  27:u8g2/csrc/u8x8_setup.c ****   NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+  28:u8g2/csrc/u8x8_setup.c ****   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+  29:u8g2/csrc/u8x8_setup.c ****   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+  30:u8g2/csrc/u8x8_setup.c ****   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  31:u8g2/csrc/u8x8_setup.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s 			page 2
+
+
+  32:u8g2/csrc/u8x8_setup.c ****   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
+  33:u8g2/csrc/u8x8_setup.c **** 
+  34:u8g2/csrc/u8x8_setup.c **** */
+  35:u8g2/csrc/u8x8_setup.c **** 
+  36:u8g2/csrc/u8x8_setup.c **** 
+  37:u8g2/csrc/u8x8_setup.c **** #include "u8x8.h"
+  38:u8g2/csrc/u8x8_setup.c **** 
+  39:u8g2/csrc/u8x8_setup.c **** uint8_t u8x8_dummy_cb(U8X8_UNUSED u8x8_t *u8x8, U8X8_UNUSED uint8_t msg, U8X8_UNUSED uint8_t arg_in
+  40:u8g2/csrc/u8x8_setup.c **** {
+  28              		.loc 1 40 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  41:u8g2/csrc/u8x8_setup.c ****   /* the dummy callback will not handle any message and will fail for all messages */
+  42:u8g2/csrc/u8x8_setup.c ****   return 0;
+  33              		.loc 1 42 3 view .LVU1
+  43:u8g2/csrc/u8x8_setup.c **** }
+  34              		.loc 1 43 1 is_stmt 0 view .LVU2
+  35 0000 0020     		movs	r0, #0
+  36              	.LVL1:
+  37              		.loc 1 43 1 view .LVU3
+  38 0002 7047     		bx	lr
+  39              		.cfi_endproc
+  40              	.LFE0:
+  42              		.section	.text.u8x8_SetupDefaults,"ax",%progbits
+  43              		.align	1
+  44              		.global	u8x8_SetupDefaults
+  45              		.syntax unified
+  46              		.thumb
+  47              		.thumb_func
+  48              		.fpu softvfp
+  50              	u8x8_SetupDefaults:
+  51              	.LVL2:
+  52              	.LFB1:
+  44:u8g2/csrc/u8x8_setup.c **** 
+  45:u8g2/csrc/u8x8_setup.c **** 
+  46:u8g2/csrc/u8x8_setup.c **** /*
+  47:u8g2/csrc/u8x8_setup.c ****   Description:
+  48:u8g2/csrc/u8x8_setup.c ****     Setup u8x8
+  49:u8g2/csrc/u8x8_setup.c ****   Args:
+  50:u8g2/csrc/u8x8_setup.c ****     u8x8	An empty u8x8 structure
+  51:u8g2/csrc/u8x8_setup.c **** */
+  52:u8g2/csrc/u8x8_setup.c **** void u8x8_SetupDefaults(u8x8_t *u8x8)
+  53:u8g2/csrc/u8x8_setup.c **** {
+  53              		.loc 1 53 1 is_stmt 1 view -0
+  54              		.cfi_startproc
+  55              		@ args = 0, pretend = 0, frame = 0
+  56              		@ frame_needed = 0, uses_anonymous_args = 0
+  57              		@ link register save eliminated.
+  54:u8g2/csrc/u8x8_setup.c ****     u8x8->display_info = NULL;
+  58              		.loc 1 54 5 view .LVU5
+  59              		.loc 1 54 24 is_stmt 0 view .LVU6
+  60 0000 0023     		movs	r3, #0
+  61 0002 0360     		str	r3, [r0]
+  55:u8g2/csrc/u8x8_setup.c ****     u8x8->display_cb = u8x8_dummy_cb;
+  62              		.loc 1 55 5 is_stmt 1 view .LVU7
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s 			page 3
+
+
+  63              		.loc 1 55 22 is_stmt 0 view .LVU8
+  64 0004 074A     		ldr	r2, .L3
+  65 0006 8260     		str	r2, [r0, #8]
+  56:u8g2/csrc/u8x8_setup.c ****     u8x8->cad_cb = u8x8_dummy_cb;
+  66              		.loc 1 56 5 is_stmt 1 view .LVU9
+  67              		.loc 1 56 18 is_stmt 0 view .LVU10
+  68 0008 C260     		str	r2, [r0, #12]
+  57:u8g2/csrc/u8x8_setup.c ****     u8x8->byte_cb = u8x8_dummy_cb;
+  69              		.loc 1 57 5 is_stmt 1 view .LVU11
+  70              		.loc 1 57 19 is_stmt 0 view .LVU12
+  71 000a 0261     		str	r2, [r0, #16]
+  58:u8g2/csrc/u8x8_setup.c ****     u8x8->gpio_and_delay_cb = u8x8_dummy_cb;
+  72              		.loc 1 58 5 is_stmt 1 view .LVU13
+  73              		.loc 1 58 29 is_stmt 0 view .LVU14
+  74 000c 4261     		str	r2, [r0, #20]
+  59:u8g2/csrc/u8x8_setup.c ****     u8x8->is_font_inverse_mode = 0;
+  75              		.loc 1 59 5 is_stmt 1 view .LVU15
+  76              		.loc 1 59 32 is_stmt 0 view .LVU16
+  77 000e C377     		strb	r3, [r0, #31]
+  60:u8g2/csrc/u8x8_setup.c ****     u8x8->device_address = 0;
+  78              		.loc 1 60 5 is_stmt 1 view .LVU17
+  79              		.loc 1 60 26 is_stmt 0 view .LVU18
+  80 0010 80F82230 		strb	r3, [r0, #34]
+  61:u8g2/csrc/u8x8_setup.c ****     u8x8->utf8_state = 0;		/* also reset by u8x8_utf8_init */
+  81              		.loc 1 61 5 is_stmt 1 view .LVU19
+  82              		.loc 1 61 22 is_stmt 0 view .LVU20
+  83 0014 80F82330 		strb	r3, [r0, #35]
+  62:u8g2/csrc/u8x8_setup.c ****     u8x8->i2c_address = 255;
+  84              		.loc 1 62 5 is_stmt 1 view .LVU21
+  85              		.loc 1 62 23 is_stmt 0 view .LVU22
+  86 0018 FF23     		movs	r3, #255
+  87 001a 80F82030 		strb	r3, [r0, #32]
+  63:u8g2/csrc/u8x8_setup.c ****     u8x8->debounce_default_pin_state = 255;	/* assume all low active buttons */
+  88              		.loc 1 63 5 is_stmt 1 view .LVU23
+  89              		.loc 1 63 38 is_stmt 0 view .LVU24
+  90 001e 80F82530 		strb	r3, [r0, #37]
+  64:u8g2/csrc/u8x8_setup.c ****   
+  65:u8g2/csrc/u8x8_setup.c **** #ifdef U8X8_USE_PINS 
+  66:u8g2/csrc/u8x8_setup.c ****   {
+  67:u8g2/csrc/u8x8_setup.c ****     uint8_t i;
+  68:u8g2/csrc/u8x8_setup.c ****     for( i = 0; i < U8X8_PIN_CNT; i++ )
+  69:u8g2/csrc/u8x8_setup.c ****       u8x8->pins[i] = U8X8_PIN_NONE;
+  70:u8g2/csrc/u8x8_setup.c ****   }
+  71:u8g2/csrc/u8x8_setup.c **** #endif
+  72:u8g2/csrc/u8x8_setup.c **** }
+  91              		.loc 1 72 1 view .LVU25
+  92 0022 7047     		bx	lr
+  93              	.L4:
+  94              		.align	2
+  95              	.L3:
+  96 0024 00000000 		.word	u8x8_dummy_cb
+  97              		.cfi_endproc
+  98              	.LFE1:
+ 100              		.section	.text.u8x8_Setup,"ax",%progbits
+ 101              		.align	1
+ 102              		.global	u8x8_Setup
+ 103              		.syntax unified
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s 			page 4
+
+
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.fpu softvfp
+ 108              	u8x8_Setup:
+ 109              	.LVL3:
+ 110              	.LFB2:
+  73:u8g2/csrc/u8x8_setup.c **** 
+  74:u8g2/csrc/u8x8_setup.c **** 
+  75:u8g2/csrc/u8x8_setup.c **** /*
+  76:u8g2/csrc/u8x8_setup.c ****   Description:
+  77:u8g2/csrc/u8x8_setup.c ****     Setup u8x8 and assign the callback function. The dummy 
+  78:u8g2/csrc/u8x8_setup.c ****     callback "u8x8_dummy_cb" can be used, if no callback is required.
+  79:u8g2/csrc/u8x8_setup.c ****     This setup will not communicate with the display itself.
+  80:u8g2/csrc/u8x8_setup.c ****     Use u8x8_InitDisplay() to send the startup code to the Display.
+  81:u8g2/csrc/u8x8_setup.c ****   Args:
+  82:u8g2/csrc/u8x8_setup.c ****     u8x8				An empty u8x8 structure
+  83:u8g2/csrc/u8x8_setup.c ****     display_cb			Display/controller specific callback function
+  84:u8g2/csrc/u8x8_setup.c ****     cad_cb				Display controller specific communication callback function
+  85:u8g2/csrc/u8x8_setup.c ****     byte_cb			Display controller/communication specific callback funtion
+  86:u8g2/csrc/u8x8_setup.c ****     gpio_and_delay_cb	Environment specific callback function
+  87:u8g2/csrc/u8x8_setup.c **** 
+  88:u8g2/csrc/u8x8_setup.c **** */
+  89:u8g2/csrc/u8x8_setup.c **** void u8x8_Setup(u8x8_t *u8x8, u8x8_msg_cb display_cb, u8x8_msg_cb cad_cb, u8x8_msg_cb byte_cb, u8x8
+  90:u8g2/csrc/u8x8_setup.c **** {
+ 111              		.loc 1 90 1 is_stmt 1 view -0
+ 112              		.cfi_startproc
+ 113              		@ args = 4, pretend = 0, frame = 0
+ 114              		@ frame_needed = 0, uses_anonymous_args = 0
+ 115              		.loc 1 90 1 is_stmt 0 view .LVU27
+ 116 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 117              	.LCFI0:
+ 118              		.cfi_def_cfa_offset 24
+ 119              		.cfi_offset 3, -24
+ 120              		.cfi_offset 4, -20
+ 121              		.cfi_offset 5, -16
+ 122              		.cfi_offset 6, -12
+ 123              		.cfi_offset 7, -8
+ 124              		.cfi_offset 14, -4
+ 125 0002 0446     		mov	r4, r0
+ 126 0004 0F46     		mov	r7, r1
+ 127 0006 1646     		mov	r6, r2
+ 128 0008 1D46     		mov	r5, r3
+  91:u8g2/csrc/u8x8_setup.c ****   /* setup defaults and reset pins to U8X8_PIN_NONE */
+  92:u8g2/csrc/u8x8_setup.c ****   u8x8_SetupDefaults(u8x8);
+ 129              		.loc 1 92 3 is_stmt 1 view .LVU28
+ 130 000a FFF7FEFF 		bl	u8x8_SetupDefaults
+ 131              	.LVL4:
+  93:u8g2/csrc/u8x8_setup.c **** 
+  94:u8g2/csrc/u8x8_setup.c ****   /* setup specific callbacks */
+  95:u8g2/csrc/u8x8_setup.c ****   u8x8->display_cb = display_cb;
+ 132              		.loc 1 95 3 view .LVU29
+ 133              		.loc 1 95 20 is_stmt 0 view .LVU30
+ 134 000e A760     		str	r7, [r4, #8]
+  96:u8g2/csrc/u8x8_setup.c ****   u8x8->cad_cb = cad_cb;
+ 135              		.loc 1 96 3 is_stmt 1 view .LVU31
+ 136              		.loc 1 96 16 is_stmt 0 view .LVU32
+ 137 0010 E660     		str	r6, [r4, #12]
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s 			page 5
+
+
+  97:u8g2/csrc/u8x8_setup.c ****   u8x8->byte_cb = byte_cb;
+ 138              		.loc 1 97 3 is_stmt 1 view .LVU33
+ 139              		.loc 1 97 17 is_stmt 0 view .LVU34
+ 140 0012 2561     		str	r5, [r4, #16]
+  98:u8g2/csrc/u8x8_setup.c ****   u8x8->gpio_and_delay_cb = gpio_and_delay_cb;
+ 141              		.loc 1 98 3 is_stmt 1 view .LVU35
+ 142              		.loc 1 98 27 is_stmt 0 view .LVU36
+ 143 0014 069B     		ldr	r3, [sp, #24]
+ 144 0016 6361     		str	r3, [r4, #20]
+  99:u8g2/csrc/u8x8_setup.c **** 
+ 100:u8g2/csrc/u8x8_setup.c ****   /* setup display info */
+ 101:u8g2/csrc/u8x8_setup.c ****   u8x8_SetupMemory(u8x8);
+ 145              		.loc 1 101 3 is_stmt 1 view .LVU37
+ 146 0018 2046     		mov	r0, r4
+ 147 001a FFF7FEFF 		bl	u8x8_SetupMemory
+ 148              	.LVL5:
+ 102:u8g2/csrc/u8x8_setup.c **** }
+ 149              		.loc 1 102 1 is_stmt 0 view .LVU38
+ 150 001e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 151              		.loc 1 102 1 view .LVU39
+ 152              		.cfi_endproc
+ 153              	.LFE2:
+ 155              		.text
+ 156              	.Letext0:
+ 157              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 158              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 159              		.file 4 "u8g2/csrc/u8x8.h"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u8x8_setup.c
+C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s:16     .text.u8x8_dummy_cb:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s:24     .text.u8x8_dummy_cb:00000000 u8x8_dummy_cb
+C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s:43     .text.u8x8_SetupDefaults:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s:50     .text.u8x8_SetupDefaults:00000000 u8x8_SetupDefaults
+C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s:96     .text.u8x8_SetupDefaults:00000024 $d
+C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s:101    .text.u8x8_Setup:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccCOlQ5K.s:108    .text.u8x8_Setup:00000000 u8x8_Setup
+
+UNDEFINED SYMBOLS
+u8x8_SetupMemory
