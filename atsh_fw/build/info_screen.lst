@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
   44              		.loc 1 12 5 is_stmt 1 view .LVU5
   45              		.loc 1 12 24 is_stmt 0 view .LVU6
   46 000a A370     		strb	r3, [r4, #2]
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 2
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 2
 
 
   13:Src/info_screen.c ****     Info_Scr.Filter_Time = 0;
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
   20:Src/info_screen.c ****     switch (TimeStatus)
   94              		.loc 1 20 1 is_stmt 0 view .LVU21
   95 0004 38B5     		push	{r3, r4, r5, lr}
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 3
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 3
 
 
   96              	.LCFI1:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
  142              	.LVL8:
   30:Src/info_screen.c ****         u8g2_DrawStr(&u8g2, 50, 36, ".");
  143              		.loc 1 30 9 view .LVU29
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 4
 
 
  144 0048 134D     		ldr	r5, .L12+28
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
  188              		.cfi_endproc
  189              	.LFE67:
  191              		.section	.text.Filter_Pa,"ax",%progbits
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 5
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 5
 
 
  192              		.align	1
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
   48:Src/info_screen.c ****     case 0:
   49:Src/info_screen.c ****         u8g2_SetFont(&u8g2, u8g2_font_5x7_tr);
   50:Src/info_screen.c ****         u8g2_DrawStr(&u8g2, 55, 51, "000"); //Variable
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 6
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 6
 
 
   51:Src/info_screen.c ****         break;
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
  284              		@ frame_needed = 0, uses_anonymous_args = 0
  285              		.loc 1 59 1 is_stmt 0 view .LVU48
  286 0000 38B5     		push	{r3, r4, r5, lr}
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 7
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 7
 
 
  287              	.LCFI3:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
   77:Src/info_screen.c **** }
  324              		.loc 1 77 1 is_stmt 0 view .LVU55
  325 0030 38BD     		pop	{r3, r4, r5, pc}
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 8
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 8
 
 
  326              	.L23:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
  376              		.thumb_func
  377              		.fpu softvfp
  379              	Door:
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 9
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 9
 
 
  380              	.LVL30:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
   92:Src/info_screen.c ****         u8g2_DrawBox(&u8g2, 115, 50, 5, 3);  //0
   93:Src/info_screen.c ****         u8g2_DrawBox(&u8g2, 113, 46, 9, 3);  //1
   94:Src/info_screen.c ****         u8g2_DrawBox(&u8g2, 111, 42, 13, 3); //2
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 10
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 10
 
 
   95:Src/info_screen.c ****         break;
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
  463              		.loc 1 92 9 view .LVU74
  464 0060 0B4C     		ldr	r4, .L32
  465 0062 0325     		movs	r5, #3
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 11
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 11
 
 
  466 0064 0095     		str	r5, [sp]
@@ -658,41 +658,40 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
  517              		.cfi_def_cfa_offset 8
  518              		.cfi_offset 4, -8
  519              		.cfi_offset 14, -4
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 12
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 12
 
 
- 102:Src/info_screen.c ****     // u8g2_ClearBuffer(&u8g2);
- 103:Src/info_screen.c ****     SysTime(Info_Scr.SysTime);
- 520              		.loc 1 103 5 view .LVU80
+ 102:Src/info_screen.c ****     SysTime(Info_Scr.SysTime);
+ 520              		.loc 1 102 5 view .LVU80
  521 0002 0A4C     		ldr	r4, .L36
  522 0004 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
  523 0006 FFF7FEFF 		bl	SysTime
  524              	.LVL40:
- 104:Src/info_screen.c ****     Filter_Pa(Info_Scr.Filter_Pa);
- 525              		.loc 1 104 5 view .LVU81
+ 103:Src/info_screen.c ****     Filter_Pa(Info_Scr.Filter_Pa);
+ 525              		.loc 1 103 5 view .LVU81
  526 000a A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
  527 000c FFF7FEFF 		bl	Filter_Pa
  528              	.LVL41:
- 105:Src/info_screen.c ****     Flow(Info_Scr.Flow);
- 529              		.loc 1 105 5 view .LVU82
+ 104:Src/info_screen.c ****     Flow(Info_Scr.Flow);
+ 529              		.loc 1 104 5 view .LVU82
  530 0010 2079     		ldrb	r0, [r4, #4]	@ zero_extendqisi2
  531 0012 FFF7FEFF 		bl	Flow
  532              	.LVL42:
- 106:Src/info_screen.c ****     Door(Info_Scr.Door);
- 533              		.loc 1 106 5 view .LVU83
+ 105:Src/info_screen.c ****     Door(Info_Scr.Door);
+ 533              		.loc 1 105 5 view .LVU83
  534 0016 A079     		ldrb	r0, [r4, #6]	@ zero_extendqisi2
  535 0018 FFF7FEFF 		bl	Door
  536              	.LVL43:
- 107:Src/info_screen.c ****     u8g2_DrawHLine(&u8g2, 29, 40, 70);
- 537              		.loc 1 107 5 view .LVU84
+ 106:Src/info_screen.c ****     u8g2_DrawHLine(&u8g2, 29, 40, 70);
+ 537              		.loc 1 106 5 view .LVU84
  538 001c 4623     		movs	r3, #70
  539 001e 2822     		movs	r2, #40
  540 0020 1D21     		movs	r1, #29
  541 0022 0348     		ldr	r0, .L36+4
  542 0024 FFF7FEFF 		bl	u8g2_DrawHLine
  543              	.LVL44:
- 108:Src/info_screen.c **** }
- 544              		.loc 1 108 1 is_stmt 0 view .LVU85
+ 107:Src/info_screen.c **** }
+ 544              		.loc 1 107 1 is_stmt 0 view .LVU85
  545 0028 10BD     		pop	{r4, pc}
  546              	.L37:
  547 002a 00BF     		.align	2
@@ -718,10 +717,10 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
  566 000b 00       		.space	1
  567              	.LC9:
  568 000c 30303000 		.ascii	"000\000"
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 13
-
-
  569              		.section	.rodata.Flow.str1.4,"aMS",%progbits,1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 13
+
+
  570              		.align	2
  571              	.LC10:
  572 0000 466C6F77 		.ascii	"Flow  :\000"
@@ -767,35 +766,35 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 1
  610              		.file 11 "Inc/info_screen.h"
  611              		.file 12 "u8g2/csrc/u8x8.h"
  612              		.file 13 "u8g2/csrc/u8g2.h"
-ARM GAS  C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s 			page 14
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNgECF8.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 info_screen.c
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:16     .text.Info_Screen_Init:00000000 $t
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:24     .text.Info_Screen_Init:00000000 Info_Screen_Init
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:71     .text.Info_Screen_Init:00000020 $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:16     .text.Info_Screen_Init:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:24     .text.Info_Screen_Init:00000000 Info_Screen_Init
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:71     .text.Info_Screen_Init:00000020 $d
                             *COM*:0000000c Info_Scr
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:76     .text.SysTime:00000000 $t
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:83     .text.SysTime:00000000 SysTime
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:178    .text.SysTime:0000007c $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:76     .text.SysTime:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:83     .text.SysTime:00000000 SysTime
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:178    .text.SysTime:0000007c $d
                             *COM*:00000080 u8g2
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:192    .text.Filter_Pa:00000000 $t
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:199    .text.Filter_Pa:00000000 Filter_Pa
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:261    .text.Filter_Pa:00000040 $d
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:271    .text.Flow:00000000 $t
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:278    .text.Flow:00000000 Flow
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:360    .text.Flow:00000064 $d
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:372    .text.Door:00000000 $t
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:379    .text.Door:00000000 Door
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:495    .text.Door:00000090 $d
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:502    .text.Info_Screen_Manage:00000000 $t
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:509    .text.Info_Screen_Manage:00000000 Info_Screen_Manage
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:549    .text.Info_Screen_Manage:0000002c $d
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:557    .rodata.Door.str1.4:00000000 $d
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:561    .rodata.Filter_Pa.str1.4:00000000 $d
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:570    .rodata.Flow.str1.4:00000000 $d
-C:\Users\behun\AppData\Local\Temp\cc0FXhuA.s:578    .rodata.SysTime.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:192    .text.Filter_Pa:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:199    .text.Filter_Pa:00000000 Filter_Pa
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:261    .text.Filter_Pa:00000040 $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:271    .text.Flow:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:278    .text.Flow:00000000 Flow
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:360    .text.Flow:00000064 $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:372    .text.Door:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:379    .text.Door:00000000 Door
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:495    .text.Door:00000090 $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:502    .text.Info_Screen_Manage:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:509    .text.Info_Screen_Manage:00000000 Info_Screen_Manage
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:549    .text.Info_Screen_Manage:0000002c $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:557    .rodata.Door.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:561    .rodata.Filter_Pa.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:570    .rodata.Flow.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccNgECF8.s:578    .rodata.SysTime.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_GetTick

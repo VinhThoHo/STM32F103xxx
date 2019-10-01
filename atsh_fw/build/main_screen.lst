@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
   43 0008 6370     		strb	r3, [r4, #1]
   14:Src/main_screen.c ****     main_scr.fanStatus = 0;
   44              		.loc 1 14 5 is_stmt 1 view .LVU5
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 2
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 2
 
 
   45              		.loc 1 14 24 is_stmt 0 view .LVU6
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
   93              		.cfi_offset 14, -4
   94 0002 82B0     		sub	sp, sp, #8
   95              	.LCFI2:
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 3
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 3
 
 
   96              		.cfi_def_cfa_offset 16
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  133              	.LCFI3:
  134              		.cfi_remember_state
  135              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 4
 
 
  136              		@ sp needed
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  185              		.section	.text.UV_Status,"ax",%progbits
  186              		.align	1
  187              		.global	UV_Status
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 5
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 5
 
 
  188              		.syntax unified
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  235              		.loc 1 47 9 view .LVU43
  236 0028 124B     		ldr	r3, .L15+12
  237 002a 2122     		movs	r2, #33
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 6
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 6
 
 
  238 002c 2D21     		movs	r1, #45
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  277              		.loc 1 54 9 view .LVU50
  278 005a 064B     		ldr	r3, .L15+12
  279 005c 2122     		movs	r2, #33
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 7
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 7
 
 
  280 005e 2D21     		movs	r1, #45
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  332 0010 02D9     		bls	.L18
  333              		.loc 1 60 57 discriminator 1 view .LVU59
  334 0012 204B     		ldr	r3, .L23
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 8
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 8
 
 
  335 0014 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
   75:Src/main_screen.c ****         // u8g2_SetDrawColor(&u8g2, ~fanStatus);
   76:Src/main_screen.c ****         u8g2_DrawStr(&u8g2, 75, 33, "FAN");
   77:Src/main_screen.c ****         u8g2_DrawBitmap(&u8g2, 68, 38, bmp_fan_origin.width/8, bmp_fan_origin.height, bmp_fan_origi
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 9
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 9
 
 
   78:Src/main_screen.c ****     }  
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
   77:Src/main_screen.c ****     }  
  417              		.loc 1 77 9 view .LVU80
  418 007c 5168     		ldr	r1, [r2, #4]
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 10
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 10
 
 
  419 007e 0191     		str	r1, [sp, #4]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  470              		.loc 1 84 53 is_stmt 0 view .LVU87
  471 0006 224A     		ldr	r2, .L29
  472 0008 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 11
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 11
 
 
  473              		.loc 1 84 9 view .LVU88
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  100:Src/main_screen.c **** }
  512              		.loc 1 100 1 is_stmt 0 view .LVU94
  513 0048 02B0     		add	sp, sp, #8
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 12
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 12
 
 
  514              	.LCFI15:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  560 0084 2122     		movs	r2, #33
  561 0086 6521     		movs	r1, #101
  562 0088 2046     		mov	r0, r4
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 13
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 13
 
 
  563 008a FFF7FEFF 		bl	u8g2_DrawStr
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  613              	.LVL46:
  614              		.loc 1 106 13 is_stmt 0 view .LVU108
  615 0010 FFF7FEFF 		bl	u8g2_SetFont
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 14
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 14
 
 
  616              	.LVL47:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  653 003a 1322     		movs	r2, #19
  654 003c 0221     		movs	r1, #2
  655 003e 2046     		mov	r0, r4
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 15
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 15
 
 
  656 0040 FFF7FEFF 		bl	u8g2_DrawStr
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  706              		.syntax unified
  707              		.thumb
  708              		.thumb_func
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 16
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 16
 
 
  709              		.fpu softvfp
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  126:Src/main_screen.c ****     u8g2_DrawHVLine(&u8g2, 64, 24, 40, 1);
  758              		.loc 1 126 5 view .LVU127
  759 003a 0096     		str	r6, [sp]
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 17
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 17
 
 
  760 003c 2B46     		mov	r3, r5
@@ -1009,43 +1009,42 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  803              		.cfi_def_cfa_offset 8
  804              		.cfi_offset 4, -8
  805              		.cfi_offset 14, -4
- 131:Src/main_screen.c ****     // u8g2_ClearBuffer(&u8g2);
- 132:Src/main_screen.c ****     //KeyManage();
- 133:Src/main_screen.c ****     Lamp_Status(main_scr.lampStatus);
- 806              		.loc 1 133 5 view .LVU131
+ 131:Src/main_screen.c ****     //KeyManage();
+ 132:Src/main_screen.c ****     Lamp_Status(main_scr.lampStatus);
+ 806              		.loc 1 132 5 view .LVU131
  807 0002 094C     		ldr	r4, .L43
  808 0004 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
  809 0006 FFF7FEFF 		bl	Lamp_Status
  810              	.LVL64:
- 134:Src/main_screen.c ****     UV_Status(main_scr.uvStatus);
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 18
+ 133:Src/main_screen.c ****     UV_Status(main_scr.uvStatus);
+ 811              		.loc 1 133 5 view .LVU132
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 18
 
 
- 811              		.loc 1 134 5 view .LVU132
  812 000a 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
  813 000c FFF7FEFF 		bl	UV_Status
  814              	.LVL65:
- 135:Src/main_screen.c ****     Fan_Status(main_scr.fanStatus);
- 815              		.loc 1 135 5 view .LVU133
+ 134:Src/main_screen.c ****     Fan_Status(main_scr.fanStatus);
+ 815              		.loc 1 134 5 view .LVU133
  816 0010 A078     		ldrb	r0, [r4, #2]	@ zero_extendqisi2
  817 0012 FFF7FEFF 		bl	Fan_Status
  818              	.LVL66:
- 136:Src/main_screen.c ****     Socket_Status(main_scr.socketStatus);
- 819              		.loc 1 136 5 view .LVU134
+ 135:Src/main_screen.c ****     Socket_Status(main_scr.socketStatus);
+ 819              		.loc 1 135 5 view .LVU134
  820 0016 E078     		ldrb	r0, [r4, #3]	@ zero_extendqisi2
  821 0018 FFF7FEFF 		bl	Socket_Status
  822              	.LVL67:
- 137:Src/main_screen.c ****     Filter(0);
- 823              		.loc 1 137 5 view .LVU135
+ 136:Src/main_screen.c ****     Filter(0);
+ 823              		.loc 1 136 5 view .LVU135
  824 001c 0020     		movs	r0, #0
  825 001e FFF7FEFF 		bl	Filter
  826              	.LVL68:
- 138:Src/main_screen.c ****     Horizontal();
- 827              		.loc 1 138 5 view .LVU136
+ 137:Src/main_screen.c ****     Horizontal();
+ 827              		.loc 1 137 5 view .LVU136
  828 0022 FFF7FEFF 		bl	Horizontal
  829              	.LVL69:
- 139:Src/main_screen.c **** }
- 830              		.loc 1 139 1 is_stmt 0 view .LVU137
+ 138:Src/main_screen.c **** }
+ 830              		.loc 1 138 1 is_stmt 0 view .LVU137
  831 0026 10BD     		pop	{r4, pc}
  832              	.L44:
  833              		.align	2
@@ -1078,10 +1077,10 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  856              		.section	.rodata.Lamp_Status.str1.4,"aMS",%progbits,1
  857              		.align	2
  858              	.LC0:
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 19
-
-
  859 0000 4E454F4E 		.ascii	"NEON\000"
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 19
+
+
  859      00
  860              		.section	.rodata.Socket_Status.str1.4,"aMS",%progbits,1
  861              		.align	2
@@ -1113,42 +1112,42 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 1
  886              		.file 12 "Inc/main_screen.h"
  887              		.file 13 "u8g2/csrc/u8x8.h"
  888              		.file 14 "u8g2/csrc/u8g2.h"
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s 			page 20
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s 			page 20
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main_screen.c
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:16     .text.main_screen_init:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:24     .text.main_screen_init:00000000 main_screen_init
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:68     .text.main_screen_init:00000020 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:16     .text.main_screen_init:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:24     .text.main_screen_init:00000000 main_screen_init
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:68     .text.main_screen_init:00000020 $d
                             *COM*:0000000c main_scr
                             *COM*:00000080 u8g2
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:74     .text.Lamp_Status:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:81     .text.Lamp_Status:00000000 Lamp_Status
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:177    .text.Lamp_Status:00000068 $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:186    .text.UV_Status:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:193    .text.UV_Status:00000000 UV_Status
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:289    .text.UV_Status:00000068 $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:298    .text.Fan_Status:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:305    .text.Fan_Status:00000000 Fan_Status
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:433    .text.Fan_Status:00000094 $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:443    .text.Socket_Status:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:450    .text.Socket_Status:00000000 Socket_Status
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:570    .text.Socket_Status:00000090 $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:582    .text.Filter:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:589    .text.Filter:00000000 Filter
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:694    .text.Filter:0000007c $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:704    .text.Horizontal:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:711    .text.Horizontal:00000000 Horizontal
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:783    .text.Horizontal:0000005c $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:788    .text.Main_Screen_Manage:00000000 $t
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:795    .text.Main_Screen_Manage:00000000 Main_Screen_Manage
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:835    .text.Main_Screen_Manage:00000028 $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:842    .rodata.Fan_Status.str1.4:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:846    .rodata.Filter.str1.4:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:857    .rodata.Lamp_Status.str1.4:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:861    .rodata.Socket_Status.str1.4:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccCXGLMh.s:871    .rodata.UV_Status.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:74     .text.Lamp_Status:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:81     .text.Lamp_Status:00000000 Lamp_Status
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:177    .text.Lamp_Status:00000068 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:186    .text.UV_Status:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:193    .text.UV_Status:00000000 UV_Status
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:289    .text.UV_Status:00000068 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:298    .text.Fan_Status:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:305    .text.Fan_Status:00000000 Fan_Status
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:433    .text.Fan_Status:00000094 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:443    .text.Socket_Status:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:450    .text.Socket_Status:00000000 Socket_Status
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:570    .text.Socket_Status:00000090 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:582    .text.Filter:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:589    .text.Filter:00000000 Filter
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:694    .text.Filter:0000007c $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:704    .text.Horizontal:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:711    .text.Horizontal:00000000 Horizontal
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:783    .text.Horizontal:0000005c $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:788    .text.Main_Screen_Manage:00000000 $t
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:795    .text.Main_Screen_Manage:00000000 Main_Screen_Manage
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:835    .text.Main_Screen_Manage:00000028 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:842    .rodata.Fan_Status.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:846    .rodata.Filter.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:857    .rodata.Lamp_Status.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:861    .rodata.Socket_Status.str1.4:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccfTMAeQ.s:871    .rodata.UV_Status.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 u8g2_ClearBuffer

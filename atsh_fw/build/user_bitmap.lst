@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
   59 000c 00       		.byte	0
   60 000d FF       		.byte	-1
   61 000e 80       		.byte	-128
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 2
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 2
 
 
   62 000f 00       		.byte	0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  116 0045 00       		.byte	0
  117 0046 78       		.byte	120
  118 0047 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 3
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 3
 
 
  119              		.section	.rodata.bmp_fan_rotate,"a"
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  177 002c F0       		.byte	-16
  178 002d 7F       		.byte	127
  179 002e FF       		.byte	-1
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 4
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 4
 
 
  180 002f F8       		.byte	-8
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  240 000c 00       		.byte	0
  241 000d 00       		.byte	0
  242 000e 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 5
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 5
 
 
  243 000f 00       		.byte	0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  297 0045 21       		.byte	33
  298 0046 04       		.byte	4
  299 0047 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 6
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 6
 
 
  300 0048 00       		.byte	0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  354 007e 00       		.byte	0
  355 007f 00       		.byte	0
  356              		.section	.rodata.bmp_neon_on,"a"
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 7
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 7
 
 
  357              		.align	2
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  415 002d 20       		.byte	32
  416 002e 04       		.byte	4
  417 002f C0       		.byte	-64
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 8
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 8
 
 
  418 0030 00       		.byte	0
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  472 0066 20       		.byte	32
  473 0067 00       		.byte	0
  474 0068 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 9
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 9
 
 
  475 0069 07       		.byte	7
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  531 001c 00       		.byte	0
  532 001d 00       		.byte	0
  533 001e 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 10
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 10
 
 
  534 001f 00       		.byte	0
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  588 0055 00       		.byte	0
  589 0056 00       		.byte	0
  590 0057 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 11
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 11
 
 
  591 0058 0F       		.byte	15
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  645 008e 00       		.byte	0
  646 008f 00       		.byte	0
  647 0090 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 12
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 12
 
 
  648 0091 00       		.byte	0
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  702 00c7 00       		.byte	0
  703 00c8 3F       		.byte	63
  704 00c9 E0       		.byte	-32
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 13
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 13
 
 
  705 00ca 01       		.byte	1
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  759 0100 00       		.byte	0
  760 0101 00       		.byte	0
  761 0102 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 14
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 14
 
 
  762 0103 00       		.byte	0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  816 0139 C0       		.byte	-64
  817 013a 07       		.byte	7
  818 013b FF       		.byte	-1
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 15
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 15
 
 
  819 013c 00       		.byte	0
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  873 0172 00       		.byte	0
  874 0173 00       		.byte	0
  875 0174 7F       		.byte	127
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 16
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 16
 
 
  876 0175 FF       		.byte	-1
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  930 01ab FC       		.byte	-4
  931 01ac 00       		.byte	0
  932 01ad 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 17
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 17
 
 
  933 01ae 00       		.byte	0
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  987 01e4 7F       		.byte	127
  988 01e5 F0       		.byte	-16
  989 01e6 07       		.byte	7
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 18
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 18
 
 
  990 01e7 F9       		.byte	-7
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1044 021d 00       		.byte	0
  1045 021e 00       		.byte	0
  1046 021f 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 19
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 19
 
 
  1047 0220 00       		.byte	0
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1101 0256 FF       		.byte	-1
  1102 0257 81       		.byte	-127
  1103 0258 FC       		.byte	-4
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 20
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 20
 
 
  1104 0259 00       		.byte	0
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1158 028f 00       		.byte	0
  1159 0290 00       		.byte	0
  1160 0291 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 21
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 21
 
 
  1161 0292 00       		.byte	0
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1215 02c8 F0       		.byte	-16
  1216 02c9 00       		.byte	0
  1217 02ca 03       		.byte	3
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 22
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 22
 
 
  1218 02cb F0       		.byte	-16
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1272 0301 00       		.byte	0
  1273 0302 00       		.byte	0
  1274 0303 07       		.byte	7
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 23
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 23
 
 
  1275 0304 F0       		.byte	-16
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1329 033a C7       		.byte	-57
  1330 033b 83       		.byte	-125
  1331 033c FF       		.byte	-1
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 24
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 24
 
 
  1332 033d 3C       		.byte	60
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1386 0373 07       		.byte	7
  1387 0374 E7       		.byte	-25
  1388 0375 FF       		.byte	-1
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 25
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 25
 
 
  1389 0376 C1       		.byte	-63
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1443 03ac 60       		.byte	96
  1444 03ad 0C       		.byte	12
  1445 03ae 1C       		.byte	28
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 26
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 26
 
 
  1446 03af 00       		.byte	0
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1500 03e5 FF       		.byte	-1
  1501 03e6 87       		.byte	-121
  1502 03e7 F0       		.byte	-16
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 27
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 27
 
 
  1503 03e8 FC       		.byte	-4
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1561 0014 00       		.byte	0
  1562 0015 00       		.byte	0
  1563 0016 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 28
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 28
 
 
  1564 0017 00       		.byte	0
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1618 004d 10       		.byte	16
  1619 004e 42       		.byte	66
  1620 004f 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 29
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 29
 
 
  1621 0050 02       		.byte	2
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1677 0004 00000000 		.word	bmp_socket_on_data
  1678              		.section	.rodata.bmp_socket_on_data,"a"
  1679              		.align	2
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 30
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 30
 
 
  1682              	bmp_socket_on_data:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1736 0035 8D       		.byte	-115
  1737 0036 8A       		.byte	-118
  1738 0037 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 31
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 31
 
 
  1739 0038 02       		.byte	2
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1793 006e 00       		.byte	0
  1794 006f 00       		.byte	0
  1795 0070 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 32
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 32
 
 
  1796 0071 00       		.byte	0
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1854 001d 00       		.byte	0
  1855 001e 00       		.byte	0
  1856 001f 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 33
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 33
 
 
  1857 0020 00       		.byte	0
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1911 0056 02       		.byte	2
  1912 0057 00       		.byte	0
  1913 0058 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 34
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 34
 
 
  1914 0059 10       		.byte	16
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  1972 0005 00       		.byte	0
  1973 0006 00       		.byte	0
  1974 0007 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 35
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 35
 
 
  1975 0008 00       		.byte	0
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  2029 003e 00       		.byte	0
  2030 003f 80       		.byte	-128
  2031 0040 0E       		.byte	14
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 36
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 36
 
 
  2032 0041 80       		.byte	-128
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  2086 0077 00       		.byte	0
  2087 0078 00       		.byte	0
  2088 0079 00       		.byte	0
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 37
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 37
 
 
  2089 007a 00       		.byte	0
@@ -2180,46 +2180,46 @@ ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 1
  2105              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
  2106              		.file 10 "Inc/user_bitmap.h"
  2107              		.file 11 "Src/user_bitmap.c"
-ARM GAS  C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s 			page 38
+ARM GAS  C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s 			page 38
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 user_bitmap.c
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1531   .rodata.bmp_socket_off:00000000 bmp_socket_off
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1673   .rodata.bmp_socket_on:00000000 bmp_socket_on
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:123    .rodata.bmp_fan_rotate:00000000 bmp_fan_rotate
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:37     .rodata.bmp_fan_origin:00000000 bmp_fan_origin
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1815   .rodata.bmp_uv_off:00000000 bmp_uv_off
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1957   .rodata.bmp_uv_on:00000000 bmp_uv_on
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:218    .rodata.bmp_neon_off:00000000 bmp_neon_off
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:360    .rodata.bmp_neon_on:00000000 bmp_neon_on
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:209    .rodata.bmp_logo_ph:00000000 bmp_logo_ph
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1540   .rodata.bmp_socket_off_data:00000000 bmp_socket_off_data
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1682   .rodata.bmp_socket_on_data:00000000 bmp_socket_on_data
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:132    .rodata.bmp_fan_rotate_data:00000000 bmp_fan_rotate_data
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:46     .rodata.bmp_fan_origin_data:00000000 bmp_fan_origin_data
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1824   .rodata.bmp_uv_off_data:00000000 bmp_uv_off_data
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1966   .rodata.bmp_uv_on_data:00000000 bmp_uv_on_data
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:227    .rodata.bmp_neon_off_data:00000000 bmp_neon_off_data
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:369    .rodata.bmp_neon_on_data:00000000 bmp_neon_on_data
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:502    .rodata.bmp_ph_logo_data:00000000 bmp_ph_logo_data
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:34     .rodata.bmp_fan_origin:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:43     .rodata.bmp_fan_origin_data:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:120    .rodata.bmp_fan_rotate:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:129    .rodata.bmp_fan_rotate_data:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:206    .rodata.bmp_logo_ph:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:215    .rodata.bmp_neon_off:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:224    .rodata.bmp_neon_off_data:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:357    .rodata.bmp_neon_on:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:366    .rodata.bmp_neon_on_data:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:499    .rodata.bmp_ph_logo_data:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1528   .rodata.bmp_socket_off:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1537   .rodata.bmp_socket_off_data:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1670   .rodata.bmp_socket_on:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1679   .rodata.bmp_socket_on_data:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1812   .rodata.bmp_uv_off:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1821   .rodata.bmp_uv_off_data:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1954   .rodata.bmp_uv_on:00000000 $d
-C:\Users\behun\AppData\Local\Temp\ccNDP9Y3.s:1963   .rodata.bmp_uv_on_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1531   .rodata.bmp_socket_off:00000000 bmp_socket_off
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1673   .rodata.bmp_socket_on:00000000 bmp_socket_on
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:123    .rodata.bmp_fan_rotate:00000000 bmp_fan_rotate
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:37     .rodata.bmp_fan_origin:00000000 bmp_fan_origin
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1815   .rodata.bmp_uv_off:00000000 bmp_uv_off
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1957   .rodata.bmp_uv_on:00000000 bmp_uv_on
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:218    .rodata.bmp_neon_off:00000000 bmp_neon_off
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:360    .rodata.bmp_neon_on:00000000 bmp_neon_on
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:209    .rodata.bmp_logo_ph:00000000 bmp_logo_ph
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1540   .rodata.bmp_socket_off_data:00000000 bmp_socket_off_data
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1682   .rodata.bmp_socket_on_data:00000000 bmp_socket_on_data
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:132    .rodata.bmp_fan_rotate_data:00000000 bmp_fan_rotate_data
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:46     .rodata.bmp_fan_origin_data:00000000 bmp_fan_origin_data
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1824   .rodata.bmp_uv_off_data:00000000 bmp_uv_off_data
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1966   .rodata.bmp_uv_on_data:00000000 bmp_uv_on_data
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:227    .rodata.bmp_neon_off_data:00000000 bmp_neon_off_data
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:369    .rodata.bmp_neon_on_data:00000000 bmp_neon_on_data
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:502    .rodata.bmp_ph_logo_data:00000000 bmp_ph_logo_data
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:34     .rodata.bmp_fan_origin:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:43     .rodata.bmp_fan_origin_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:120    .rodata.bmp_fan_rotate:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:129    .rodata.bmp_fan_rotate_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:206    .rodata.bmp_logo_ph:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:215    .rodata.bmp_neon_off:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:224    .rodata.bmp_neon_off_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:357    .rodata.bmp_neon_on:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:366    .rodata.bmp_neon_on_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:499    .rodata.bmp_ph_logo_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1528   .rodata.bmp_socket_off:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1537   .rodata.bmp_socket_off_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1670   .rodata.bmp_socket_on:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1679   .rodata.bmp_socket_on_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1812   .rodata.bmp_uv_off:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1821   .rodata.bmp_uv_off_data:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1954   .rodata.bmp_uv_on:00000000 $d
+C:\Users\behun\AppData\Local\Temp\ccbZeUhn.s:1963   .rodata.bmp_uv_on_data:00000000 $d
 
 NO UNDEFINED SYMBOLS

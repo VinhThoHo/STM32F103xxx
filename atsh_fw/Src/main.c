@@ -25,6 +25,7 @@
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
+#include "BlinkLed.h"
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
@@ -79,6 +80,7 @@ int main(void)
   HAL_Delay(3000);
   main_screen_init();
   Info_Screen_Init();
+  Led_Init();
   uint32_t timeRefesh = HAL_GetTick();
   uint32_t tick = HAL_GetTick();
   // uint8_t timeSend;
@@ -105,6 +107,7 @@ int main(void)
     }
     KeyManage();
 
+    Blink();
     if (HAL_GetTick() - timeRefesh > 100)
     {
       u8g2_SendBuffer(&u8g2);
